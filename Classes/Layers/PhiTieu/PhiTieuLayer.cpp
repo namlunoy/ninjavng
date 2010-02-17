@@ -20,10 +20,10 @@ bool PhiTieuLayer::init()
 	this->addChild(_background, -1);
 
 	//Theem ninja
-	 ninja = Ninja::create("Ninja2.png");
-	ninja->setPosition(Config::centerPoint);
-	this->addChild(ninja);
-	ninja->runAnimation_DungYen();
+	 //ninja = Ninja::create("Ninja2.png");
+//	ninja->setPosition(Config::centerPoint);
+//	this->addChild(ninja);
+//	ninja->runAnimation_DungYen();
 
 
 	//Sự kiện key board
