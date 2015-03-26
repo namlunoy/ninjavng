@@ -20,6 +20,11 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 
+	void Play(Ref* pSender);
+	void HighScore(Ref* pSender);
+	void About(Ref* pSender);
+	void Quit(Ref* pSender);
+
 private:
 
 };
