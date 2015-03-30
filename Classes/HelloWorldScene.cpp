@@ -63,13 +63,9 @@ bool HelloWorld::init()
 			});
 			break;
 
+	
 		}
-
 	}
-
-
-
-
 
 	return true;
 }
