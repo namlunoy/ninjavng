@@ -14,6 +14,8 @@ public:
 	bool onTouchBegan(Touch *touch, Event *unused_event);
 	void onTouchMoved(Touch *touch, Event *unused_event);
 	void onTouchEnded(Touch *touch, Event *unused_event);
+	float height;
+	Sprite *ninjaSprite;
 };
 
 #endif
