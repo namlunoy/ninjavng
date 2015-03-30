@@ -28,6 +28,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
         glview = GLViewImpl::create("My Game");
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+		//Chinh kich thuoc tuong ung dien thoai
+		glview->setFrameSize(800, 480);
+#endif
         director->setOpenGLView(glview);
     }
 
