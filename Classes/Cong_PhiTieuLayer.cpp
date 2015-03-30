@@ -19,5 +19,10 @@ bool Cong_PhiTieuLayer::init()
 	background->setScale(Config::getScale(background));
 	this->addChild(background, -1);
 
+	//Theem ninja
+	Ninja* ninja = Ninja::create("Ninja2.png");
+	ninja->setPosition(Config::centerPoint);
+	this->addChild(ninja);
+
 	return true;
 }

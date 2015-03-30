@@ -1,5 +1,4 @@
 ﻿#include "HelloWorldScene.h"
-#include "PhiTieu.h"
 #include "ui/CocosGUI.h"
 #include <vector>
 #include "Jump.h"
@@ -107,7 +106,7 @@ bool HelloWorld::init()
 				{
 				case ui::Widget::TouchEventType::ENDED:
 				{
-					auto scene = PhiTieu::createScene();
+					auto scene = Cong_PhiTieuScene::create();
 					Director::getInstance()->replaceScene(scene);
 				}
 				}
