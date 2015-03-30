@@ -59,5 +59,5 @@ void Jump::onTouchMoved(Touch *touch, Event *unused_event)
 
 void Jump::onTouchEnded(Touch *touch, Event *unused_event)
 {
-	this->jump(ninjaSprite, height);
+	jump(ninjaSprite, height);
 }

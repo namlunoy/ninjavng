@@ -2,7 +2,7 @@
 #include "PhiTieu.h"
 #include "ui/CocosGUI.h"
 #include <vector>
-#include "Jump.h"
+#include "D_Jump_Scene.h"
 #include "BanSung.h"
 
 USING_NS_CC;
@@ -80,7 +80,7 @@ bool HelloWorld::init()
 				{
 				case ui::Widget::TouchEventType::ENDED:
 				{
-					auto scene = Jump::createScene();
+					auto scene = D_Jump_Scene::create();
 					Director::getInstance()->replaceScene(scene);
 				}
 				}
