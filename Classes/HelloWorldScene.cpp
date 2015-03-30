@@ -107,6 +107,8 @@ bool HelloWorld::init()
 				case ui::Widget::TouchEventType::ENDED:
 				{
 
+					auto scene = Cong_PhiTieuScene::create();
+					Director::getInstance()->replaceScene(scene);
 				}
 				}
 			});

@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "Config.h"
 #include "Cong_Shuriken.h"
+#include "Ninja.h"
 
 USING_NS_CC;
 
