@@ -4,6 +4,7 @@
 #include <vector>
 #include "Jump.h"
 #include "BanSung.h"
+#include "Cong_PhiTieuScene.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -21,15 +22,17 @@ bool HelloWorld::init()
 {
 	if (!Layer::init())
 		return false;
-
+	
 	Size screenSize = Director::getInstance()->getVisibleSize();
+	Config::screenSize = screenSize;
+
 	//Size phoneSize(800, 480);
 	//float xScale = screenSize.width / phoneSize.width;
 	//float yScale = screenSize.height / phoneSize.height;
 	//float scale = max(xScale, yScale);
 
 	Vec2 center(screenSize.width / 2, screenSize.height / 2);
-
+	Config::centerPoint = center;
 	//Hiện thị background
 	Sprite* bg = Sprite::create("bg2.jpg");
 	bg->setPosition(screenSize.width / 2, screenSize.height / 2);
@@ -92,7 +95,7 @@ bool HelloWorld::init()
 				{
 				case ui::Widget::TouchEventType::ENDED:
 				{
-					auto scene = PhiTieu::createScene();
+					auto scene = Cong_PhiTieuScene::create();
 					Director::getInstance()->replaceScene(scene);
 				}
 				}
