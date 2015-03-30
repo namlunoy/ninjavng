@@ -1,6 +1,6 @@
 #include "D_Jump_Layer.h"
 #include "cocos2d.h"
-#include "D_Ninja.h"
+#include "Ninja.h"
 #include "Config.h"
 USING_NS_CC;
 
@@ -21,9 +21,10 @@ bool D_Jump_Layer::init()
 	this->addChild(background,-1);
 
 	//Ninja
-	ninja = new D_Ninja(Vec2(400,320));
+	ninja = Ninja::create("Ninja2.png");
+	ninja->setPosition(Config::centerPoint);
 	this->addChild(ninja,1);
-	ninja->jumpAction();
+
 	//Touch
 	auto touchListener = EventListenerTouchOneByOne::create();
 	touchListener->onTouchBegan = CC_CALLBACK_2(D_Jump_Layer::onTouchBegan, this);
@@ -47,6 +48,6 @@ void D_Jump_Layer::onTouchMoved(Touch *touch, Event *unused_event)
 
 void D_Jump_Layer::onTouchEnded(Touch *touch, Event *unused_event)
 {
-	CCLOG("Mot cai gi do");
+	ninja->jumpAction();
 }
 #pragma endregion 

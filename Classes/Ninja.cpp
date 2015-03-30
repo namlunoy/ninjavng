@@ -27,3 +27,11 @@ bool Ninja::init(string fileName)
 
 
 //--------------------- Đăng ------------------------
+
+void Ninja::jumpAction()
+{
+	auto jump = JumpTo::create(1.5, this->getPosition(), 50, 1);
+	this->runAction(jump);
+	this->isJumping = true;
+	CCLOG("___%d", this->isJumping);
+}
