@@ -36,7 +36,7 @@ bool HelloWorld::init()
 	//Hiện thị background
 	Sprite* bg = Sprite::create("bg2.jpg");
 	bg->setPosition(screenSize.width / 2, screenSize.height / 2);
-	bg->setScale(0.5);
+	bg->setScale(Config::getScale(bg));
 	this->addChild(bg, -1);
 
 	//Hiển thị các button

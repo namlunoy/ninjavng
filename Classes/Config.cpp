@@ -12,5 +12,5 @@ float Config::getScale(Node* p)
 {
 	float xScale = screenSize.width / p->getContentSize().width;
 	float yScale = screenSize.height / p->getContentSize().height;
-	return min(xScale, yScale);
+	return max(xScale, yScale);
 }
