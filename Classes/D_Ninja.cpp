@@ -7,7 +7,8 @@ D_Ninja::D_Ninja(Vec2 posStart)
 {
 	ninjaSprite = Sprite::create("Ninja2.png");
 	ninjaSprite->setPosition(posStart);
-	//currentPos = ninjaSprite->getPosition();
+	this->addChild(ninjaSprite);
+	currentPos = ninjaSprite->getPosition();
 }
 
 D_Ninja::~D_Ninja()
