@@ -40,12 +40,12 @@ bool Jump::init()
 	return true;
 }
 
-//void Jump::jump(Sprite *sprite, float height)
-//{
-//	Vec2 currentPos = sprite->getPosition();
-//	auto jump = JumpTo::create(2, Vec2(currentPos), height, 1);
-//	sprite->runAction(jump);
-//}
+void Jump::jump(Sprite *sprite, float height)
+{
+	Vec2 currentPos = sprite->getPosition();
+	auto jump = JumpTo::create(2, Vec2(currentPos), height, 1);
+	sprite->runAction(jump);
+}
 
 bool Jump::onTouchBegan(Touch *touch, Event *unused_event)
 {
@@ -59,5 +59,5 @@ void Jump::onTouchMoved(Touch *touch, Event *unused_event)
 
 void Jump::onTouchEnded(Touch *touch, Event *unused_event)
 {
-	//jump(ninjaSprite, height);	
+	this->jump(ninjaSprite, height);
 }

@@ -9,7 +9,7 @@ class Jump : public cocos2d::Layer {
 public:
 	static Scene* createScene();
 	virtual bool init();
-	void jump(Sprite *s, float height, float duration);
+	void jump(Sprite *s, float height);
 	CREATE_FUNC(Jump);
 	bool onTouchBegan(Touch *touch, Event *unused_event);
 	void onTouchMoved(Touch *touch, Event *unused_event);
