@@ -23,6 +23,8 @@ bool Cong_PhiTieuLayer::init()
 	Ninja* ninja = Ninja::create("Ninja2.png");
 	ninja->setPosition(Config::centerPoint);
 	this->addChild(ninja);
+	string name = "ninja_dungyen";
+	ninja->runAnimation(name, 2, 0.5f, true);
 
 	return true;
 }
