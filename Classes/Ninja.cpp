@@ -54,6 +54,7 @@ void Ninja::runAnimation( string name, int count, float time, bool isRepeat)
 	else action = Animate::create(animation);
 
 
+
 	Sprite* spriteAnimate = Sprite::createWithSpriteFrameName(frameName);
 	spriteAnimate->runAction(action);
 	spriteSheet->addChild(spriteAnimate);
@@ -63,4 +64,14 @@ void Ninja::runAnimation( string name, int count, float time, bool isRepeat)
 
 //-------------------- Công -------------------------
 
+
 //--------------------- Đăng ------------------------
+
+void Ninja::jumpAction()
+{
+	auto jump = JumpTo::create(1.5, this->getPosition(), 50, 1);
+	this->runAction(jump);
+	this->isJumping = true;
+	CCLOG("___%d", this->isJumping);
+}
+

@@ -19,7 +19,7 @@ private:
 
 	//--------------------- Đăng ------------------------
 
-
+	
 	//--------------------------------------------------
 public:
 	Ninja();
@@ -34,8 +34,8 @@ public:
 	void runAnimation( string name, int count, float time, bool isRepeat);
 	
 	//--------------------- Đăng ------------------------
-
-
+	bool isJumping = false;
+	void jumpAction();
 	//---------------------------------------------------
 };
 
