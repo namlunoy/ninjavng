@@ -22,9 +22,6 @@ bool Ninja::init(string fileName)
 	_sprite = Sprite::create(fileName);
 	this->addChild(_sprite);
 
-	//Khởi tạo biến cache để thao tác cho nó gọn
-	cache = SpriteFrameCache::getInstance();
-
 	//Nạp các file plist cần sử dụng vào cache
 	this->addPlistFile("ninja_nhay.plist");
 	this->addPlistFile("ninja_dungyen.plist");

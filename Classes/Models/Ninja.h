@@ -31,7 +31,7 @@ private:
 	//-------------------- Công -------------------------
 	//fileName không có đuôi mở rộng
 	bool init_Cong(string fileName);
-	SpriteFrameCache* cache;
+
 	//--------------------- Đăng ------------------------
 
 	
