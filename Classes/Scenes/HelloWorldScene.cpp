@@ -1,9 +1,8 @@
 ﻿#include "HelloWorldScene.h"
 #include "ui/CocosGUI.h"
 #include <vector>
-#include "D_Jump_Scene.h"
-#include "BanSung.h"
-#include "Cong_PhiTieuScene.h"
+#include "Scenes/JumpScene.h"
+#include "Scenes/PhiTieuScene.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -53,16 +52,7 @@ bool HelloWorld::init()
 		switch (i)
 		{
 		case 1:
-			bt->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type){
-				switch (type)
-				{
-				case ui::Widget::TouchEventType::ENDED:
-				{
-					auto scene = BanSung::createScene();
-					Director::getInstance()->replaceScene(scene);
-				}
-				}
-			});
+
 			break;
 		case 2:
 			bt->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type){
@@ -82,7 +72,7 @@ bool HelloWorld::init()
 				{
 				case ui::Widget::TouchEventType::ENDED:
 				{
-					auto scene = D_Jump_Scene::create();
+					auto scene = JumpScene::create();
 					Director::getInstance()->replaceScene(scene);
 				}
 				}
@@ -94,7 +84,7 @@ bool HelloWorld::init()
 				{
 				case ui::Widget::TouchEventType::ENDED:
 				{
-					auto scene = Cong_PhiTieuScene::create();
+					auto scene = PhiTieuScene::create();
 					Director::getInstance()->replaceScene(scene);
 				}
 				}
@@ -107,7 +97,7 @@ bool HelloWorld::init()
 				case ui::Widget::TouchEventType::ENDED:
 				{
 
-					auto scene = Cong_PhiTieuScene::create();
+					auto scene = PhiTieuScene::create();
 					Director::getInstance()->replaceScene(scene);
 				}
 				}

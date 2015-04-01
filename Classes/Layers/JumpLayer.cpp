@@ -1,14 +1,15 @@
-#include "D_Jump_Layer.h"
+#include "JumpLayer.h"
 #include "cocos2d.h"
-#include "Ninja.h"
-#include "Config.h"
+#include "Models/Ninja.h"
+#include "Utility/Config.h"
+
 USING_NS_CC;
 
-D_Jump_Layer::~D_Jump_Layer()
+JumpLayer::~JumpLayer()
 {
 }
 
-bool D_Jump_Layer::init()
+bool JumpLayer::init()
 {
 	if (!Layer::init()) return false;
 	//Screen
@@ -27,26 +28,26 @@ bool D_Jump_Layer::init()
 
 	//Touch
 	auto touchListener = EventListenerTouchOneByOne::create();
-	touchListener->onTouchBegan = CC_CALLBACK_2(D_Jump_Layer::onTouchBegan, this);
-	touchListener->onTouchMoved = CC_CALLBACK_2(D_Jump_Layer::onTouchMoved, this);
-	touchListener->onTouchEnded = CC_CALLBACK_2(D_Jump_Layer::onTouchEnded, this);
+	touchListener->onTouchBegan = CC_CALLBACK_2(JumpLayer::onTouchBegan, this);
+	touchListener->onTouchMoved = CC_CALLBACK_2(JumpLayer::onTouchMoved, this);
+	touchListener->onTouchEnded = CC_CALLBACK_2(JumpLayer::onTouchEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 
 	return true;
 }
 
 #pragma region Touch
-bool D_Jump_Layer::onTouchBegan(Touch *touch, Event *unused_event)
+bool JumpLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
 	return true;
 }
 
-void D_Jump_Layer::onTouchMoved(Touch *touch, Event *unused_event)
+void JumpLayer::onTouchMoved(Touch *touch, Event *unused_event)
 {
 	
 }
 
-void D_Jump_Layer::onTouchEnded(Touch *touch, Event *unused_event)
+void JumpLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
 	ninja->jumpAction();
 }

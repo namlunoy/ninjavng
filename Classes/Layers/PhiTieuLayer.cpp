@@ -1,16 +1,16 @@
-﻿#include "Cong_PhiTieuLayer.h"
+﻿#include "PhiTieuLayer.h"
 
 
-Cong_PhiTieuLayer::Cong_PhiTieuLayer() { }
-Cong_PhiTieuLayer::~Cong_PhiTieuLayer(){ }
+PhiTieuLayer::PhiTieuLayer() { }
+PhiTieuLayer::~PhiTieuLayer(){ }
 
 
-bool Cong_PhiTieuLayer::init()
+bool PhiTieuLayer::init()
 {
 	if (!Layer::init())
 		return false;
 
-	Cong_Shuriken* s = new Cong_Shuriken(Vec2(0, 0));
+	Shuriken* s = new Shuriken(Vec2(0, 0));
 	this->addChild(s);
 
 	//Hiển thị background
@@ -25,6 +25,7 @@ bool Cong_PhiTieuLayer::init()
 	this->addChild(ninja);
 	ninja->runAnimation_DungYen();
 
+
 	//Theem ninja
 	ninja = Ninja::create("Ninja2.png");
 	ninja->setPosition(Config::centerPoint + Vec2(100,100));
@@ -33,13 +34,30 @@ bool Cong_PhiTieuLayer::init()
 
 	//touch event
 	auto _touchListener = EventListenerTouchOneByOne::create();
-	_touchListener->onTouchBegan = CC_CALLBACK_2(Cong_PhiTieuLayer::touchScreen, this);
+	_touchListener->onTouchBegan = CC_CALLBACK_2(PhiTieuLayer::touchScreen, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(_touchListener, this);
+
+
+
+	//Sự kiện key board
+	auto listener = EventListenerKeyboard::create();
+	listener->onKeyPressed = CC_CALLBACK_2(PhiTieuLayer::onKeyPressed, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+
+	log("TEst thử");
 
 	return true;
 }
 
-bool Cong_PhiTieuLayer::touchScreen(Touch* t, Event* e)
+void PhiTieuLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	log("Key with keycode %d pressed", keyCode);
+}
+
+
+
+bool PhiTieuLayer::touchScreen(Touch* t, Event* e)
 {
 	ninja->removeAllActions();
 	return true;

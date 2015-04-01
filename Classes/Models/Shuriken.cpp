@@ -1,18 +1,18 @@
-#include "Cong_Shuriken.h"
+#include "Shuriken.h"
 
-Cong_Shuriken::Cong_Shuriken(){}
-Cong_Shuriken::~Cong_Shuriken(){}
+Shuriken::Shuriken(){}
+Shuriken::~Shuriken(){}
 
-Cong_Shuriken::Cong_Shuriken(Vec2 start)
+Shuriken::Shuriken(Vec2 start)
 {
 	_sprite = Sprite::create("Shuriken.png");
 	this->addChild(_sprite);
 	this->setPosition(start);
 }
 
-Cong_Shuriken* Cong_Shuriken::createSuriken(Vec2 start)
+Shuriken* Shuriken::createSuriken(Vec2 start)
 {
-	Cong_Shuriken* shuriken = new Cong_Shuriken(start);
+	Shuriken* shuriken = new Shuriken(start);
 	if (shuriken && shuriken->init())
 		shuriken->autorelease();
 	else
@@ -21,7 +21,7 @@ Cong_Shuriken* Cong_Shuriken::createSuriken(Vec2 start)
 	return shuriken;
 }
 
-bool Cong_Shuriken::init()
+bool Shuriken::init()
 {
 	if (!Node::init())
 		return false;

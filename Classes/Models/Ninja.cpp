@@ -30,6 +30,7 @@ bool Ninja::init(string fileName)
 	this->addPlistFile("ninja_dungyen.plist");
 
 
+
 	return true;
 }
 

@@ -1,15 +1,15 @@
 #ifndef _JumpLayer_
 #define _JumpLayer_
 #include "cocos2d.h"
-#include "Ninja.h"
+#include "Models/Ninja.h"
 USING_NS_CC;
 
-class D_Jump_Layer:public Layer
+class JumpLayer:public Layer
 {
 public:
-	~D_Jump_Layer();
+	~JumpLayer();
 	bool init();
-	CREATE_FUNC(D_Jump_Layer);
+	CREATE_FUNC(JumpLayer);
 	Ninja *ninja;
 	//Touch
 	bool onTouchBegan(Touch *touch, Event *unused_event);

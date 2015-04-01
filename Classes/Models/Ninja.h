@@ -2,7 +2,7 @@
 #define _NINJA_
 
 #include "cocos2d.h"
-#include "Helper.h"
+#include "Utility/Helper.h"
 #include <sstream>
 #include <iostream>
 
