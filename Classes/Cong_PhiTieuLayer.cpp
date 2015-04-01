@@ -20,11 +20,25 @@ bool Cong_PhiTieuLayer::init()
 	this->addChild(background, -1);
 
 	//Theem ninja
-	Ninja* ninja = Ninja::create("Ninja2.png");
+	 ninja = Ninja::create("Ninja2.png");
 	ninja->setPosition(Config::centerPoint);
 	this->addChild(ninja);
-	string name = "ninja_dungyen";
-	ninja->runAnimation(name, 2, 0.5f, true);
 
+	ninja->addPlistFile("ninja_nhay.plist");
+	ninja->addPlistFile("ninja_dungyen.plist");
+
+	ninja->runAnimation("ninja_nhay", 2, 0.5f, true);
+
+	//touch event
+	auto _touchListener = EventListenerTouchOneByOne::create();
+	_touchListener->onTouchBegan = CC_CALLBACK_2(Cong_PhiTieuLayer::touchScreen, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(_touchListener, this);
+
+	return true;
+}
+
+bool Cong_PhiTieuLayer::touchScreen(Touch* t, Event* e)
+{
+	ninja->runAnimation("ninja_dungyen", 2, 0.5, true);
 	return true;
 }

@@ -11,10 +11,12 @@ USING_NS_CC;
 class Cong_PhiTieuLayer : public Layer
 {
 public:
+	Ninja* ninja;
 	Cong_PhiTieuLayer();
 	~Cong_PhiTieuLayer();
 	bool init();
 	CREATE_FUNC(Cong_PhiTieuLayer);
+	bool touchScreen(Touch* t, Event* e);
 };
 #endif
 

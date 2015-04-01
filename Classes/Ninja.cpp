@@ -19,50 +19,46 @@ bool Ninja::init(string fileName)
 		return false;
 	_sprite = Sprite::create(fileName);
 	this->addChild(_sprite);
+	cache = SpriteFrameCache::getInstance();
 	return true;
 }
 
-void Ninja::runAnimation( string name, int count, float time, bool isRepeat)
+void Ninja::runAnimation(string name, int count, float time, bool isRepeat)
 {
-	
-	name = "ninja_dungyen";
-	
+	this->_actionManager->removeAllActions();
 	//Nạp file mô tả plist vào cache
 	CCLOG(&name[0]);
-	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile(name + ".plist");
+	//SpriteFrameCache* cache = SpriteFrameCache::getInstance();
+	//cache->addSpriteFramesWithFile(name + ".plist");
 
-	//Nạp spritesheet vào batch
-	SpriteBatchNode* spriteSheet = SpriteBatchNode::create(name + ".png");
 
 	//Chuyển thành sprite frame
-	Vector<SpriteFrame*> frames(count);
+	Animation* animation = Animation::create();
+	animation->setDelayPerUnit(time);
 	char frameName[100];
 	for (int i = 1; i <= count; i++)
 	{
 		sprintf(frameName, "%s%d.png", &name[0], i);
 		CCLOG("framename : %s", frameName);
 		auto frame = cache->getSpriteFrameByName(frameName);
-		frames.pushBack(frame);
+		animation->addSpriteFrame(frame);
 	}
 
-	//Tạo animation từ frames
-	Animation* animation = Animation::createWithSpriteFrames(frames, time);
 	Action* action = nullptr;
 	if (isRepeat)
 		action = RepeatForever::create(Animate::create(animation));
 	else action = Animate::create(animation);
 
 
+	_sprite->runAction(action);
 
-	Sprite* spriteAnimate = Sprite::createWithSpriteFrameName(frameName);
-	spriteAnimate->runAction(action);
-	spriteSheet->addChild(spriteAnimate);
-	spriteSheet->setPosition(100, 100);
-	this->addChild(spriteSheet);
 }
 
 //-------------------- Công -------------------------
+void Ninja::addPlistFile(string fileName)
+{
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(fileName);
+}
 
 
 //--------------------- Đăng ------------------------
