@@ -23,11 +23,13 @@ bool Cong_PhiTieuLayer::init()
 	 ninja = Ninja::create("Ninja2.png");
 	ninja->setPosition(Config::centerPoint);
 	this->addChild(ninja);
+	ninja->runAnimation_DungYen();
 
-	ninja->addPlistFile("ninja_nhay.plist");
-	ninja->addPlistFile("ninja_dungyen.plist");
-
-	ninja->runAnimation("ninja_nhay", 2, 0.5f, true);
+	//Theem ninja
+	ninja = Ninja::create("Ninja2.png");
+	ninja->setPosition(Config::centerPoint + Vec2(100,100));
+	this->addChild(ninja);
+	ninja->runAnimation_Nhay();
 
 	//touch event
 	auto _touchListener = EventListenerTouchOneByOne::create();
@@ -39,6 +41,6 @@ bool Cong_PhiTieuLayer::init()
 
 bool Cong_PhiTieuLayer::touchScreen(Touch* t, Event* e)
 {
-	ninja->runAnimation("ninja_dungyen", 2, 0.5, true);
+	ninja->removeAllActions();
 	return true;
 }
