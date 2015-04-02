@@ -2,7 +2,7 @@
 #define _NINJA_
 
 #include "cocos2d.h"
-#include "Utility/Helper.h"
+#include "Utility/XHelper.h"
 #include <sstream>
 #include <iostream>
 
@@ -41,8 +41,6 @@ public:
 	~Ninja();
 	static Ninja* create(string fileName);
 	//-------------------- Công -------------------------
-	//fileName không có đuôi mở rộng
-	static Ninja* create_Cong(string fileName);
 
 	//Các animation
 	void runAnimation_DungYen();

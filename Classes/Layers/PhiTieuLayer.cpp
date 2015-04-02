@@ -14,10 +14,11 @@ bool PhiTieuLayer::init()
 	this->addChild(s);
 
 	//Hiển thị background
-	Sprite* background = Sprite::create("cong_background.jpg");
-	background->setPosition(Config::centerPoint);
-	background->setScale(Config::getScale(background));
-	this->addChild(background, -1);
+	_background = Sprite::create("cong_background.jpg");
+	_background->setPosition(Config::centerPoint);
+	theScale = Config::getScale(_background);
+	_background->setScale(theScale);
+	this->addChild(_background, -1);
 
 	//Theem ninja
 	 ninja = Ninja::create("Ninja2.png");
@@ -45,6 +46,7 @@ bool PhiTieuLayer::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 
+	//Thêm button nhảy
 	log("TEst thử");
 
 	return true;

@@ -33,7 +33,7 @@ bool Ninja::init(string fileName)
 
 void Ninja::runAnimation(string name, int count, float time, bool isRepeat)
 {
-	Helper::runAnimation(name, count, time, true, this->_sprite);
+	XHelper::runAnimation(name, count, time, true, this->_sprite);
 	//this->_actionManager->removeAllActionsFromTarget(this->_sprite);
 	//CCLOG(&name[0]);
 

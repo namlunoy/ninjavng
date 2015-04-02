@@ -14,3 +14,11 @@ float Config::getScale(Node* p)
 	float yScale = screenSize.height / p->getContentSize().height;
 	return max(xScale, yScale);
 }
+
+float Config::getScale(string backgroundFileName)
+{
+	Sprite* background = Sprite::create(backgroundFileName);
+	float theScale = getScale(background);
+	//background->release();
+	return theScale;
+}

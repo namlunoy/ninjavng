@@ -9,7 +9,10 @@ bool PhiTieuScene::init()
 		return false;
 
 	phiTieuLayer = PhiTieuLayer::create();
-	this->addChild(phiTieuLayer);
+	this->addChild(phiTieuLayer, 0);
+
+	hudLayer = PhiTieuHUDLayer::create();
+	this->addChild(hudLayer, 1);
 
 	return true;
 }

@@ -10,12 +10,19 @@ USING_NS_CC;
 
 class PhiTieuLayer : public Layer
 {
+private:
+	Sprite* _background;
 public:
 	Ninja* ninja;
 	PhiTieuLayer();
 	~PhiTieuLayer();
 	bool init();
+	//Chỉ số scale lấy theo background
+	float theScale;
+	
 	CREATE_FUNC(PhiTieuLayer);
+
+
 	bool touchScreen(Touch* t, Event* e);
 
 

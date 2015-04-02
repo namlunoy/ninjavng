@@ -1,12 +1,9 @@
 #include "JumpScene.h"
 USING_NS_CC;
 
-JumpScene::JumpScene()
-{
-}
-JumpScene::~JumpScene()
-{
-}
+JumpScene::JumpScene(){}
+
+JumpScene::~JumpScene(){}
 
 bool JumpScene::init()
 {

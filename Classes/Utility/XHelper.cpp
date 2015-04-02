@@ -1,11 +1,11 @@
-﻿#include "Helper.h"
+﻿#include "XHelper.h"
 
 
-Helper::Helper(){ }
+XHelper::XHelper(){ }
 
-Helper::~Helper(){ }
+XHelper::~XHelper(){ }
 
-void Helper::runAnimation(string name, int count, float time, bool isRepeat,Sprite* _sprite)
+void XHelper::runAnimation(string name, int count, float time, bool isRepeat, Sprite* _sprite)
 {
 	_sprite->getActionManager()->removeAllActionsFromTarget(_sprite);
 	CCLOG(&name[0]);
@@ -33,4 +33,13 @@ void Helper::runAnimation(string name, int count, float time, bool isRepeat,Spri
 
 	_sprite->runAction(action);
 
+}
+
+void XHelper::Log(Node* node, string tag)
+{
+	log("--------  %s --------", &tag[0]);
+	log("BoundingBox : %f x %f", node->getBoundingBox().size.width, node->getBoundingBox().size.height);
+	log("Position : (%f , %f)", node->getPosition().x, node->getPosition().y);
+	log("ContentSize: %f x %f", node->getContentSize().width, node->getContentSize().height);
+	log("Anchor: (%f , %f)", node->getAnchorPoint().x, node->getAnchorPoint().y);
 }
