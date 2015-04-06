@@ -1,5 +1,5 @@
 ﻿#include "PhiTieuLayer.h"
-
+#include "Utility/Tags.h"
 
 PhiTieuLayer::PhiTieuLayer() { }
 PhiTieuLayer::~PhiTieuLayer(){ }
@@ -7,10 +7,6 @@ PhiTieuLayer::~PhiTieuLayer(){ }
 
 bool PhiTieuLayer::init()
 {
-	if (!Layer::init())
-		return false;
-
-
 
 	//Hiển thị background
 	_background = Sprite::create("cong_background.jpg");
@@ -19,21 +15,28 @@ bool PhiTieuLayer::init()
 	_background->setScale(theScale);
 	this->addChild(_background, -1);
 
+	//Thêm các body background
+	//Body nền đất
+	Node* b = Node::create();
+	b->setTag(Tags::GROUND);
+
+
 	//Theem ninja
-	 //ninja = Ninja::create("Ninja2.png");
-//	ninja->setPosition(Config::centerPoint);
-//	this->addChild(ninja);
-//	ninja->runAnimation_DungYen();
-
-
+	ninja = Ninja::create("Ninja2.png");
+	ninja->setPosition(Vec2(100,100));
+	ninja->runAnimation_DungYen();
+	this->addChild(ninja);
+	
+//
+//
 	//Sự kiện key board
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(PhiTieuLayer::onKeyPressed, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-
-	//Thêm button nhảy
-	log("TEst thử");
+//
+//
+//	//Thêm button nhảy
+//	log("TEst thử");
 
 	return true;
 }
@@ -46,6 +49,5 @@ void PhiTieuLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 void PhiTieuLayer::setPhysicWorld(PhysicsWorld* physicsWorld)
 {
 	_physicWorld = physicsWorld;
-	_physicWorld->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 }
 

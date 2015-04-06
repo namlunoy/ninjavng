@@ -21,6 +21,7 @@ bool Ninja::init(string fileName)
 
 	//Khởi tạo sprite chính
 	_sprite = Sprite::create(fileName);
+	_sprite->setPosition(0, 0);
 	this->addChild(_sprite);
 
 	return true;
@@ -39,7 +40,7 @@ void Ninja::addPlistFile(string fileName)
 
 void Ninja::runAnimation_DungYen()
 {
-	//runAnimation("DungYen", 2, 0.5f, true);
+	runAnimation("DungYen", 2, 0.5f, true);
 }
 
 void Ninja::runAnimation_Nhay()

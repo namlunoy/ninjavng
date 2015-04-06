@@ -25,7 +25,6 @@ public:
 	void setPhysicWorld(PhysicsWorld* physicsWorld);
 	
 
-
 	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 
 };
