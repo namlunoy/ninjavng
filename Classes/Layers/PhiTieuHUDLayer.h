@@ -20,5 +20,7 @@ public:
 	bool init();
 	float theScale;
 	CREATE_FUNC(PhiTieuHUDLayer);
+
+	bool touchScreen(Touch* t, Event* e);
 };
 #endif

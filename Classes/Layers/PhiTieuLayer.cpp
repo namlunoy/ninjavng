@@ -33,10 +33,7 @@ bool PhiTieuLayer::init()
 	this->addChild(ninja);
 	ninja->runAnimation_Nhay();
 
-	//touch event
-	auto _touchListener = EventListenerTouchOneByOne::create();
-	_touchListener->onTouchBegan = CC_CALLBACK_2(PhiTieuLayer::touchScreen, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(_touchListener, this);
+	
 
 
 
@@ -59,8 +56,4 @@ void PhiTieuLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 
 
 
-bool PhiTieuLayer::touchScreen(Touch* t, Event* e)
-{
-	ninja->removeAllActions();
-	return true;
-}
+

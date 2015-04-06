@@ -23,7 +23,7 @@ public:
 	CREATE_FUNC(PhiTieuLayer);
 
 
-	bool touchScreen(Touch* t, Event* e);
+	
 
 
 	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);

@@ -2,6 +2,7 @@
 #define _NINJA_
 
 #include "cocos2d.h"
+#include "NinjaModel.h"
 #include "Utility/XHelper.h"
 #include <sstream>
 #include <iostream>
@@ -13,6 +14,8 @@ class Ninja : public Node
 {
 private:
 	//-----------------------  dùng chung ---------------------
+	NinjaModel ninjaModel;
+
 	//Các thao tác với animation thường thao tác với nó
 	//Còn những cái action khác có thể làm với this luôn
 	Sprite* _sprite;
@@ -29,8 +32,7 @@ private:
 	//Thêm file plist vào trong cache
 	void addPlistFile(string fileName);
 	//-------------------- Công -------------------------
-	//fileName không có đuôi mở rộng
-	bool init_Cong(string fileName);
+
 
 	//--------------------- Đăng ------------------------
 
