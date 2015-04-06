@@ -83,8 +83,8 @@ bool HelloWorld::init()
 				{
 				case ui::Widget::TouchEventType::ENDED:
 				{
-					auto scene = PhiTieuScene::createWithPhysics();
-			
+					auto scene =  PhiTieuScene::createScene();
+
 					Director::getInstance()->replaceScene(scene);
 				}
 				}
@@ -97,9 +97,7 @@ bool HelloWorld::init()
 				case ui::Widget::TouchEventType::ENDED:
 				{
 
-					auto scene = PhiTieuScene::create();
 				
-					Director::getInstance()->replaceScene(scene);
 				}
 				}
 			});

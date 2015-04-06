@@ -3,18 +3,18 @@
 PhiTieuScene::PhiTieuScene(){}
 PhiTieuScene::~PhiTieuScene(){}
 
-bool PhiTieuScene::initWithPhysics()
+Scene* PhiTieuScene::createScene()
 {
+	Scene* _scene = Scene::createWithPhysics();
+
+	auto phiTieuLayer = PhiTieuLayer::create();
+	_scene->addChild(phiTieuLayer, 0);
+
+	auto hudLayer = PhiTieuHUDLayer::create();
+	_scene->addChild(hudLayer, 1);
+
 	
-
-	phiTieuLayer = PhiTieuLayer::create();
-	this->addChild(phiTieuLayer, 0);
-
-	hudLayer = PhiTieuHUDLayer::create();
-	this->addChild(hudLayer, 1);
-
-	
-	return true;
+	return _scene;
 }
 
 

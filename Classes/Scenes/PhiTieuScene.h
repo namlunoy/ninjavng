@@ -2,23 +2,19 @@
 #define _PHITIEU_SCENE_
 
 #include "cocos2d.h"
-#include "Layers/PhiTieuLayer.h"
-#include "Layers/PhiTieuHUDLayer.h"
+#include "Layers/PhiTieu/PhiTieuLayer.h"
+#include "Layers/PhiTieu/PhiTieuHUDLayer.h"
 
 USING_NS_CC;
 
-class PhiTieuScene :public Scene
+class PhiTieuScene
 {
 private:
-	PhiTieuLayer* phiTieuLayer;
-	PhiTieuHUDLayer* hudLayer;
-	PhysicsWorld* _physicWorld;
 
 public:
 	PhiTieuScene();
 	~PhiTieuScene();
-	bool initWithPhysics();
-	CREATE_FUNC(PhiTieuScene);
+	static Scene* createScene();
 };
 
 #endif
