@@ -7,15 +7,17 @@
 
 USING_NS_CC;
 
-class PhiTieuScene : public Scene
+class PhiTieuScene :public Scene
 {
 private:
 	PhiTieuLayer* phiTieuLayer;
 	PhiTieuHUDLayer* hudLayer;
+	PhysicsWorld* _physicWorld;
+
 public:
 	PhiTieuScene();
 	~PhiTieuScene();
-	bool init();
+	bool initWithPhysics();
 	CREATE_FUNC(PhiTieuScene);
 };
 

@@ -3,10 +3,9 @@
 PhiTieuScene::PhiTieuScene(){}
 PhiTieuScene::~PhiTieuScene(){}
 
-bool PhiTieuScene::init()
+bool PhiTieuScene::initWithPhysics()
 {
-	if (!Scene::init())
-		return false;
+	
 
 	phiTieuLayer = PhiTieuLayer::create();
 	this->addChild(phiTieuLayer, 0);
@@ -14,5 +13,8 @@ bool PhiTieuScene::init()
 	hudLayer = PhiTieuHUDLayer::create();
 	this->addChild(hudLayer, 1);
 
+	
 	return true;
 }
+
+
