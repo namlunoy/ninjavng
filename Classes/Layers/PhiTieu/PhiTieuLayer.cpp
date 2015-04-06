@@ -10,8 +10,7 @@ bool PhiTieuLayer::init()
 	if (!Layer::init())
 		return false;
 
-	Shuriken* s = new Shuriken(Vec2(0, 0));
-	this->addChild(s);
+
 
 	//Hiển thị background
 	_background = Sprite::create("cong_background.jpg");
@@ -25,16 +24,6 @@ bool PhiTieuLayer::init()
 	ninja->setPosition(Config::centerPoint);
 	this->addChild(ninja);
 	ninja->runAnimation_DungYen();
-
-
-	//Theem ninja
-	ninja = Ninja::create("Ninja2.png");
-	ninja->setPosition(Config::centerPoint + Vec2(100,100));
-	this->addChild(ninja);
-	ninja->runAnimation_Nhay();
-
-	
-
 
 
 	//Sự kiện key board
@@ -54,6 +43,9 @@ void PhiTieuLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	log("Key with keycode %d pressed", keyCode);
 }
 
-
-
+void PhiTieuLayer::setPhysicWorld(PhysicsWorld* physicsWorld)
+{
+	_physicWorld = physicsWorld;
+	_physicWorld->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+}
 

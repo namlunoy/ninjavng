@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "Utility/Config.h"
-#include "Models/Shuriken.h"
+#include "Models/PhiTieu/Shuriken.h"
 #include "Models/Ninja.h"
 
 USING_NS_CC;
@@ -12,6 +12,7 @@ class PhiTieuLayer : public Layer
 {
 private:
 	Sprite* _background;
+	PhysicsWorld* _physicWorld;
 public:
 	Ninja* ninja;
 	PhiTieuLayer();
@@ -19,10 +20,9 @@ public:
 	bool init();
 	//Chỉ số scale lấy theo background
 	float theScale;
-	
 	CREATE_FUNC(PhiTieuLayer);
 
-
+	void setPhysicWorld(PhysicsWorld* physicsWorld);
 	
 
 
