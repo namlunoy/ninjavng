@@ -17,8 +17,16 @@ bool PhiTieuLayer::init()
 
 	//Thêm các body background
 	//Body nền đất
-	Node* b = Node::create();
-	b->setTag(Tags::GROUND);
+	Node* _ground = Node::create();
+	_ground->setTag(Tags::GROUND);
+
+	auto _groundBody = PhysicsBody::createBox(Size(Config::screenSize.width, 70),PhysicsMaterial(1.0f, 0.0f, 0.0f));
+	_groundBody->setGravityEnable(false);
+	_groundBody->setDynamic(false);
+
+	_ground->setPhysicsBody(_groundBody);
+	_ground->setPosition(Vec2(Config::screenSize.width/2, 0));
+	this->addChild(_ground);
 
 
 	//Theem ninja

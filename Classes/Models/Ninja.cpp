@@ -24,6 +24,11 @@ bool Ninja::init(string fileName)
 	_sprite->setPosition(0, 0);
 	this->addChild(_sprite);
 
+	//Thêm body
+	_body = PhysicsBody::createBox(Size(_sprite->getBoundingBox().size.width, _sprite->getBoundingBox().size.height),
+		PhysicsMaterial(1.0f, 0.0f, 0.0f));
+	this->setPhysicsBody(_body);
+
 	return true;
 }
 

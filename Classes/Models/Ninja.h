@@ -15,6 +15,7 @@ class Ninja : public Node
 private:
 	//-----------------------  dùng chung ---------------------
 	NinjaModel ninjaModel;
+	PhysicsBody* _body;
 
 	//Các thao tác với animation thường thao tác với nó
 	//Còn những cái action khác có thể làm với this luôn
