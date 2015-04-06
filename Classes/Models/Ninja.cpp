@@ -81,10 +81,10 @@ void Ninja::runAnimation_Nhay()
 Ninja::Ninja(Layer* layer)
 {
 	auto ninja = Sprite::create("Ninja2.png");
-	ninja->setPosition(Point(Config::centerPoint));
-	auto bodyNinja = PhysicsBody::createBox(Size(ninja->getContentSize()), PHYSICSBODY_MATERIAL_DEFAULT);
-	bodyNinja->setCollisionBitmask(NINJA_COLLISION);
-	bodyNinja->setContactTestBitmask(true);
+	ninja->setPosition(100,200);
+	bodyNinja = PhysicsBody::createBox(Size(50,50), PhysicsMaterial(1.0f,0.0f,0.0f));
+//	bodyNinja->setCollisionBitmask(NINJA_COLLISION);
+//	bodyNinja->setContactTestBitmask(true);
 	//bodyNinja->setDynamic(false);
 	ninja->setPhysicsBody(bodyNinja);
 	layer->addChild(ninja);
@@ -92,8 +92,9 @@ Ninja::Ninja(Layer* layer)
 
 void Ninja::jumpAction()
 {
-	auto jump = JumpTo::create(1.5, this->getPosition(), 50, 1);
-	this->runAction(jump);
+	/*auto jump = JumpTo::create(1.5, Vec2(800,640), 50, 1);
+	this->runAction(jump);*/
+	bodyNinja->applyForce(Vect(0, 2000));
 	this->isJumping = true;
 	CCLOG("___%d", this->isJumping);
 }
