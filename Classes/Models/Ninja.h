@@ -43,7 +43,6 @@ public:
 	~Ninja();
 	static Ninja* create(string fileName);
 	//-------------------- Công -------------------------
-
 	//Các animation
 	void runAnimation_DungYen();
 	void runAnimation_Nhay();
