@@ -54,7 +54,9 @@ public:
 	}
 
 	//--------------------- Đăng ------------------------
-	bool isJumping = false;
+	Ninja(Layer *layer);
+	bool isJumping;
+	bool isAlive;
 	void jumpAction();
 	//---------------------------------------------------
 };

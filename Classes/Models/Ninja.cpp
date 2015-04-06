@@ -1,5 +1,6 @@
 ﻿#include "Ninja.h"
-
+#include "Utility/Definition.h"
+#include "Utility/Config.h"
 
 Ninja::Ninja(){}
 Ninja::~Ninja(){}
@@ -77,6 +78,17 @@ void Ninja::runAnimation_Nhay()
 
 
 //--------------------- Đăng ------------------------
+Ninja::Ninja(Layer* layer)
+{
+	auto ninja = Sprite::create("Ninja2.png");
+	ninja->setPosition(Point(Config::centerPoint));
+	auto bodyNinja = PhysicsBody::createBox(Size(ninja->getContentSize()), PHYSICSBODY_MATERIAL_DEFAULT);
+	bodyNinja->setCollisionBitmask(NINJA_COLLISION);
+	bodyNinja->setContactTestBitmask(true);
+	//bodyNinja->setDynamic(false);
+	ninja->setPhysicsBody(bodyNinja);
+	layer->addChild(ninja);
+}
 
 void Ninja::jumpAction()
 {

@@ -3,10 +3,9 @@
 #include <vector>
 #include "Scenes/JumpScene.h"
 #include "Scenes/PhiTieuScene.h"
-
-USING_NS_CC;
 using namespace ui;
 using namespace std;
+USING_NS_CC;
 
 Scene* HelloWorld::createScene()
 {
@@ -72,7 +71,7 @@ bool HelloWorld::init()
 				{
 				case ui::Widget::TouchEventType::ENDED:
 				{
-					auto scene = JumpScene::create();
+					auto scene = JumpScene::createPhysicScene();
 					Director::getInstance()->replaceScene(scene);
 				}
 				}
