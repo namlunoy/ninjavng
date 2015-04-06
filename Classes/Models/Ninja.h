@@ -54,6 +54,7 @@ public:
 	}
 
 	//--------------------- Đăng ------------------------
+	PhysicsBody *bodyNinja;
 	Ninja(Layer *layer);
 	bool isJumping;
 	bool isAlive;

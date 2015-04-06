@@ -24,14 +24,17 @@ bool JumpLayer::init()
 	this->addChild(background,-1);
 	
 	//Tạo tường xung quanh màn hình
-	auto wall = Node::create();
+	/*auto wall = Node::create();
 	wall->setPosition(screenSize.width / 2, screenSize.height / 2);
-	auto bodyWall = PhysicsBody::createBox(screenSize, PHYSICSBODY_MATERIAL_DEFAULT);
+	auto bodyWall = PhysicsBody::createEdgeBox(screenSize, PhysicsMaterial(1.0f, 0.0f, 0.0f));
 	bodyWall->setDynamic(false);
 	bodyWall->setCollisionBitmask(WALL_COLLISION);
 	bodyWall->setContactTestBitmask(true);
 	wall->setPhysicsBody(bodyWall);
-	this->addChild(wall);
+	this->addChild(wall);*/
+	
+	//Tạo cảnh ban đầu
+	pillar->SpawnPillarFirst(this);
 
 	//Gọi hàm sinh các Pillar
 	this->schedule(schedule_selector(JumpLayer::SpawnPillar), 1);
@@ -44,12 +47,19 @@ bool JumpLayer::init()
 	contactListener->onContactBegin = CC_CALLBACK_1(JumpLayer::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
+	//Xử lý Touch
+	auto touchListener = EventListenerTouchOneByOne::create();
+	touchListener->onTouchBegan = CC_CALLBACK_2(JumpLayer::onTouchBegan, this);
+	touchListener->onTouchMoved = CC_CALLBACK_2(JumpLayer::onTouchMoved, this);
+	touchListener->onTouchEnded = CC_CALLBACK_2(JumpLayer::onTouchEnded, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+
 	return true;
 }
 
 void JumpLayer::SpawnPillar(float spawn)
 {
-	pillar.SpawnPillar(this);
+	pillar->SpawnPillar(this);
 }
 
 bool JumpLayer::onContactBegin(PhysicsContact &contact)
@@ -65,3 +75,22 @@ bool JumpLayer::onContactBegin(PhysicsContact &contact)
 
 	return true;
 }
+
+#pragma region Touch
+bool JumpLayer::onTouchBegan(Touch *touch, Event *unused_event)
+{
+	return true;
+}
+
+void JumpLayer::onTouchMoved(Touch *touch, Event *unused_event)
+{
+
+}
+
+void JumpLayer::onTouchEnded(Touch *touch, Event *unused_event)
+{
+	CCLOG("Mot cai gi do");
+	//ninja->jumpAction();
+	
+}
+#pragma endregion 
