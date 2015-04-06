@@ -10,10 +10,12 @@ class JumpScene:public cocos2d::Scene
 public:
 	JumpScene();
 	~JumpScene();
-	bool init();
+	static Scene* createPhysicScene();
+	bool initWithPhysics();
 	CREATE_FUNC(JumpScene);
-private:
-	JumpLayer *layer;
+//private:
+	/*JumpLayer *layer;
+	Scene *scene;*/
 };
 
 #endif
