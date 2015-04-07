@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "NinjaModel.h"
 #include "Utility/XHelper.h"
+#include "Utility/Tags.h"
 #include <sstream>
 #include <iostream>
 
@@ -46,11 +47,8 @@ public:
 	void runAnimation_DungYen();
 	void runAnimation_Nhay();
 	void jump();
-
-	void removeAllActions()
-	{
-		_sprite->getActionManager()->removeAllActionsFromTarget(this->_sprite);
-	}
+	void update(float dt);
+	bool onContactBegin(PhysicsContact& contact);
 
 	//--------------------- Đăng ------------------------
 	PhysicsBody *bodyNinja;

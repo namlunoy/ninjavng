@@ -3,8 +3,8 @@
 
 NinjaModel::NinjaModel(){
 	log("NinjaModel::NinjaModel()");
-	setPhysic(1.0f, 0.1f, 0, 0);
-	force_Y = 1000.0f;
+	setPhysic(3.0f, 1.0f, 0, 0);
+	force_Y = 500.0f;
 }
 
 NinjaModel::~NinjaModel(){}

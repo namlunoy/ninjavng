@@ -19,7 +19,7 @@ bool Ninja::init(string fileName)
 	if (!Node::init())
 		return false;
 
-
+	this->scheduleUpdate();
 
 	//Khởi tạo sprite chính
 	_sprite = Sprite::create(fileName);
@@ -30,6 +30,14 @@ bool Ninja::init(string fileName)
 	_body = PhysicsBody::createBox(_sprite->getBoundingBox().size,
 		PhysicsMaterial(_ninjaModel.density,_ninjaModel.restitution,_ninjaModel.friction));
 	_body->setMass(_ninjaModel.mass);
+	_body->setAngularVelocityLimit(0.0f);
+	_body->setTag(Tags::NINJA);
+
+	//add contact event listener
+	auto contactListener = EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(Ninja::onContactBegin, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
+//	schedule(CC_SCHEDULE_SELECTOR(PhysicsDemoCollisionProcessing::tick), 0.3f);
 
 	this->setPhysicsBody(_body);
 
@@ -46,9 +54,19 @@ void Ninja::runAnimation(string name, int count, float time, bool isRepeat)
 void Ninja::jump()
 {
 	log("Ninja::jump()");
-	_body->applyForce(Vec2(0, _ninjaModel.force_Y));
+	_body->setVelocity(Vec2::ZERO);
+	_body->applyImpulse(Vec2(0, _ninjaModel.force_Y));
 	//_body->resetForces();
 	log("Velocity: %f",_body->getVelocity().y);
+}
+
+bool Ninja::onContactBegin(PhysicsContact& contact)
+{
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	log("%s", Tags::getName(bodyA->getTag()));
+	log("%s", Tags::getName(bodyB->getTag()));
+	return true;
 }
 
 void Ninja::runAnimation_DungYen()
@@ -61,6 +79,10 @@ void Ninja::runAnimation_Nhay()
 	//runAnimation("ninja_nhay", 2, 0.5f, true);
 }
 
+void Ninja::update(float dt)
+{
+
+}
 
 //--------------------- Đăng ------------------------
 Ninja::Ninja(Layer* layer)

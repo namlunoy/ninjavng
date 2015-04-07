@@ -7,6 +7,7 @@ PhiTieuLayer::~PhiTieuLayer(){ }
 
 bool PhiTieuLayer::init()
 {
+	this->scheduleUpdate();
 
 	//Hiển thị background
 	_background = Sprite::create("cong_background.jpg");
@@ -52,12 +53,15 @@ bool PhiTieuLayer::init()
 void PhiTieuLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	ninja->jump();
-
-	log("Key with keycode %d pressed", keyCode);
 }
 
 void PhiTieuLayer::setPhysicWorld(PhysicsWorld* physicsWorld)
 {
 	_physicWorld = physicsWorld;
+}
+
+void PhiTieuLayer::update(float dt)
+{
+	
 }
 

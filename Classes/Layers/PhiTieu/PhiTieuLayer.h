@@ -27,6 +27,7 @@ public:
 
 	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 
+	void update(float dt);
 };
 #endif
 

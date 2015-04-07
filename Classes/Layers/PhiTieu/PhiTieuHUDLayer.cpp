@@ -43,7 +43,7 @@ bool PhiTieuHUDLayer::touchScreen(Touch* t, Event* e)
 void PhiTieuHUDLayer::touchScreen_end(Touch* t, Event* e)
 {
 	log("end");
-	_phiTieuLayer->ninja->getPhysicsBody()->resetForces();
+	//_phiTieuLayer->ninja->getPhysicsBody()->resetForces();
 //	return true;
 }
 
