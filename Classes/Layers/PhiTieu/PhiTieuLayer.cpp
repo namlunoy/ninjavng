@@ -51,6 +51,8 @@ bool PhiTieuLayer::init()
 
 void PhiTieuLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
+	ninja->jump();
+
 	log("Key with keycode %d pressed", keyCode);
 }
 

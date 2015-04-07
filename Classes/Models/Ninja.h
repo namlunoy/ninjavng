@@ -14,7 +14,7 @@ class Ninja : public Node
 {
 private:
 	//-----------------------  dùng chung ---------------------
-	NinjaModel ninjaModel;
+	NinjaModel _ninjaModel;
 	PhysicsBody* _body;
 
 	//Các thao tác với animation thường thao tác với nó
@@ -30,8 +30,6 @@ private:
 	//repeat: có lặp lại hay không
 	void runAnimation(string name, int count, float time, bool isRepeat);
 
-	//Thêm file plist vào trong cache
-	void addPlistFile(string fileName);
 	//-------------------- Công -------------------------
 
 
@@ -47,6 +45,7 @@ public:
 	//Các animation
 	void runAnimation_DungYen();
 	void runAnimation_Nhay();
+	void jump();
 
 	void removeAllActions()
 	{
