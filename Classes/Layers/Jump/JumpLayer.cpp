@@ -34,7 +34,8 @@ bool JumpLayer::init()
 	this->addChild(wall);*/
 	
 	//Tạo cảnh ban đầu
-	pillar->SpawnPillarFirst(this);
+	auto firtsSpawnPoint = Point(100, 0);
+	pillar->SpawnPillar(this, firtsSpawnPoint);
 
 	//Gọi hàm sinh các Pillar
 	this->schedule(schedule_selector(JumpLayer::SpawnPillar), 1);
@@ -59,7 +60,8 @@ bool JumpLayer::init()
 
 void JumpLayer::SpawnPillar(float spawn)
 {
-	pillar->SpawnPillar(this);
+	auto randomHeight = CCRANDOM_0_1()*pillar->getContentSize().height / 2;
+	pillar->SpawnPillar(this, Point(Config::screenSize.width + pillar->getContentSize().width, randomHeight));
 }
 
 bool JumpLayer::onContactBegin(PhysicsContact &contact)
@@ -79,6 +81,7 @@ bool JumpLayer::onContactBegin(PhysicsContact &contact)
 #pragma region Touch
 bool JumpLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
+
 	return true;
 }
 

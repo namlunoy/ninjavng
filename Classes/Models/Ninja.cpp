@@ -59,7 +59,7 @@ Ninja::Ninja(Layer* layer)
 {
 	auto ninja = Sprite::create("Ninja2.png");
 	ninja->setPosition(100,200);
-	bodyNinja = PhysicsBody::createBox(Size(50,50), PhysicsMaterial(1.0f,0.0f,0.0f));
+	bodyNinja = PhysicsBody::createBox(Size(ninja->getContentSize()), PhysicsMaterial(1.0f,0.0f,0.0f));
 //	bodyNinja->setCollisionBitmask(NINJA_COLLISION);
 //	bodyNinja->setContactTestBitmask(true);
 	//bodyNinja->setDynamic(false);

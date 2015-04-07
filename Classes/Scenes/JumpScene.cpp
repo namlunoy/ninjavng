@@ -11,10 +11,14 @@ Scene* JumpScene::createPhysicScene()
 {
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
-	//scene->getPhysicsWorld()->setGravity(Vec2(0, -9.8f));
-	auto layer = JumpLayer::create();
-	layer->SetPhysicsWorld(scene->getPhysicsWorld());
-	scene->addChild(layer);
+	auto jumplayer = JumpLayer::create();
+	jumplayer->setContentSize(Size(480, 800));
+	jumplayer->SetPhysicsWorld(scene->getPhysicsWorld());
+	scene->addChild(jumplayer,0);
+
+	auto gamePlayLayer = GamePlayLayer::create();
+	scene->addChild(gamePlayLayer,1);
+
 	return scene;
 }
 

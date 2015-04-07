@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "Models/Ninja.h"
 #include "Models/Pillar.h"
+#include "Layers/Jump/GamePlayLayer.h"
 USING_NS_CC;
 
 class JumpLayer : public Layer

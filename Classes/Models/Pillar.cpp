@@ -10,23 +10,18 @@ Pillar::Pillar()
 	rootPoint = Director::getInstance()->getVisibleOrigin();*/
 }
 
-void Pillar::SpawnPillar(Layer *layer)
+void Pillar::SpawnPillar(Layer *layer, Point spawnPosition)
 {
 	auto pillar = Sprite::create("pillar.png");
 	auto randomHeight = CCRANDOM_0_1()*pillar->getContentSize().height / 2;
-	pillar->setPosition(Point(Config::screenSize.width + pillar->getContentSize().width, randomHeight));
+	//pillar->setPosition(Point(Config::screenSize.width + pillar->getContentSize().width, randomHeight));
+	pillar->setPosition(Point(spawnPosition));
 	auto bodyPillar = PhysicsBody::createBox(pillar->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 0.0f));//Tạo body có size bằng size pillar
 	bodyPillar->setDynamic(false);//Không chịu tác dụng vật lý
 	bodyPillar->setCollisionBitmask(WALL_COLLISION);
 	bodyPillar->setContactTestBitmask(true);
 	pillar->setPhysicsBody(bodyPillar);
 	layer->addChild(pillar);
-	//Move
-	//MovePillar(pillar);
-	//auto movePillar = MoveTo::create(screenSize.width*0.005, Vec2(rootPoint.x - pillar->getContentSize().width, randomHeight));
-	/*auto movePillar = MoveBy::create(screenSize.width*0.005, Vec2(-screenSize.width-200, 0));
-	pillar->runAction(movePillar);*/
-
 }
 
 void Pillar::SpawnPillarFirst(Layer *layer)
@@ -41,10 +36,10 @@ void Pillar::SpawnPillarFirst(Layer *layer)
 	layer->addChild(pillar_1);
 }
 
-void Pillar::MovePillar(Sprite *pillar)
+void Pillar::MovePillar()
 {
 	auto movePillar = MoveBy::create(Config::screenSize.width*0.005, Vec2(-Config::screenSize.width - 200, 0));
-	pillar->runAction(movePillar);
+	this->runAction(movePillar);
 }
 
 void Pillar::StopPillar()

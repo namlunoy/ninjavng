@@ -8,9 +8,9 @@ class Pillar: public Sprite
 {
 public:
 	Pillar();
-	void SpawnPillar(Layer *layer);
+	void SpawnPillar(Layer *layer, Point spawnPosition);
 	void SpawnPillarFirst(Layer *layer);
-	void MovePillar(Sprite *pillar);
+	void MovePillar();
 	void StopPillar();
 
 private:
