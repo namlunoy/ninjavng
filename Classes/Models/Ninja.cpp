@@ -19,14 +19,18 @@ bool Ninja::init(string fileName)
 	if (!Node::init())
 		return false;
 
+
+
 	//Khởi tạo sprite chính
 	_sprite = Sprite::create(fileName);
 	_sprite->setPosition(0, 0);
 	this->addChild(_sprite);
 
 	//Thêm body
-	_body = PhysicsBody::createBox(Size(_sprite->getBoundingBox().size.width, _sprite->getBoundingBox().size.height),
-		PhysicsMaterial(1.0f, 0.0f, 0.0f));
+	_body = PhysicsBody::createBox(_sprite->getBoundingBox().size,
+		PhysicsMaterial(_ninjaModel.density,_ninjaModel.restitution,_ninjaModel.friction));
+	_body->setMass(_ninjaModel.mass);
+
 	this->setPhysicsBody(_body);
 
 	return true;
@@ -38,9 +42,13 @@ void Ninja::runAnimation(string name, int count, float time, bool isRepeat)
 }
 
 //-------------------- Công -------------------------
-void Ninja::addPlistFile(string fileName)
+
+void Ninja::jump()
 {
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(fileName);
+	log("Ninja::jump()");
+	_body->applyForce(Vec2(0, _ninjaModel.force_Y));
+	//_body->resetForces();
+	log("Velocity: %f",_body->getVelocity().y);
 }
 
 void Ninja::runAnimation_DungYen()
@@ -58,10 +66,10 @@ void Ninja::runAnimation_Nhay()
 Ninja::Ninja(Layer* layer)
 {
 	auto ninja = Sprite::create("Ninja2.png");
-	ninja->setPosition(100,200);
-	bodyNinja = PhysicsBody::createBox(Size(50,50), PhysicsMaterial(1.0f,0.0f,0.0f));
-//	bodyNinja->setCollisionBitmask(NINJA_COLLISION);
-//	bodyNinja->setContactTestBitmask(true);
+	ninja->setPosition(100, 200);
+	bodyNinja = PhysicsBody::createBox(Size(50, 50), PhysicsMaterial(0.001f, 0.0f, 0.0f));
+	//	bodyNinja->setCollisionBitmask(NINJA_COLLISION);
+	//	bodyNinja->setContactTestBitmask(true);
 	//bodyNinja->setDynamic(false);
 	ninja->setPhysicsBody(bodyNinja);
 	layer->addChild(ninja);
@@ -75,4 +83,6 @@ void Ninja::jumpAction()
 	this->isJumping = true;
 	CCLOG("___%d", this->isJumping);
 }
+
+
 

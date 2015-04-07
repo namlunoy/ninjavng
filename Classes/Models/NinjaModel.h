@@ -13,9 +13,19 @@ Lớp này chứa thông tin của thằng ninja
 class NinjaModel
 {
 public:
-	
+	//khối lượng
+	float mass;
+	//tỷ khối
+	float density;
+	//tỷ lệ phản hồi
+	float restitution;
+	//Lực ma sát
+	float friction;
+	//lực để nhảy
+	float force_Y;
 
 public:
+	void setPhysic(float mass, float density, float restitution, float friction);
 	NinjaModel();
 	~NinjaModel();
 };
