@@ -27,10 +27,6 @@ public:
 
 	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 
-	void update(float dt);
-
-	//---------------
-	void PhongTieu(Vec2 dest);
 };
 #endif
 

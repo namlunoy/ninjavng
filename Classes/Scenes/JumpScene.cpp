@@ -11,16 +11,26 @@ Scene* JumpScene::createPhysicScene()
 {
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
-	//scene->getPhysicsWorld()->setGravity(Vec2(0, -9.8f));
-	auto layer = JumpLayer::create();
-	layer->SetPhysicsWorld(scene->getPhysicsWorld());
-	scene->addChild(layer);
+
+	//Background
+	auto backgroundLayer = Background::create();
+	scene->addChild(backgroundLayer, 0);
+
+	//Jump
+	auto jumplayer = JumpLayer::create();
+	jumplayer->SetPhysicsWorld(scene->getPhysicsWorld());
+	scene->addChild(jumplayer,1);
+
+	//GamePlay
+	auto gamePlayLayer = GamePlayLayer::create();
+	scene->addChild(gamePlayLayer,2);
+
 	return scene;
 }
 
-bool JumpScene::initWithPhysics()
+bool JumpScene::init()
 {
-	if (!JumpScene::initWithPhysics()) return false;
+	if (!JumpScene::init()) return false;
 		
 	/*layer = JumpLayer::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld());

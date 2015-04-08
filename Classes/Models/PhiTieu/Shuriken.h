@@ -11,7 +11,7 @@ private:
 	PhysicsBody* _body;
 
 	bool init();
-	
+
 
 public:
 	Shuriken();

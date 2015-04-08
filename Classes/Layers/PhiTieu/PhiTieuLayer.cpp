@@ -7,7 +7,6 @@ PhiTieuLayer::~PhiTieuLayer(){ }
 
 bool PhiTieuLayer::init()
 {
-	this->scheduleUpdate();
 
 	//Hiển thị background
 	_background = Sprite::create("cong_background.jpg");
@@ -53,36 +52,12 @@ bool PhiTieuLayer::init()
 void PhiTieuLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	ninja->jump();
+
+	log("Key with keycode %d pressed", keyCode);
 }
 
 void PhiTieuLayer::setPhysicWorld(PhysicsWorld* physicsWorld)
 {
 	_physicWorld = physicsWorld;
-}
-
-void PhiTieuLayer::update(float dt)
-{
-	
-}
-
-void PhiTieuLayer::PhongTieu(Vec2 dest)
-{
-	//Xác định hướng: điểm đầu điểm cuối
-	Vec2 huong = (dest - ninja->getPosition());
-	huong.normalize();
-
-	//Sinh ra phi tiêu tại điểm đầu
-	Shuriken* x = Shuriken::createSuriken();
-	x->setPosition(ninja->getPosition());
-	x->setScale(0.087f);
-	
-
-	//Cho no quay
-	//x->runAction(RepeatForever::create(RotateBy::create(1, 360)));
-
-	//Tác dụng lực vào nó
-	x->phong(huong*10);
-
-	this->addChild(x);
 }
 

@@ -1,6 +1,7 @@
 ﻿#include "Ninja.h"
 #include "Utility/Definition.h"
 #include "Utility/Config.h"
+#include "Utility/Tags.h"
 
 Ninja::Ninja(){}
 Ninja::~Ninja(){}
@@ -19,7 +20,7 @@ bool Ninja::init(string fileName)
 	if (!Node::init())
 		return false;
 
-	this->scheduleUpdate();
+	//this->scheduleUpdate();
 
 	//Khởi tạo sprite chính
 	_sprite = Sprite::create(fileName);
@@ -28,7 +29,7 @@ bool Ninja::init(string fileName)
 
 	//Thêm body
 	_body = PhysicsBody::createBox(_sprite->getBoundingBox().size,
-		PhysicsMaterial(_ninjaModel.density,_ninjaModel.restitution,_ninjaModel.friction));
+		PhysicsMaterial(_ninjaModel.density, _ninjaModel.restitution, _ninjaModel.friction));
 	_body->setMass(_ninjaModel.mass);
 	_body->setGravityEnable(false);
 	_body->setAngularVelocityLimit(0.0f);
@@ -41,7 +42,7 @@ bool Ninja::init(string fileName)
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Ninja::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-//	schedule(CC_SCHEDULE_SELECTOR(PhysicsDemoCollisionProcessing::tick), 0.3f);
+	//	schedule(CC_SCHEDULE_SELECTOR(PhysicsDemoCollisionProcessing::tick), 0.3f);
 
 	this->setPhysicsBody(_body);
 
@@ -61,7 +62,7 @@ void Ninja::jump()
 	//_body->setVelocity(Vec2::ZERO);
 	//_body->applyImpulse(Vec2(0, _ninjaModel.force_Y));
 	this->getActionManager()->removeAllActionsFromTarget(this);
-	auto jumpAction = JumpBy::create(1.0f,_sprite->getPosition(), 300, 1);
+	auto jumpAction = JumpBy::create(1.0f, _sprite->getPosition(), 300, 1);
 	this->runAction(jumpAction);
 }
 
@@ -84,32 +85,6 @@ void Ninja::runAnimation_Nhay()
 	//runAnimation("ninja_nhay", 2, 0.5f, true);
 }
 
-void Ninja::update(float dt)
-{
-
-}
-
-//--------------------- Đăng ------------------------
-Ninja::Ninja(Layer* layer)
-{
-	auto ninja = Sprite::create("Ninja2.png");
-	ninja->setPosition(100, 200);
-	bodyNinja = PhysicsBody::createBox(Size(50, 50), PhysicsMaterial(0.001f, 0.0f, 0.0f));
-	//	bodyNinja->setCollisionBitmask(NINJA_COLLISION);
-	//	bodyNinja->setContactTestBitmask(true);
-	//bodyNinja->setDynamic(false);
-	ninja->setPhysicsBody(bodyNinja);
-	layer->addChild(ninja);
-}
-
-void Ninja::jumpAction()
-{
-	/*auto jump = JumpTo::create(1.5, Vec2(800,640), 50, 1);
-	this->runAction(jump);*/
-	bodyNinja->applyForce(Vect(0, 2000));
-	this->isJumping = true;
-	CCLOG("___%d", this->isJumping);
-}
 
 
 

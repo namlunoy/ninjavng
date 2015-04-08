@@ -4,7 +4,6 @@
 #include "cocos2d.h"
 #include "NinjaModel.h"
 #include "Utility/XHelper.h"
-#include "Utility/Tags.h"
 #include <sstream>
 #include <iostream>
 
@@ -17,7 +16,6 @@ private:
 	//-----------------------  dùng chung ---------------------
 	NinjaModel _ninjaModel;
 	PhysicsBody* _body;
-	Vec2 originalPosition;
 
 	//Các thao tác với animation thường thao tác với nó
 	//Còn những cái action khác có thể làm với this luôn
@@ -48,16 +46,9 @@ public:
 	void runAnimation_DungYen();
 	void runAnimation_Nhay();
 	void jump();
-	void update(float dt);
 	bool onContactBegin(PhysicsContact& contact);
 
-	//--------------------- Đăng ------------------------
-	PhysicsBody *bodyNinja;
-	Ninja(Layer *layer);
-	bool isJumping;
-	bool isAlive;
-	void jumpAction();
-	//---------------------------------------------------
+
 };
 
 #endif

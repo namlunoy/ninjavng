@@ -6,7 +6,7 @@ Shuriken::~Shuriken(){}
 Shuriken::Shuriken()
 {
 	_sprite = Sprite::create("Shuriken.png");
-	_body = PhysicsBody::createBox(this->getBoundingBox().size, PhysicsMaterial(0.1f,0,0));
+	_body = PhysicsBody::createBox(this->getBoundingBox().size, PhysicsMaterial(0.1f, 0, 0));
 	_body->setGravityEnable(false);
 	_body->setAngularVelocity(30);
 
@@ -32,7 +32,7 @@ Shuriken* Shuriken::createSuriken()
 		shuriken->autorelease();
 	else
 		CC_SAFE_DELETE(shuriken);
-		
+
 	return shuriken;
 }
 
@@ -53,13 +53,13 @@ bool Shuriken::onContactBegin(PhysicsContact& contact)
 {
 	auto body_a = contact.getShapeA()->getBody();
 	auto body_b = contact.getShapeB()->getBody();
-	
+
 	if ((body_a->getCollisionBitmask() == Tags::SHURIKEN && body_b->getCollisionBitmask() == Tags::NINJA) ||
 		(body_a->getCollisionBitmask() == Tags::NINJA && body_b->getCollisionBitmask() == Tags::SHURIKEN))
 	{
 		log("Cham!ccc");
 		return false;
 	}
-	
+
 	return true;
 }

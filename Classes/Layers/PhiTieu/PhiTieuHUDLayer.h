@@ -24,7 +24,7 @@ public:
 	float theScale;
 	CREATE_FUNC(PhiTieuHUDLayer);
 
-	bool click_PhongTieu(Touch* t, Event* e);
-	void click_Jump(Ref* pSender, ui::Widget::TouchEventType eEventType);
+	bool touchScreen(Touch* t, Event* e);
+	void touchScreen_end(Touch* t, Event* e);
 };
 #endif
