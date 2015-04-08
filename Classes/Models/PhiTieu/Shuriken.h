@@ -8,14 +8,16 @@ USING_NS_CC;
 class Shuriken : public Node{
 private:
 	Sprite* _sprite;
+	PhysicsBody* _body;
+
 	bool init();
 	
 
 public:
 	Shuriken();
 	~Shuriken();
-	Shuriken(Vec2 start);
-	static Shuriken* createSuriken(Vec2 start);
-	
+	static Shuriken* createSuriken();
+	void phong(Vec2 huong);
+	bool onContactBegin(PhysicsContact& contact);
 };
 #endif

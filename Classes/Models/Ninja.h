@@ -17,6 +17,7 @@ private:
 	//-----------------------  dùng chung ---------------------
 	NinjaModel _ninjaModel;
 	PhysicsBody* _body;
+	Vec2 originalPosition;
 
 	//Các thao tác với animation thường thao tác với nó
 	//Còn những cái action khác có thể làm với this luôn

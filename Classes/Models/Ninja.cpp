@@ -30,8 +30,12 @@ bool Ninja::init(string fileName)
 	_body = PhysicsBody::createBox(_sprite->getBoundingBox().size,
 		PhysicsMaterial(_ninjaModel.density,_ninjaModel.restitution,_ninjaModel.friction));
 	_body->setMass(_ninjaModel.mass);
+	_body->setGravityEnable(false);
 	_body->setAngularVelocityLimit(0.0f);
 	_body->setTag(Tags::NINJA);
+	_body->setCollisionBitmask(Tags::NINJA);
+	_body->setContactTestBitmask(true);
+	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
 	//add contact event listener
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -54,19 +58,20 @@ void Ninja::runAnimation(string name, int count, float time, bool isRepeat)
 void Ninja::jump()
 {
 	log("Ninja::jump()");
-	_body->setVelocity(Vec2::ZERO);
-	_body->applyImpulse(Vec2(0, _ninjaModel.force_Y));
-	//_body->resetForces();
-	log("Velocity: %f",_body->getVelocity().y);
+	//_body->setVelocity(Vec2::ZERO);
+	//_body->applyImpulse(Vec2(0, _ninjaModel.force_Y));
+	this->getActionManager()->removeAllActionsFromTarget(this);
+	auto jumpAction = JumpBy::create(1.0f,_sprite->getPosition(), 300, 1);
+	this->runAction(jumpAction);
 }
 
 bool Ninja::onContactBegin(PhysicsContact& contact)
 {
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
-	log("%s", Tags::getName(bodyA->getTag()));
-	log("%s", Tags::getName(bodyB->getTag()));
-	return true;
+	//log("%s", Tags::getName(bodyA->getTag()));
+	//log("%s", Tags::getName(bodyB->getTag()));
+	return false;
 }
 
 void Ninja::runAnimation_DungYen()
