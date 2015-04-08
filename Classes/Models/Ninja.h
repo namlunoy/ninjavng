@@ -51,14 +51,6 @@ public:
 	{
 		_sprite->getActionManager()->removeAllActionsFromTarget(this->_sprite);
 	}
-
-	//--------------------- Đăng ------------------------
-	PhysicsBody *bodyNinja;
-	Ninja(Layer *layer);
-	bool isJumping;
-	bool isAlive;
-	void jumpAction();
-	//---------------------------------------------------
 };
 
 #endif

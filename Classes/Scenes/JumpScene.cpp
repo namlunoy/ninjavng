@@ -11,20 +11,26 @@ Scene* JumpScene::createPhysicScene()
 {
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
-	auto jumplayer = JumpLayer::create();
-	jumplayer->setContentSize(Size(480, 800));
-	jumplayer->SetPhysicsWorld(scene->getPhysicsWorld());
-	scene->addChild(jumplayer,0);
 
+	//Background
+	auto backgroundLayer = Background::create();
+	scene->addChild(backgroundLayer, 0);
+
+	//Jump
+	auto jumplayer = JumpLayer::create();
+	jumplayer->SetPhysicsWorld(scene->getPhysicsWorld());
+	scene->addChild(jumplayer,1);
+
+	//GamePlay
 	auto gamePlayLayer = GamePlayLayer::create();
-	scene->addChild(gamePlayLayer,1);
+	scene->addChild(gamePlayLayer,2);
 
 	return scene;
 }
 
-bool JumpScene::initWithPhysics()
+bool JumpScene::init()
 {
-	if (!JumpScene::initWithPhysics()) return false;
+	if (!JumpScene::init()) return false;
 		
 	/*layer = JumpLayer::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld());

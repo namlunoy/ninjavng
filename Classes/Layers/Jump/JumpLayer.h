@@ -1,8 +1,8 @@
 #ifndef _JumpLayer_
 #define _JumpLayer_
 #include "cocos2d.h"
-#include "Models/Ninja.h"
-#include "Models/Pillar.h"
+#include "Models/Jump/Ninja_D.h"
+#include "Models/Jump/Pillar.h"
 #include "Layers/Jump/GamePlayLayer.h"
 USING_NS_CC;
 
@@ -16,12 +16,12 @@ public:
 	void SetPhysicsWorld (PhysicsWorld *world) {physicsWorld = world; }
 	void SpawnPillar(float spawn);
 	Pillar *pillar;
-	Ninja *ninja;
-	bool onContactBegin(PhysicsContact &contact);
+	Ninja_D* ninja;
+	//bool onContactBegin(PhysicsContact &contact);
 
-	bool onTouchBegan(Touch *touch, Event *unused_event);
-	void onTouchMoved(Touch *touch, Event *unused_event);
-	void onTouchEnded(Touch *touch, Event *unused_event);
+	//bool onTouchBegan(Touch *touch, Event *unused_event);
+	//void onTouchMoved(Touch *touch, Event *unused_event);
+	//void onTouchEnded(Touch *touch, Event *unused_event);
 };
 
 #endif
