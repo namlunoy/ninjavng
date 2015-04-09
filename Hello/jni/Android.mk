@@ -15,8 +15,10 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Layers/Jump/GamePlayLayer.cpp \
                    ../../Classes/Layers/Jump/JumpLayer.cpp \
                    ../../Classes/Layers/BanSung/BanSungLayer.cpp \
+                   ../../Classes/Layers/Chem/ChemLayer.cpp \
                    ../../Classes/Layers/PhiTieu/PhiTieuHUDLayer.cpp \
                    ../../Classes/Layers/PhiTieu/PhiTieuLayer.cpp \
+                   ../../Classes/Layers/TranhNe/TranhNeLayer.cpp \
                    ../../Classes/Models/PhiTieu/Ninja.cpp \
                    ../../Classes/Models/PhiTieu/NinjaModel.cpp \
                    ../../Classes/Models/Jump/Background.cpp \
