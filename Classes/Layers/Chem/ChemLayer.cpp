@@ -8,11 +8,14 @@
 #include "ChemLayer.h"
 
 ChemLayer::ChemLayer() {
-	// TODO Auto-generated constructor stub
-
+}
+ChemLayer::~ChemLayer() {
 }
 
-ChemLayer::~ChemLayer() {
-	// TODO Auto-generated destructor stub
+bool ChemLayer::init() {
+	auto label = LabelTTF::create("Chem","Arial",30);
+	label->setPosition(Vec2(100,100));
+	this->addChild(label);
+	return true;
 }
 

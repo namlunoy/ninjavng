@@ -8,11 +8,15 @@
 #include "TranhNeLayer.h"
 
 TranhNeLayer::TranhNeLayer() {
-	// TODO Auto-generated constructor stub
-
+}
+TranhNeLayer::~TranhNeLayer() {
 }
 
-TranhNeLayer::~TranhNeLayer() {
-	// TODO Auto-generated destructor stub
+bool TranhNeLayer::init()
+{
+	auto label = LabelTTF::create("Tranh Ne","Arial",30);
+	label->setPosition(Vec2(100,100));
+	this->addChild(label);
+	return true;
 }
 

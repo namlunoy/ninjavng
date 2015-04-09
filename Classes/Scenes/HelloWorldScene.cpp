@@ -4,6 +4,9 @@
 #include "JumpScene.h"
 #include "PhiTieuScene.h"
 #include "BanSungScene.h"
+#include "ChemScene.h"
+#include "TranhNeScene.h"
+
 using namespace ui;
 using namespace std;
 USING_NS_CC;
@@ -57,7 +60,6 @@ bool HelloWorld::init() {
 							{
 								auto scene = BanSungScene::createScene();
 								Director::getInstance()->replaceScene(scene);
-
 							}
 						}
 					});
@@ -69,7 +71,8 @@ bool HelloWorld::init() {
 						{
 							case ui::Widget::TouchEventType::ENDED:
 							{
-
+								auto scene = ChemScene::createScene();
+								Director::getInstance()->replaceScene(scene);
 							}
 						}
 					});
@@ -95,7 +98,6 @@ bool HelloWorld::init() {
 							case ui::Widget::TouchEventType::ENDED:
 							{
 								auto scene = PhiTieuScene::createScene();
-
 								Director::getInstance()->replaceScene(scene);
 							}
 						}
@@ -108,7 +110,8 @@ bool HelloWorld::init() {
 						{
 							case ui::Widget::TouchEventType::ENDED:
 							{
-
+								auto scene = TranhNeScene::createScene();
+								Director::getInstance()->replaceScene(scene);
 							}
 						}
 					});

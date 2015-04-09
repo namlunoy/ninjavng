@@ -9,13 +9,16 @@
 #define LAYERS_BANSUNG_BANSUNGLAYER_H_
 
 #include "cocos2d.h"
+#include "ui/CocosGUI.h"
 
 USING_NS_CC;
+using namespace ui;
 
 class BanSungLayer : public Layer {
 public:
 	CREATE_FUNC(BanSungLayer);
 	bool init();
+
 	BanSungLayer();
 	virtual ~BanSungLayer();
 };

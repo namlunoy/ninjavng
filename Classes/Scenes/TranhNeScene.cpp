@@ -8,11 +8,14 @@
 #include "TranhNeScene.h"
 
 TranhNeScene::TranhNeScene() {
-	// TODO Auto-generated constructor stub
-
+}
+TranhNeScene::~TranhNeScene() {
 }
 
-TranhNeScene::~TranhNeScene() {
-	// TODO Auto-generated destructor stub
+Scene* TranhNeScene::createScene() {
+	auto scene = Scene::create();
+	auto layer = TranhNeLayer::create();
+	scene->addChild(layer);
+	return scene;
 }
 

@@ -8,8 +8,17 @@
 #ifndef LAYERS_CHEM_CHEMLAYER_H_
 #define LAYERS_CHEM_CHEMLAYER_H_
 
-class ChemLayer {
+#include "cocos2d.h"
+#include "ui/CocosGUI.h"
+
+USING_NS_CC;
+using namespace ui;
+
+class ChemLayer : public Layer {
 public:
+	CREATE_FUNC(ChemLayer);
+	bool init();
+
 	ChemLayer();
 	virtual ~ChemLayer();
 };

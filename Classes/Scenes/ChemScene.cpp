@@ -7,12 +7,14 @@
 
 #include "ChemScene.h"
 
-ChemScene::ChemScene() {
-	// TODO Auto-generated constructor stub
+ChemScene::ChemScene() {}
+ChemScene::~ChemScene() {}
 
-}
-
-ChemScene::~ChemScene() {
-	// TODO Auto-generated destructor stub
+Scene* ChemScene::createScene()
+{
+	auto scene = Scene::create();
+	auto layer = ChemLayer::create();
+	scene->addChild(layer);
+	return scene;
 }
 
