@@ -1,9 +1,3 @@
-/*
- * Tags.h
- *
- *  Created on: Apr 9, 2015
- *      Author: conghoang
- */
 
 #ifndef UTILITY_TAGS_H_
 #define UTILITY_TAGS_H_

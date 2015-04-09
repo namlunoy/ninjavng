@@ -4,7 +4,9 @@
 #include "cocos2d.h"
 #include "Utility/Config.h"
 #include "Models/PhiTieu/Shuriken.h"
-#include "Models/Ninja.h"
+#include "Models/PhiTieu/Ninja.h"
+
+#include "Utility/Tags.h"
 
 USING_NS_CC;
 
