@@ -13,7 +13,7 @@ public:
 	bool isJumping;
 	bool isStanding;
 
-	void JumpAction();
+	void JumpAction(float force);
 	PhysicsBody *bodyNinja;
 };
 

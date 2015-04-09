@@ -14,9 +14,9 @@ Ninja_D::Ninja_D(Layer *layer)
 	layer->addChild(ninja);
 }
 
-void Ninja_D::JumpAction()
+void Ninja_D::JumpAction(float force)
 {
 	CCLOG("Force Ninja");
-	bodyNinja->applyForce(Vect(100, 100));
+	bodyNinja->applyForce(Vect(0, force));
 }
 
