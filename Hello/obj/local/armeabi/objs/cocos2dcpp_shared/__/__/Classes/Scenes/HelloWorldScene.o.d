@@ -402,7 +402,11 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Scenes/HelloWorldScene.o:
  jni/../../Classes/Layers/PhiTieu/PhiTieuHUDLayer.h \
  jni/../../Classes/Layers/PhiTieu/PhiTieuLayer.h \
  jni/../../Classes/Scenes/BanSungScene.h \
- jni/../../Classes/Layers/BanSung/BanSungLayer.h
+ jni/../../Classes/Layers/BanSung/BanSungLayer.h \
+ jni/../../Classes/Scenes/ChemScene.h \
+ jni/../../Classes/Layers/Chem/ChemLayer.h \
+ jni/../../Classes/Scenes/TranhNeScene.h \
+ jni/../../Classes/Layers/TranhNe/TranhNeLayer.h
 
 jni/../../Classes/Scenes/HelloWorldScene.h:
 
@@ -1211,3 +1215,11 @@ jni/../../Classes/Layers/PhiTieu/PhiTieuLayer.h:
 jni/../../Classes/Scenes/BanSungScene.h:
 
 jni/../../Classes/Layers/BanSung/BanSungLayer.h:
+
+jni/../../Classes/Scenes/ChemScene.h:
+
+jni/../../Classes/Layers/Chem/ChemLayer.h:
+
+jni/../../Classes/Scenes/TranhNeScene.h:
+
+jni/../../Classes/Layers/TranhNe/TranhNeLayer.h:
