@@ -17,6 +17,6 @@ Ninja_D::Ninja_D(Layer *layer)
 void Ninja_D::JumpAction(float force)
 {
 	CCLOG("Force Ninja");
-	bodyNinja->applyForce(Vect(0, force));
+	bodyNinja->applyForce(Vect(1000.f, force));
 }
 

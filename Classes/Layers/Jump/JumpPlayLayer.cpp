@@ -51,8 +51,13 @@ void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
 #pragma region Touch
 bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
+	//Ninja
 	CCLOG("Start Force");
 	jumpLayer->ninja->JumpAction(1000.0f);
+
+	//Pillar
+	jumpLayer->pillar->MovePillar();
+
 	return true;
 }
 

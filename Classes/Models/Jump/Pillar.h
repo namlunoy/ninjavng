@@ -11,7 +11,6 @@ public:
 	void SpawnPillar(Layer *layer, Point spawnPosition, int order);
 	void MovePillar();
 	void StopPillar();
-
 private:
 	Size screenSize;
 	Point rootPoint;

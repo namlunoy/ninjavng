@@ -33,7 +33,6 @@ void Pillar::SpawnPillar(Layer *layer, Point spawnPosition, int order)
 void Pillar::MovePillar()
 {
 	auto movePillar = MoveBy::create(Config::screenSize.width*0.005, Vec2(- Config::screenSize.width - 200, 0));
-	this->runAction(movePillar);
 }
 
 void Pillar::StopPillar()
