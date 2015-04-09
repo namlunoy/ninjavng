@@ -3,7 +3,7 @@
 #include <vector>
 #include "JumpScene.h"
 #include "PhiTieuScene.h"
-#include "BanSungScene.h"
+
 #include "ChemScene.h"
 #include "TranhNeScene.h"
 #include "BanTao_Scence.h"
