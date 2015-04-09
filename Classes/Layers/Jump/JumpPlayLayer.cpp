@@ -47,11 +47,17 @@ void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
 {
 	this->jumpLayer = jumplayer;
 }
+
 #pragma region Touch
 bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
+	//Ninja
 	CCLOG("Start Force");
-	jumpLayer->ninja->JumpAction();
+	jumpLayer->ninja->JumpAction(1000.0f);
+
+	//Pillar
+	jumpLayer->pillar->MovePillar();
+
 	return true;
 }
 
@@ -63,6 +69,6 @@ void JumpPlayLayer::onTouchMoved(Touch *touch, Event *unused_event)
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
 	CCLOG("End Force");
-	//jumpLayer->ninja->getPhysicsBody()->resetForces();
+	jumpLayer->ninja->bodyNinja->resetForces();
 }
 #pragma endregion 
