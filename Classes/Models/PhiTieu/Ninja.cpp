@@ -21,6 +21,7 @@ bool Ninja::init(string fileName)
 		return false;
 
 	//this->scheduleUpdate();
+	jumpCount = 0;
 
 	//Khởi tạo sprite chính
 	_sprite = Sprite::create(fileName);
@@ -58,12 +59,23 @@ void Ninja::runAnimation(string name, int count, float time, bool isRepeat)
 
 void Ninja::jump()
 {
+	jumpCount++;
 	log("Ninja::jump()");
-	//_body->setVelocity(Vec2::ZERO);
-	//_body->applyImpulse(Vec2(0, _ninjaModel.force_Y));
-	this->getActionManager()->removeAllActionsFromTarget(this);
-	auto jumpAction = JumpBy::create(1.0f, _sprite->getPosition(), 300, 1);
-	this->runAction(jumpAction);
+	int count = this->getActionManager()->getNumberOfRunningActionsInTarget(this);
+	if(jumpCount <= 2)
+	{
+
+		this->getActionManager()->removeAllActionsFromTarget(this);
+		auto jumpAction = JumpTo::create(1.0f, originalPosition, 300, 1);
+		//auto action = Sequence::create(jumpAction,CC_CALLBACK_0(Ninja::resetJumpCount));
+		this->runAction(jumpAction);
+	}
+
+}
+
+void Ninja::resetJumpCount()
+{
+	jumpCount = 0;
 }
 
 bool Ninja::onContactBegin(PhysicsContact& contact)
@@ -83,6 +95,11 @@ void Ninja::runAnimation_DungYen()
 void Ninja::runAnimation_Nhay()
 {
 	//runAnimation("ninja_nhay", 2, 0.5f, true);
+}
+
+void Ninja::setOriginalPosition(Vec2 ori)
+{
+	this->originalPosition = ori;
 }
 
 

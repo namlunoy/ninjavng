@@ -16,33 +16,19 @@ private:
 	//-----------------------  dùng chung ---------------------
 	NinjaModel _ninjaModel;
 	PhysicsBody* _body;
-
-	//Các thao tác với animation thường thao tác với nó
-	//Còn những cái action khác có thể làm với this luôn
 	Sprite* _sprite;
-
 	bool init(string fileName);
-
-	//Công: Hàm chạy animation, phải nạp file plist bằng phương thức addPlistFile trước
-	//name: tên file (ko có đuôi),vd: ninja_dungyen
-	//count: số frames
-	//time: thời gian giữa các frame
-	//repeat: có lặp lại hay không
 	void runAnimation(string name, int count, float time, bool isRepeat);
+	Vec2 originalPosition;
+	int jumpCount;
 
-	//-------------------- Công -------------------------
-
-
-	//--------------------- Đăng ------------------------
-
-	
-	//--------------------------------------------------
+private:
+	void resetJumpCount();
 public:
 	Ninja();
 	~Ninja();
 	static Ninja* create(string fileName);
-	//-------------------- Công -------------------------
-	//Các animation
+	void setOriginalPosition(Vec2);
 	void runAnimation_DungYen();
 	void runAnimation_Nhay();
 	void jump();

@@ -6,6 +6,10 @@ Shuriken::~Shuriken(){}
 Shuriken::Shuriken()
 {
 	_sprite = Sprite::create("Shuriken.png");
+
+	// --------------- Physic  ------------
+	//Đặc điểm: luôn quay, không chịu tác dụng của trọng lực, không chịu masat, ko va chạm
+
 	_body = PhysicsBody::createBox(this->getBoundingBox().size, PhysicsMaterial(0.1f, 0, 0));
 	_body->setGravityEnable(false);
 	_body->setAngularVelocity(30);
@@ -23,6 +27,7 @@ Shuriken::Shuriken()
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->setPhysicsBody(_body);
 	this->addChild(_sprite);
+	this->setScale(0.11f);
 }
 
 Shuriken* Shuriken::createSuriken()
@@ -43,23 +48,22 @@ bool Shuriken::init()
 	return true;
 }
 
-void Shuriken::phong(Vec2 huong)
+void Shuriken::phong(Vec2 direction)
 {
-	log("huong: %f - %f", huong.x, huong.y);
-	_body->applyForce(huong);
+	_body->applyImpulse(direction*force);
 }
 
 bool Shuriken::onContactBegin(PhysicsContact& contact)
 {
 	auto body_a = contact.getShapeA()->getBody();
 	auto body_b = contact.getShapeB()->getBody();
-
+	log("Shuriken::onContactBegin");
 	if ((body_a->getCollisionBitmask() == Tags::SHURIKEN && body_b->getCollisionBitmask() == Tags::NINJA) ||
 		(body_a->getCollisionBitmask() == Tags::NINJA && body_b->getCollisionBitmask() == Tags::SHURIKEN))
 	{
-		log("Cham!ccc");
-		return false;
+
+		log("Shuriken::onContactBegin : Ninja vs shuriken");
 	}
 
-	return true;
+	return false;
 }
