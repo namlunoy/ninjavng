@@ -6,6 +6,7 @@
 #include "BanSungScene.h"
 #include "ChemScene.h"
 #include "TranhNeScene.h"
+#include "BanTao_Scence.h"
 
 using namespace ui;
 using namespace std;
@@ -58,7 +59,7 @@ bool HelloWorld::init() {
 						{
 							case ui::Widget::TouchEventType::ENDED:
 							{
-								auto scene = BanSungScene::createScene();
+								auto scene = BanTao_Scence::create();
 								Director::getInstance()->replaceScene(scene);
 							}
 						}

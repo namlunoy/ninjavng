@@ -22,6 +22,15 @@ public:
 
 	//Hiển thị thông tin của node trên log! Position, BoundingBox, Anchor,...
 	static void Log(Node* node,string tag);
+	static bool checkShoot(Vec2 tamApple, float bkApple, Vec2 tamTarget)
+
+	{
+		float d = sqrt(pow((tamApple.x - tamTarget.x), 2) + pow((tamApple.y - tamTarget.y), 2));
+		if (d <= bkApple) return true;
+		else
+			return false;
+	}
+
 
 };
 
