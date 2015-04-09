@@ -354,7 +354,28 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Models/Jump/Pillar.o: \
  jni/../../cocos2d/cocos/3d/../deprecated/CCDeprecated.h \
  jni/../../Classes/Utility/Definition.h \
  jni/../../Classes/Utility/Config.h \
- E:/cocos2dx/NDK/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream
+ E:/cocos2dx/NDK/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/chipmunk.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/chipmunk_types.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpVect.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpBB.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpSpatialIndex.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpBody.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpShape.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpPolyShape.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpArbiter.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpConstraint.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpPinJoint.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpSlideJoint.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpPivotJoint.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpGrooveJoint.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpDampedSpring.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpDampedRotarySpring.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpRotaryLimitJoint.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpRatchetJoint.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpGearJoint.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpSimpleMotor.h \
+ jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpSpace.h
 
 jni/../../Classes/Models/Jump/Pillar.h:
 
@@ -1065,3 +1086,45 @@ jni/../../Classes/Utility/Definition.h:
 jni/../../Classes/Utility/Config.h:
 
 E:/cocos2dx/NDK/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/chipmunk.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/chipmunk_types.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpVect.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpBB.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpSpatialIndex.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpBody.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpShape.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpPolyShape.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpArbiter.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpConstraint.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpPinJoint.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpSlideJoint.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpPivotJoint.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpGrooveJoint.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpDampedSpring.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpDampedRotarySpring.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpRotaryLimitJoint.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpRatchetJoint.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpGearJoint.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/constraints/cpSimpleMotor.h:
+
+jni/../../cocos2d/cocos/./../external/chipmunk/include/chipmunk/cpSpace.h:

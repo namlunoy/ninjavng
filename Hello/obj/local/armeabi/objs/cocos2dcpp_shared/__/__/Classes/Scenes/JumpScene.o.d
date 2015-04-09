@@ -355,7 +355,7 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Scenes/JumpScene.o: \
  jni/../../Classes/Layers/Jump/JumpLayer.h \
  jni/../../Classes/Models/Jump/Ninja_D.h \
  jni/../../Classes/Models/Jump/Pillar.h \
- jni/../../Classes/Layers/Jump/GamePlayLayer.h \
+ jni/../../Classes/Layers/Jump/JumpPlayLayer.h \
  jni/../../Classes/Models/Jump/Background.h
 
 jni/../../Classes/Scenes/JumpScene.h:
@@ -1068,6 +1068,6 @@ jni/../../Classes/Models/Jump/Ninja_D.h:
 
 jni/../../Classes/Models/Jump/Pillar.h:
 
-jni/../../Classes/Layers/Jump/GamePlayLayer.h:
+jni/../../Classes/Layers/Jump/JumpPlayLayer.h:
 
 jni/../../Classes/Models/Jump/Background.h:

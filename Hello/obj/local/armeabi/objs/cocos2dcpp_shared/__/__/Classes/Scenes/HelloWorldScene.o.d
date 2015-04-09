@@ -391,7 +391,7 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Scenes/HelloWorldScene.o:
  jni/../../Classes/Layers/Jump/JumpLayer.h \
  jni/../../Classes/Models/Jump/Ninja_D.h \
  jni/../../Classes/Models/Jump/Pillar.h \
- jni/../../Classes/Layers/Jump/GamePlayLayer.h \
+ jni/../../Classes/Layers/Jump/JumpPlayLayer.h \
  jni/../../Classes/Models/Jump/Background.h \
  jni/../../Classes/Scenes/PhiTieuScene.h \
  jni/../../Classes/Layers/PhiTieu/PhiTieuLayer.h \
@@ -401,12 +401,15 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Scenes/HelloWorldScene.o:
  jni/../../Classes/Utility/XHelper.h jni/../../Classes/Utility/Tags.h \
  jni/../../Classes/Layers/PhiTieu/PhiTieuHUDLayer.h \
  jni/../../Classes/Layers/PhiTieu/PhiTieuLayer.h \
- jni/../../Classes/Scenes/BanSungScene.h \
- jni/../../Classes/Layers/BanSung/BanSungLayer.h \
  jni/../../Classes/Scenes/ChemScene.h \
  jni/../../Classes/Layers/Chem/ChemLayer.h \
  jni/../../Classes/Scenes/TranhNeScene.h \
- jni/../../Classes/Layers/TranhNe/TranhNeLayer.h
+ jni/../../Classes/Layers/TranhNe/TranhNeLayer.h \
+ jni/../../Classes/Scenes/BanTao_Scence.h \
+ jni/../../Classes/Layers/BanSung/BanTao_Layer.h \
+ jni/../../Classes/Models/BanSung/BanTao_Target.h \
+ jni/../../Classes/Layers/BanSung/BanTao_HudLayer.h \
+ jni/../../Classes/Layers/BanSung/BanTao_HudLayer.h
 
 jni/../../Classes/Scenes/HelloWorldScene.h:
 
@@ -1190,7 +1193,7 @@ jni/../../Classes/Models/Jump/Ninja_D.h:
 
 jni/../../Classes/Models/Jump/Pillar.h:
 
-jni/../../Classes/Layers/Jump/GamePlayLayer.h:
+jni/../../Classes/Layers/Jump/JumpPlayLayer.h:
 
 jni/../../Classes/Models/Jump/Background.h:
 
@@ -1212,10 +1215,6 @@ jni/../../Classes/Layers/PhiTieu/PhiTieuHUDLayer.h:
 
 jni/../../Classes/Layers/PhiTieu/PhiTieuLayer.h:
 
-jni/../../Classes/Scenes/BanSungScene.h:
-
-jni/../../Classes/Layers/BanSung/BanSungLayer.h:
-
 jni/../../Classes/Scenes/ChemScene.h:
 
 jni/../../Classes/Layers/Chem/ChemLayer.h:
@@ -1223,3 +1222,13 @@ jni/../../Classes/Layers/Chem/ChemLayer.h:
 jni/../../Classes/Scenes/TranhNeScene.h:
 
 jni/../../Classes/Layers/TranhNe/TranhNeLayer.h:
+
+jni/../../Classes/Scenes/BanTao_Scence.h:
+
+jni/../../Classes/Layers/BanSung/BanTao_Layer.h:
+
+jni/../../Classes/Models/BanSung/BanTao_Target.h:
+
+jni/../../Classes/Layers/BanSung/BanTao_HudLayer.h:
+
+jni/../../Classes/Layers/BanSung/BanTao_HudLayer.h:
