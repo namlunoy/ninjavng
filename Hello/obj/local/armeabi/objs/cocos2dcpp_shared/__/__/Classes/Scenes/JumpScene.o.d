@@ -352,9 +352,11 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Scenes/JumpScene.o: \
  jni/../../cocos2d/cocos/3d/../deprecated/CCString.h \
  jni/../../cocos2d/cocos/3d/../deprecated/CCNotificationCenter.h \
  jni/../../cocos2d/cocos/3d/../deprecated/CCDeprecated.h \
- jni/../../Classes/Layers/JumpLayer.h jni/../../Classes/Models/Ninja.h \
- jni/../../Classes/Utility/XHelper.h \
- E:/cocos2dx/NDK/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream
+ jni/../../Classes/Layers/Jump/JumpLayer.h \
+ jni/../../Classes/Models/Jump/Ninja_D.h \
+ jni/../../Classes/Models/Jump/Pillar.h \
+ jni/../../Classes/Layers/Jump/GamePlayLayer.h \
+ jni/../../Classes/Models/Jump/Background.h
 
 jni/../../Classes/Scenes/JumpScene.h:
 
@@ -1060,10 +1062,12 @@ jni/../../cocos2d/cocos/3d/../deprecated/CCNotificationCenter.h:
 
 jni/../../cocos2d/cocos/3d/../deprecated/CCDeprecated.h:
 
-jni/../../Classes/Layers/JumpLayer.h:
+jni/../../Classes/Layers/Jump/JumpLayer.h:
 
-jni/../../Classes/Models/Ninja.h:
+jni/../../Classes/Models/Jump/Ninja_D.h:
 
-jni/../../Classes/Utility/XHelper.h:
+jni/../../Classes/Models/Jump/Pillar.h:
 
-E:/cocos2dx/NDK/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream:
+jni/../../Classes/Layers/Jump/GamePlayLayer.h:
+
+jni/../../Classes/Models/Jump/Background.h:

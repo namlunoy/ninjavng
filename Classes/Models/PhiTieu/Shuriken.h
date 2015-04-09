@@ -9,7 +9,7 @@ class Shuriken : public Node{
 private:
 	Sprite* _sprite;
 	PhysicsBody* _body;
-
+	const float force = 700.0f;
 	bool init();
 
 
@@ -17,7 +17,7 @@ public:
 	Shuriken();
 	~Shuriken();
 	static Shuriken* createSuriken();
-	void phong(Vec2 huong);
+	void phong(Vec2 direction);
 	bool onContactBegin(PhysicsContact& contact);
 };
 #endif

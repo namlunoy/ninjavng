@@ -1,12 +1,14 @@
 /*
  * Definition.h
  *
- *  Created on: Apr 2, 2015
- *      Author: Dang
+ *  Created on: Apr 9, 2015
+ *      Author: conghoang
  */
 
-#ifndef DEFINITION_H_
-#define DEFINITION_H_
+#ifndef UTILITY_DEFINITION_H_
+#define UTILITY_DEFINITION_H_
+
+
 
 #define SPAWN_COLUMN_FREQUENCY_MAX 0.01
 #define SPAWN_COLUMN_FREQUENCY_MIN 0.005
@@ -19,4 +21,11 @@
 
 #define WALL_COLLISION 0x000001
 #define NINJA_COLLISION 0x000002
-#endif /* DEFINITION_H_ */
+
+class Definition {
+public:
+	Definition();
+	virtual ~Definition();
+};
+
+#endif /* UTILITY_DEFINITION_H_ */

@@ -352,12 +352,14 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Scenes/PhiTieuScene.o: \
  jni/../../cocos2d/cocos/3d/../deprecated/CCString.h \
  jni/../../cocos2d/cocos/3d/../deprecated/CCNotificationCenter.h \
  jni/../../cocos2d/cocos/3d/../deprecated/CCDeprecated.h \
- jni/../../Classes/Layers/PhiTieuLayer.h \
+ jni/../../Classes/Layers/PhiTieu/PhiTieuLayer.h \
  jni/../../Classes/Utility/Config.h \
  E:/cocos2dx/NDK/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream \
- jni/../../Classes/Models/Shuriken.h jni/../../Classes/Models/Ninja.h \
- jni/../../Classes/Utility/XHelper.h \
- jni/../../Classes/Layers/PhiTieuHUDLayer.h \
+ jni/../../Classes/Models/PhiTieu/Shuriken.h \
+ jni/../../Classes/Models/PhiTieu/Ninja.h \
+ jni/../../Classes/Models/PhiTieu/NinjaModel.h \
+ jni/../../Classes/Utility/XHelper.h jni/../../Classes/Utility/Tags.h \
+ jni/../../Classes/Layers/PhiTieu/PhiTieuHUDLayer.h \
  jni/../../cocos2d/cocos/3d/../ui/CocosGUI.h \
  jni/../../cocos2d/cocos/3d/../ui/UIWidget.h \
  jni/../../cocos2d/cocos/3d/../2d/CCProtectedNode.h \
@@ -390,7 +392,8 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Scenes/PhiTieuScene.o: \
  jni/../../cocos2d/cocos/3d/../ui/UIScale9Sprite.h \
  jni/../../cocos2d/cocos/3d/../ui/UIEditBox/UIEditBox.h \
  jni/../../cocos2d/cocos/3d/../ui/UILayoutComponent.h \
- jni/../../cocos2d/cocos/3d/../2d/CCComponent.h
+ jni/../../cocos2d/cocos/3d/../2d/CCComponent.h \
+ jni/../../Classes/Layers/PhiTieu/PhiTieuLayer.h
 
 jni/../../Classes/Scenes/PhiTieuScene.h:
 
@@ -1096,19 +1099,23 @@ jni/../../cocos2d/cocos/3d/../deprecated/CCNotificationCenter.h:
 
 jni/../../cocos2d/cocos/3d/../deprecated/CCDeprecated.h:
 
-jni/../../Classes/Layers/PhiTieuLayer.h:
+jni/../../Classes/Layers/PhiTieu/PhiTieuLayer.h:
 
 jni/../../Classes/Utility/Config.h:
 
 E:/cocos2dx/NDK/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream:
 
-jni/../../Classes/Models/Shuriken.h:
+jni/../../Classes/Models/PhiTieu/Shuriken.h:
 
-jni/../../Classes/Models/Ninja.h:
+jni/../../Classes/Models/PhiTieu/Ninja.h:
+
+jni/../../Classes/Models/PhiTieu/NinjaModel.h:
 
 jni/../../Classes/Utility/XHelper.h:
 
-jni/../../Classes/Layers/PhiTieuHUDLayer.h:
+jni/../../Classes/Utility/Tags.h:
+
+jni/../../Classes/Layers/PhiTieu/PhiTieuHUDLayer.h:
 
 jni/../../cocos2d/cocos/3d/../ui/CocosGUI.h:
 
@@ -1175,3 +1182,5 @@ jni/../../cocos2d/cocos/3d/../ui/UIEditBox/UIEditBox.h:
 jni/../../cocos2d/cocos/3d/../ui/UILayoutComponent.h:
 
 jni/../../cocos2d/cocos/3d/../2d/CCComponent.h:
+
+jni/../../Classes/Layers/PhiTieu/PhiTieuLayer.h:

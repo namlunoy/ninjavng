@@ -1,15 +1,17 @@
-#ifndef _TAGS_
-#define _TAGS_
+/*
+ * Tags.h
+ *
+ *  Created on: Apr 9, 2015
+ *      Author: conghoang
+ */
 
-#include <map>
+#ifndef UTILITY_TAGS_H_
+#define UTILITY_TAGS_H_
 #include <iostream>
-
 using namespace std;
-
-class Tags
-{
+class Tags {
 private:
-	static map<int, string> m;
+
 public:
 	static string getName(int tag)
 	{
@@ -37,5 +39,4 @@ public:
 	~Tags();
 };
 
-#endif
-
+#endif /* UTILITY_TAG_H_ */

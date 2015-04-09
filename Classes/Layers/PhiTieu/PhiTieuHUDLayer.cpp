@@ -1,53 +1,45 @@
 ﻿#include "PhiTieuHUDLayer.h"
 
+PhiTieuHUDLayer::PhiTieuHUDLayer() {
+}
+PhiTieuHUDLayer::~PhiTieuHUDLayer() {
+}
 
-PhiTieuHUDLayer::PhiTieuHUDLayer(){}
-PhiTieuHUDLayer::~PhiTieuHUDLayer(){}
-
-bool PhiTieuHUDLayer::init()
-{
+bool PhiTieuHUDLayer::init() {
 	if (!Layer::init())
 		return false;
-	//Lấy thông số scale
-	theScale = Config::getScale("cong_background.jpg");
 
-	this->setContentSize(Size(1360, 768));
-//	this->setScale(theScale);
-
-
-
-	//Khởi tạo Button jump
+//------------------ Button jump  ---------------------
 	bt_jump = Button::create("bt_jump_1.png", "bt_jump_2.png", "bt_jump_2.png");
 	bt_jump->setAnchorPoint(Vec2(0, 0));
-	bt_jump->setPosition(Vec2(0,0));
-	bt_jump->setScale(theScale);
+	bt_jump->setPosition(Vec2(0, 0));
+	bt_jump->setScale(0.5f);
+	bt_jump->addTouchEventListener(this,
+			toucheventselector(PhiTieuHUDLayer::click_Jump));
 	this->addChild(bt_jump);
 
-
-	//touch event
+	//-----------  touch event ------------
 	auto _touchListener = EventListenerTouchOneByOne::create();
+	_touchListener->onTouchBegan = CC_CALLBACK_2(
+			PhiTieuHUDLayer::touch_PhongTieu, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(_touchListener,
+			this);
 
-	_touchListener->onTouchBegan = CC_CALLBACK_2(PhiTieuHUDLayer::touchScreen, this);
-	_touchListener->onTouchEnded = CC_CALLBACK_2(PhiTieuHUDLayer::touchScreen_end, this);
-
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(_touchListener, this);
 	return true;
 }
 
-bool PhiTieuHUDLayer::touchScreen(Touch* t, Event* e)
-{
-	log("%f - %f", t->getLocation().x, t->getLocation().y);
-	_phiTieuLayer->ninja->jump();
+bool PhiTieuHUDLayer::touch_PhongTieu(Touch* t, Event* e) {
+	_phiTieuLayer->PhongTieu(t->getLocation());
 	return true;
 }
-void PhiTieuHUDLayer::touchScreen_end(Touch* t, Event* e)
-{
-	log("end");
-	_phiTieuLayer->ninja->getPhysicsBody()->resetForces();
-//	return true;
+
+void PhiTieuHUDLayer::click_Jump(Ref* sender, TouchEventType touchType) {
+	//Thực hiện nhảy
+	if (touchType == TouchEventType::TOUCH_EVENT_BEGAN) {
+		_phiTieuLayer->Jump();
+	}
 }
 
-void PhiTieuHUDLayer::setPhiTieuLayer(PhiTieuLayer* layer)
-{
+void PhiTieuHUDLayer::setPhiTieuLayer(PhiTieuLayer* layer) {
 	_phiTieuLayer = layer;
 }

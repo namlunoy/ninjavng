@@ -17,14 +17,16 @@ private:
 	PhiTieuLayer* _phiTieuLayer;
 
 public:
+	//------  Các hàm khởi tạo -------
 	PhiTieuHUDLayer();
 	~PhiTieuHUDLayer();
-	void setPhiTieuLayer(PhiTieuLayer* layer);
-	bool init();
-	float theScale;
 	CREATE_FUNC(PhiTieuHUDLayer);
+	bool init();
+	void setPhiTieuLayer(PhiTieuLayer* layer);
 
-	bool touchScreen(Touch* t, Event* e);
-	void touchScreen_end(Touch* t, Event* e);
+
+
+	bool touch_PhongTieu(Touch* t, Event* e);
+	void click_Jump(Ref* sender, TouchEventType touchType);
 };
 #endif
