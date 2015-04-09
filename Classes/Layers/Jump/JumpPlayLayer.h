@@ -15,7 +15,7 @@ public:
 	~JumpPlayLayer();
 	bool init();
 	CREATE_FUNC(JumpPlayLayer);
-
+	void SetJumpLayer(JumpLayer *jumplayer);
 	//Xử lý Touch
 	bool onTouchBegan(Touch *touch, Event *unused_event);
 	void onTouchMoved(Touch *touch, Event *unused_event);

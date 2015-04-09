@@ -3,6 +3,7 @@
 #include "Utility/Config.h"
 #include "cocos2d.h"
 #include "stdint.h"
+#include "chipmunk.h"
 
 Pillar::Pillar()
 {
@@ -23,10 +24,8 @@ void Pillar::SpawnPillar(Layer *layer, Point spawnPosition, int order)
 		spawnPosition.y = randomHeight;
 		pillar->setPosition(Point(spawnPosition));
 	}
-	auto bodyPillar = PhysicsBody::createBox(pillar->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	auto bodyPillar = PhysicsBody::createEdgeBox(pillar->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 1.0f));
 	bodyPillar->setDynamic(false);
-	/*bodyPillar->setCollisionBitmask(WALL_COLLISION);
-	bodyPillar->setContactTestBitmask(true);*/
 	pillar->setPhysicsBody(bodyPillar);
 	layer->addChild(pillar);
 }

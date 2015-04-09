@@ -43,11 +43,15 @@ bool JumpPlayLayer::init()
 	return true;
 }
 
+void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
+{
+	this->jumpLayer = jumplayer;
+}
 #pragma region Touch
 bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
 	CCLOG("Start Force");
-//	jumpLayer->ninja->JumpAction(1000.0f);
+	jumpLayer->ninja->JumpAction();
 	return true;
 }
 

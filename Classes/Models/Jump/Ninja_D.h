@@ -10,10 +10,10 @@ public:
 	Ninja_D(Layer *layer);
 	~Ninja_D();
 
-	/*bool isJumping;
-	bool isStand;*/
+	bool isJumping;
+	bool isStanding;
 
-	void JumpAction(float force);
+	void JumpAction();
 	PhysicsBody *bodyNinja;
 };
 
