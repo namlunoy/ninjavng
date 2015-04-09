@@ -351,8 +351,11 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Models/Ninja.o: \
  jni/../../cocos2d/cocos/3d/../deprecated/CCString.h \
  jni/../../cocos2d/cocos/3d/../deprecated/CCNotificationCenter.h \
  jni/../../cocos2d/cocos/3d/../deprecated/CCDeprecated.h \
+ jni/../../Classes/Models/NinjaModel.h \
+ E:/cocos2dx/NDK/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream \
  jni/../../Classes/Utility/XHelper.h \
- E:/cocos2dx/NDK/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream
+ jni/../../Classes/Utility/Definition.h \
+ jni/../../Classes/Utility/Config.h jni/../../Classes/Utility/Tags.h
 
 jni/../../Classes/Models/Ninja.h:
 
@@ -1058,6 +1061,14 @@ jni/../../cocos2d/cocos/3d/../deprecated/CCNotificationCenter.h:
 
 jni/../../cocos2d/cocos/3d/../deprecated/CCDeprecated.h:
 
-jni/../../Classes/Utility/XHelper.h:
+jni/../../Classes/Models/NinjaModel.h:
 
 E:/cocos2dx/NDK/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream:
+
+jni/../../Classes/Utility/XHelper.h:
+
+jni/../../Classes/Utility/Definition.h:
+
+jni/../../Classes/Utility/Config.h:
+
+jni/../../Classes/Utility/Tags.h:

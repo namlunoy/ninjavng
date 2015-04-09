@@ -4,31 +4,31 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>ninja_dungyen1.png</key>
+            <key>DungYen1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{123,201}}</string>
+                <string>{{2,2},{50,82}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{123,201}}</string>
+                <string>{{0,0},{50,82}}</string>
                 <key>sourceSize</key>
-                <string>{123,201}</string>
+                <string>{50,82}</string>
             </dict>
-            <key>ninja_dungyen2.png</key>
+            <key>DungYen2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,205},{123,201}}</string>
+                <string>{{2,86},{50,82}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{123,201}}</string>
+                <string>{{0,0},{50,82}}</string>
                 <key>sourceSize</key>
-                <string>{123,201}</string>
+                <string>{50,82}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -36,13 +36,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>ninja_dungyen.png</string>
+            <string>DungYen.png</string>
             <key>size</key>
-            <string>{127,408}</string>
+            <string>{54,170}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:25f9884133c63e0db7500137ae1326af:e28796fd987ee2be740986e4d40ddc73:8598fe69335cc6006379432f7496fbbf$</string>
+            <string>$TexturePacker:SmartUpdate:97c2dc0c7a6dcd801d7e5a215a4dff1c:3dd7d56e1d89874248dc381e3c9966b9:3677cd8f5388022c5ee1f5a8bf3f9fed$</string>
             <key>textureFileName</key>
-            <string>ninja_dungyen.png</string>
+            <string>DungYen.png</string>
         </dict>
     </dict>
 </plist>
