@@ -6,6 +6,7 @@
 #include "Utility/Config.h"
 #include "Utility/XHelper.h"
 #include "PhiTieuLayer.h"
+#include "Scenes/HelloWorldScene.h"
 
 USING_NS_CC;
 using namespace ui;
