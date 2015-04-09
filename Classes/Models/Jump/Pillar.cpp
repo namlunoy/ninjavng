@@ -12,7 +12,7 @@ Pillar::Pillar()
 
 void Pillar::SpawnPillar(Layer *layer, Point spawnPosition, int order)
 {
-	auto pillar = Sprite::create("pillar.png");
+	auto pillar = Sprite::create("building.png");
 	if (order == 1)
 	{
 		pillar->setPosition(Point(spawnPosition));
@@ -23,10 +23,10 @@ void Pillar::SpawnPillar(Layer *layer, Point spawnPosition, int order)
 		spawnPosition.y = randomHeight;
 		pillar->setPosition(Point(spawnPosition));
 	}
-	auto bodyPillar = PhysicsBody::createBox(pillar->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 0.0f));//Tạo body có size bằng size pillar
-	bodyPillar->setDynamic(false);//Không chịu tác dụng vật lý
-	bodyPillar->setCollisionBitmask(WALL_COLLISION);
-	bodyPillar->setContactTestBitmask(true);
+	auto bodyPillar = PhysicsBody::createBox(pillar->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	bodyPillar->setDynamic(false);
+	/*bodyPillar->setCollisionBitmask(WALL_COLLISION);
+	bodyPillar->setContactTestBitmask(true);*/
 	pillar->setPhysicsBody(bodyPillar);
 	layer->addChild(pillar);
 }

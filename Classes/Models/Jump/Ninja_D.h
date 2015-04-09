@@ -7,15 +7,13 @@ USING_NS_CC;
 class Ninja_D : public Node
 {
 public:
-	Ninja_D();
 	Ninja_D(Layer *layer);
 	~Ninja_D();
 
-	bool isJumping;
-	bool isStand;
+	/*bool isJumping;
+	bool isStand;*/
 
 	void JumpAction(float force);
-private:
 	PhysicsBody *bodyNinja;
 };
 

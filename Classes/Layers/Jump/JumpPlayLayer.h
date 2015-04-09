@@ -1,20 +1,20 @@
-﻿#ifndef _GAMEPLAY_LAYER_
-#define _GAMEPLAY_LAYER_
+﻿#ifndef _JUMPPLAY_LAYER_
+#define _JUMPPLAY_LAYER_
 #include "cocos2d.h"
 #include "Models/Jump/Ninja_D.h"
 #include "Models/Jump/Pillar.h"
 #include "Layers/Jump/JumpLayer.h"
+USING_NS_CC;
 
-class GamePlayLayer : public cocos2d::Layer
+class JumpPlayLayer : public Layer
 {
+private:
+	JumpLayer *jumpLayer;
 public:
-	GamePlayLayer();
-	~GamePlayLayer();
+	JumpPlayLayer();
+	~JumpPlayLayer();
 	bool init();
-	//CREATE_FUNC(GamePlayLayer);
-	Ninja_D *ninja;
-	Pillar *pillar;
-	virtual void update();
+	CREATE_FUNC(JumpPlayLayer);
 
 	//Xử lý Touch
 	bool onTouchBegan(Touch *touch, Event *unused_event);
@@ -23,4 +23,4 @@ public:
 
 };
 
-#endif //_GAMEPLAY_LAYER_
+#endif //_JUMPPLAY_LAYER_

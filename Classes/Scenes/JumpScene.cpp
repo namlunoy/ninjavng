@@ -22,7 +22,7 @@ Scene* JumpScene::createPhysicScene()
 	scene->addChild(jumplayer,1);
 
 	//GamePlay
-	auto gamePlayLayer = GamePlayLayer::create();
+	auto gamePlayLayer = JumpPlayLayer::create();
 	scene->addChild(gamePlayLayer,2);
 
 	return scene;

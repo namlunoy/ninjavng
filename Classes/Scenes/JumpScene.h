@@ -2,7 +2,7 @@
 #define _JumpScene_
 #include "cocos2d.h"
 #include "Layers/Jump/JumpLayer.h"
-#include "Layers/Jump/GamePlayLayer.h"
+#include "Layers/Jump/JumpPlayLayer.h"
 #include "Models/Jump/Background.h"
 USING_NS_CC;
 
