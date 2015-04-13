@@ -10,7 +10,7 @@ BoundWall* BoundWall::createWall(WallType type, Size size)
 
 BoundWall::BoundWall(WallType type, Size screenSize)
 {
-	PhysicsBody* body;
+	PhysicsBody* body = nullptr;
 	switch (type)
 	{
 	case UP:

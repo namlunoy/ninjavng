@@ -2,7 +2,7 @@
 #include "Utility/Tags.h"
 
 Shuriken::~Shuriken(){}
-
+float Shuriken::force = 700.0f;
 Shuriken::Shuriken()
 {
 	_sprite = Sprite::create("Shuriken.png");
