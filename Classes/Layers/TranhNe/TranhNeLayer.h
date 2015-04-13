@@ -10,6 +10,7 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "Scenes/HelloWorldScene.h"
 
 USING_NS_CC;
 using namespace ui;
