@@ -33,8 +33,7 @@ public:
 	void runAnimation_Nhay();
 	void jump();
 
-
-
+	bool onContactBegin(PhysicsContact& contact);
 };
 
 #endif
