@@ -21,16 +21,17 @@ bool JumpLayer::init()
 	ninja = new Ninja_D(this);
 
 	//Tạo cảnh ban đầu
-	auto firtsSpawnPoint = Point(100, 0);
+	/*auto firtsSpawnPoint = Point(100, 0);
 	pillar->SpawnPillar(this, firtsSpawnPoint, 1);
 	auto prevSpawnPoint = Point(rootPoint.x + 100, 0);
-	do 
+	do
 	{
-		auto distance = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
-		auto nextSpawnPoint = Point(prevSpawnPoint.x+ distance, 0);
-		prevSpawnPoint.x = nextSpawnPoint.x;
-		pillar->SpawnPillar(this, nextSpawnPoint, 2);
-	} while (screenSize.width - prevSpawnPoint.x > DISTANCE_MAX);
+	auto distance = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
+	auto nextSpawnPoint = Point(prevSpawnPoint.x+ distance, 0);
+	prevSpawnPoint.x = nextSpawnPoint.x;
+	pillar->SpawnPillar(this, nextSpawnPoint, 2);
+	} while (screenSize.width - prevSpawnPoint.x > DISTANCE_MAX);*/
+
 
 	return true;
 }

@@ -8,7 +8,24 @@ class Pillar: public Sprite
 {
 public:
 	Pillar();
-	void SpawnPillar(Layer *layer, Point spawnPosition, int order);
+	Pillar(Sprite *pillar, float heightRandom, Point position, PhysicsBody *bodyPillar);
+	Sprite *pillar;
+	float heightRandom;
+	Point position;
+	PhysicsBody *bodyPillar;
+	
+	//Get, Set
+	void SetPillar(Sprite *sprite);
+	Sprite* GetPillar();
+	void SetHeightRandom(float height);
+	float GetHeightRandom();
+	void SetPosition(Point position);
+	Point GetPosition();
+	void SetPhysicsBody(PhysicsBody *physicsBody);
+	PhysicsBody* GetPhysicsBody();
+
+	//void SpawnPillar(Layer *layer, Point spawnPosition, int order);
+	void SpawnPillar(Layer *layer);
 	void MovePillar();
 	void StopPillar();
 private:
