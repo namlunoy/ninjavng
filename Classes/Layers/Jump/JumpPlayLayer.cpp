@@ -4,12 +4,8 @@
 #include "ui/CocosGUI.h"
 using namespace ui;
 
-JumpPlayLayer::JumpPlayLayer()
-{
-}
-JumpPlayLayer::~JumpPlayLayer()
-{
-}
+JumpPlayLayer::JumpPlayLayer(){}
+JumpPlayLayer::~JumpPlayLayer(){}
 
 bool JumpPlayLayer::init()
 {
@@ -40,6 +36,8 @@ bool JumpPlayLayer::init()
 	touchListener->onTouchEnded = CC_CALLBACK_2(JumpPlayLayer::onTouchEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 
+	this->scheduleUpdate();
+
 	return true;
 }
 
@@ -53,11 +51,8 @@ bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
 	//Ninja
 	CCLOG("Start Force");
+	isJumping = true;
 	jumpLayer->ninja->JumpAction(1000.0f);
-
-	//Pillar
-	jumpLayer->pillar->MovePillar();
-
 	return true;
 }
 
@@ -70,5 +65,12 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
 	CCLOG("End Force");
 	jumpLayer->ninja->bodyNinja->resetForces();
+	isJumping = false;
 }
 #pragma endregion 
+
+void JumpPlayLayer::update(float delta)
+{
+	if (isJumping == true) jumpLayer->pillar->MovePillar();
+	if (isJumping = false) jumpLayer->pillar->StopPillar();//Chưa chạy
+}

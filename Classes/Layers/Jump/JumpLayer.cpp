@@ -10,6 +10,14 @@ JumpLayer::~JumpLayer()
 {
 }
 
+JumpLayer::JumpLayer()
+{
+	firstSpawnPoint = Point(100, 0);
+	pillar = Pillar::createPillar();
+	pillar->SpawnPillar(this, firstSpawnPoint);
+	prevSpawnPoint = firstSpawnPoint;
+}
+
 bool JumpLayer::init()
 {
 	if (!Layer::init()) return false;
@@ -21,23 +29,44 @@ bool JumpLayer::init()
 	ninja = new Ninja_D(this);
 
 	//Tạo cảnh ban đầu
-	/*auto firtsSpawnPoint = Point(100, 0);
-	pillar->SpawnPillar(this, firtsSpawnPoint, 1);
-	auto prevSpawnPoint = Point(rootPoint.x + 100, 0);
+	//pillar = Pillar::createPillar(firstSpawnPoint);
+	
+	this->scheduleUpdate();
+	//this->schedule(schedule_selector(JumpLayer::SpawnPillar), 1);
+	/*prevSpawnPoint = Point(rootPoint.x + firstSpawnPoint.x, 0);
 	do
 	{
-	auto distance = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
-	auto nextSpawnPoint = Point(prevSpawnPoint.x+ distance, 0);
-	prevSpawnPoint.x = nextSpawnPoint.x;
-	pillar->SpawnPillar(this, nextSpawnPoint, 2);
+		auto distance = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
+		auto heightRandom = CCRANDOM_0_1()*pillar->getContentSize().height / 2;
+		auto nextSpawnPoint = Point(prevSpawnPoint.x + distance, heightRandom);
+		prevSpawnPoint.x = nextSpawnPoint.x;
+		Pillar *p = Pillar::createPillar(nextSpawnPoint);
+		p->SpawnPillar(this);
 	} while (screenSize.width - prevSpawnPoint.x > DISTANCE_MAX);*/
-
 
 	return true;
 }
 
-void JumpLayer::SpawnPillar(float spawn)
+void JumpLayer::SpawnPillar()
 {
-	/*auto randomHeight = CCRANDOM_0_1()*pillar->getContentSize().height / 2;
-	pillar->SpawnPillar(this, Point(Config::screenSize.width + pillar->getContentSize().width, randomHeight), 0);*/
+	pillar->SpawnPillar(this, Point(Config::screenSize.width,0));
+}
+
+void JumpLayer::MovePillar()
+{
+	pillar->MovePillar();
+}
+
+void JumpLayer::update(float delta)
+{
+	do
+	{
+		auto distance = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
+		auto heightRandom = CCRANDOM_0_1()*175;
+		CCLOG("%f", heightRandom);
+		nextSpawnPoint = Point(prevSpawnPoint.x + distance, heightRandom);
+		prevSpawnPoint = nextSpawnPoint;
+		pillar = Pillar::createPillar();
+		pillar->SpawnPillar(this, nextSpawnPoint);
+	} while (Config::screenSize.width - prevSpawnPoint.x > DISTANCE_SPAWN_MAX);
 }
