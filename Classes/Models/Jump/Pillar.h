@@ -4,33 +4,20 @@
 USING_NS_CC;
 using namespace std;
  
-class Pillar: public Sprite
+class Pillar: public Node
 {
 public:
 	Pillar();
-	Pillar(Sprite *pillar, float heightRandom, Point position, PhysicsBody *bodyPillar);
-	Sprite *pillar;
-	float heightRandom;
-	Point position;
-	PhysicsBody *bodyPillar;
-	
-	//Get, Set
-	void SetPillar(Sprite *sprite);
-	Sprite* GetPillar();
-	void SetHeightRandom(float height);
-	float GetHeightRandom();
-	void SetPosition(Point position);
-	Point GetPosition();
-	void SetPhysicsBody(PhysicsBody *physicsBody);
-	PhysicsBody* GetPhysicsBody();
+	~Pillar();
+	Sprite *sprite;
+	PhysicsBody *body;
 
-	//void SpawnPillar(Layer *layer, Point spawnPosition, int order);
-	void SpawnPillar(Layer *layer);
+	bool init();
+	
+	static Pillar* createPillar(/*Point pos*/);
+	void SpawnPillar(Layer *layer, Point pos);
 	void MovePillar();
 	void StopPillar();
-private:
-	Size screenSize;
-	Point rootPoint;
 };
 
 #endif _PILLAR_H_

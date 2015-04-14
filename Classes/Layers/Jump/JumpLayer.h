@@ -8,14 +8,23 @@ USING_NS_CC;
 class JumpLayer : public Layer
 {
 public:
+	JumpLayer();
 	~JumpLayer();
 	bool init();
 	CREATE_FUNC(JumpLayer);
 	PhysicsWorld *physicsWorld;
 	void SetPhysicsWorld (PhysicsWorld *world) {physicsWorld = world; }
-	void SpawnPillar(float spawn);
-	Pillar *pillar;
 	Ninja_D* ninja;
+
+	//Pillar
+	Pillar *pillar;
+	Point firstSpawnPoint;
+	Point prevSpawnPoint;
+	Point nextSpawnPoint;
+	void MovePillar();
+	void SpawnPillar();
+	void update(float delta);
+	
 };
 
 #endif
