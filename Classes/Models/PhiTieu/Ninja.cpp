@@ -22,6 +22,10 @@ bool Ninja::init(string fileName)
 
 	//this->scheduleUpdate();
 	jumpCount = 0;
+	//contact listner
+	auto contactListener = EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(Ninja::onContactBegin, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	//Khởi tạo sprite chính
 	_sprite = Sprite::create(fileName);
@@ -48,7 +52,10 @@ void Ninja::runAnimation(string name, int count, float time, bool isRepeat)
 	XHelper::runAnimation(name, count, time, true, this->_sprite);
 }
 
-//-------------------- Công -------------------------
+bool Ninja::onContactBegin(PhysicsContact& contact)
+{
+	return false;
+}
 
 void Ninja::jump()
 {
