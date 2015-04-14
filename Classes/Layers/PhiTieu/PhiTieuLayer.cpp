@@ -16,19 +16,7 @@ bool PhiTieuLayer::init()
 	_background->setScale(theScale);
 	this->addChild(_background, -1);
 
-	//-------  The Ground -----------
-	//Node* _ground = Node::create();
-	//_ground->setTag(Tags::GROUND);
-	//auto _groundBody = PhysicsBody::createBox(Size(Config::screenSize.width, 50),PhysicsMaterial(1.0f, 0.0f, 0.0f));
-	//_groundBody->setGravityEnable(false);
-	//_groundBody->setDynamic(false);
-	//_ground->setPhysicsBody(_groundBody);
-	//_ground->setAnchorPoint(Vec2(0.5f,1));
-	//_ground->setPosition(Vec2(Config::screenSize.width/2, 5));
-	//this->addChild(_ground);
-
 	//--------  Các đường bao --------
-
 	this->addChild(BoundWall::createWall(WallType::UP, Config::screenSize));
 	this->addChild(BoundWall::createWall(WallType::DOWN, Config::screenSize));
 	this->addChild(BoundWall::createWall(WallType::LEFT, Config::screenSize));
@@ -42,6 +30,10 @@ bool PhiTieuLayer::init()
 	this->addChild(ninja);
 
 
+	//Thực hiện sinh các quân địch
+	Enemy_Run* e = Enemy_Run::create(1);
+	e->setPosition(Vec2(100,100));
+	this->addChild(e);
 
 	return true;
 }

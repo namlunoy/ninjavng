@@ -10,7 +10,8 @@ class Enemy_Run : public Enemy
 {
 
 public:
-	void setup();
+	static Enemy_Run*  create(int level);
+	void setAction() override;
 	Enemy_Run();
 	~Enemy_Run();
 };
