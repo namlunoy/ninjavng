@@ -23,7 +23,7 @@ Scene* HelloWorld::createScene() {
 bool HelloWorld::init() {
 	if (!Layer::init())
 		return false;
-
+	Config::screenSize = Director::getInstance()->getVisibleSize();
 	Size screenSize = Config::screenSize;
 	Vec2 center(screenSize.width / 2, screenSize.height / 2);
 	Config::centerPoint = center;
