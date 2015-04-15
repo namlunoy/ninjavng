@@ -20,10 +20,16 @@ Enemy_Run::Enemy_Run()
 
 void Enemy_Run::setupAction()
 {
+	float time = 0;
 	switch (_level)
 	{
 	case 1:
-		//_action = MoveTo::cre
+		//Tính toán thời gian
+		_speed = 130;
+		time = Config::screenSize.width / _speed;
+		this->setPosition(Config::getSpawnStart_low());
+		_action = MoveTo::create(time,Config::getSpawnEnd_low());
+		this->runAction(_action);
 		break;
 	}
 }

@@ -27,10 +27,6 @@ Shuriken::Shuriken()
 	contactListener->onContactBegin = CC_CALLBACK_1(Shuriken::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-	//schedule(CC_SCHEDULE_SELECTOR(PhysicsDemoCollisionProcessing::tick), 0.3f);
-
-
-
 
 }
 

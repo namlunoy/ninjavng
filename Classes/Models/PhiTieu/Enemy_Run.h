@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Enemy.h"
+#include "Utility/Config.h"
 
 USING_NS_CC;
 

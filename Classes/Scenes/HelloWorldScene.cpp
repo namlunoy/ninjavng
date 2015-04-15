@@ -7,6 +7,7 @@
 #include "ChemScene.h"
 #include "TranhNeScene.h"
 #include "BanTao_Scence.h"
+#include "Utility/Config.h"
 
 using namespace ui;
 using namespace std;
@@ -23,16 +24,10 @@ bool HelloWorld::init() {
 	if (!Layer::init())
 		return false;
 
-	Size screenSize = Director::getInstance()->getVisibleSize();
-	Config::screenSize = screenSize;
-
-	//Size phoneSize(800, 480);
-	//float xScale = screenSize.width / phoneSize.width;
-	//float yScale = screenSize.height / phoneSize.height;
-	//float scale = max(xScale, yScale);
-
+	Size screenSize = Config::screenSize;
 	Vec2 center(screenSize.width / 2, screenSize.height / 2);
 	Config::centerPoint = center;
+
 	//Hiện thị background
 	Sprite* bg = Sprite::create("bg2.jpg");
 	bg->setPosition(screenSize.width / 2, screenSize.height / 2);

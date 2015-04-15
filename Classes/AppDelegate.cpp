@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "Scenes/HelloWorldScene.h"
+#include "Utility/Config.h"
 
 USING_NS_CC;
 
@@ -25,6 +26,8 @@ void AppDelegate::initGLContextAttrs()
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
     auto director = Director::getInstance();
+    Config::screenSize = director->getVisibleSize();
+
     auto glview = director->getOpenGLView();
     if(!glview) {
         glview = GLViewImpl::create("My Game");
