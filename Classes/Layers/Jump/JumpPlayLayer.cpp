@@ -65,7 +65,7 @@ void JumpPlayLayer::onTouchMoved(Touch *touch, Event *unused_event)
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
 	CCLOG("End Force");
-	jumpLayer->ninja->bodyNinja->resetForces();
+	jumpLayer->ninja->body->resetForces();
 	//isJumping = false;
 }
 #pragma endregion 

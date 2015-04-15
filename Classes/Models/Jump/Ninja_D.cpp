@@ -5,14 +5,13 @@ Ninja_D::~Ninja_D(){}
 Ninja_D::Ninja_D()
 {
 	sprite = Sprite::create("Ninja2.png");
-	bodyNinja = PhysicsBody::createBox(Size(sprite->getBoundingBox().size), PhysicsMaterial(1.0f, 1.0f, 1.0f));
-	bodyNinja->setMass(1.0f);
-	bodyNinja->setAngularVelocityLimit(0.0f);
-	bodyNinja->setCollisionBitmask(NINJA_COLLISION);
-	bodyNinja->setContactTestBitmask(true);
-	sprite->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 1.0f));
+	body->setMass(10.0f);
+	body->setAngularVelocityLimit(0.0f);
+	body->setCollisionBitmask(NINJA_COLLISION);
+	body->setContactTestBitmask(true);
+	this->setPhysicsBody(body);
 	this->addChild(sprite);
-	this->setPhysicsBody(bodyNinja);
 }
 
 bool Ninja_D::init()
@@ -35,7 +34,7 @@ Ninja_D* Ninja_D::createNinja()
 
 void Ninja_D::JumpAction(float force)
 {
-	CCLOG("Force Ninja");
-	bodyNinja->applyForce(Vect(0, force));
+	CCLOG("Force");
+	body->applyForce(Vect(0, force));
 }
 

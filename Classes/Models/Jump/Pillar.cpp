@@ -11,8 +11,7 @@ Pillar::Pillar()
 	sprite = Sprite::create("building.png");
 	this->addChild(sprite);
 	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 0));
-	body->setDynamic(true);
-	body->setGravityEnable(false);
+	body->setDynamic(false);
 	body->setCollisionBitmask(WALL_COLLISION);
 	body->setContactTestBitmask(true);
 	this->setPhysicsBody(body);

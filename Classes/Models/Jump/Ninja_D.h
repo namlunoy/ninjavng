@@ -10,7 +10,7 @@ public:
 	Ninja_D();
 	~Ninja_D();
 	Sprite *sprite;
-	PhysicsBody *bodyNinja;
+	PhysicsBody *body;
 	bool init();
 	static Ninja_D* createNinja();
 	void JumpAction(float force);
