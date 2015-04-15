@@ -3,6 +3,8 @@
 #include "cocos2d.h"
 #include "Models/Jump/Ninja_D.h"
 #include "Models/Jump/Pillar.h"
+#include <iostream>
+#include <list>
 USING_NS_CC;
 
 class JumpLayer : public Layer
@@ -18,13 +20,14 @@ public:
 
 	//Pillar
 	Pillar *pillar;
+	Pillar *lastPillar;
 	Point firstSpawnPoint;
 	Point prevSpawnPoint;
 	Point nextSpawnPoint;
+	Point randomPoint;
 	void MovePillar();
-	void SpawnPillar();
+	void SpawnPillar(Point pos);
 	void update(float delta);
-	
 };
 
 #endif

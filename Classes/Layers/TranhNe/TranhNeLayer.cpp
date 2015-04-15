@@ -43,6 +43,12 @@ bool TranhNeLayer::init()
 	auto label = LabelTTF::create("Tranh Ne","Arial",30);
 	label->setPosition(Vec2(100,100));
 	this->addChild(label);
+
+	auto troll = Sprite::create("troll.png");
+	troll->setPosition(400, 240);
+	troll->setScale(0.1);
+	this->addChild(troll);
+
 	return true;
 }
 

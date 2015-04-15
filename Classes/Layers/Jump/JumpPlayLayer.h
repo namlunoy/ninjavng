@@ -27,6 +27,9 @@ public:
 	void onTouchMoved(Touch *touch, Event *unused_event);
 	void onTouchEnded(Touch *touch, Event *unused_event);
 
+	//Xử lý va chạm
+	bool onContactBegin(PhysicsContact &contact);
+
 	//Schedule
 	void MovePillar(float dt);
 	void update(float delta);

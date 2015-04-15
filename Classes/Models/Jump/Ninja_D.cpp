@@ -1,5 +1,5 @@
 #include "Ninja_D.h"
-#include "chipmunk.h"
+#include "Utility/Definition.h"
 
 Ninja_D::~Ninja_D(){}
 Ninja_D::Ninja_D(Layer *layer)
@@ -9,7 +9,9 @@ Ninja_D::Ninja_D(Layer *layer)
 	bodyNinja = PhysicsBody::createBox(Size(ninja->getBoundingBox().size), PhysicsMaterial(1.0f, 1.0f, 1.0f));
 	bodyNinja->setMass(1.0f);
 	bodyNinja->setAngularVelocityLimit(0.0f);
-	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	bodyNinja->setCollisionBitmask(NINJA_COLLISION);
+	bodyNinja->setContactTestBitmask(true);
+	ninja->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	ninja->setPhysicsBody(bodyNinja);
 	layer->addChild(ninja);
 }
@@ -17,6 +19,6 @@ Ninja_D::Ninja_D(Layer *layer)
 void Ninja_D::JumpAction(float force)
 {
 	CCLOG("Force Ninja");
-	bodyNinja->applyForce(Vect(1000.f, force));
+	bodyNinja->applyForce(Vect(0, force));
 }
 

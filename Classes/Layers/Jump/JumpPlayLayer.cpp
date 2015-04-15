@@ -2,6 +2,7 @@
 #include "Utility/Config.h"
 #include "Scenes/HelloWorldScene.h"
 #include "ui/CocosGUI.h"
+#include "Utility/Definition.h"
 using namespace ui;
 
 JumpPlayLayer::JumpPlayLayer(){}
@@ -10,7 +11,7 @@ JumpPlayLayer::~JumpPlayLayer(){}
 bool JumpPlayLayer::init()
 {
 	//Back Button
-	auto backButton = Button::create("back_button-1.png", "back_button-1.png", "back_button - 1.png");
+	auto backButton = Button::create("back_button-1.png", "back_button-1.png");
 	backButton->setAnchorPoint(Vec2(0, 0));
 	backButton->setScale(0.3f, 0.5f);
 	backButton->setPosition(Point(0, Config::screenSize.height - backButton->getContentSize().height / 2));
@@ -53,6 +54,8 @@ bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 	CCLOG("Start Force");
 	isJumping = true;
 	jumpLayer->ninja->JumpAction(1000.0f);
+	CCLOG("%f", jumpLayer->pillar->getPosition().x);
+	CCLOG("%f", jumpLayer->pillar->getPosition().y);
 	return true;
 }
 
@@ -65,12 +68,13 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
 	CCLOG("End Force");
 	jumpLayer->ninja->bodyNinja->resetForces();
-	isJumping = false;
+	//isJumping = false;
 }
 #pragma endregion 
 
 void JumpPlayLayer::update(float delta)
 {
-	if (isJumping == true) jumpLayer->pillar->MovePillar();
-	if (isJumping = false) jumpLayer->pillar->StopPillar();//Chưa chạy
+	//if (isJumping == true) jumpLayer->pillar->MovePillar();
+	//if (isJumping = false) jumpLayer->pillar->StopPillar();//Chưa chạy
 }
+
