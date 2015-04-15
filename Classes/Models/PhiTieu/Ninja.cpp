@@ -36,6 +36,7 @@ bool Ninja::init(string fileName)
 	_body = PhysicsBody::createBox(_sprite->getBoundingBox().size,
 		PhysicsMaterial(_ninjaModel.density, _ninjaModel.restitution, _ninjaModel.friction));
 	_body->setMass(_ninjaModel.mass);
+	_body->setDynamic(false);
 	_body->setGravityEnable(false);
 	_body->setAngularVelocityLimit(0.0f);
 	_body->setTag(Tags::NINJA);

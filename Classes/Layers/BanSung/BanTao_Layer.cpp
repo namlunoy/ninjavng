@@ -130,6 +130,8 @@ bool BanTao_Layer::onTouchBegan(Touch *touch, Event *unused_event)
 
 void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target *target)
 {
+	try
+	{
 	
 	//tạo paticle
 	auto emitter = ParticleFire::create();
@@ -137,6 +139,7 @@ void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target
 	emitter->setPosition(target->getPosition());
 	emitter->setDuration(0.5);
 	this->addChild(emitter, 10);
+	emitter->setTag(14);
 
 	//tính xem tọa độ của cái target có trùng quả táo không?
 	// nếu trùng thì quả táo biến mất
@@ -156,8 +159,8 @@ void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target
 		this->removeChildByTag(13);
 		speed = speed - 0.1;
 
-		BanTao_Target* target = BanTao_Target::create("target2.png",speed);
-		this->addChild(target,1);
+		BanTao_Target* newtarget = BanTao_Target::create("target2.png",speed);
+		this->addChild(newtarget,1);
 
 		score = score + 10;
 		CCLOG("Score: %f", score);
@@ -171,6 +174,16 @@ void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target
 		checkLive();
 	}
 
+	/*this->runAction(Sequence::create(
+		DelayTime::create(1))); */
+
+	//this->removeChildByTag(14);
+	}
+	catch (std::exception &cException)
+	{
+		cerr << "Standard exception: " << cException.what() << endl;
+	}
+	
 }
 
 

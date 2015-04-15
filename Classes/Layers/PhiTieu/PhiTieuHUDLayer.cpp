@@ -1,4 +1,5 @@
 ﻿#include "PhiTieuHUDLayer.h"
+#include "PhiTieuController.h"
 
 PhiTieuHUDLayer::PhiTieuHUDLayer() {
 }
@@ -43,7 +44,7 @@ bool PhiTieuHUDLayer::init() {
 			toucheventselector(PhiTieuHUDLayer::click_Jump));
 	this->addChild(bt_jump);
 
-	//-----------  touch event ------------
+//-----------------  Touch event ------------
 	auto _touchListener = EventListenerTouchOneByOne::create();
 	_touchListener->onTouchBegan = CC_CALLBACK_2(
 			PhiTieuHUDLayer::touch_PhongTieu, this);
@@ -54,17 +55,13 @@ bool PhiTieuHUDLayer::init() {
 }
 
 bool PhiTieuHUDLayer::touch_PhongTieu(Touch* t, Event* e) {
-	_phiTieuLayer->PhongTieu(t->getLocation());
+	PhiTieuController::getInstance()->PhongTieu(t->getLocation());
 	return true;
 }
 
 void PhiTieuHUDLayer::click_Jump(Ref* sender, TouchEventType touchType) {
 	//Thực hiện nhảy
 	if (touchType == TouchEventType::TOUCH_EVENT_BEGAN) {
-		_phiTieuLayer->Jump();
+		PhiTieuController::getInstance()->Jump();
 	}
-}
-
-void PhiTieuHUDLayer::setPhiTieuLayer(PhiTieuLayer* layer) {
-	_phiTieuLayer = layer;
 }

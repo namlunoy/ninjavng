@@ -5,30 +5,29 @@ Shuriken::~Shuriken(){}
 float Shuriken::force = 700.0f;
 Shuriken::Shuriken()
 {
-	_sprite = Sprite::create("Shuriken.png");
+	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
+	_sprite = Sprite::create("Shuriken.png");
+	_sprite->setScale(0.11f);
+	this->addChild(_sprite);
 	// --------------- Physic  ------------
 	//Đặc điểm: luôn quay, không chịu tác dụng của trọng lực, không chịu masat, ko va chạm
 
-	_body = PhysicsBody::createBox(Size(10, 10), PhysicsMaterial(1.0f, 0, 0));
+	_body = PhysicsBody::createBox(Size(20,20), PhysicsMaterial(1.0f, 0, 0));
 	_body->setGravityEnable(false);
 	_body->setMass(1.0f);
 	_body->setAngularVelocity(-30);
 	_body->setDynamic(true);
 	_body->setCollisionBitmask(Tags::SHURIKEN);
 	_body->setContactTestBitmask(true);
+	this->setPhysicsBody(_body);
 
 	//adds contact event listener
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Shuriken::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-	//schedule(CC_SCHEDULE_SELECTOR(PhysicsDemoCollisionProcessing::tick), 0.3f);
 
-	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	this->setPhysicsBody(_body);
-	this->addChild(_sprite);
-	this->_sprite->setScale(0.11f);
 }
 
 Shuriken* Shuriken::createSuriken()

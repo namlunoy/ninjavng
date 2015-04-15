@@ -1,1 +1,0 @@
-Các class đối tượng dùng trong scene

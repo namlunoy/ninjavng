@@ -22,3 +22,4 @@ float Config::getScale(string backgroundFileName)
 	//background->release();
 	return theScale;
 }
+
