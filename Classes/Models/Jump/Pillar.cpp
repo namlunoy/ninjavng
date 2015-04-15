@@ -9,13 +9,13 @@ Pillar::~Pillar(){}
 Pillar::Pillar()
 {
 	sprite = Sprite::create("building.png");
-	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 1));
-	body->setDynamic(false);
+	this->addChild(sprite);
+	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 0));
+	body->setDynamic(true);
+	body->setGravityEnable(false);
 	body->setCollisionBitmask(WALL_COLLISION);
 	body->setContactTestBitmask(true);
-	sprite->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	sprite->setPhysicsBody(body);
-	//this->addChild(sprite);
+	this->setPhysicsBody(body);
 }
 
 bool Pillar::init()
@@ -31,31 +31,22 @@ bool Pillar::init()
 	return true;
 }
 
-Pillar* Pillar::createPillar(/*Point pos*/)
+Pillar* Pillar::createPillar()
 {
 	Pillar* pillar = new Pillar();
-	//pillar->setPosition(pos);
+	pillar->init();
+	pillar->autorelease();
 	return pillar;
 }
-
 
 Point Pillar::getCurrenPos()
 {
 	return this->getPosition();
 }
 
-void Pillar::SpawnPillar(Layer *layer, Point pos)
+void Pillar::MovePillar(Vec2 vec)
 {
-	this->addChild(sprite);
-	layer->addChild(this);
-	this->setPosition(pos);
-	auto move = MoveBy::create(2, Vec2(222, 555));
-	sprite->runAction(move);
-}
-
-void Pillar::MovePillar()
-{
-	auto movePillar = MoveBy::create(Config::screenSize.width * 0.05, Vec2(- Config::screenSize.width, 0));
+	auto movePillar = MoveBy::create(2, vec);
 	this->runAction(movePillar);
 }
 
@@ -76,5 +67,5 @@ bool Pillar::onContactBegin(PhysicsContact &contact)
 		body_b->getNode()->stopAllActions();
 	}
 
-	return false;
+	return true;
 }

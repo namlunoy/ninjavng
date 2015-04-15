@@ -54,8 +54,6 @@ bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 	CCLOG("Start Force");
 	isJumping = true;
 	jumpLayer->ninja->JumpAction(1000.0f);
-	CCLOG("%f", jumpLayer->pillar->getPosition().x);
-	CCLOG("%f", jumpLayer->pillar->getPosition().y);
 	return true;
 }
 

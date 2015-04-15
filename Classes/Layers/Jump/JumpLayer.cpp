@@ -12,23 +12,23 @@ JumpLayer::~JumpLayer(){}
 JumpLayer::JumpLayer()
 {
 	firstSpawnPoint = Point(100, 0);
-	pillar = Pillar::createPillar();
-	pillar->SpawnPillar(this, firstSpawnPoint);
-	//prevSpawnPoint = firstSpawnPoint;
-	//CCLOG("%f", pillar->getCurrenPos().x);
-	//listPillar(1, pillar);
-	////listPillar.push_back(pillar);
 }
 
 bool JumpLayer::init()
 {
 	if (!Layer::init()) return false;
 
-	//Tạo 1 đối tượng Ninja
-	ninja = new Ninja_D(this);
+	//Tạo thằng Ninja
+	ninja = Ninja_D::createNinja();
+	ninja->setPosition(100, 220);
+	this->addChild(ninja);
 
-	//this->scheduleUpdate();
-	//this->schedule(schedule_selector(JumpLayer::SpawnPillar), 1);
+	Pillar *p = Pillar::createPillar();
+	p->setPosition(100,0);
+	this->addChild(p);
+
+
+
 	/*prevSpawnPoint = Point(rootPoint.x + firstSpawnPoint.x, 0);
 	do
 	{
@@ -43,15 +43,15 @@ bool JumpLayer::init()
 	return true;
 }
 
-//void JumpLayer::SpawnPillar(Point pos)
-//{
-//	pillar->SpawnPillar(this, pos);
-//}
-//
-//void JumpLayer::MovePillar()
-//{
-//	pillar->MovePillar();
-//}
+void JumpLayer::SpawnPillar()
+{
+	
+}
+
+void JumpLayer::MovePillar()
+{
+	
+}
 
 void JumpLayer::update(float delta)
 {
