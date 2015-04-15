@@ -9,7 +9,7 @@ class Shuriken : public Node{
 private:
 	Sprite* _sprite;
 	PhysicsBody* _body;
-	const float force = 700.0f;
+	static float force;// = 700.0f;
 	bool init();
 
 

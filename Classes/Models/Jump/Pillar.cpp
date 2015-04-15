@@ -2,38 +2,44 @@
 #include "Utility/Definition.h"
 #include "Utility/Config.h"
 #include "cocos2d.h"
-#include "stdint.h"
+
+Pillar::~Pillar(){}
+//Pillar::Pillar(){}
 
 Pillar::Pillar()
 {
-	/*screenSize = Director::getInstance()->getVisibleSize();
-	rootPoint = Director::getInstance()->getVisibleOrigin();*/
+	sprite = Sprite::create("building.png");
+	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 1));
+	body->setDynamic(false);
+	//sprite->setPosition(0, CCRANDOM_0_1()*sprite->getContentSize().height / 2);
+	sprite->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	sprite->setPhysicsBody(body);
+	this->addChild(sprite);
 }
 
-void Pillar::SpawnPillar(Layer *layer, Point spawnPosition, int order)
+bool Pillar::init()
 {
-	auto pillar = Sprite::create("pillar.png");
-	if (order == 1)
-	{
-		pillar->setPosition(Point(spawnPosition));
-	}
-	else if (order == 2)
-	{
-		auto randomHeight = CCRANDOM_0_1()*pillar->getContentSize().height / 2;
-		spawnPosition.y = randomHeight;
-		pillar->setPosition(Point(spawnPosition));
-	}
-	auto bodyPillar = PhysicsBody::createBox(pillar->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 0.0f));//Tạo body có size bằng size pillar
-	bodyPillar->setDynamic(false);//Không chịu tác dụng vật lý
-	bodyPillar->setCollisionBitmask(WALL_COLLISION);
-	bodyPillar->setContactTestBitmask(true);
-	pillar->setPhysicsBody(bodyPillar);
-	layer->addChild(pillar);
+	if (!Node::init())
+		return false;
+	return true;
+}
+
+Pillar* Pillar::createPillar(/*Point pos*/)
+{
+	Pillar* pillar = new Pillar();
+	//pillar->setPosition(pos);
+	return pillar;
+}
+
+void Pillar::SpawnPillar(Layer *layer, Point pos)
+{
+	layer->addChild(this);
+	this->setPosition(pos);
 }
 
 void Pillar::MovePillar()
 {
-	auto movePillar = MoveBy::create(Config::screenSize.width*0.005, Vec2(- Config::screenSize.width - 200, 0));
+	auto movePillar = MoveBy::create(Config::screenSize.width * 0.05, Vec2(- Config::screenSize.width, 0));
 	this->runAction(movePillar);
 }
 
@@ -41,3 +47,4 @@ void Pillar::StopPillar()
 {
 	this->stopAllActions();
 }
+//Chưa chạy

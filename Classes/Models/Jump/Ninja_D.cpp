@@ -1,19 +1,22 @@
 #include "Ninja_D.h"
+#include "chipmunk.h"
 
-Ninja_D::Ninja_D(){}
 Ninja_D::~Ninja_D(){}
 Ninja_D::Ninja_D(Layer *layer)
 {
 	auto ninja = Sprite::create("Ninja2.png");
-	ninja->setPosition(100, 200);
-	bodyNinja = PhysicsBody::createBox(Size(ninja->getContentSize()), PhysicsMaterial(1.0f, 0.0f, 0.0f));
-	//bodyNinja->setMass(1.0f);
+	ninja->setPosition(100, 220);
+	bodyNinja = PhysicsBody::createBox(Size(ninja->getBoundingBox().size), PhysicsMaterial(1.0f, 1.0f, 1.0f));
+	bodyNinja->setMass(1.0f);
+	bodyNinja->setAngularVelocityLimit(0.0f);
+	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	ninja->setPhysicsBody(bodyNinja);
 	layer->addChild(ninja);
 }
 
 void Ninja_D::JumpAction(float force)
 {
-	bodyNinja->applyForce(Vect(0, force));
+	CCLOG("Force Ninja");
+	bodyNinja->applyForce(Vect(1000.f, force));
 }
 

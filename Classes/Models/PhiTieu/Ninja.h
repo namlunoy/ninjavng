@@ -32,9 +32,8 @@ public:
 	void runAnimation_DungYen();
 	void runAnimation_Nhay();
 	void jump();
+
 	bool onContactBegin(PhysicsContact& contact);
-
-
 };
 
 #endif

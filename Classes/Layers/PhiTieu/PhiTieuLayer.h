@@ -10,7 +10,8 @@
 #include "Utility/Config.h"
 #include "Models/PhiTieu/Shuriken.h"
 #include "Models/PhiTieu/Ninja.h"
-
+#include "Models/PhiTieu/BoundWall.h"
+#include "Models/PhiTieu/Enemy_Run.h"
 #include "Utility/Tags.h"
 
 USING_NS_CC;

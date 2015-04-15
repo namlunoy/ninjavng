@@ -7,12 +7,17 @@
 USING_NS_CC;
 using namespace std;
 
+enum WallType
+{
+	UP,DOWN,LEFT,RIGHT
+};
+
 class XHelper
 {
 public:
 	XHelper();
 	~XHelper();
-
+	
 	//Hàm chạy animation
 	//name: tên file (ko có đuôi),vd: ninja_dungyen
 	//count: số frames

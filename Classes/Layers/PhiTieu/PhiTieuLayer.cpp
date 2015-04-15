@@ -1,4 +1,5 @@
 ﻿#include "PhiTieuLayer.h"
+#include "PhiTieuController.h"
 
 PhiTieuLayer::PhiTieuLayer() { }
 PhiTieuLayer::~PhiTieuLayer(){ }
@@ -15,16 +16,11 @@ bool PhiTieuLayer::init()
 	_background->setScale(theScale);
 	this->addChild(_background, -1);
 
-	//-------  The Ground -----------
-	Node* _ground = Node::create();
-	_ground->setTag(Tags::GROUND);
-	auto _groundBody = PhysicsBody::createBox(Size(Config::screenSize.width, 70),PhysicsMaterial(1.0f, 0.0f, 0.0f));
-	_groundBody->setGravityEnable(false);
-	_groundBody->setDynamic(false);
-	_ground->setPhysicsBody(_groundBody);
-	_ground->setPosition(Vec2(Config::screenSize.width/2, 0));
-	this->addChild(_ground);
-
+	//--------  Các đường bao --------
+	this->addChild(BoundWall::createWall(WallType::UP, Config::screenSize));
+	this->addChild(BoundWall::createWall(WallType::DOWN, Config::screenSize));
+	this->addChild(BoundWall::createWall(WallType::LEFT, Config::screenSize));
+	this->addChild(BoundWall::createWall(WallType::RIGHT, Config::screenSize));
 
 	//---------- ninja  -----------
 	ninja = Ninja::create("Ninja2.png");
@@ -34,6 +30,9 @@ bool PhiTieuLayer::init()
 	this->addChild(ninja);
 
 
+	//Thực hiện sinh các quân địch
+	Enemy_Run* e = Enemy_Run::create(1);
+	this->addChild(e);
 
 	return true;
 }
@@ -54,7 +53,7 @@ void PhiTieuLayer::PhongTieu(Vec2 dest) {
 	Vec2 huong = (dest - ninja->getPosition());
 	huong.normalize();
 
-	//thực hiện phóng
+	//thực hiện phóng: Tạo phi tiêu, đặt vị trí, và gọi hàm phóng của nó, hiển thị lên màn hình
 	auto su = Shuriken::createSuriken();
 	su->setPosition(ninja->getPosition());
 	su->phong(huong);

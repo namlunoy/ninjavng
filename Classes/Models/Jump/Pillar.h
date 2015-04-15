@@ -4,17 +4,20 @@
 USING_NS_CC;
 using namespace std;
  
-class Pillar: public Sprite
+class Pillar: public Node
 {
 public:
 	Pillar();
-	void SpawnPillar(Layer *layer, Point spawnPosition, int order);
+	~Pillar();
+	Sprite *sprite;
+	PhysicsBody *body;
+
+	bool init();
+	
+	static Pillar* createPillar(/*Point pos*/);
+	void SpawnPillar(Layer *layer, Point pos);
 	void MovePillar();
 	void StopPillar();
-
-private:
-	Size screenSize;
-	Point rootPoint;
 };
 
 #endif _PILLAR_H_

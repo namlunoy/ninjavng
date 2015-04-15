@@ -2,32 +2,32 @@
 #include "Utility/Tags.h"
 
 Shuriken::~Shuriken(){}
-
+float Shuriken::force = 700.0f;
 Shuriken::Shuriken()
 {
-	_sprite = Sprite::create("Shuriken.png");
+	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
+	_sprite = Sprite::create("Shuriken.png");
+	_sprite->setScale(0.11f);
+	this->addChild(_sprite);
 	// --------------- Physic  ------------
 	//Đặc điểm: luôn quay, không chịu tác dụng của trọng lực, không chịu masat, ko va chạm
 
-	_body = PhysicsBody::createBox(this->getBoundingBox().size, PhysicsMaterial(0.1f, 0, 0));
+	_body = PhysicsBody::createBox(Size(20,20), PhysicsMaterial(1.0f, 0, 0));
 	_body->setGravityEnable(false);
-	_body->setAngularVelocity(30);
-
+	_body->setMass(1.0f);
+	_body->setAngularVelocity(-30);
+	_body->setDynamic(true);
 	_body->setCollisionBitmask(Tags::SHURIKEN);
 	_body->setContactTestBitmask(true);
+	this->setPhysicsBody(_body);
 
 	//adds contact event listener
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Shuriken::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-	//schedule(CC_SCHEDULE_SELECTOR(PhysicsDemoCollisionProcessing::tick), 0.3f);
 
-	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	this->setPhysicsBody(_body);
-	this->addChild(_sprite);
-	this->setScale(0.11f);
 }
 
 Shuriken* Shuriken::createSuriken()
@@ -58,11 +58,17 @@ bool Shuriken::onContactBegin(PhysicsContact& contact)
 	auto body_a = contact.getShapeA()->getBody();
 	auto body_b = contact.getShapeB()->getBody();
 	log("Shuriken::onContactBegin");
-	if ((body_a->getCollisionBitmask() == Tags::SHURIKEN && body_b->getCollisionBitmask() == Tags::NINJA) ||
-		(body_a->getCollisionBitmask() == Tags::NINJA && body_b->getCollisionBitmask() == Tags::SHURIKEN))
+	if ((body_a->getCollisionBitmask() == Tags::SHURIKEN && body_b->getCollisionBitmask() == Tags::GROUND))
 	{
-
-		log("Shuriken::onContactBegin : Ninja vs shuriken");
+		log("Shuriken::onContactBegin : SHURIKEN vs GROUND");
+		if (body_a->getNode() != nullptr)
+			body_a->getNode()->removeFromParent();
+	}
+	else if ((body_a->getCollisionBitmask() == Tags::GROUND && body_b->getCollisionBitmask() == Tags::SHURIKEN))
+	{
+		log("Shuriken::onContactBegin : GROUND vs SHURIKEN 2");
+		if (body_b->getNode() != nullptr)
+			body_b->getNode()->removeFromParent();
 	}
 
 	return false;
