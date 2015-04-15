@@ -11,7 +11,7 @@ class Enemy_Run : public Enemy
 
 public:
 	static Enemy_Run*  create(int level);
-	void setAction() override;
+	void setupAction() override;
 	Enemy_Run();
 	~Enemy_Run();
 };

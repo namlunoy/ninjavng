@@ -12,15 +12,19 @@ using namespace std;
 class Config
 {
 public:
-	static Size screenSize;
-	static Vec2 centerPoint;
-	//Hàm này để scale lại background cho phù hợp với màn hình
-	static float getScale(Node* p);
-
-	//Lấy theo tên file background
-	static float getScale(string backgroundFileName);
 	Config();
 	~Config();
+
+	static Size screenSize;
+	static Vec2 centerPoint;
+	///Hàm này để scale lại background cho phù hợp với màn hình
+	static float getScale(Node* p);
+
+	///Lấy theo tên file background
+	static float getScale(string backgroundFileName);
+
+	//static Vec2 getSpawnPoint_low
+
 };
 
 #endif

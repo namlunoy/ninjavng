@@ -2,6 +2,7 @@
 #define _Enemy_
 
 #include "cocos2d.h"
+#include "Utility/Tags.h"
 #include "Utility/XHelper.h"
 #include <iostream>
 
@@ -19,14 +20,15 @@ class Enemy : public Node
 {
 protected:
 	Enemy();
-	//Các thuộc tính
+//---------- Các thuộc tính ----------
 protected:
 	int _level;
 	std::string _fileName;
 	float _speed;
 	int _health;
 	EnemyType _type;
-	//Các component
+
+//---------- Các component  ----------
 protected:
 	Sprite* _sprite;
 	PhysicsBody* _body;
@@ -38,7 +40,8 @@ public:
 	//Thực hiện setup các thuộc tính chung chung
 	virtual void setup(int level,std::string fileName, EnemyType type);
 	//Mỗi cái phải viết 1 cái action riêng
-	virtual void setAction() = 0;
+	virtual void setupAction() = 0;
+
 	~Enemy();
 };
 #endif
