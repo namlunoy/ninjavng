@@ -11,12 +11,5 @@ bool BanTao_Scence::init()
 	banTaoLayer = BanTao_Layer::create();
 	this->addChild(banTaoLayer);
 
-	banTaoHudLayer = BanTao_HudLayer::create();
-	this->addChild(banTaoHudLayer,1);
-
-	banTaoLayer->setHudLayer(banTaoHudLayer);
-
-
-
 	return true;
 }

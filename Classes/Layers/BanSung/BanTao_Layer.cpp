@@ -6,7 +6,7 @@
 #include "Models/BanSung/BanTao_Target.h"
 #include "Utility/Config.h"
 #include "Utility/XHelper.h"
-
+#include "SimpleAudioEngine.h"
 
 using namespace std;
 using namespace ui;
@@ -17,7 +17,9 @@ BanTao_Layer::~BanTao_Layer(){ }
 
 int mang;
 float speed;
-float score;
+int score;
+CCLabelTTF* label;
+
 
 bool BanTao_Layer::init()
 {
@@ -33,6 +35,18 @@ bool BanTao_Layer::init()
 	background->setPosition(Config::centerPoint);
 	background->setScale(Config::getScale(background));
 	this->addChild(background, -1);
+	
+	//music
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music.mp3", true);
+
+	//score
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+	label = CCLabelTTF::create("Score: 0", "Arial", 30);
+	label->setColor(ccc3(192, 57, 43));
+	label->setPosition(winSize.width - 100, winSize.height - 20);
+	this->addChild(label);
+	
 	
 	//Thêm mạng
 	headSprite();
@@ -85,6 +99,7 @@ bool BanTao_Layer::init()
 												  auto scene = HelloWorld::createScene();
 												  Director::getInstance()->replaceScene(scene);
 												  init();
+												  CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 												  
 		}
 			break;
@@ -95,7 +110,7 @@ bool BanTao_Layer::init()
 	backButton->setPosition(Vec2(100, 100));
 	this->addChild(backButton, 0);
 
-
+	
 	
 
 	return true;
@@ -130,8 +145,8 @@ bool BanTao_Layer::onTouchBegan(Touch *touch, Event *unused_event)
 
 void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target *target)
 {
-	try
-	{
+	/*try
+	{*/
 	
 	//tạo paticle
 	auto emitter = ParticleFire::create();
@@ -140,6 +155,10 @@ void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target
 	emitter->setDuration(0.5);
 	this->addChild(emitter, 10);
 	emitter->setTag(14);
+
+	//tạo music
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("shot.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("shot.wav");
 
 	//tính xem tọa độ của cái target có trùng quả táo không?
 	// nếu trùng thì quả táo biến mất
@@ -162,8 +181,13 @@ void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target
 		BanTao_Target* newtarget = BanTao_Target::create("target2.png",speed);
 		this->addChild(newtarget,1);
 
-		score = score + 10;
+		//cập nhật score
+		//score = score + 10;
 		CCLOG("Score: %f", score);
+		updateScore();
+		
+
+		
 	}
 	else
 	{
@@ -174,15 +198,11 @@ void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target
 		checkLive();
 	}
 
-	/*this->runAction(Sequence::create(
-		DelayTime::create(1))); */
-
-	//this->removeChildByTag(14);
-	}
+	/*}
 	catch (std::exception &cException)
 	{
 		cerr << "Standard exception: " << cException.what() << endl;
-	}
+	}*/
 	
 }
 
@@ -282,12 +302,15 @@ void BanTao_Layer::restart()
 	init();
 }
 
-void BanTao_Layer::setHudLayer(BanTao_HudLayer* pHudLayer)
-{
-	__pHudLayer = pHudLayer;
-}
 
-//void BanTao_Layer::update(cocos2d::ccTime dt)
-//{
-//
-//}
+void BanTao_Layer::updateScore()
+{		
+	
+		score += 10; // change to whatever you like
+
+		char *labelString = new char;
+		snprintf(labelString, 10, "Score: %d", score);
+
+		label->setString(labelString);
+	
+}
