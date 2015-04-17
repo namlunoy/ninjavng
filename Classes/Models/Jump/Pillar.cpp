@@ -45,7 +45,7 @@ Point Pillar::getCurrenPos()
 
 void Pillar::MovePillar(Vec2 vec)
 {
-	auto movePillar = MoveBy::create(2, vec);
+	auto movePillar = MoveBy::create(10, vec);
 	this->runAction(movePillar);
 }
 
