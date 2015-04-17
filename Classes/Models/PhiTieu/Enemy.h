@@ -41,6 +41,7 @@ public:
 	virtual void setup(int level,std::string fileName, EnemyType type);
 	//Mỗi cái phải viết 1 cái action riêng
 	virtual void setupAction() = 0;
+	virtual bool onDestroy(PhysicsContact& contact) = 0;
 
 	~Enemy();
 };
