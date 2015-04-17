@@ -72,7 +72,7 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::update(float delta)
 {
-	if (jumpLayer->ninja->isJumping == true) jumpLayer->/*pillar->*/MovePillar(/*Vec2(-Config::screenSize.width*0.01, 0)*/);
+	if (jumpLayer->ninja->isJumping == true) jumpLayer->MovePillar(4);
 	if (jumpLayer->ninja->isJumping == false)
 	{
 		jumpLayer->pillar->StopPillar();

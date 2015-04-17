@@ -56,11 +56,11 @@ void JumpLayer::SpawnPillar()
 	
 }
 
-void JumpLayer::MovePillar()
+void JumpLayer::MovePillar(float velocity)
 {
-	pillar->MovePillar(Vec2(-Config::screenSize.width*0.01, 0));
-	lastPillar->MovePillar(Vec2(-Config::screenSize.width*0.01, 0));
-	nextPillar->MovePillar(Vec2(-Config::screenSize.width*0.01, 0));
+	pillar->MovePillar(velocity);
+	lastPillar->MovePillar(velocity);
+	nextPillar->MovePillar(velocity);
 }
 
 void JumpLayer::update(float delta)

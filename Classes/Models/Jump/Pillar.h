@@ -15,10 +15,10 @@ public:
 	Point getCurrenPos();
 	bool init();
 	static Pillar* createPillar();
-	void MovePillar(Vec2 vec);
+	void MovePillar(float veloc);
 	void StopPillar();
 
-	//bool onContactBegin(PhysicsContact &contact);
+	bool onContactBegin(PhysicsContact &contact);
 };
 
 #endif _PILLAR_H_
