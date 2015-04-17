@@ -14,17 +14,12 @@ bool BanTao_HudLayer::init()
 		return false;
 	}
 
-	// Ask director the window size.
+	
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
-	// Create the score label.
 	__pScoreLabel = LabelTTF::create("Score: 0", "Arial", 30);
-
-	// Position the label on the right side of the screen.
 	__pScoreLabel->setPosition(ccp(winSize.width - 100, winSize.height - 20));
-
-	// Add the label as a child to this layer.
-	this->addChild(__pScoreLabel, 1);
+	/*this->addChild(__pScoreLabel, 1);*/
 
 	return true;
 }

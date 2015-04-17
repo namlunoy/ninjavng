@@ -31,15 +31,8 @@ public:
 	void setHudLayer(BanTao_HudLayer* hudLayer);
 
 private:
-	/**
-	* This layer displays the score.
-	*/
-	BanTao_HudLayer*							__pHudLayer;
-
-	/**
-	* Player's current score.
-	*/
-	int									__score;
+	
+	void updateScore();
 };
 #endif
 
