@@ -18,7 +18,7 @@ public:
 	void SetJumpLayer(JumpLayer *jumplayer);
 
 	//Ninja
-	bool isJumping;
+	//bool isJumping;
 	//bool isStanding;
 
 

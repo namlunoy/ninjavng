@@ -52,7 +52,7 @@ bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
 	//Ninja
 	CCLOG("Start Force");
-	isJumping = true;
+	jumpLayer->ninja->isJumping = true;
 	jumpLayer->ninja->JumpAction(5000.0f);
 	return true;
 }
@@ -72,7 +72,12 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::update(float delta)
 {
-	if (isJumping == true) jumpLayer->/*pillar->*/MovePillar(/*Vec2(-Config::screenSize.width*0.01, 0)*/);
-	//if (isJumping = false) jumpLayer->pillar->StopPillar();//Chưa chạy
+	if (jumpLayer->ninja->isJumping == true) jumpLayer->MovePillar(4);
+	if (jumpLayer->ninja->isJumping == false)
+	{
+		jumpLayer->pillar->StopPillar();
+		jumpLayer->lastPillar->StopPillar();
+		jumpLayer->nextPillar->StopPillar();
+	}
 }
 

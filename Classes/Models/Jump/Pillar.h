@@ -15,17 +15,8 @@ public:
 	Point getCurrenPos();
 	bool init();
 	static Pillar* createPillar();
-	void MovePillar(Vec2 vec);
+	void MovePillar(float veloc);
 	void StopPillar();
-	//void chaydi()
-	//{
-	//	log("chay mau");
-	//	log("%f", this->getPosition().x);
-	//	CallFunc *runCallback = CallFunc::create(CC_CALLBACK_0(Pillar::check, this));
-	//	auto chay = MoveTo::create(1, Config::centerPoint);
-	//	//this->getActionManager()->removeAllActionsFromTarget(this);
-	//	this->runAction(Sequence::create(chay, runCallback, nullptr));
-	//}
 
 	bool onContactBegin(PhysicsContact &contact);
 };

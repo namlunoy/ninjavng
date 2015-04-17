@@ -12,8 +12,11 @@ public:
 	Sprite *sprite;
 	PhysicsBody *body;
 	bool init();
+	bool isJumping;
 	static Ninja_D* createNinja();
 	void JumpAction(float force);
+
+	bool onContactBegin(PhysicsContact &contact);
 	
 };
 

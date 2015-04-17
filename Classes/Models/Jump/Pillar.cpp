@@ -12,7 +12,7 @@ Pillar::Pillar()
 	this->addChild(sprite);
 	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 0));
 	body->setDynamic(false);
-	body->setCollisionBitmask(WALL_COLLISION);
+	body->setCollisionBitmask(PILLAR_COLLISION);
 	body->setContactTestBitmask(true);
 	this->setPhysicsBody(body);
 }
@@ -43,9 +43,9 @@ Point Pillar::getCurrenPos()
 	return this->getPosition();
 }
 
-void Pillar::MovePillar(Vec2 vec)
+void Pillar::MovePillar(float veloc)
 {
-	auto movePillar = MoveBy::create(10, vec);
+	auto movePillar = MoveBy::create(veloc, Vec2(- 5, 0));
 	this->runAction(movePillar);
 }
 
@@ -58,13 +58,13 @@ bool Pillar::onContactBegin(PhysicsContact &contact)
 {
 	auto body_a = contact.getShapeA()->getBody();
 	auto body_b = contact.getShapeB()->getBody();
-	if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == WALL_COLLISION)
-		|| (body_a->getCollisionBitmask() == WALL_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
+	if (body_a->getCollisionBitmask() == PILLAR_COLLISION && body_b->getCollisionBitmask() == WALL_COLLISION)
 	{
-		CCLOG("contact");
-		body_a->getNode()->stopAllActions();
-		body_b->getNode()->stopAllActions();
+		if (body_a->getNode() != nullptr) body_a->getNode()->removeFromParent();
 	}
-
+	else if (body_a->getCollisionBitmask() == WALL_COLLISION && body_b->getCollisionBitmask() == PILLAR_COLLISION)
+	{
+		if (body_b->getNode() != nullptr) body_b->getNode()->removeFromParent();
+	}
 	return true;
 }
