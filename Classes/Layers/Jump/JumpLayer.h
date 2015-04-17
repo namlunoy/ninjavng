@@ -21,6 +21,7 @@ public:
 	//Pillar
 	Pillar *pillar;
 	Pillar *lastPillar;
+	Pillar *nextPillar;
 	std::list< Pillar* > listPillar;
 	Point firstSpawnPoint;
 	Point prevSpawnPoint;

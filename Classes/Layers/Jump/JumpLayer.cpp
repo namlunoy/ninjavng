@@ -31,6 +31,10 @@ bool JumpLayer::init()
 	lastPillar->setPosition(300, 0);
 	this->addChild(lastPillar);
 
+	nextPillar = Pillar::createPillar();
+	nextPillar->setPosition(500, 0);
+	this->addChild(nextPillar);
+
 
 
 	/*prevSpawnPoint = Point(rootPoint.x + firstSpawnPoint.x, 0);
@@ -56,6 +60,7 @@ void JumpLayer::MovePillar()
 {
 	pillar->MovePillar(Vec2(-Config::screenSize.width*0.01, 0));
 	lastPillar->MovePillar(Vec2(-Config::screenSize.width*0.01, 0));
+	nextPillar->MovePillar(Vec2(-Config::screenSize.width*0.01, 0));
 }
 
 void JumpLayer::update(float delta)
