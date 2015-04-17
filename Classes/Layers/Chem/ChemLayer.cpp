@@ -37,8 +37,12 @@ bool ChemLayer::init() {
 					break;
 				}
 			});
-	this->addChild(backButton);
+	this->addChild(backButton,1);
 
+	auto troll = Sprite::create("HaiLua.png");
+	troll->setScale(1.0);
+	troll->setPosition(Config::centerPoint);
+	this->addChild(troll, 0);
 
 	auto label = LabelTTF::create("Chem","Arial",30);
 	label->setPosition(Vec2(100,100));

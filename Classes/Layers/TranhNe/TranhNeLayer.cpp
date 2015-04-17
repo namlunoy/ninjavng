@@ -37,12 +37,12 @@ bool TranhNeLayer::init()
 					break;
 				}
 			});
-	this->addChild(backButton);
+	this->addChild(backButton,1);
 
 	auto troll = Sprite::create("troll.png");
-	troll->setPosition(400, 240);
-	troll->setScale(0.2);
-	this->addChild(troll);
+	troll->setScale(Config::getScale(troll));
+	troll->setPosition(Config::centerPoint);
+	this->addChild(troll,0);
 
 	return true;
 }
