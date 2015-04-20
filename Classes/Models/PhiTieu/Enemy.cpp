@@ -12,12 +12,36 @@ bool Enemy::onContact(PhysicsContact& contact) {
 	auto a = contact.getShapeA()->getBody();
 	auto b = contact.getShapeB()->getBody();
 
-	if(a != NULL && b != NULL)
+	if(a != NULL && b != NULL && a->getNode() != NULL && b->getNode() != NULL)
 	{
-		log("Enemy::onContact: %d",a->getTag());
+		//Tuong tac voi phitieu
+		if((a->getTag() == Tags::SHURIKEN && b->getTag() == Tags::ENEMY)
+			|| (a->getTag() == Tags::ENEMY && b->getTag() == Tags::SHURIKEN) )
+		{
+			log("Enemy::onContact : ENEMY vs SHURIKEN");
+			b->getNode()->removeFromParent();
+			a->getNode()->removeFromParent();
+		}
+
+		//Tuong tac voi thanh
+		if((a->getTag() == Tags::ENEMY && b->getTag() == Tags::TARGET)
+				|| (a->getTag() == Tags::TARGET && b->getTag() == Tags::ENEMY))
+		{
+			log("Enemy::onContact : ENEMY vs TARGET");
+			PhysicsBody* e = a->getTag() == Tags::ENEMY?a:b;
+			e->getNode()->removeFromParent();
+		}
+
+		//Va phai thang ninja
+		if((a->getTag() == Tags::ENEMY && b->getTag() == Tags::NINJA)
+				|| (a->getTag() == Tags::NINJA && b->getTag() == Tags::ENEMY))
+		{
+			log("Enemy::onContact : ENEMY vs NINJA");
+			PhysicsBody* e = a->getTag() == Tags::ENEMY?a:b;
+			e->getNode()->removeFromParent();
+		}
 	}
 
-	//log("Enemy::onContact");
 	return false;
 }
 
