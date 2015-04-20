@@ -32,14 +32,7 @@ bool Enemy::onContact(PhysicsContact& contact) {
 			e->getNode()->removeFromParent();
 		}
 
-		//Va phai thang ninja
-		if((a->getTag() == Tags::ENEMY && b->getTag() == Tags::NINJA)
-				|| (a->getTag() == Tags::NINJA && b->getTag() == Tags::ENEMY))
-		{
-			log("Enemy::onContact : ENEMY vs NINJA");
-			PhysicsBody* e = a->getTag() == Tags::ENEMY?a:b;
-			e->getNode()->removeFromParent();
-		}
+		//Va voi thang ninja thi viet ben kia roi
 	}
 
 	return false;
@@ -53,8 +46,7 @@ void Enemy::setup(int level, std::string fileName, EnemyType type) {
 	_type = type;
 
 	//---------  Sprite --------
-	std::string file = fileName + "1.png";
-	_sprite = Sprite::create(file);
+	_sprite = Sprite::create("Enemy.png");
 	//Đoạn này đòi hỏi các hình ảnh kích thước phải giống nhau, không thể mỗi cái scale 1 kiểu được (có nhưng làm thế nó dối)
 	_sprite->setScale(0.1f);
 	this->addChild(_sprite);

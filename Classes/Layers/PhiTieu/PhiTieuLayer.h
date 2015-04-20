@@ -7,12 +7,16 @@
 #define _PHITIEU_LAYER_
 
 #include "cocos2d.h"
+
 #include "Utility/Config.h"
+#include "Utility/Tags.h"
+
 #include "Models/PhiTieu/Shuriken.h"
 #include "Models/PhiTieu/Ninja.h"
 #include "Models/PhiTieu/BoundWall.h"
 #include "Models/PhiTieu/Enemy_Run.h"
-#include "Utility/Tags.h"
+#include "Models/PhiTieu/Enemy_Jump.h"
+
 
 USING_NS_CC;
 

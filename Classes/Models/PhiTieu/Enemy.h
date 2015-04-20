@@ -10,7 +10,7 @@ USING_NS_CC;
 enum EnemyType
 {
 	Run,
-	RunAndJump,
+	Jump,
 	Fly
 };
 

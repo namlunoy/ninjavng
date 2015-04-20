@@ -3,8 +3,10 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+
 #include "Utility/Config.h"
 #include "Utility/XHelper.h"
+
 #include "Scenes/HelloWorldScene.h"
 
 USING_NS_CC;

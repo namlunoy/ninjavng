@@ -58,7 +58,8 @@ bool Ninja::onContactBegin(PhysicsContact& contact)
 {
 	auto a = contact.getShapeA()->getBody();
 	auto b = contact.getShapeB()->getBody();
-//	log("Ninja::onContactBegin : NINJA vs ENEMY");
+
+
 	if(a != NULL && b != NULL && a->getNode() != NULL && b->getNode() != NULL)
 	{
 		if((a->getTag() == Tags::NINJA && b->getTag() == Tags::ENEMY)
@@ -70,7 +71,7 @@ bool Ninja::onContactBegin(PhysicsContact& contact)
 		}
 	}
 
-	return true;
+	return false;
 }
 
 void Ninja::jump()

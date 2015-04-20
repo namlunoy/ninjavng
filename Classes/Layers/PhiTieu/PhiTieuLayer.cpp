@@ -1,6 +1,5 @@
 ﻿#include "PhiTieuLayer.h"
-#include "PhiTieuController.h"
-#include "Utility/Tags.h"
+
 
 PhiTieuLayer::PhiTieuLayer() { }
 PhiTieuLayer::~PhiTieuLayer(){ }
@@ -45,7 +44,7 @@ bool PhiTieuLayer::init()
 
 
 	//Thực hiện sinh các quân địch
-	Enemy_Run* e = Enemy_Run::create(1);
+	Enemy_Jump* e = Enemy_Jump::create(1);
 	this->addChild(e);
 
 	return true;

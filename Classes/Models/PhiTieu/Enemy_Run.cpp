@@ -1,5 +1,5 @@
 ﻿#include "Enemy_Run.h"
-#include "Utility/XHelper.h"
+
 
 Enemy_Run::~Enemy_Run() {
 }
@@ -11,7 +11,7 @@ void Enemy_Run::setupAction() {
 	switch (_level) {
 	case 1:
 		//Tính toán thời gian
-		_speed = 130;
+		_speed = 500;
 		time = Config::screenSize.width / _speed;
 		this->setPosition(Config::getSpawnStart_low());
 		_action = MoveTo::create(time, Config::getSpawnEnd_low());
@@ -27,9 +27,4 @@ Enemy_Run* Enemy_Run::create(int level) {
 
 	return enemy;
 }
-//
-//bool Enemy_Run::onContact(PhysicsContact& contact) {
-//
-//	return false;
-//}
 
