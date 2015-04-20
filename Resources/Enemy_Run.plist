@@ -36,13 +36,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>a.png</string>
+            <string>Enemy_Run.png</string>
             <key>size</key>
             <string>{501,1630}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:88024f8baadce193ae9a291d9453946d:3e00f79d05ca26bc4eebb7baa21872ae:3fe7819918ccd8b069678b9f17b4fc07$</string>
+            <string>$TexturePacker:SmartUpdate:fcf933efd4ac1246fc9201765ea36a3c:3e00f79d05ca26bc4eebb7baa21872ae:1816a82e349505afcb5623fefc43e25a$</string>
             <key>textureFileName</key>
-            <string>a.png</string>
+            <string>Enemy_Run.png</string>
         </dict>
     </dict>
 </plist>
