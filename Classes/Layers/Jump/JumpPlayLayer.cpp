@@ -49,7 +49,7 @@ void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
 
 float JumpPlayLayer::Clamp(float a)
 {
-	if (a < 3.0f) return 3.0f;
+	if (a < 2.0f) return 2.0f;
 	else if (a > 7.0f) return 7.0f;
 	else return a;
 }
@@ -68,7 +68,6 @@ bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::onTouchMoved(Touch *touch, Event *unused_event)
 {
-
 }
 
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
@@ -77,8 +76,8 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 	//jumpLayer->ninja->body->applyForce(Vect(0, jumpLayer->ninja->body->getMass()*(-10.0f)));
 
 	jumpLayer->ninja->JumpAction(/*truyền lực vào đây*/100.0f * Clamp(timeTouch * 8.75f));
-	log("%f", timeTouch);
-	//tinh = false;
+	log("%f", timeTouch);log("%f", timeTouch);
+	tinh = false;
 }
 #pragma endregion 
 
