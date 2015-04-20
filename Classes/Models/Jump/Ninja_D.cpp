@@ -11,6 +11,8 @@ Ninja_D::Ninja_D()
 	body->setAngularVelocityLimit(0.0f);
 	body->setCollisionBitmask(NINJA_COLLISION);
 	body->setContactTestBitmask(true);
+	body->setGravityEnable(true);
+	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->setPhysicsBody(body);
 }
 
@@ -39,8 +41,8 @@ Ninja_D* Ninja_D::createNinja()
 void Ninja_D::JumpAction(float force)
 {
 	CCLOG("Force");
-	body->applyForce(Vect(0, force));
-	log("%f", body->getPosition().y);
+	this->isJumping = true;
+	body->applyImpulse(Vect(0, force));
 }
 
 bool Ninja_D::onContactBegin(PhysicsContact &contact)
@@ -52,6 +54,7 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 	{
 		CCLOG("Contact: Ninja vs Pillar");
 		this->isJumping = false;
+		this->body->resetForces();
 		/*body_a->getNode()->stopAllActions();
 		body_b->getNode()->stopAllActions();*/
 	}
