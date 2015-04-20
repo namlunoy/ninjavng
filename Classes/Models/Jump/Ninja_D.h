@@ -12,9 +12,13 @@ public:
 	Sprite *sprite;
 	PhysicsBody *body;
 	bool init();
-	bool isJumping;
 	static Ninja_D* createNinja();
+
 	void JumpAction(float force);
+	bool isJumping;
+	float maxHeight;
+	float maxDistance;
+
 
 	bool onContactBegin(PhysicsContact &contact);
 	

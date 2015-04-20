@@ -14,6 +14,7 @@ Pillar::Pillar()
 	body->setDynamic(false);
 	body->setCollisionBitmask(PILLAR_COLLISION);
 	body->setContactTestBitmask(true);
+	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->setPhysicsBody(body);
 }
 
