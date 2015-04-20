@@ -62,6 +62,7 @@ void Enemy::setup(int level, std::string fileName, EnemyType type) {
 
 	//--------------  PhysicsBody --------------
 	_body = PhysicsBody::createBox(_sprite->getBoundingBox().size,PhysicsMaterial(1, 0, 0));
+	_body->setGravityEnable(false);
 	_body->setDynamic(false);
 
 	_body->setCollisionBitmask(true);

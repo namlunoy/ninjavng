@@ -30,7 +30,8 @@ bool Ninja::init(string fileName)
 
 	//-------------   Physic Body  --------------
 	_body = PhysicsBody::createBox(_sprite->getBoundingBox().size,PhysicsMaterial(_ninjaModel.density, _ninjaModel.restitution, _ninjaModel.friction));
-	_body->setDynamic(false);
+	_body->setGravityEnable(false);
+	_body->setDynamic(true);
 	_body->setTag(Tags::NINJA);
 	_body->setCollisionBitmask(1);
 	_body->setContactTestBitmask(1);
@@ -57,7 +58,7 @@ bool Ninja::onContactBegin(PhysicsContact& contact)
 {
 	auto a = contact.getShapeA()->getBody();
 	auto b = contact.getShapeB()->getBody();
-
+//	log("Ninja::onContactBegin : NINJA vs ENEMY");
 	if(a != NULL && b != NULL && a->getNode() != NULL && b->getNode() != NULL)
 	{
 		if((a->getTag() == Tags::NINJA && b->getTag() == Tags::ENEMY)
