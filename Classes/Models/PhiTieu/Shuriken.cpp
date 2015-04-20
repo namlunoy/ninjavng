@@ -18,7 +18,8 @@ Shuriken::Shuriken()
 	_body->setMass(1.0f);
 	_body->setAngularVelocity(-30);
 	_body->setDynamic(true);
-	_body->setCollisionBitmask(Tags::SHURIKEN);
+	_body->setTag(Tags::SHURIKEN);
+	_body->setCollisionBitmask(true);
 	_body->setContactTestBitmask(true);
 	this->setPhysicsBody(_body);
 
@@ -58,15 +59,15 @@ bool Shuriken::onContactBegin(PhysicsContact& contact)
 	auto body_a = contact.getShapeA()->getBody();
 	auto body_b = contact.getShapeB()->getBody();
 	log("Shuriken::onContactBegin");
-	if ((body_a->getCollisionBitmask() == Tags::SHURIKEN && body_b->getCollisionBitmask() == Tags::GROUND))
+	if ((body_a->getTag() == Tags::SHURIKEN && body_b->getTag() == Tags::GROUND))
 	{
-		log("Shuriken::onContactBegin : SHURIKEN vs GROUND");
+		//log("Shuriken::onContactBegin : SHURIKEN vs GROUND");
 		if (body_a->getNode() != nullptr)
 			body_a->getNode()->removeFromParent();
 	}
-	else if ((body_a->getCollisionBitmask() == Tags::GROUND && body_b->getCollisionBitmask() == Tags::SHURIKEN))
+	else if ((body_a->getTag() == Tags::GROUND && body_b->getTag() == Tags::SHURIKEN))
 	{
-		log("Shuriken::onContactBegin : GROUND vs SHURIKEN 2");
+		//log("Shuriken::onContactBegin : GROUND vs SHURIKEN 2");
 		if (body_b->getNode() != nullptr)
 			body_b->getNode()->removeFromParent();
 	}

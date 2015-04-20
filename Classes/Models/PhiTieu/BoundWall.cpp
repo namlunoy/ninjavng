@@ -40,7 +40,7 @@ BoundWall::BoundWall(WallType type, Size screenSize)
 	body->setGravityEnable(false);
 	body->setDynamic(false);
 	body->setTag(Tags::GROUND);
-	body->setCollisionBitmask(Tags::GROUND);
+	body->setCollisionBitmask(true);
 	body->setContactTestBitmask(true);
 	this->setPhysicsBody(body);
 }

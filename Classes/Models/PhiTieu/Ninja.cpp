@@ -40,7 +40,7 @@ bool Ninja::init(string fileName)
 	_body->setGravityEnable(false);
 	_body->setAngularVelocityLimit(0.0f);
 	_body->setTag(Tags::NINJA);
-	_body->setCollisionBitmask(Tags::NINJA);
+	_body->setCollisionBitmask(true);
 	_body->setContactTestBitmask(true);
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->setPhysicsBody(_body);

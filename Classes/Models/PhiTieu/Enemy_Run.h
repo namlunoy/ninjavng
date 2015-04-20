@@ -13,7 +13,7 @@ class Enemy_Run : public Enemy
 public:
 	static Enemy_Run*  create(int level);
 	void setupAction() override;
-	bool onDestroy(PhysicsContact& contact) override;
+	//bool onContact(PhysicsContact& contact) override;
 	Enemy_Run();
 	~Enemy_Run();
 };
