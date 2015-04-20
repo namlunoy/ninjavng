@@ -25,6 +25,8 @@ public:
 			return "SHURIKEN";
 		case Tags::ENEMY:
 			return "ENEMY";
+		case Tags::TARGET:
+			return "TARGET";
 		default:
 			break;
 
@@ -34,7 +36,7 @@ public:
 	static const int NINJA = 12;
 	static const int ENEMY = 13;
 	static const int SHURIKEN = 14;
-
+	static const int TARGET = 15;
 	Tags();
 	~Tags();
 };

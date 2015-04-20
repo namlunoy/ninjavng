@@ -1,10 +1,10 @@
 #include "Shuriken.h"
 #include "Utility/Tags.h"
 
-Shuriken::~Shuriken(){}
+Shuriken::~Shuriken() {
+}
 float Shuriken::force = 700.0f;
-Shuriken::Shuriken()
-{
+Shuriken::Shuriken() {
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
 	_sprite = Sprite::create("Shuriken.png");
@@ -13,25 +13,26 @@ Shuriken::Shuriken()
 	// --------------- Physic  ------------
 	//Đặc điểm: luôn quay, không chịu tác dụng của trọng lực, không chịu masat, ko va chạm
 
-	_body = PhysicsBody::createBox(Size(20,20), PhysicsMaterial(1.0f, 0, 0));
+	_body = PhysicsBody::createBox(Size(20, 20), PhysicsMaterial(1.0f, 0, 0));
 	_body->setGravityEnable(false);
 	_body->setMass(1.0f);
 	_body->setAngularVelocity(-30);
 	_body->setDynamic(true);
-	_body->setCollisionBitmask(Tags::SHURIKEN);
+	_body->setTag(Tags::SHURIKEN);
+	_body->setCollisionBitmask(true);
 	_body->setContactTestBitmask(true);
 	this->setPhysicsBody(_body);
 
 	//adds contact event listener
 	auto contactListener = EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(Shuriken::onContactBegin, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-
+	contactListener->onContactBegin = CC_CALLBACK_1(Shuriken::onContactBegin,
+			this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener,
+			this);
 
 }
 
-Shuriken* Shuriken::createSuriken()
-{
+Shuriken* Shuriken::createSuriken() {
 	Shuriken* shuriken = new Shuriken();
 	if (shuriken && shuriken->init())
 		shuriken->autorelease();
@@ -41,35 +42,31 @@ Shuriken* Shuriken::createSuriken()
 	return shuriken;
 }
 
-bool Shuriken::init()
-{
+bool Shuriken::init() {
 	if (!Node::init())
 		return false;
 	return true;
 }
 
-void Shuriken::phong(Vec2 direction)
-{
-	_body->applyImpulse(direction*force);
+void Shuriken::phong(Vec2 direction) {
+	_body->applyImpulse(direction * force);
 }
 
-bool Shuriken::onContactBegin(PhysicsContact& contact)
-{
+bool Shuriken::onContactBegin(PhysicsContact& contact) {
 	auto body_a = contact.getShapeA()->getBody();
 	auto body_b = contact.getShapeB()->getBody();
-	log("Shuriken::onContactBegin");
-	if ((body_a->getCollisionBitmask() == Tags::SHURIKEN && body_b->getCollisionBitmask() == Tags::GROUND))
-	{
-		log("Shuriken::onContactBegin : SHURIKEN vs GROUND");
-		if (body_a->getNode() != nullptr)
-			body_a->getNode()->removeFromParent();
-	}
-	else if ((body_a->getCollisionBitmask() == Tags::GROUND && body_b->getCollisionBitmask() == Tags::SHURIKEN))
-	{
-		log("Shuriken::onContactBegin : GROUND vs SHURIKEN 2");
-		if (body_b->getNode() != nullptr)
-			body_b->getNode()->removeFromParent();
-	}
 
-	return false;
+	if (body_a->getNode() != NULL && body_b->getNode() != NULL) {
+
+		if ((body_a->getTag() == Tags::SHURIKEN && body_b->getTag() == Tags::GROUND)
+				|| (body_a->getTag() == Tags::GROUND && body_b->getTag() == Tags::SHURIKEN)) {
+
+			PhysicsBody* su = body_a->getTag() == Tags::SHURIKEN ? body_a : body_b;
+			su->getNode()->removeFromParent();
+			log("Shuriken::onContactBegin : SHURIKEN vs GROUND");
+
+		}
+
+	}
+	return true;
 }

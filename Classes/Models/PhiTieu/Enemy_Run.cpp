@@ -4,32 +4,6 @@
 Enemy_Run::~Enemy_Run() {
 }
 Enemy_Run::Enemy_Run() {
-	//Enemy::Enemy();
-	_fileName = "Enemy_Run";
-	this->autorelease();
-
-	//---------  Sprite --------
-	_sprite = Sprite::create("Enemy_Run1.png");
-	_sprite->setScale(0.1f);
-	this->addChild(_sprite);
-
-	//--------------  PhysicsBody --------------
-	_body = PhysicsBody::createBox(_sprite->getBoundingBox().size,
-			PhysicsMaterial(1, 0, 0));
-	_body->setCollisionBitmask(Tags::ENEMY);
-
-	_body->setContactTestBitmask(true);
-	_body->setGravityEnable(false);
-	_body->setDynamic(false);
-	this->setPhysicsBody(_body);
-
-	//--------------  Sự kiện va chạm --------------
-	auto contactListener = EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(Enemy_Run::onDestroy, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener,this);
-
-	//------------- Chạy animation hiện tại ----------
-	XHelper::runAnimation(_fileName, 2, 0.2f, true, _sprite);
 }
 
 void Enemy_Run::setupAction() {
@@ -53,14 +27,9 @@ Enemy_Run* Enemy_Run::create(int level) {
 
 	return enemy;
 }
-
-bool Enemy_Run::onDestroy(PhysicsContact& contact) {
-	log("Enemy_Run::onDestroy");
-	this->getActionManager()->removeAllActionsFromTarget(this);
-	_sprite->setVisible(false);
-	auto particle = ParticleFireworks::create();
-	particle->setDuration(3);
-	this->addChild(particle);
-	return false;
-}
+//
+//bool Enemy_Run::onContact(PhysicsContact& contact) {
+//
+//	return false;
+//}
 

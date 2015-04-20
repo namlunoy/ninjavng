@@ -20,30 +20,30 @@ bool Ninja::init(string fileName)
 	if (!Node::init())
 		return false;
 
-	//this->scheduleUpdate();
 	jumpCount = 0;
+
+
+	//-------------  Khởi tạo sprite chính -------------
+	_sprite = Sprite::create(fileName);
+	_sprite->setPosition(0, 0);
+	this->addChild(_sprite);
+
+	//-------------   Physic Body  --------------
+	_body = PhysicsBody::createBox(_sprite->getBoundingBox().size,PhysicsMaterial(_ninjaModel.density, _ninjaModel.restitution, _ninjaModel.friction));
+	_body->setDynamic(false);
+	_body->setTag(Tags::NINJA);
+	_body->setCollisionBitmask(1);
+	_body->setContactTestBitmask(1);
+
+	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	this->setPhysicsBody(_body);
+
+
 	//contact listner
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Ninja::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-	//Khởi tạo sprite chính
-	_sprite = Sprite::create(fileName);
-	_sprite->setPosition(0, 0);
-	this->addChild(_sprite);
-
-	//Thêm body
-	_body = PhysicsBody::createBox(_sprite->getBoundingBox().size,
-		PhysicsMaterial(_ninjaModel.density, _ninjaModel.restitution, _ninjaModel.friction));
-	_body->setMass(_ninjaModel.mass);
-	_body->setDynamic(false);
-	_body->setGravityEnable(false);
-	_body->setAngularVelocityLimit(0.0f);
-	_body->setTag(Tags::NINJA);
-	_body->setCollisionBitmask(Tags::NINJA);
-	_body->setContactTestBitmask(true);
-	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	this->setPhysicsBody(_body);
 
 	return true;
 }
@@ -55,7 +55,21 @@ void Ninja::runAnimation(string name, int count, float time, bool isRepeat)
 
 bool Ninja::onContactBegin(PhysicsContact& contact)
 {
-	return false;
+	auto a = contact.getShapeA()->getBody();
+	auto b = contact.getShapeB()->getBody();
+
+	if(a != NULL && b != NULL && a->getNode() != NULL && b->getNode() != NULL)
+	{
+		if((a->getTag() == Tags::NINJA && b->getTag() == Tags::ENEMY)
+				|| (a->getTag() == Tags::ENEMY && b->getTag() == Tags::NINJA))
+		{
+			log("Ninja::onContactBegin : NINJA vs ENEMY");
+			auto e = a->getTag() == Tags::ENEMY ? a : b;
+			e->getNode()->removeFromParent();
+		}
+	}
+
+	return true;
 }
 
 void Ninja::jump()

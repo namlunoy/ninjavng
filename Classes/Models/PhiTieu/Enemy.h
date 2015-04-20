@@ -4,8 +4,6 @@
 #include "cocos2d.h"
 #include "Utility/Tags.h"
 #include "Utility/XHelper.h"
-#include <iostream>
-
 USING_NS_CC;
 
 
@@ -36,12 +34,21 @@ protected:
 
 
 public:
-	//Các lớp con gọi hàm setup, và phải implement setAction
-	//Thực hiện setup các thuộc tính chung chung
+	/**
+	 * Các lớp con gọi hàm setup, và phải implement setAction
+	 * Thực hiện setup các thuộc tính chung chung
+	 */
 	virtual void setup(int level,std::string fileName, EnemyType type);
-	//Mỗi cái phải viết 1 cái action riêng
+
+	/**
+	 *Mỗi cái phải viết 1 cái action riêng
+	 */
 	virtual void setupAction() = 0;
-	virtual bool onDestroy(PhysicsContact& contact) = 0;
+
+	/**
+	 * Xử lý các va chạm: Có vẻ như là giống nhau hết
+	 */
+	virtual bool onContact(PhysicsContact& contact);
 
 	~Enemy();
 };

@@ -1,5 +1,6 @@
 ﻿#include "PhiTieuLayer.h"
 #include "PhiTieuController.h"
+#include "Utility/Tags.h"
 
 PhiTieuLayer::PhiTieuLayer() { }
 PhiTieuLayer::~PhiTieuLayer(){ }
@@ -21,6 +22,19 @@ bool PhiTieuLayer::init()
 	this->addChild(BoundWall::createWall(WallType::DOWN, Config::screenSize));
 	this->addChild(BoundWall::createWall(WallType::LEFT, Config::screenSize));
 	this->addChild(BoundWall::createWall(WallType::RIGHT, Config::screenSize));
+
+	//-----------  Thêm cái đích để cán vào ------------
+	Node* Target = Node::create();
+	PhysicsBody* _targetBody = PhysicsBody::createBox(Size(5,100),PhysicsMaterial(1,0,0));
+	_targetBody->setTag(Tags::TARGET);
+	_targetBody->setDynamic(false);
+
+	_targetBody->setContactTestBitmask(true);
+	_targetBody->setCollisionBitmask(true);
+
+	Target->setPhysicsBody(_targetBody);
+	Target->setPosition(100,100);
+	this->addChild(Target);
 
 	//---------- ninja  -----------
 	ninja = Ninja::create("Ninja2.png");
