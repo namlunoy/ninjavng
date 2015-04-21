@@ -28,12 +28,12 @@ bool JumpLayer::init()
 	this->addChild(pillar);
 
 	lastPillar = Pillar::createPillar();
-	lastPillar->setPosition(300, 0);
-	this->addChild(lastPillar);
+	lastPillar->setPosition(350, 0);
+	//this->addChild(lastPillar);
 
 	nextPillar = Pillar::createPillar();
-	nextPillar->setPosition(500, 0);
-	this->addChild(nextPillar);
+	nextPillar->setPosition(600, 0);
+	//this->addChild(nextPillar);
 
 
 
@@ -51,32 +51,27 @@ bool JumpLayer::init()
 	return true;
 }
 
-void JumpLayer::SpawnPillar()
+void JumpLayer::SpawnPillar(float distance)
 {
-	
+	/*Pillar *p = Pillar::createPillar();
+	auto height = CCRANDOM_0_1()*p->getContentSize().height / 2;
+	p->setPosition(distance, height);
+	this->addChild(p);
+	listPillar.push_back(p);*/
+
 }
 
-void JumpLayer::MovePillar(float velocity)
+void JumpLayer::MovePillar(float duration)
 {
-	pillar->MovePillar(velocity);
-	lastPillar->MovePillar(velocity);
-	nextPillar->MovePillar(velocity);
+	pillar->MovePillar(duration);
+	/*lastPillar->MovePillar(duration);
+	nextPillar->MovePillar(duration);*/
 }
 
 void JumpLayer::update(float delta)
 {
-	/*do
-	{*/
-	/*while (Config::screenSize.width - prevSpawnPoint.x > DISTANCE_SPAWN_MAX)
+	/*if (Config::screenSize.width - listPillar.end().getPositionX() > DISTANCE_SPAWN_MAX)
 	{
-		auto distance = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
-		auto heightRandom = CCRANDOM_0_1() * 175;
-		CCLOG("%f", heightRandom);
-		nextSpawnPoint = Point(prevSpawnPoint.x + distance, heightRandom);
-		prevSpawnPoint = nextSpawnPoint;
-		pillar = Pillar::createPillar();
-		pillar->SpawnPillar(this, nextSpawnPoint);
+		SpawnPillar(listPillar.end()->getPositionX() + CCRANDOM_0_1()*DISTANCE_SPAWN_MAX);
 	}*/
-		
-	/*} while (Config::screenSize.width - prevSpawnPoint.x > DISTANCE_SPAWN_MAX);*/
 }

@@ -12,6 +12,7 @@ Pillar::Pillar()
 	this->addChild(sprite);
 	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 0));
 	body->setDynamic(false);
+	//body->setGravityEnable(false);
 	body->setCollisionBitmask(PILLAR_COLLISION);
 	body->setContactTestBitmask(true);
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
@@ -44,14 +45,15 @@ Point Pillar::getCurrenPos()
 	return this->getPosition();
 }
 
-void Pillar::MovePillar(float veloc)
+void Pillar::MovePillar(float duration)
 {
-	auto movePillar = MoveBy::create(veloc, Vec2(- 5, 0));
+	auto movePillar = MoveBy::create(duration, Vec2(-2, 0));
 	this->runAction(movePillar);
 }
 
 void Pillar::StopPillar()
 {
+	//this->getActionManager()->removeAllActionsFromTarget(this);
 	this->stopAllActions();
 }
 

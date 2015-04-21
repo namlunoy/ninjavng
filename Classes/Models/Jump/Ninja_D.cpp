@@ -10,6 +10,8 @@ Ninja_D::Ninja_D()
 	body->setMass(3.0f);
 	body->setAngularVelocityLimit(0.0f);
 	body->setCollisionBitmask(NINJA_COLLISION);
+	body->setDynamic(true);
+	body->setLinearDamping(0.5);
 	body->setContactTestBitmask(true);
 	body->setGravityEnable(true);
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
@@ -38,11 +40,14 @@ Ninja_D* Ninja_D::createNinja()
 	return n;
 }
 
-void Ninja_D::JumpAction(float force)
+void Ninja_D::JumpAction(float force/*float dur, float height*/)
 {
 	CCLOG("Force");
 	this->isJumping = true;
 	body->applyImpulse(Vect(0, force));
+	//body->setVelocity(Vect(0, 200));
+	/*auto jumpTo = JumpTo::create(dur, this->getPosition(), height, 1);
+	this->runAction(jumpTo);*/
 }
 
 bool Ninja_D::onContactBegin(PhysicsContact &contact)
@@ -58,7 +63,6 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 		/*body_a->getNode()->stopAllActions();
 		body_b->getNode()->stopAllActions();*/
 	}
-	else 
 
-		return true;
+	return true;
 }

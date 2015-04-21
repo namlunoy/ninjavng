@@ -36,7 +36,6 @@ bool JumpPlayLayer::init()
 	touchListener->onTouchMoved = CC_CALLBACK_2(JumpPlayLayer::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(JumpPlayLayer::onTouchEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
-
 	this->scheduleUpdate();
 
 	return true;
@@ -62,7 +61,6 @@ bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 
 	tinh = true;
 	timeTouch = 0.0f;
-
 	return true;
 }
 
@@ -75,7 +73,7 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 	//jumpLayer->ninja->body->resetForces();
 	//jumpLayer->ninja->body->applyForce(Vect(0, jumpLayer->ninja->body->getMass()*(-10.0f)));
 
-	jumpLayer->ninja->JumpAction(/*truyền lực vào đây*/100.0f * Clamp(timeTouch * 8.75f));
+	jumpLayer->ninja->JumpAction(/*truyền lực vào đây*/100.0f * Clamp(timeTouch * 8.75f)/*Clamp(timeTouch* 8.75f), Clamp(timeTouch* 8.75f) * 80*/);
 	log("%f", timeTouch);log("%f", timeTouch);
 	tinh = false;
 }
@@ -83,12 +81,12 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::update(float delta)
 {
-	if (jumpLayer->ninja->isJumping == true) jumpLayer->MovePillar(4);
+	if (jumpLayer->ninja->isJumping == true) jumpLayer->MovePillar(delta/*1/Clamp(timeTouch * 8.75f)*/);
 	if (jumpLayer->ninja->isJumping == false)
 	{
 		jumpLayer->pillar->StopPillar();
-		jumpLayer->lastPillar->StopPillar();
-		jumpLayer->nextPillar->StopPillar();
+		/*jumpLayer->lastPillar->StopPillar();
+		jumpLayer->nextPillar->StopPillar();*/
 	}
 
 	if (tinh)

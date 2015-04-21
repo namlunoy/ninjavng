@@ -27,8 +27,8 @@ public:
 	Point prevSpawnPoint;
 	Point nextSpawnPoint;
 	Point randomPoint;
-	void MovePillar(float velocity);
-	void SpawnPillar();
+	void MovePillar(float duration);
+	void SpawnPillar(float distance);
 	void update(float delta);
 };
 
