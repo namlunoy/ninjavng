@@ -1,12 +1,11 @@
 ﻿#include "PhiTieuLayer.h"
 
+PhiTieuLayer::PhiTieuLayer() {
+}
+PhiTieuLayer::~PhiTieuLayer() {
+}
 
-PhiTieuLayer::PhiTieuLayer() { }
-PhiTieuLayer::~PhiTieuLayer(){ }
-
-
-bool PhiTieuLayer::init()
-{
+bool PhiTieuLayer::init() {
 
 	//-------  Background ----------
 	//Thực hiện : Hiển thị, Thêm body
@@ -24,7 +23,8 @@ bool PhiTieuLayer::init()
 
 	//-----------  Thêm cái đích để cán vào ------------
 	Node* Target = Node::create();
-	PhysicsBody* _targetBody = PhysicsBody::createBox(Size(5,100),PhysicsMaterial(1,0,0));
+	PhysicsBody* _targetBody = PhysicsBody::createBox(Size(5, 100),
+			PhysicsMaterial(1, 0, 0));
 	_targetBody->setTag(Tags::TARGET);
 	_targetBody->setDynamic(false);
 
@@ -32,16 +32,15 @@ bool PhiTieuLayer::init()
 	_targetBody->setCollisionBitmask(true);
 
 	Target->setPhysicsBody(_targetBody);
-	Target->setPosition(100,100);
+	Target->setPosition(100, 100);
 	this->addChild(Target);
 
 	//---------- ninja  -----------
 	ninja = Ninja::create("Ninja2.png");
-	ninja->setPosition(Vec2(100,100));
-	ninja->setOriginalPosition(Vec2(100,100));
+	ninja->setPosition(Vec2(100, 100));
+	ninja->setOriginalPosition(Vec2(100, 100));
 	ninja->runAnimation_DungYen();
 	this->addChild(ninja);
-
 
 	//Thực hiện sinh các quân địch
 	Enemy_Jump* e = Enemy_Jump::create(1);
@@ -50,10 +49,7 @@ bool PhiTieuLayer::init()
 	return true;
 }
 
-
-
-void PhiTieuLayer::setPhysicWorld(PhysicsWorld* physicsWorld)
-{
+void PhiTieuLayer::setPhysicWorld(PhysicsWorld* physicsWorld) {
 	_physicWorld = physicsWorld;
 }
 
@@ -62,13 +58,8 @@ void PhiTieuLayer::Jump() {
 }
 
 void PhiTieuLayer::PhongTieu(Vec2 dest) {
-	//Tính toán hướng của phi tiêu
-	Vec2 huong = (dest - ninja->getPosition());
-	huong.normalize();
+	//ninja->fire(ninja->getPosition(),dest);
+	Vec2 src = ninja->getPosition();
+	ninja->fire(src,dest);
 
-	//thực hiện phóng: Tạo phi tiêu, đặt vị trí, và gọi hàm phóng của nó, hiển thị lên màn hình
-	auto su = Shuriken::createSuriken();
-	su->setPosition(ninja->getPosition());
-	su->phong(huong);
-	this->addChild(su);
 }

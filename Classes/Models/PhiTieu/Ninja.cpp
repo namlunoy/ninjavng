@@ -21,7 +21,7 @@ bool Ninja::init(string fileName)
 		return false;
 
 	jumpCount = 0;
-
+	isAvaiableToFire = true;
 
 	//-------------  Khởi tạo sprite chính -------------
 	_sprite = Sprite::create(fileName);
@@ -53,6 +53,28 @@ void Ninja::runAnimation(string name, int count, float time, bool isRepeat)
 {
 	XHelper::runAnimation(name, count, time, true, this->_sprite);
 }
+
+void Ninja::fire(Vec2 src, Vec2 dest) {
+	if(isAvaiableToFire)
+	{
+		Vec2 huong = (dest - src);
+		huong.normalize();
+		auto su = Shuriken::createSuriken();
+		su->setPosition(src);
+		su->phong(huong);
+		this->getParent()->addChild(su);
+
+		isAvaiableToFire = false;
+		auto reset = CallFunc::create(CC_CALLBACK_0(Ninja::resetFire, this));
+		auto delay = DelayTime::create(1);
+		auto action = Sequence::createWithTwoActions(delay,reset);
+		this->runAction(action);
+
+	}else{
+		log("Chua du time de ban!");
+	}
+}
+
 
 bool Ninja::onContactBegin(PhysicsContact& contact)
 {
@@ -91,8 +113,11 @@ void Ninja::jump()
 
 }
 
-void Ninja::resetJumpCount()
-{
+void Ninja::resetFire() {
+	isAvaiableToFire = true;
+}
+
+void Ninja::resetJumpCount(){
 	jumpCount = 0;
 }
 
