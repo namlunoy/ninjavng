@@ -26,14 +26,15 @@ bool JumpLayer::init()
 	pillar = Pillar::createPillar();
 	pillar->setPosition(100,0);
 	this->addChild(pillar);
+	listPillar.push_back(pillar);
 
-	lastPillar = Pillar::createPillar();
-	lastPillar->setPosition(350, 0);
-	//this->addChild(lastPillar);
+	//lastPillar = Pillar::createPillar();
+	//lastPillar->setPosition(350, 0);
+	////this->addChild(lastPillar);
 
-	nextPillar = Pillar::createPillar();
-	nextPillar->setPosition(600, 0);
-	//this->addChild(nextPillar);
+	//nextPillar = Pillar::createPillar();
+	//nextPillar->setPosition(600, 0);
+	////this->addChild(nextPillar);
 
 
 
@@ -51,21 +52,38 @@ bool JumpLayer::init()
 	return true;
 }
 
+void JumpLayer::setRandomPoint()
+{
+
+}
+
 void JumpLayer::SpawnPillar(float distance)
 {
-	/*Pillar *p = Pillar::createPillar();
+	Pillar *p = Pillar::createPillar();
 	auto height = CCRANDOM_0_1()*p->getContentSize().height / 2;
 	p->setPosition(distance, height);
 	this->addChild(p);
-	listPillar.push_back(p);*/
+	//listPillar.push_back(p);
 
 }
 
 void JumpLayer::MovePillar(float duration)
 {
-	pillar->MovePillar(duration);
+	/*pillar->MovePillar(duration);*/
 	/*lastPillar->MovePillar(duration);
 	nextPillar->MovePillar(duration);*/
+	for (std::list<Pillar*>::iterator it = listPillar.begin(); it != listPillar.end(); ++it)
+	{
+		(*it)->MovePillar(duration);
+	}
+}
+
+void JumpLayer::StopPillar()
+{
+	for (std::list<Pillar*>::iterator it = listPillar.begin(); it != listPillar.end(); ++it)
+	{
+		(*it)->StopPillar();
+	}
 }
 
 void JumpLayer::update(float delta)

@@ -36,6 +36,8 @@ bool JumpPlayLayer::init()
 	touchListener->onTouchMoved = CC_CALLBACK_2(JumpPlayLayer::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(JumpPlayLayer::onTouchEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+
+	//this->schedule(schedule_selector(JumpLayer::SpawnPillar), 3);
 	this->scheduleUpdate();
 
 	return true;
@@ -48,7 +50,7 @@ void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
 
 float JumpPlayLayer::Clamp(float a)
 {
-	if (a < 2.0f) return 2.0f;
+	if (a < 3.0f) return 3.0f;
 	else if (a > 7.0f) return 7.0f;
 	else return a;
 }
@@ -81,12 +83,14 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::update(float delta)
 {
-	if (jumpLayer->ninja->isJumping == true) jumpLayer->MovePillar(delta/*1/Clamp(timeTouch * 8.75f)*/);
+	if (jumpLayer->ninja->isJumping == true)
+	{
+		jumpLayer->MovePillar(delta/*1/Clamp(timeTouch * 8.75f)*/);
+		
+	}
 	if (jumpLayer->ninja->isJumping == false)
 	{
 		jumpLayer->pillar->StopPillar();
-		/*jumpLayer->lastPillar->StopPillar();
-		jumpLayer->nextPillar->StopPillar();*/
 	}
 
 	if (tinh)
@@ -94,4 +98,3 @@ void JumpPlayLayer::update(float delta)
 		timeTouch += delta;
 	}
 }
-

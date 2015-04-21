@@ -27,7 +27,9 @@ public:
 	Point prevSpawnPoint;
 	Point nextSpawnPoint;
 	Point randomPoint;
+	void setRandomPoint();
 	void MovePillar(float duration);
+	void StopPillar();
 	void SpawnPillar(float distance);
 	void update(float delta);
 };
