@@ -126,7 +126,17 @@ bool ChemLayer::touch_Kiem(Touch* t, Event* e) {
 	katana->setPhysicsBody(katanaBody);
 	this->addChild(katana,1);
 
+	auto removekiem = CallFunc::create(CC_CALLBACK_0(ChemLayer::RemoveKiem, this));
+	auto delay = DelayTime::create(2);
+	auto action = Sequence::createWithTwoActions(delay,removekiem);
+	this->runAction(action);
+
 	return true;
+}
+
+void ChemLayer::RemoveKiem()
+{
+	removeChild(katana);
 }
 
 // Hàm này tạo ra Quái và di chuyển chúng nè
