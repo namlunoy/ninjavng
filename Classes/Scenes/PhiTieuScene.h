@@ -4,7 +4,6 @@
 #include "cocos2d.h"
 #include "Layers/PhiTieu/PhiTieuLayer.h"
 #include "Layers/PhiTieu/PhiTieuHUDLayer.h"
-#include "Layers/PhiTieu/PhiTieuController.h"
 
 USING_NS_CC;
 

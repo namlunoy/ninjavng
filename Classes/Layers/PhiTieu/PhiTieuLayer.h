@@ -17,29 +17,35 @@
 #include "Models/PhiTieu/Enemy_Run.h"
 #include "Models/PhiTieu/Enemy_Jump.h"
 
+#include "PhiTieuHUDLayer.h"
+
 
 USING_NS_CC;
+
+class PhiTieuHUDLayer;
 
 class PhiTieuLayer : public Layer
 {
 private:
 	Sprite* _background;
 	PhysicsWorld* _physicWorld;
+	PhiTieuHUDLayer* _hudLayer;
 private:
 	Ninja* ninja;
-
+	int mang;
 public:
 	//----- Các phương thức khởi tạo -------
 	PhiTieuLayer();
 	~PhiTieuLayer();
 	CREATE_FUNC(PhiTieuLayer);
 	bool init();
+	void setHUDLayer(PhiTieuHUDLayer* p);
 
 	//------  Các phương thức chính ------
 	void setPhysicWorld(PhysicsWorld* physicsWorld);
 	void Jump();
 	void PhongTieu(Vec2 dest);
-
+	void matMau();
 	//---------------- Ngoài lề --------------
 	float theScale;
 };
