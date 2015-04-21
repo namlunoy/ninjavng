@@ -32,6 +32,9 @@ public:
 	Sprite* player;
 	Sprite* katana;
 	bool touch_Kiem(Touch* t, Event* e);
+	//bat su kien va cham dan va quai
+	bool onContactBegin(const PhysicsContact& contact);
+	void RemoveKiem();
 };
 
 #endif /* LAYERS_CHEM_CHEMLAYER_H_ */
