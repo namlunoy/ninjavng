@@ -16,7 +16,9 @@ Scene* PhiTieuScene::createScene()
 	PhiTieuHUDLayer* hudLayer = PhiTieuHUDLayer::create();
 	_scene->addChild(hudLayer, 1);
 
-	PhiTieuController::getInstance()->setupLayers(hudLayer,phiTieuLayer);
+	phiTieuLayer->setHUDLayer(hudLayer);
+	hudLayer->setPhiTieuLayer(phiTieuLayer);
+
 	return _scene;
 }
 
