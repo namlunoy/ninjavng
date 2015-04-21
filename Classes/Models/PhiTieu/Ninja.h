@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "NinjaModel.h"
 #include "Utility/XHelper.h"
+#include "Models/PhiTieu/Shuriken.h"
 #include <sstream>
 #include <iostream>
 
@@ -21,9 +22,10 @@ private:
 	void runAnimation(string name, int count, float time, bool isRepeat);
 	Vec2 originalPosition;
 	int jumpCount;
-
+	bool isAvaiableToFire;
 private:
 	void resetJumpCount();
+	void resetFire();
 public:
 	Ninja();
 	~Ninja();
@@ -32,7 +34,7 @@ public:
 	void runAnimation_DungYen();
 	void runAnimation_Nhay();
 	void jump();
-
+	void fire(Vec2 src,Vec2 dest);
 	bool onContactBegin(PhysicsContact& contact);
 };
 
