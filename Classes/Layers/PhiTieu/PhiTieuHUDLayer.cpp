@@ -67,7 +67,10 @@ bool PhiTieuHUDLayer::init() {
 void PhiTieuHUDLayer::matMau()
 {
 	if(hearts.size() > 0)
+	{
+		hearts.at(hearts.size() - 1)->removeFromParent();
 		hearts.popBack();
+	}
 
 	if(hearts.size() == 0)
 	{

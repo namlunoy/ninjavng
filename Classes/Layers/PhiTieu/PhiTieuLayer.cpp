@@ -1,6 +1,7 @@
 ﻿#include "PhiTieuLayer.h"
-
+PhiTieuLayer* PhiTieuLayer::instance = NULL;
 PhiTieuLayer::PhiTieuLayer() {
+	PhiTieuLayer::instance = this;
 }
 PhiTieuLayer::~PhiTieuLayer() {
 }
@@ -8,7 +9,10 @@ PhiTieuLayer::~PhiTieuLayer() {
 void PhiTieuLayer::matMau()
 {
 	if(mang > 0)
+	{
 		mang--;
+		_hudLayer->matMau();
+	}
 
 	if(mang == 0)
 	{

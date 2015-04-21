@@ -2,6 +2,7 @@
 #include "Utility/Definition.h"
 #include "Utility/Config.h"
 #include "Utility/Tags.h"
+#include "Layers/PhiTieu/PhiTieuLayer.h"
 
 Ninja::Ninja(){}
 Ninja::~Ninja(){}
@@ -82,6 +83,7 @@ bool Ninja::onContactBegin(PhysicsContact& contact)
 	auto b = contact.getShapeB()->getBody();
 
 
+	//----------------   Va chạm vơi Enemy   ---------
 	if(a != NULL && b != NULL && a->getNode() != NULL && b->getNode() != NULL)
 	{
 		if((a->getTag() == Tags::NINJA && b->getTag() == Tags::ENEMY)
@@ -90,6 +92,7 @@ bool Ninja::onContactBegin(PhysicsContact& contact)
 			log("Ninja::onContactBegin : NINJA vs ENEMY");
 			auto e = a->getTag() == Tags::ENEMY ? a : b;
 			e->getNode()->removeFromParent();
+			PhiTieuLayer::instance->matMau();
 		}
 	}
 

@@ -24,6 +24,7 @@ USING_NS_CC;
 
 class PhiTieuHUDLayer;
 
+
 class PhiTieuLayer : public Layer
 {
 private:
@@ -40,12 +41,14 @@ public:
 	CREATE_FUNC(PhiTieuLayer);
 	bool init();
 	void setHUDLayer(PhiTieuHUDLayer* p);
+	static PhiTieuLayer* instance;
 
 	//------  Các phương thức chính ------
 	void setPhysicWorld(PhysicsWorld* physicsWorld);
 	void Jump();
 	void PhongTieu(Vec2 dest);
 	void matMau();
+
 	//---------------- Ngoài lề --------------
 	float theScale;
 };
