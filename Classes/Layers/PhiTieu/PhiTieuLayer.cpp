@@ -59,7 +59,9 @@ bool PhiTieuLayer::init() {
 	this->addChild(e);
 
 	//---------------  Các trái tim -------------------
-
+	Generator* a = new Generator(this);
+	this->addChild(a);
+	a->Generate();
 
 	return true;
 }

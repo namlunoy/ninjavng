@@ -18,12 +18,13 @@
 #include "Models/PhiTieu/Enemy_Jump.h"
 
 #include "PhiTieuHUDLayer.h"
+#include "Generator.h"
 
 
 USING_NS_CC;
 
 class PhiTieuHUDLayer;
-
+class Generator;
 
 class PhiTieuLayer : public Layer
 {

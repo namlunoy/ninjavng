@@ -2,16 +2,30 @@
 #define _Generator_
 
 #include "cocos2d.h"
+#include "PhiTieuLayer.h"
+#include "Models/PhiTieu/Enemy_Jump.h"
+#include "Models/PhiTieu/Enemy_Run.h"
+#include "PhiTieuLayer.h"
+
 #include <iostream>
 USING_NS_CC;
 
-class Generator
+class PhiTieuLayer;
+
+class Generator : public Node
 {
 private:
-	Layer* _layer;
+	PhiTieuLayer* layer;
 public:
-	Generator(Layer* layer);
+	Generator(PhiTieuLayer* l);
+
 	~Generator();
+
+	void sinhJump();
+
+	void sinhRun();
+
+	void Generate();
 };
 
 #endif
