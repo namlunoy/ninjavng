@@ -19,6 +19,7 @@ class PhiTieuHUDLayer : public Layer
 private:
 	Button* bt_jump;
 	Vector<Sprite*> hearts;
+	Sprite* _power;
 	PhiTieuLayer* _phiTieuLayer;
 public:
 	//------  Các hàm khởi tạo -------
@@ -31,5 +32,7 @@ public:
 	bool touch_PhongTieu(Touch* t, Event* e);
 	void click_Jump(Ref* sender, TouchEventType touchType);
 	void matMau();
+	void updatePower();
+	void gameOver();
 };
 #endif

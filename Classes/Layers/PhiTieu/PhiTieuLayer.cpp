@@ -16,7 +16,7 @@ void PhiTieuLayer::matMau()
 
 	if(mang == 0)
 	{
-		//Xu ly thua
+		gameOver();
 	}
 }
 
@@ -59,9 +59,9 @@ bool PhiTieuLayer::init() {
 	this->addChild(e);
 
 	//---------------  Các trái tim -------------------
-	Generator* a = new Generator(this);
-	this->addChild(a);
-	a->Generate();
+		generator = new Generator(this);
+		this->addChild(generator);
+		generator->Generate();
 
 	return true;
 }
@@ -83,4 +83,10 @@ void PhiTieuLayer::PhongTieu(Vec2 dest) {
 
 void PhiTieuLayer::setHUDLayer(PhiTieuHUDLayer* p) {
 	_hudLayer = p;
+}
+
+void PhiTieuLayer::gameOver() {
+	ninja->isAlive = false;
+	generator->stop();
+	_hudLayer->gameOver();
 }

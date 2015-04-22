@@ -53,13 +53,25 @@ bool PhiTieuHUDLayer::init() {
 	hearts.pushBack(Sprite::create("heart.png"));
 	hearts.pushBack(Sprite::create("heart.png"));
 	hearts.pushBack(Sprite::create("heart.png"));
-
 	for(int i=0; i<3; i++)
 	{
 		hearts.at(i)->setScale(0.25f);
 		hearts.at(i)->setPosition(Vec2(50 + 50*i , Config::screenSize.height - 50));
 		this->addChild(hearts.at(i));
 	}
+
+
+	//------------- Power -------------------
+	_power = Sprite::create("power.png");
+	_power->setAnchorPoint(Vec2(0,1));
+	_power->setPosition(Vec2(50 - hearts.at(0)->getBoundingBox().size.width/2,Config::screenSize.height - 50 - hearts.at(0)->getBoundingBox().size.height/2));
+	this->addChild(_power);
+
+	Node* timer = Node::create();
+	CallFunc* updatePower = CallFunc::create(CC_CALLBACK_0(PhiTieuHUDLayer::updatePower,this));
+	DelayTime* delay = DelayTime::create(0.05f);
+	timer->runAction(RepeatForever::create(Sequence::createWithTwoActions(delay,updatePower)));
+	this->addChild(timer);
 
 	return true;
 }
@@ -79,7 +91,13 @@ void PhiTieuHUDLayer::matMau()
 }
 
 bool PhiTieuHUDLayer::touch_PhongTieu(Touch* t, Event* e) {
-	_phiTieuLayer->PhongTieu(t->getLocation());
+	float minPower = 1.0f/_phiTieuLayer->ninja->getMaxShuriken(1);
+	if(_power->getScaleX() >= minPower)
+	{
+		float giam = _power->getScaleX() - minPower;
+		_power->setScaleX(giam);
+		_phiTieuLayer->PhongTieu(t->getLocation());
+	}
 	return true;
 }
 
@@ -88,4 +106,21 @@ void PhiTieuHUDLayer::click_Jump(Ref* sender, TouchEventType touchType) {
 	if (touchType == TouchEventType::TOUCH_EVENT_BEGAN) {
 		_phiTieuLayer->Jump();
 	}
+}
+
+void PhiTieuHUDLayer::updatePower() {
+	log("x");
+	float s = _power->getScaleX();
+	s += 0.01f;
+	if(s <= 1 && _phiTieuLayer->ninja->isAlive){
+		_power->setScaleX(s);
+	}
+}
+
+void PhiTieuHUDLayer::gameOver() {
+	Sprite* over = Sprite::create("gameover.png");
+	float scale = Config::getScale(over);
+	over->setPosition(Config::centerPoint);
+	over->setScale(scale);
+	this->addChild(over);
 }

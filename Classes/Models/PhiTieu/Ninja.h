@@ -26,7 +26,6 @@ private:
 	bool isAvaiableToFire;
 private:
 	void resetJumpCount();
-	void resetFire();
 public:
 	Ninja();
 	~Ninja();
@@ -37,6 +36,8 @@ public:
 	void jump();
 	void fire(Vec2 src,Vec2 dest);
 	bool onContactBegin(PhysicsContact& contact);
+	int getMaxShuriken(int level);
+	bool isAlive;
 };
 
 #endif
