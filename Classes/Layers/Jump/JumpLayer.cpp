@@ -28,15 +28,10 @@ bool JumpLayer::init()
 	this->addChild(pillar);
 	listPillar.push_back(pillar);
 
-	//lastPillar = Pillar::createPillar();
-	//lastPillar->setPosition(350, 0);
-	////this->addChild(lastPillar);
-
-	//nextPillar = Pillar::createPillar();
-	//nextPillar->setPosition(600, 0);
-	////this->addChild(nextPillar);
-
-
+	for (int i = 1; i < 5; i++)
+	{
+		SpawnPillar(i * 150 + 100);
+	}
 
 	/*prevSpawnPoint = Point(rootPoint.x + firstSpawnPoint.x, 0);
 	do
@@ -63,15 +58,12 @@ void JumpLayer::SpawnPillar(float distance)
 	auto height = CCRANDOM_0_1()*p->getContentSize().height / 2;
 	p->setPosition(distance, height);
 	this->addChild(p);
-	//listPillar.push_back(p);
+	listPillar.push_back(p);
 
 }
 
 void JumpLayer::MovePillar(float duration)
 {
-	/*pillar->MovePillar(duration);*/
-	/*lastPillar->MovePillar(duration);
-	nextPillar->MovePillar(duration);*/
 	for (std::list<Pillar*>::iterator it = listPillar.begin(); it != listPillar.end(); ++it)
 	{
 		(*it)->MovePillar(duration);
@@ -88,8 +80,5 @@ void JumpLayer::StopPillar()
 
 void JumpLayer::update(float delta)
 {
-	/*if (Config::screenSize.width - listPillar.end().getPositionX() > DISTANCE_SPAWN_MAX)
-	{
-		SpawnPillar(listPillar.end()->getPositionX() + CCRANDOM_0_1()*DISTANCE_SPAWN_MAX);
-	}*/
+
 }
