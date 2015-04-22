@@ -2,18 +2,20 @@
 
 Generator::Generator(PhiTieuLayer* l) {
 	layer = l;
+	this->autorelease();
+	isGenerate = true;
 }
 Generator::~Generator() {
 }
 
 void Generator::sinhJump() {
-	log("Generator::sinhJump()");
-	layer->addChild(Enemy_Jump::create(1));
+	if(isGenerate)
+		layer->addChild(Enemy_Jump::create(1));
 }
 
 void Generator::sinhRun() {
-	log("Generator::sinhRun()");
-	layer->addChild(Enemy_Run::create(1));
+	if(isGenerate)
+		layer->addChild(Enemy_Run::create(1));
 }
 void Generator::Generate() {
 	log("Generator::Generate()");
@@ -35,4 +37,8 @@ void Generator::Generate() {
 
 	this->runAction(action_1);
 	this->runAction(action_2);
+}
+
+void Generator::stop() {
+	isGenerate = false;
 }

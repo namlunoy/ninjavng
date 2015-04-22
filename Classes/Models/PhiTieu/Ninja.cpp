@@ -20,7 +20,7 @@ bool Ninja::init(string fileName)
 {
 	if (!Node::init())
 		return false;
-
+	isAlive = true;
 	jumpCount = 0;
 	isAvaiableToFire = true;
 
@@ -56,24 +56,12 @@ void Ninja::runAnimation(string name, int count, float time, bool isRepeat)
 }
 
 void Ninja::fire(Vec2 src, Vec2 dest) {
-	if(isAvaiableToFire)
-	{
-		Vec2 huong = (dest - src);
-		huong.normalize();
-		auto su = Shuriken::createSuriken();
-		su->setPosition(src);
-		su->phong(huong);
-		this->getParent()->addChild(su);
-
-		isAvaiableToFire = false;
-		auto reset = CallFunc::create(CC_CALLBACK_0(Ninja::resetFire, this));
-		auto delay = DelayTime::create(1);
-		auto action = Sequence::createWithTwoActions(delay,reset);
-		this->runAction(action);
-
-	}else{
-		log("Chua du time de ban!");
-	}
+	Vec2 huong = (dest - src);
+	huong.normalize();
+	auto su = Shuriken::createSuriken();
+	su->setPosition(src);
+	su->phong(huong);
+	this->getParent()->addChild(su);
 }
 
 
@@ -108,16 +96,10 @@ void Ninja::jump()
 	{
 		this->getActionManager()->removeAllActionsFromTarget(this);
 		auto jumpAction = JumpTo::create(1.0f, originalPosition, 300, 1);
-		CallFunc *runCallback = CallFunc::create(CC_CALLBACK_0(Ninja::resetJumpCount, this));
-		//DelayTime::create(1)
-		this->runAction(Sequence::create(jumpAction, runCallback, nullptr));
-		//this->runAction();
+		CallFunc *resetJump = CallFunc::create(CC_CALLBACK_0(Ninja::resetJumpCount, this));
+		this->runAction(Sequence::create(jumpAction, resetJump, nullptr));
 	}
 
-}
-
-void Ninja::resetFire() {
-	isAvaiableToFire = true;
 }
 
 void Ninja::resetJumpCount(){
@@ -140,6 +122,6 @@ void Ninja::setOriginalPosition(Vec2 ori)
 	this->originalPosition = ori;
 }
 
-
-
-
+int Ninja::getMaxShuriken(int level) {
+	return 5;
+}

@@ -33,9 +33,10 @@ private:
 	PhysicsWorld* _physicWorld;
 	PhiTieuHUDLayer* _hudLayer;
 private:
-	Ninja* ninja;
+	Generator* generator;
 	int mang;
 public:
+	Ninja* ninja;
 	//----- Các phương thức khởi tạo -------
 	PhiTieuLayer();
 	~PhiTieuLayer();
@@ -49,7 +50,7 @@ public:
 	void Jump();
 	void PhongTieu(Vec2 dest);
 	void matMau();
-
+	void gameOver();
 	//---------------- Ngoài lề --------------
 	float theScale;
 };

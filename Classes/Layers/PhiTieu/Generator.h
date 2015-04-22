@@ -16,16 +16,14 @@ class Generator : public Node
 {
 private:
 	PhiTieuLayer* layer;
+	bool isGenerate;
 public:
 	Generator(PhiTieuLayer* l);
-
 	~Generator();
-
 	void sinhJump();
-
 	void sinhRun();
-
 	void Generate();
+	void stop();
 };
 
 #endif
