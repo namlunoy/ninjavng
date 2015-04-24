@@ -37,9 +37,10 @@ bool JumpPlayLayer::init()
 	touchListener->onTouchEnded = CC_CALLBACK_2(JumpPlayLayer::onTouchEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 
-	//this->schedule(schedule_selector(JumpLayer::SpawnPillar), 3);
-	this->scheduleUpdate();
+	/*CallFunc * callSpawn = CallFunc::create(CC_CALLBACK_0(JumpLayer::SpawnPillar, this));
+	DelayTime * delayTimeSpawn = DelayTime::create(cocos2d::random(1.0f, 3.0f));*/
 
+	this->scheduleUpdate();
 	return true;
 }
 
@@ -85,8 +86,7 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta/*1/Clamp(timeTouch * 8.75f)*/);
-		
+		jumpLayer->MovePillar(delta/*1/Clamp(timeTouch * 8.75f)*/);		
 	}
 	if (jumpLayer->ninja->isJumping == false)
 	{

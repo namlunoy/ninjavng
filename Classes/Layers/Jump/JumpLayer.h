@@ -21,12 +21,14 @@ public:
 	//Pillar
 	Pillar *pillar;
 	std::list< Pillar* > listPillar;
+	std::list<Pillar*>::iterator firstPillar;
 	Point firstSpawnPoint;
-	Point randomPoint;
-	void setRandomPoint();
+	Point prevSpawnPoint;
+	void UpdatePillar();
 	void MovePillar(float duration);
 	void StopPillar();
-	void SpawnPillar(float distance);
+	void SpawnPillar(/*Point pos*/);
+	void SpawnPillarWithPos(Point pos);
 	void update(float delta);
 };
 

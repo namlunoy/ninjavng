@@ -12,6 +12,7 @@ JumpLayer::~JumpLayer(){}
 JumpLayer::JumpLayer()
 {
 	firstSpawnPoint = Point(100, 0);
+	firstPillar = listPillar.begin();
 }
 
 bool JumpLayer::init()
@@ -24,42 +25,55 @@ bool JumpLayer::init()
 	this->addChild(ninja);
 
 	pillar = Pillar::createPillar();
-	pillar->setPosition(100,0);
+	pillar->setPosition(100, 0);
 	this->addChild(pillar);
-	listPillar.push_back(pillar);
+	listPillar.push_front(pillar);
 
-	for (int i = 1; i < 5; i++)
-	{
-		SpawnPillar(i * 150 + 100);
-	}
+	Pillar * p = Pillar::createPillar();
+	p->setPosition(300, 100);
+	this->addChild(p);
+	listPillar.push_front(p);
 
-	/*prevSpawnPoint = Point(rootPoint.x + firstSpawnPoint.x, 0);
-	do
+	firstPillar = listPillar.begin();
+	
+	log("%f", (*firstPillar)->getPositionX());
+
+	/*Node* timer = Node::create();
+	CallFunc* spawn = CallFunc::create(CC_CALLBACK_0(JumpLayer::SpawnPillar, this));
+	DelayTime* delay = DelayTime::create(0.05f);
+	if ((800 - (*firstPillar)->getPositionX()) > DISTANCE_SPAWN_MAX && dangNhay)
 	{
-		auto distance = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
-		auto heightRandom = CCRANDOM_0_1()*pillar->getContentSize().height / 2;
-		auto nextSpawnPoint = Point(prevSpawnPoint.x + distance, heightRandom);
-		prevSpawnPoint.x = nextSpawnPoint.x;
-		Pillar *p = Pillar::createPillar(nextSpawnPoint);
-		p->SpawnPillar(this);
-	} while (screenSize.width - prevSpawnPoint.x > DISTANCE_MAX);*/
+		timer->runAction(RepeatForever::create(Sequence::createWithTwoActions(delay, spawn)));
+		this->addChild(timer);
+	}*/
+	
+	
+	//this->scheduleUpdate();
 
 	return true;
 }
 
-void JumpLayer::setRandomPoint()
+void JumpLayer::UpdatePillar()
 {
-
+	
 }
 
-void JumpLayer::SpawnPillar(float distance)
+void JumpLayer::SpawnPillar(/*Point pos*/)
 {
-	Pillar *p = Pillar::createPillar();
-	auto height = CCRANDOM_0_1()*p->getContentSize().height / 2;
-	p->setPosition(distance, height);
+	Point pos = Point(Config::screenSize.width, CCRANDOM_0_1() * 175);
+	Pillar *p = Pillar::createPillar();	
+	p->setPosition(pos);
 	this->addChild(p);
-	listPillar.push_back(p);
+	listPillar.push_front(p);
+}
 
+void JumpLayer::SpawnPillarWithPos(Point pos)
+{
+	//Point pos = Point(Config::screenSize.width, CCRANDOM_0_1() * 175);
+	Pillar *p = Pillar::createPillar();
+	p->setPosition(pos);
+	this->addChild(p);
+	listPillar.push_front(p);
 }
 
 void JumpLayer::MovePillar(float duration)
@@ -80,5 +94,5 @@ void JumpLayer::StopPillar()
 
 void JumpLayer::update(float delta)
 {
-
+	//dangNhay = ninja->isJumping;
 }
