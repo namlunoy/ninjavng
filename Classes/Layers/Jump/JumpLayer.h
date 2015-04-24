@@ -29,7 +29,6 @@ public:
 	void StopPillar();
 	void SpawnPillar(/*Point pos*/);
 	void SpawnPillarWithPos(Point pos);
-	void update(float delta);
 };
 
 #endif

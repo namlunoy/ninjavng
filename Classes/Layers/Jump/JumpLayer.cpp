@@ -29,33 +29,21 @@ bool JumpLayer::init()
 	this->addChild(pillar);
 	listPillar.push_front(pillar);
 
-	Pillar * p = Pillar::createPillar();
-	p->setPosition(300, 100);
-	this->addChild(p);
-	listPillar.push_front(p);
-
 	firstPillar = listPillar.begin();
 	
 	log("%f", (*firstPillar)->getPositionX());
-
-	/*Node* timer = Node::create();
-	CallFunc* spawn = CallFunc::create(CC_CALLBACK_0(JumpLayer::SpawnPillar, this));
-	DelayTime* delay = DelayTime::create(0.05f);
-	if ((800 - (*firstPillar)->getPositionX()) > DISTANCE_SPAWN_MAX && dangNhay)
-	{
-		timer->runAction(RepeatForever::create(Sequence::createWithTwoActions(delay, spawn)));
-		this->addChild(timer);
-	}*/
-	
-	
-	//this->scheduleUpdate();
 
 	return true;
 }
 
 void JumpLayer::UpdatePillar()
 {
-	
+	if ((800 - (*firstPillar)->getPositionX()) > DISTANCE_SPAWN_MAX)
+	{
+		float randomX = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
+		SpawnPillarWithPos(Point((*firstPillar)->getPositionX() + randomX, CCRANDOM_0_1() * 175));
+	}
+	firstPillar = listPillar.begin();
 }
 
 void JumpLayer::SpawnPillar(/*Point pos*/)
@@ -90,9 +78,4 @@ void JumpLayer::StopPillar()
 	{
 		(*it)->StopPillar();
 	}
-}
-
-void JumpLayer::update(float delta)
-{
-	//dangNhay = ninja->isJumping;
 }

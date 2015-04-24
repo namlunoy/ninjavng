@@ -91,6 +91,7 @@ void JumpPlayLayer::update(float delta)
 	if (jumpLayer->ninja->isJumping == false)
 	{
 		jumpLayer->pillar->StopPillar();
+		jumpLayer->UpdatePillar();
 	}
 
 	if (tinh)
