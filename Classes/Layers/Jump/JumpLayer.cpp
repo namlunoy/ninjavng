@@ -57,7 +57,6 @@ void JumpLayer::SpawnPillar(/*Point pos*/)
 
 void JumpLayer::SpawnPillarWithPos(Point pos)
 {
-	//Point pos = Point(Config::screenSize.width, CCRANDOM_0_1() * 175);
 	Pillar *p = Pillar::createPillar();
 	p->setPosition(pos);
 	this->addChild(p);

@@ -14,7 +14,7 @@ public:
 	bool init();
 	static Ninja_D* createNinja();
 
-	void JumpAction(float force/*float dur, float height*/);
+	void JumpAction(float force);
 	bool isJumping;
 	float maxHeight;
 	float maxDistance;

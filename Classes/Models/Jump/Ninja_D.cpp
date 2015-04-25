@@ -40,14 +40,11 @@ Ninja_D* Ninja_D::createNinja()
 	return n;
 }
 
-void Ninja_D::JumpAction(float force/*float dur, float height*/)
+void Ninja_D::JumpAction(float force)
 {
 	CCLOG("Force");
 	this->isJumping = true;
 	body->applyImpulse(Vect(0, force));
-	//body->setVelocity(Vect(0, 200));
-	/*auto jumpTo = JumpTo::create(dur, this->getPosition(), height, 1);
-	this->runAction(jumpTo);*/
 }
 
 bool Ninja_D::onContactBegin(PhysicsContact &contact)
@@ -60,8 +57,6 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 		CCLOG("Contact: Ninja vs Pillar");
 		this->isJumping = false;
 		this->body->resetForces();
-		/*body_a->getNode()->stopAllActions();
-		body_b->getNode()->stopAllActions();*/
 	}
 
 	return true;

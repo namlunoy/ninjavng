@@ -21,9 +21,8 @@ public:
 	//Pillar
 	Pillar *pillar;
 	std::list< Pillar* > listPillar;
-	std::list<Pillar*>::iterator firstPillar;
+	std::list< Pillar* >::iterator firstPillar;
 	Point firstSpawnPoint;
-	Point prevSpawnPoint;
 	void UpdatePillar();
 	void MovePillar(float duration);
 	void StopPillar();
