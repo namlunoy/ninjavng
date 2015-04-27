@@ -48,7 +48,7 @@ void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
 
 float JumpPlayLayer::Clamp(float a)
 {
-	if (a < 3.0f) return 3.0f;
+	if (a < 2.0f) return 2.0f;
 	else if (a > 9.0f) return 9.0f;
 	else return a;
 }
@@ -56,9 +56,6 @@ float JumpPlayLayer::Clamp(float a)
 #pragma region Touch
 bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
-	//Ninja
-	//jumpLayer->ninja->JumpAction(/*truyền lực vào đây*/470.0f);
-
 	tinh = true;
 	timeTouch = 0.0f;
 	return true;
@@ -70,11 +67,8 @@ void JumpPlayLayer::onTouchMoved(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
-	//jumpLayer->ninja->body->resetForces();
-	//jumpLayer->ninja->body->applyForce(Vect(0, jumpLayer->ninja->body->getMass()*(-10.0f)));
-
-	jumpLayer->ninja->JumpAction(2150.0f * Clamp(timeTouch * 8.75f));
-	log("%f", timeTouch);log("%f", timeTouch);
+	jumpLayer->ninja->JumpAction(2500.0f * Clamp(timeTouch * 8.75f));
+	//log("%f", timeTouch);log("%f", timeTouch);
 	tinh = false;
 }
 #pragma endregion 
@@ -83,7 +77,7 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta/2);		
+		jumpLayer->MovePillar(delta / 3);		
 	}
 	if (jumpLayer->ninja->isJumping == false)
 	{
