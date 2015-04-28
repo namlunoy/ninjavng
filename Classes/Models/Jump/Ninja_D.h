@@ -19,7 +19,6 @@ public:
 	float maxHeight;
 	float maxDistance;
 
-
 	bool onContactBegin(PhysicsContact &contact);
 	
 };

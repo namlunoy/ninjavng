@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "Models/Jump/Ninja_D.h"
 #include "Models/Jump/Pillar.h"
+#include "Models/Jump/Spring.h"
 #include <iostream>
 #include <list>
 USING_NS_CC;
@@ -28,6 +29,9 @@ public:
 	void StopPillar();
 	void SpawnPillar(/*Point pos*/);
 	void SpawnPillarWithPos(Point pos);
+
+	//Spring
+	Spring * spring;
 };
 
 #endif

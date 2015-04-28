@@ -11,6 +11,8 @@ public:
 	PhysicsBody *body;
 	bool init();
 	static Spring* createSpring();
+	void ScaleUpSpring(float s);
+	void ScaleDownSpring(float s);
 };
 
 #endif// _SPRING_

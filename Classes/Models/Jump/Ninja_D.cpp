@@ -9,11 +9,11 @@ Ninja_D::Ninja_D()
 	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 1.0f));
 	body->setMass(60.0f);
 	body->setAngularVelocityLimit(0.0f);
+	body->setRotationEnable(false);
 	body->setCollisionBitmask(NINJA_COLLISION);
 	body->setDynamic(true);
 	body->setLinearDamping(0.5);
 	body->setContactTestBitmask(true);
-	body->setGravityEnable(true);
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->setPhysicsBody(body);
 }
@@ -27,7 +27,6 @@ bool Ninja_D::init()
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Ninja_D::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-
 
 	return true;
 }
