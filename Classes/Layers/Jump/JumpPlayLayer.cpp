@@ -59,7 +59,7 @@ void JumpPlayLayer::showScoreBoard()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			Director::getInstance()->replaceScene(JumpScene::createPhysicScene());
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5, JumpScene::createPhysicScene(), Color3B(34, 177, 76)));
 			break;
 		default:
 			break;
@@ -67,12 +67,17 @@ void JumpPlayLayer::showScoreBoard()
 	});
 	scoreBoard->addChild(replayButton);
 	scoreBoard->setScale(0.5);
+	Sprite * opacity = Sprite::create("opacity.png");
+	opacity->setPosition(Config::centerPoint);
+	opacity->setOpacity(128);
+	this->addChild(opacity);
 	this->addChild(scoreBoard);
+	jumpLayer->ninja->isDeath = false;
 }
 
 float JumpPlayLayer::Clamp(float a)
 {
-	if (a < 2.0f) return 2.0f;
+	if (a < 1.5f) return 1.5f;
 	else if (a > 8.5f) return 8.5f;
 	else return a;
 }
@@ -110,7 +115,7 @@ void JumpPlayLayer::update(float delta)
 	if (jumpLayer->ninja->isDeath == true)
 	{
 		jumpLayer->pillar->StopPillar();
-		//showScoreBoard();
+		showScoreBoard();
 	}
 
 	if (jumpLayer->ninja->isJumping == false)
