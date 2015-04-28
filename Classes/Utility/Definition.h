@@ -14,6 +14,7 @@
 #define PILLAR_COLLISION 0x000001
 #define NINJA_COLLISION 0x000002
 #define WALL_COLLISION 0x000003
+#define GROUND_COLLISION 0x000004
 
 class Definition {
 public:

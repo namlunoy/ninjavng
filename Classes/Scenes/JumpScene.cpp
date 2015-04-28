@@ -10,7 +10,7 @@ JumpScene::~JumpScene(){}
 Scene* JumpScene::createPhysicScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setSpeed(2.5f);
+	scene->getPhysicsWorld()->setSpeed(3.0f);
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	//Background

@@ -21,14 +21,24 @@ bool JumpLayer::init()
 	if (!Layer::init()) return false;
 
 	//Tạo tường xung quanh
-	Node * border = Node::create();
-	border->setPosition(Config::centerPoint);
-	PhysicsBody * borderBody = PhysicsBody::createEdgeBox(Size(Config::screenSize));
-	borderBody->setDynamic(false);
-	borderBody->setCollisionBitmask(WALL_COLLISION);
-	borderBody->setContactTestBitmask(true);
-	border->setPhysicsBody(borderBody);
-	//this->addChild(border);
+	//Node * border = Node::create();
+	//border->setPosition(Config::centerPoint);
+	//PhysicsBody * borderBody = PhysicsBody::createEdgeBox(Size(Config::screenSize));
+	//borderBody->setDynamic(false);
+	//borderBody->setCollisionBitmask(WALL_COLLISION);
+	//borderBody->setContactTestBitmask(true);
+	//border->setPhysicsBody(borderBody);
+	////this->addChild(border);
+
+	//Ground
+	Node * ground = Node::create();
+	ground->setPosition(Point(400, -85));
+	PhysicsBody * groundBody = PhysicsBody::createEdgeBox(Size(800, 2));
+	groundBody->setDynamic(false);
+	groundBody->setCollisionBitmask(WALL_COLLISION);
+	groundBody->setContactTestBitmask(true);
+	ground->setPhysicsBody(groundBody);
+	this->addChild(ground, 0);
 
 	//Pillar
 	pillar = Pillar::createPillar();
@@ -45,7 +55,7 @@ bool JumpLayer::init()
 	//Spring
 	spring = Spring::createSpring();
 	spring->setPosition(Config::centerPoint);
-	this->addChild(spring);
+	//this->addChild(spring);
 
 
 	return true;

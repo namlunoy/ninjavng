@@ -56,7 +56,12 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 		CCLOG("Contact: Ninja vs Pillar");
 		this->isJumping = false;
 		this->body->resetForces();
-	}
+	} else 
+		if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == WALL_COLLISION)
+			|| (body_a->getCollisionBitmask() == WALL_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
+		{
+			this->isDeath = true;
+		}
 
 	return true;
 }

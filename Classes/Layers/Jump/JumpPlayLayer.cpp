@@ -2,6 +2,7 @@
 #include "Utility/Config.h"
 #include "Scenes/HelloWorldScene.h"
 #include "ui/CocosGUI.h"
+#include "Scenes/JumpScene.h"
 #include "Utility/Definition.h"
 using namespace ui;
 
@@ -46,6 +47,29 @@ void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
 	this->jumpLayer = jumplayer;
 }
 
+void JumpPlayLayer::showScoreBoard()
+{
+	Sprite * scoreBoard = Sprite::create("ScoreBoard.png");
+	scoreBoard->setPosition(Point(Config::centerPoint));
+	Button * replayButton = Button::create("ReplayButton.png");
+	replayButton->setPosition(Point(scoreBoard->getContentSize().width/2, replayButton->getContentSize().height/2 + 70));
+	replayButton->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type){
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			Director::getInstance()->replaceScene(JumpScene::createPhysicScene());
+			break;
+		default:
+			break;
+		}
+	});
+	scoreBoard->addChild(replayButton);
+	scoreBoard->setScale(0.5);
+	this->addChild(scoreBoard);
+}
+
 float JumpPlayLayer::Clamp(float a)
 {
 	if (a < 2.0f) return 2.0f;
@@ -80,8 +104,15 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta / 3);	
+		jumpLayer->MovePillar(delta / 3.5f);	
 	}
+
+	if (jumpLayer->ninja->isDeath == true)
+	{
+		jumpLayer->pillar->StopPillar();
+		//showScoreBoard();
+	}
+
 	if (jumpLayer->ninja->isJumping == false)
 	{
 		jumpLayer->pillar->StopPillar();
