@@ -6,7 +6,7 @@ Ninja_D::Ninja_D()
 {
 	sprite = Sprite::create("Ninja2.png");
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 1.0f));
+	body = PhysicsBody::createEdgeBox(sprite->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 1.0f));
 	body->setMass(60.0f);
 	body->setAngularVelocityLimit(0.0f);
 	body->setRotationEnable(false);
@@ -61,6 +61,7 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 			|| (body_a->getCollisionBitmask() == WALL_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
 		{
 			this->isDeath = true;
+			//this->removeFromParent();
 		}
 
 	return true;

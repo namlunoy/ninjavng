@@ -32,8 +32,8 @@ bool JumpLayer::init()
 
 	//Ground
 	Node * ground = Node::create();
-	ground->setPosition(Point(400, -85));
-	PhysicsBody * groundBody = PhysicsBody::createEdgeBox(Size(800, 2));
+	ground->setPosition(Point(400, 1));
+	PhysicsBody * groundBody = PhysicsBody::createBox(Size(800, 1));
 	groundBody->setDynamic(false);
 	groundBody->setCollisionBitmask(WALL_COLLISION);
 	groundBody->setContactTestBitmask(true);
@@ -84,6 +84,11 @@ void JumpLayer::SpawnPillarWithPos(Point pos)
 {
 	Pillar *p = Pillar::createPillar();
 	p->setPosition(pos);
+
+	/*Spring * spring = Spring::createSpring();
+	spring->setPosition(Point(0, p->getContentSize().height/2 + 200));
+	p->addChild(spring);*/
+
 	this->addChild(p);
 	listPillar.push_front(p);
 }

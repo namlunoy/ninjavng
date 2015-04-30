@@ -1,12 +1,15 @@
 ﻿#include "Models/Jump/Spring.h"
+#include "Utility/Definition.h"
 
 Spring::Spring()
 {
 	sprite = Sprite::create("spring.png");
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(sprite->getBoundingBox().size, PhysicsMaterial(1, 0, 1));
-	body->setAngularVelocityLimit(0.0f);
+	body = PhysicsBody::createBox(sprite->getBoundingBox().size, PhysicsMaterial(1, 0, 0));
+	body->setRotationEnable(false);
 	body->setDynamic(false);
+	body->setCollisionBitmask(SPRING_COLLISION);
+	body->setContactTestBitmask(true);
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->setPhysicsBody(body);
 };

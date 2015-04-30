@@ -47,7 +47,7 @@ void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
 	this->jumpLayer = jumplayer;
 }
 
-void JumpPlayLayer::showScoreBoard()
+void JumpPlayLayer::ShowScoreBoard()
 {
 	Sprite * scoreBoard = Sprite::create("ScoreBoard.png");
 	scoreBoard->setPosition(Point(Config::centerPoint));
@@ -72,7 +72,6 @@ void JumpPlayLayer::showScoreBoard()
 	opacity->setOpacity(128);
 	this->addChild(opacity);
 	this->addChild(scoreBoard);
-	jumpLayer->ninja->isDeath = false;
 }
 
 float JumpPlayLayer::Clamp(float a)
@@ -115,7 +114,8 @@ void JumpPlayLayer::update(float delta)
 	if (jumpLayer->ninja->isDeath == true)
 	{
 		jumpLayer->pillar->StopPillar();
-		showScoreBoard();
+		jumpLayer->ninja->removeFromParent();
+		ShowScoreBoard();
 	}
 
 	if (jumpLayer->ninja->isJumping == false)

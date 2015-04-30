@@ -35,7 +35,7 @@ public:
 	void update(float delta);
 
 	//GameOver
-	void showScoreBoard();
+	void ShowScoreBoard();
 };
 
 #endif //_JUMPPLAY_LAYER_
