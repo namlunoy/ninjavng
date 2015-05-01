@@ -17,8 +17,7 @@ public:
 	void JumpAction(float force);
 	bool isJumping;
 	bool isDeath;
-	float maxHeight;
-	float maxDistance;
+	bool finishJump;
 
 	bool onContactBegin(PhysicsContact &contact);
 	

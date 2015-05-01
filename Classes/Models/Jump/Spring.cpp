@@ -5,7 +5,7 @@ Spring::Spring()
 {
 	sprite = Sprite::create("spring.png");
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(sprite->getBoundingBox().size, PhysicsMaterial(1, 0, 0));
+	body = PhysicsBody::createBox(sprite->getBoundingBox().size, PhysicsMaterial(1, 0, 1));
 	body->setRotationEnable(false);
 	body->setDynamic(false);
 	body->setCollisionBitmask(SPRING_COLLISION);

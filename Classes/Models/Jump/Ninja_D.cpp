@@ -41,7 +41,6 @@ Ninja_D* Ninja_D::createNinja()
 
 void Ninja_D::JumpAction(float force)
 {
-	CCLOG("Force");
 	this->isJumping = true;
 	body->applyImpulse(Vect(0, force));
 }
@@ -50,18 +49,24 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 {
 	auto body_a = contact.getShapeA()->getBody();
 	auto body_b = contact.getShapeB()->getBody();
+
 	if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == PILLAR_COLLISION)
 		|| (body_a->getCollisionBitmask() == PILLAR_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
 	{
-		CCLOG("Contact: Ninja vs Pillar");
 		this->isJumping = false;
 		this->body->resetForces();
-	} else 
-		if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == WALL_COLLISION)
+	} 
+	else if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == WALL_COLLISION)
 			|| (body_a->getCollisionBitmask() == WALL_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
 		{
 			this->isDeath = true;
-			//this->removeFromParent();
+		}
+	else if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == SCORE_COLLISION)
+			|| (body_a->getCollisionBitmask() == SCORE_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
+		{
+			this->isJumping = false;
+			this->body->resetForces();
+			finishJump = true;
 		}
 
 	return true;

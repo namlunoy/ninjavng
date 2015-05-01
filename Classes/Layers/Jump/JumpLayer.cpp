@@ -5,6 +5,7 @@
 #include "Utility/Definition.h"
 #include "Models/Jump/Pillar.h"
 #include "Models/Jump/Spring.h"
+#include "Models/Jump/ScoreNode.h"
 #include <iostream>
 #include <list>
 USING_NS_CC;
@@ -85,9 +86,9 @@ void JumpLayer::SpawnPillarWithPos(Point pos)
 	Pillar *p = Pillar::createPillar();
 	p->setPosition(pos);
 
-	/*Spring * spring = Spring::createSpring();
-	spring->setPosition(Point(0, p->getContentSize().height/2 + 200));
-	p->addChild(spring);*/
+	ScoreNode * scorenode = ScoreNode::createScoreNode();
+	scorenode->setPosition(Point(0, 176));
+	p->addChild(scorenode);
 
 	this->addChild(p);
 	listPillar.push_front(p);

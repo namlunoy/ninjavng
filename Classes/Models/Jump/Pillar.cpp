@@ -10,7 +10,7 @@ Pillar::Pillar()
 {
 	sprite = Sprite::create("Bamboo.png");
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 0));
+	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 1));
 	body->setDynamic(false);
 	//body->setGravityEnable(false);
 	body->setCollisionBitmask(PILLAR_COLLISION);

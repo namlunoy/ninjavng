@@ -4,6 +4,7 @@
 #include "Models/Jump/Ninja_D.h"
 #include "Models/Jump/Pillar.h"
 #include "Models/Jump/Spring.h"
+#include "Models/Jump/ScoreNode.h"
 #include <iostream>
 #include <list>
 USING_NS_CC;

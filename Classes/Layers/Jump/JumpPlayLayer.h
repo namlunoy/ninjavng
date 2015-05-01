@@ -35,6 +35,7 @@ public:
 	void update(float delta);
 
 	//GameOver
+	int score = 0;
 	void ShowScoreBoard();
 };
 

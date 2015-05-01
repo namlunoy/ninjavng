@@ -16,6 +16,7 @@
 #define WALL_COLLISION 0x000003
 #define GROUND_COLLISION 0x000004
 #define SPRING_COLLISION 0x000005
+#define SCORE_COLLISION 0x000006
 
 class Definition {
 public:

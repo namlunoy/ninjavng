@@ -5,6 +5,7 @@
 #include "Scenes/JumpScene.h"
 #include "Utility/Definition.h"
 using namespace ui;
+using namespace std;
 
 JumpPlayLayer::JumpPlayLayer(){}
 JumpPlayLayer::~JumpPlayLayer(){}
@@ -49,8 +50,11 @@ void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
 
 void JumpPlayLayer::ShowScoreBoard()
 {
+	//Bảng điều khiển
 	Sprite * scoreBoard = Sprite::create("ScoreBoard.png");
 	scoreBoard->setPosition(Point(Config::centerPoint));
+
+	//Replay Button
 	Button * replayButton = Button::create("ReplayButton.png");
 	replayButton->setPosition(Point(scoreBoard->getContentSize().width/2, replayButton->getContentSize().height/2 + 70));
 	replayButton->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type){
@@ -65,11 +69,25 @@ void JumpPlayLayer::ShowScoreBoard()
 			break;
 		}
 	});
+
+	//Điểm
+	Label * scoreLabel = Label::create();
+	scoreLabel->setPosition(Point(scoreBoard->getContentSize().width / 2, scoreBoard->getContentSize().height/2 + 60));
+	scoreLabel->setSystemFontSize(230);
+	scoreLabel->setColor(Color3B::BLACK);
+	scoreLabel->setString(std::to_string(this->score));
+
+	//Add to board 
+	scoreBoard->addChild(scoreLabel);
 	scoreBoard->addChild(replayButton);
 	scoreBoard->setScale(0.5);
+
+	//Nền mờ
 	Sprite * opacity = Sprite::create("opacity.png");
 	opacity->setPosition(Config::centerPoint);
 	opacity->setOpacity(128);
+
+	//AddChild
 	this->addChild(opacity);
 	this->addChild(scoreBoard);
 }
@@ -122,6 +140,13 @@ void JumpPlayLayer::update(float delta)
 	{
 		jumpLayer->pillar->StopPillar();
 		jumpLayer->UpdatePillar();
+	}
+
+	if (jumpLayer->ninja->finishJump == true)
+	{
+		score++;
+		log("%d", score);
+		jumpLayer->ninja->finishJump = false;
 	}
 
 	if (tinh)
