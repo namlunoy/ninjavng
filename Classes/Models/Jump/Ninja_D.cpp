@@ -6,14 +6,14 @@ Ninja_D::Ninja_D()
 {
 	sprite = Sprite::create("Ninja2.png");
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 1.0f));
+	body = PhysicsBody::createEdgeBox(sprite->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 1.0f));
 	body->setMass(60.0f);
 	body->setAngularVelocityLimit(0.0f);
+	body->setRotationEnable(false);
 	body->setCollisionBitmask(NINJA_COLLISION);
 	body->setDynamic(true);
 	body->setLinearDamping(0.5);
 	body->setContactTestBitmask(true);
-	body->setGravityEnable(true);
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->setPhysicsBody(body);
 }
@@ -28,7 +28,6 @@ bool Ninja_D::init()
 	contactListener->onContactBegin = CC_CALLBACK_1(Ninja_D::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-
 	return true;
 }
 
@@ -40,29 +39,35 @@ Ninja_D* Ninja_D::createNinja()
 	return n;
 }
 
-void Ninja_D::JumpAction(float force/*float dur, float height*/)
+void Ninja_D::JumpAction(float force)
 {
-	CCLOG("Force");
 	this->isJumping = true;
 	body->applyImpulse(Vect(0, force));
-	//body->setVelocity(Vect(0, 200));
-	/*auto jumpTo = JumpTo::create(dur, this->getPosition(), height, 1);
-	this->runAction(jumpTo);*/
 }
 
 bool Ninja_D::onContactBegin(PhysicsContact &contact)
 {
 	auto body_a = contact.getShapeA()->getBody();
 	auto body_b = contact.getShapeB()->getBody();
+
 	if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == PILLAR_COLLISION)
 		|| (body_a->getCollisionBitmask() == PILLAR_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
 	{
-		CCLOG("Contact: Ninja vs Pillar");
 		this->isJumping = false;
 		this->body->resetForces();
-		/*body_a->getNode()->stopAllActions();
-		body_b->getNode()->stopAllActions();*/
-	}
+	} 
+	else if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == WALL_COLLISION)
+			|| (body_a->getCollisionBitmask() == WALL_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
+		{
+			this->isDeath = true;
+		}
+	else if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == SCORE_COLLISION)
+			|| (body_a->getCollisionBitmask() == SCORE_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
+		{
+			this->isJumping = false;
+			this->body->resetForces();
+			finishJump = true;
+		}
 
 	return true;
 }

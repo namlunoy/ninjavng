@@ -2,8 +2,10 @@
 #include "Utility/Config.h"
 #include "Scenes/HelloWorldScene.h"
 #include "ui/CocosGUI.h"
+#include "Scenes/JumpScene.h"
 #include "Utility/Definition.h"
 using namespace ui;
+using namespace std;
 
 JumpPlayLayer::JumpPlayLayer(){}
 JumpPlayLayer::~JumpPlayLayer(){}
@@ -37,9 +39,7 @@ bool JumpPlayLayer::init()
 	touchListener->onTouchEnded = CC_CALLBACK_2(JumpPlayLayer::onTouchEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 
-	//this->schedule(schedule_selector(JumpLayer::SpawnPillar), 3);
 	this->scheduleUpdate();
-
 	return true;
 }
 
@@ -48,19 +48,60 @@ void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
 	this->jumpLayer = jumplayer;
 }
 
+void JumpPlayLayer::ShowScoreBoard()
+{
+	//Bảng điều khiển
+	Sprite * scoreBoard = Sprite::create("ScoreBoard.png");
+	scoreBoard->setPosition(Point(Config::centerPoint));
+
+	//Replay Button
+	Button * replayButton = Button::create("ReplayButton.png");
+	replayButton->setPosition(Point(scoreBoard->getContentSize().width/2, replayButton->getContentSize().height/2 + 70));
+	replayButton->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type){
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5, JumpScene::createPhysicScene(), Color3B(34, 177, 76)));
+			break;
+		default:
+			break;
+		}
+	});
+
+	//Điểm
+	Label * scoreLabel = Label::create();
+	scoreLabel->setPosition(Point(scoreBoard->getContentSize().width / 2, scoreBoard->getContentSize().height/2 + 60));
+	scoreLabel->setSystemFontSize(230);
+	scoreLabel->setColor(Color3B::BLACK);
+	scoreLabel->setString(std::to_string(this->score));
+
+	//Add to board 
+	scoreBoard->addChild(scoreLabel);
+	scoreBoard->addChild(replayButton);
+	scoreBoard->setScale(0.5);
+
+	//Nền mờ
+	Sprite * opacity = Sprite::create("opacity.png");
+	opacity->setPosition(Config::centerPoint);
+	opacity->setOpacity(128);
+
+	//AddChild
+	this->addChild(opacity);
+	this->addChild(scoreBoard);
+}
+
 float JumpPlayLayer::Clamp(float a)
 {
-	if (a < 3.0f) return 3.0f;
-	else if (a > 9.0f) return 9.0f;
+	if (a < 1.5f) return 1.5f;
+	else if (a > 8.5f) return 8.5f;
 	else return a;
 }
 
 #pragma region Touch
 bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
-	//Ninja
-	//jumpLayer->ninja->JumpAction(/*truyền lực vào đây*/470.0f);
-
 	tinh = true;
 	timeTouch = 0.0f;
 	return true;
@@ -68,15 +109,15 @@ bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::onTouchMoved(Touch *touch, Event *unused_event)
 {
+	//jumpLayer->spring->ScaleDownSpring(timeTouch);
 }
 
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
-	//jumpLayer->ninja->body->resetForces();
-	//jumpLayer->ninja->body->applyForce(Vect(0, jumpLayer->ninja->body->getMass()*(-10.0f)));
-
-	jumpLayer->ninja->JumpAction(/*truyền lực vào đây*/2000.0f * Clamp(timeTouch * 8.75f)/*Clamp(timeTouch* 8.75f), Clamp(timeTouch* 8.75f) * 80*/);
-	log("%f", timeTouch);log("%f", timeTouch);
+	if (jumpLayer->ninja->isJumping == false)
+	{
+		jumpLayer->ninja->JumpAction(2500.0f * Clamp(timeTouch * 8.75f));
+	}	
 	tinh = false;
 }
 #pragma endregion 
@@ -85,12 +126,27 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta/*1/Clamp(timeTouch * 8.75f)*/);
-		
+		jumpLayer->MovePillar(delta / 3.5f);	
 	}
+
+	if (jumpLayer->ninja->isDeath == true)
+	{
+		jumpLayer->pillar->StopPillar();
+		jumpLayer->ninja->removeFromParent();
+		ShowScoreBoard();
+	}
+
 	if (jumpLayer->ninja->isJumping == false)
 	{
 		jumpLayer->pillar->StopPillar();
+		jumpLayer->UpdatePillar();
+	}
+
+	if (jumpLayer->ninja->finishJump == true)
+	{
+		score++;
+		log("%d", score);
+		jumpLayer->ninja->finishJump = false;
 	}
 
 	if (tinh)

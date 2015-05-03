@@ -83,16 +83,11 @@ void PhiTieuHUDLayer::matMau()
 		hearts.at(hearts.size() - 1)->removeFromParent();
 		hearts.popBack();
 	}
-
-	if(hearts.size() == 0)
-	{
-		//Xu ly thua
-	}
 }
 
 bool PhiTieuHUDLayer::touch_PhongTieu(Touch* t, Event* e) {
 	float minPower = 1.0f/_phiTieuLayer->ninja->getMaxShuriken(1);
-	if(_power->getScaleX() >= minPower)
+	if(_power->getScaleX() >= minPower && _phiTieuLayer->ninja->isAlive)
 	{
 		float giam = _power->getScaleX() - minPower;
 		_power->setScaleX(giam);

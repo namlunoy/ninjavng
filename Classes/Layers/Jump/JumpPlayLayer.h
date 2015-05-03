@@ -17,11 +17,6 @@ public:
 	CREATE_FUNC(JumpPlayLayer);
 	void SetJumpLayer(JumpLayer *jumplayer);
 
-	//Ninja
-	//bool isJumping;
-	//bool isStanding;
-
-
 	//Xử lý Touch
 	bool onTouchBegan(Touch *touch, Event *unused_event);
 	void onTouchMoved(Touch *touch, Event *unused_event);
@@ -38,6 +33,10 @@ public:
 	//Schedule
 	void MovePillar(float dt);
 	void update(float delta);
+
+	//GameOver
+	int score = 0;
+	void ShowScoreBoard();
 };
 
 #endif //_JUMPPLAY_LAYER_

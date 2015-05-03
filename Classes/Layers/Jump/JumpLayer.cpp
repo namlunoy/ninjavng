@@ -4,6 +4,8 @@
 #include "Utility/Config.h"
 #include "Utility/Definition.h"
 #include "Models/Jump/Pillar.h"
+#include "Models/Jump/Spring.h"
+#include "Models/Jump/ScoreNode.h"
 #include <iostream>
 #include <list>
 USING_NS_CC;
@@ -12,54 +14,84 @@ JumpLayer::~JumpLayer(){}
 JumpLayer::JumpLayer()
 {
 	firstSpawnPoint = Point(100, 0);
+	firstPillar = listPillar.begin();
 }
 
 bool JumpLayer::init()
 {
 	if (!Layer::init()) return false;
 
-	//Tạo thằng Ninja
+	//Tạo tường xung quanh
+	//Node * border = Node::create();
+	//border->setPosition(Config::centerPoint);
+	//PhysicsBody * borderBody = PhysicsBody::createEdgeBox(Size(Config::screenSize));
+	//borderBody->setDynamic(false);
+	//borderBody->setCollisionBitmask(WALL_COLLISION);
+	//borderBody->setContactTestBitmask(true);
+	//border->setPhysicsBody(borderBody);
+	////this->addChild(border);
+
+	//Ground
+	Node * ground = Node::create();
+	ground->setPosition(Point(400, 1));
+	PhysicsBody * groundBody = PhysicsBody::createBox(Size(800, 1));
+	groundBody->setDynamic(false);
+	groundBody->setCollisionBitmask(WALL_COLLISION);
+	groundBody->setContactTestBitmask(true);
+	ground->setPhysicsBody(groundBody);
+	this->addChild(ground, 0);
+
+	//Pillar
+	pillar = Pillar::createPillar();
+	pillar->setPosition(100, 0);
+	this->addChild(pillar);
+	listPillar.push_front(pillar);
+	firstPillar = listPillar.begin();
+
+	//Ninja
 	ninja = Ninja_D::createNinja();
-	ninja->setPosition(100, 220);
+	ninja->setPosition(100, 216);
 	this->addChild(ninja);
 
-	pillar = Pillar::createPillar();
-	pillar->setPosition(100,0);
-	this->addChild(pillar);
-	listPillar.push_back(pillar);
+	//Spring
+	spring = Spring::createSpring();
+	spring->setPosition(Config::centerPoint);
+	//this->addChild(spring);
 
-	for (int i = 1; i < 5; i++)
-	{
-		SpawnPillar(i * 150 + 100);
-	}
-
-	/*prevSpawnPoint = Point(rootPoint.x + firstSpawnPoint.x, 0);
-	do
-	{
-		auto distance = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
-		auto heightRandom = CCRANDOM_0_1()*pillar->getContentSize().height / 2;
-		auto nextSpawnPoint = Point(prevSpawnPoint.x + distance, heightRandom);
-		prevSpawnPoint.x = nextSpawnPoint.x;
-		Pillar *p = Pillar::createPillar(nextSpawnPoint);
-		p->SpawnPillar(this);
-	} while (screenSize.width - prevSpawnPoint.x > DISTANCE_MAX);*/
 
 	return true;
 }
 
-void JumpLayer::setRandomPoint()
+void JumpLayer::UpdatePillar()
 {
-
+	if ((1200 - (*firstPillar)->getPositionX()) > DISTANCE_SPAWN_MAX)
+	{
+		float randomX = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
+		SpawnPillarWithPos(Point((*firstPillar)->getPositionX() + randomX, CCRANDOM_0_1() * 175));
+	}
+	firstPillar = listPillar.begin();
 }
 
-void JumpLayer::SpawnPillar(float distance)
+void JumpLayer::SpawnPillar()
+{
+	Point pos = Point(Config::screenSize.width, CCRANDOM_0_1() * 175);
+	Pillar *p = Pillar::createPillar();	
+	p->setPosition(pos);
+	this->addChild(p);
+	listPillar.push_front(p);
+}
+
+void JumpLayer::SpawnPillarWithPos(Point pos)
 {
 	Pillar *p = Pillar::createPillar();
-	auto height = CCRANDOM_0_1()*p->getContentSize().height / 2;
-	p->setPosition(distance, height);
-	this->addChild(p);
-	listPillar.push_back(p);
+	p->setPosition(pos);
 
+	ScoreNode * scorenode = ScoreNode::createScoreNode();
+	scorenode->setPosition(Point(0, 176));
+	p->addChild(scorenode);
+
+	this->addChild(p);
+	listPillar.push_front(p);
 }
 
 void JumpLayer::MovePillar(float duration)
@@ -76,9 +108,4 @@ void JumpLayer::StopPillar()
 	{
 		(*it)->StopPillar();
 	}
-}
-
-void JumpLayer::update(float delta)
-{
-
 }

@@ -8,9 +8,9 @@ Pillar::~Pillar(){}
 
 Pillar::Pillar()
 {
-	sprite = Sprite::create("building.png");
+	sprite = Sprite::create("Bamboo.png");
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 0));
+	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 1));
 	body->setDynamic(false);
 	//body->setGravityEnable(false);
 	body->setCollisionBitmask(PILLAR_COLLISION);
@@ -47,7 +47,7 @@ Point Pillar::getCurrenPos()
 
 void Pillar::MovePillar(float duration)
 {
-	auto movePillar = MoveBy::create(duration, Vec2(-2.5f, 0));
+	auto movePillar = MoveBy::create(duration, Vec2(-2.7f, 0));
 	this->runAction(movePillar);
 }
 

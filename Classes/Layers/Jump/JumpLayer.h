@@ -3,6 +3,8 @@
 #include "cocos2d.h"
 #include "Models/Jump/Ninja_D.h"
 #include "Models/Jump/Pillar.h"
+#include "Models/Jump/Spring.h"
+#include "Models/Jump/ScoreNode.h"
 #include <iostream>
 #include <list>
 USING_NS_CC;
@@ -21,13 +23,16 @@ public:
 	//Pillar
 	Pillar *pillar;
 	std::list< Pillar* > listPillar;
+	std::list< Pillar* >::iterator firstPillar;
 	Point firstSpawnPoint;
-	Point randomPoint;
-	void setRandomPoint();
+	void UpdatePillar();
 	void MovePillar(float duration);
 	void StopPillar();
-	void SpawnPillar(float distance);
-	void update(float delta);
+	void SpawnPillar(/*Point pos*/);
+	void SpawnPillarWithPos(Point pos);
+
+	//Spring
+	Spring * spring;
 };
 
 #endif
