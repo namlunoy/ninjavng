@@ -75,7 +75,7 @@ void JumpPlayLayer::ShowScoreBoard()
 	currentScore->setPosition(Point(scoreBoard->getContentSize().width / 2, scoreBoard->getContentSize().height / 2 + 60));
 	currentScore->setSystemFontSize(230);
 	currentScore->setColor(Color3B::BLACK);
-	currentScore->setString(std::to_string(this->score));
+	currentScore->setString();
 
 	//Add to board 
 	scoreBoard->addChild(currentScore);
