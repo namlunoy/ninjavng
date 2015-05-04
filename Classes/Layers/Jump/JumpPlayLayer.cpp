@@ -1,4 +1,4 @@
-﻿#include "JumpPlayLayer.h"
+﻿#include "Layers/Jump/JumpPlayLayer.h"
 #include "Utility/Config.h"
 #include "Scenes/HelloWorldScene.h"
 #include "ui/CocosGUI.h"
@@ -84,8 +84,9 @@ void JumpPlayLayer::ShowScoreBoard()
 	ss<<this->score;
 	scoreLabel->setString(ss.str());
 
+
 	//Add to board 
-	scoreBoard->addChild(scoreLabel);
+	scoreBoard->addChild(currentScore);
 	scoreBoard->addChild(replayButton);
 	scoreBoard->setScale(0.5);
 
@@ -133,10 +134,10 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta *3 );	
+		jumpLayer->MovePillar(delta*5);	
 	}
 
-	if (jumpLayer->ninja->isDeath == true)
+	if (jumpLayer->ninja->isDeath == true && jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr)
 	{
 		jumpLayer->pillar->StopPillar();
 		jumpLayer->ninja->removeFromParent();
@@ -154,6 +155,7 @@ void JumpPlayLayer::update(float delta)
 		score++;
 		log("%d", score);
 		jumpLayer->ninja->finishJump = false;
+		jumpLayer->scoreText->setString(std::to_string(this->score));
 	}
 
 	if (tinh)

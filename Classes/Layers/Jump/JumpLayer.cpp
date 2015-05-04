@@ -53,10 +53,19 @@ bool JumpLayer::init()
 	ninja->setPosition(100, 216);
 	this->addChild(ninja);
 
-	//Spring
-	spring = Spring::createSpring();
-	spring->setPosition(Config::centerPoint);
-	//this->addChild(spring);
+	//Score
+	Sprite * circle = Sprite::create("circle.png");
+	circle->setPosition(Point(Config::screenSize.width / 2, Config::screenSize.height / 2 + 180));
+	circle->setOpacity(200);
+	circle->setScale(0.5);
+
+	scoreText = Label::create("0", "fonts/Marker Felt.ttf", 85 ,Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
+	scoreText->setPosition(circle->getContentSize().width/2, circle->getContentSize().height/2);
+	scoreText->setColor(Color3B::BLACK);
+	scoreText->setOpacity(200);
+
+	circle->addChild(scoreText);
+	this->addChild(circle);
 
 
 	return true;
@@ -87,7 +96,7 @@ void JumpLayer::SpawnPillarWithPos(Point pos)
 	p->setPosition(pos);
 
 	ScoreNode * scorenode = ScoreNode::createScoreNode();
-	scorenode->setPosition(Point(0, 176));
+	scorenode->setPosition(Point(0, 175));
 	p->addChild(scorenode);
 
 	this->addChild(p);
