@@ -27,7 +27,7 @@ public:
 	void gameLogic(float dt);
 	void spriteMoveFinished(cocos2d::Node* sender);
 	ChemLayer();
-	virtual ~ChemLayer();
+	~ChemLayer();//virtual 
 	void click_Jump(Ref* sender, TouchEventType touchType);
 	Sprite* player;
 	Sprite* katana;
