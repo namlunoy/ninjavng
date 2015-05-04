@@ -5,7 +5,7 @@ ScoreNode::ScoreNode()
 {
 	node = Node::create();
 	this->addChild(node);
-	body = PhysicsBody::createBox(Size(50, 2), PhysicsMaterial(1, 0, 1));
+	body = PhysicsBody::createEdgeBox(Size(50, 800), PhysicsMaterial(1, 0, 1));
 	body->setDynamic(false);
 	body->setCollisionBitmask(SCORE_COLLISION);
 	body->setContactTestBitmask(true);

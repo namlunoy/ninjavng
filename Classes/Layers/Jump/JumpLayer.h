@@ -31,8 +31,8 @@ public:
 	void SpawnPillar(/*Point pos*/);
 	void SpawnPillarWithPos(Point pos);
 
-	//Spring
-	Spring * spring;
+	//Score
+	Label * scoreText;
 };
 
 #endif

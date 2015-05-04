@@ -1,4 +1,4 @@
-﻿#include "JumpPlayLayer.h"
+﻿#include "Layers/Jump/JumpPlayLayer.h"
 #include "Utility/Config.h"
 #include "Scenes/HelloWorldScene.h"
 #include "ui/CocosGUI.h"
@@ -71,14 +71,14 @@ void JumpPlayLayer::ShowScoreBoard()
 	});
 
 	//Điểm
-	Label * scoreLabel = Label::create();
-	scoreLabel->setPosition(Point(scoreBoard->getContentSize().width / 2, scoreBoard->getContentSize().height/2 + 60));
-	scoreLabel->setSystemFontSize(230);
-	scoreLabel->setColor(Color3B::BLACK);
-	scoreLabel->setString(std::to_string(this->score));
+	Label * currentScore = Label::create();
+	currentScore->setPosition(Point(scoreBoard->getContentSize().width / 2, scoreBoard->getContentSize().height / 2 + 60));
+	currentScore->setSystemFontSize(230);
+	currentScore->setColor(Color3B::BLACK);
+	currentScore->setString(std::to_string(this->score));
 
 	//Add to board 
-	scoreBoard->addChild(scoreLabel);
+	scoreBoard->addChild(currentScore);
 	scoreBoard->addChild(replayButton);
 	scoreBoard->setScale(0.5);
 
@@ -126,10 +126,10 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta / 3.5f);	
+		jumpLayer->MovePillar(delta*5);	
 	}
 
-	if (jumpLayer->ninja->isDeath == true)
+	if (jumpLayer->ninja->isDeath == true && jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr)
 	{
 		jumpLayer->pillar->StopPillar();
 		jumpLayer->ninja->removeFromParent();
@@ -147,6 +147,7 @@ void JumpPlayLayer::update(float delta)
 		score++;
 		log("%d", score);
 		jumpLayer->ninja->finishJump = false;
+		jumpLayer->scoreText->setString(std::to_string(this->score));
 	}
 
 	if (tinh)
