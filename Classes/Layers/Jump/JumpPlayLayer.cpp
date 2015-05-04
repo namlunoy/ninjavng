@@ -4,6 +4,10 @@
 #include "ui/CocosGUI.h"
 #include "Scenes/JumpScene.h"
 #include "Utility/Definition.h"
+#include <iostream>
+#include <sstream>
+#include <string>
+
 using namespace ui;
 using namespace std;
 
@@ -75,7 +79,10 @@ void JumpPlayLayer::ShowScoreBoard()
 	scoreLabel->setPosition(Point(scoreBoard->getContentSize().width / 2, scoreBoard->getContentSize().height/2 + 60));
 	scoreLabel->setSystemFontSize(230);
 	scoreLabel->setColor(Color3B::BLACK);
-	scoreLabel->setString(std::to_string(this->score));
+
+	stringstream ss;
+	ss<<this->score;
+	scoreLabel->setString(ss.str());
 
 	//Add to board 
 	scoreBoard->addChild(scoreLabel);
@@ -126,7 +133,7 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta / 3.5f);	
+		jumpLayer->MovePillar(delta *3 );	
 	}
 
 	if (jumpLayer->ninja->isDeath == true)
