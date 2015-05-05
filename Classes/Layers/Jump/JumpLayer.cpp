@@ -81,8 +81,7 @@ void JumpLayer::UpdatePillar()
 	{
 		float randomX = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
 		SpawnPillarWithPos(Point((*firstPillar)->getPositionX() + randomX, CCRANDOM_0_1() * 175));
-	}
-	//firstPillar = listPillar.begin();
+	} 
 }
 
 void JumpLayer::SpawnPillar()
