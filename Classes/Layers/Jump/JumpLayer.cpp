@@ -63,6 +63,7 @@ bool JumpLayer::init()
 
 	scoreText = Label::create("0", "fonts/Vnhatban.TTF", 85 ,Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
 	scoreText->setPosition(circle->getContentSize().width/2, circle->getContentSize().height/2);
+	//scoreText->s
 	scoreText->setColor(Color3B::BLACK);
 	scoreText->setOpacity(200);
 
@@ -75,12 +76,13 @@ bool JumpLayer::init()
 
 void JumpLayer::UpdatePillar()
 {
+	firstPillar = listPillar.begin();
 	if ((1200 - (*firstPillar)->getPositionX()) > DISTANCE_SPAWN_MAX)
 	{
 		float randomX = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
 		SpawnPillarWithPos(Point((*firstPillar)->getPositionX() + randomX, CCRANDOM_0_1() * 175));
 	}
-	firstPillar = listPillar.begin();
+	//firstPillar = listPillar.begin();
 }
 
 void JumpLayer::SpawnPillar()
