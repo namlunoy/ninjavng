@@ -12,7 +12,7 @@ bool Background::init()
 {
 	if (!Layer::init()) return false;
 	
-	auto background = Sprite::create("BambooForest1.PNG");
+	auto background = Sprite::create("BambooForest1.png");
 	background->setPosition(Config::centerPoint);
 	background->setScale(Config::getScale(background));
 	this->addChild(background);

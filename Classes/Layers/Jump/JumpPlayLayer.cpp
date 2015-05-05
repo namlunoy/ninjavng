@@ -67,7 +67,7 @@ void JumpPlayLayer::ShowScoreBoard()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			Director::getInstance()->replaceScene(TransitionFade::create(0.5, JumpScene::createPhysicScene(), Color3B(34, 177, 76)));
+			//Director::getInstance()->replaceScene(TransitionFade::create(0.5, JumpScene::createPhysicScene(), Color3B(34, 177, 76)));
 			break;
 		default:
 			break;
@@ -94,8 +94,8 @@ void JumpPlayLayer::ShowScoreBoard()
 	opacity->setOpacity(128);
 
 	//AddChild
-	this->addChild(opacity);
-	this->addChild(scoreBoard);
+	//this->addChild(opacity);
+	//this->addChild(scoreBoard);
 }
 
 float JumpPlayLayer::Clamp(float a)
