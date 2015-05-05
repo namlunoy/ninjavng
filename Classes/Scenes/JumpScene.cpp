@@ -32,7 +32,8 @@ Scene* JumpScene::createPhysicScene()
 
 bool JumpScene::init()
 {
-	if (!JumpScene::init()) return false;
+	if (!JumpScene::init())
+		return false;
 		
 	/*layer = JumpLayer::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld());
