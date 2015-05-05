@@ -6,7 +6,7 @@ Ninja_D::Ninja_D()
 {
 	sprite = Sprite::create("Ninja2.png");
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 1.0f));
+	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 1.0f), Vec2(0,0));
 	body->setMass(60.0f);
 	body->setAngularVelocityLimit(0.0f);
 	body->setRotationEnable(false);
@@ -25,6 +25,7 @@ bool Ninja_D::init()
 	if (!Node::init())
 		return false;
 	 isDeath = false;
+
 	//Contact
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Ninja_D::onContactBegin, this);
@@ -82,13 +83,12 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 	else if ((body_a->getTag() == NINJA_COLLISION && body_b->getTag() == GROUND_COLLISION)
 		|| (body_a->getTag() == GROUND_COLLISION && body_b->getTag() == NINJA_COLLISION))
 	{
+		this->isJumping = false;
 		this->isDeath = true;
 	}
 	else if ((body_a->getCategoryBitmask() & body_b->getCollisionBitmask()) == 0
 		|| (body_b->getCategoryBitmask() & body_a->getCollisionBitmask()) == 0)
 	{
-		//this->isJumping = false;
-		//this->body->resetForces();
 		finishJump = true;
 		log("CC");
 	}

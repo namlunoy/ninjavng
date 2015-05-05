@@ -15,7 +15,7 @@ public:
 	Point getCurrenPos();
 	bool init();
 	static Pillar* createPillar();
-	void MovePillar(float veloc);
+	void MovePillar(float duration);
 	void StopPillar();
 
 	bool onContactBegin(PhysicsContact &contact);

@@ -14,8 +14,8 @@ Scene* JumpScene::createPhysicScene()
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	//Background
-	/*auto backgroundLayer = Background::create();
-	scene->addChild(backgroundLayer, 0);*/
+	auto backgroundLayer = Background::create();
+	scene->addChild(backgroundLayer, 0);
 
 	//Jump
 	auto jumplayer = JumpLayer::create();
@@ -23,9 +23,9 @@ Scene* JumpScene::createPhysicScene()
 	scene->addChild(jumplayer,1);
 
 	//GamePlay
-	/*auto gamePlayLayer = JumpPlayLayer::create();
+	auto gamePlayLayer = JumpPlayLayer::create();
 	gamePlayLayer->SetJumpLayer(jumplayer);
-	scene->addChild(gamePlayLayer,2);*/
+	scene->addChild(gamePlayLayer,2);
 
 	return scene;
 }

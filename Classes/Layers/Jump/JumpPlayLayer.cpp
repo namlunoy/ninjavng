@@ -67,7 +67,7 @@ void JumpPlayLayer::ShowScoreBoard()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			//Director::getInstance()->replaceScene(TransitionFade::create(0.5, JumpScene::createPhysicScene(), Color3B(34, 177, 76)));
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5, JumpScene::createPhysicScene(), Color3B(34, 177, 76)));
 			break;
 		default:
 			break;
@@ -94,8 +94,8 @@ void JumpPlayLayer::ShowScoreBoard()
 	opacity->setOpacity(128);
 
 	//AddChild
-	//this->addChild(opacity);
-	//this->addChild(scoreBoard);
+	this->addChild(opacity);
+	this->addChild(scoreBoard);
 }
 
 float JumpPlayLayer::Clamp(float a)
@@ -120,7 +120,8 @@ void JumpPlayLayer::onTouchMoved(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
-	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->getParent() != NULL)
+	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->getParent() != NULL 
+		&& jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr && jumpLayer->ninja->getPhysicsBody() != nullptr)
 	{
 		jumpLayer->ninja->JumpAction(2500.0f * Clamp(timeTouch * 8.75f));
 	}	
@@ -132,10 +133,10 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta*5);	
+		jumpLayer->MovePillar(delta * 2.5);	
 	}
 
-	if (jumpLayer->ninja->isDeath == true)
+	if (jumpLayer->ninja->isDeath == true && jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr && jumpLayer->ninja->getPhysicsBody() != nullptr)
 	{
 		jumpLayer->pillar->StopPillar();
 		jumpLayer->ninja->removeFromParent();
