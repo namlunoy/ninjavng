@@ -75,7 +75,6 @@ void JumpPlayLayer::ShowScoreBoard()
 	});
 
 	//Điểm
-
 	Label* currentScore = Label::create();
 	currentScore->setPosition(Point(scoreBoard->getContentSize().width / 2, scoreBoard->getContentSize().height/2 + 60));
 	currentScore->setSystemFontSize(230);
@@ -83,7 +82,6 @@ void JumpPlayLayer::ShowScoreBoard()
 	stringstream ss;
 	ss<<this->score;
 	currentScore->setString(ss.str());
-
 
 	//Add to board 
 	scoreBoard->addChild(currentScore);
