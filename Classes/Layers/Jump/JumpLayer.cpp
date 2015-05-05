@@ -22,21 +22,23 @@ bool JumpLayer::init()
 	if (!Layer::init()) return false;
 
 	//Tạo tường xung quanh
-	//Node * border = Node::create();
-	//border->setPosition(Config::centerPoint);
-	//PhysicsBody * borderBody = PhysicsBody::createEdgeBox(Size(Config::screenSize));
-	//borderBody->setDynamic(false);
-	//borderBody->setCollisionBitmask(WALL_COLLISION);
-	//borderBody->setContactTestBitmask(true);
-	//border->setPhysicsBody(borderBody);
-	////this->addChild(border);
+	Node * wall = Node::create();
+	wall->setPosition(Point(1, 240));
+	PhysicsBody * wallBody = PhysicsBody::createEdgeBox(Size(1, 480));
+	wallBody->setDynamic(false);
+	wallBody->setCollisionBitmask(true);
+	wallBody->setContactTestBitmask(true);
+	wallBody->setTag(WALL_COLLISION);
+	wall->setPhysicsBody(wallBody);
+	this->addChild(wall);
 
 	//Ground
 	Node * ground = Node::create();
 	ground->setPosition(Point(400, 1));
 	PhysicsBody * groundBody = PhysicsBody::createBox(Size(800, 1));
 	groundBody->setDynamic(false);
-	groundBody->setCollisionBitmask(WALL_COLLISION);
+	groundBody->setCollisionBitmask(true);
+	groundBody->setTag(GROUND_COLLISION);
 	groundBody->setContactTestBitmask(true);
 	ground->setPhysicsBody(groundBody);
 	this->addChild(ground, 0);

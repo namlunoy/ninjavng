@@ -5,10 +5,12 @@ ScoreNode::ScoreNode()
 {
 	node = Node::create();
 	this->addChild(node);
-	body = PhysicsBody::createEdgeBox(Size(50, 800), PhysicsMaterial(1, 0, 1));
+	body = PhysicsBody::createBox(Size(50, 600), PhysicsMaterial(1, 0, 1));
 	body->setDynamic(false);
-	body->setCollisionBitmask(SCORE_COLLISION);
+	body->setCollisionBitmask(0x02);
+	body->setTag(SCORE_COLLISION);
 	body->setContactTestBitmask(true);
+	body->setCategoryBitmask(0x01);
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->setPhysicsBody(body);
 }

@@ -13,7 +13,8 @@ Pillar::Pillar()
 	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 1));
 	body->setDynamic(false);
 	//body->setGravityEnable(false);
-	body->setCollisionBitmask(PILLAR_COLLISION);
+	body->setCollisionBitmask(true);
+	body->setTag(PILLAR_COLLISION);
 	body->setContactTestBitmask(true);
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->setPhysicsBody(body);
@@ -61,6 +62,7 @@ bool Pillar::onContactBegin(PhysicsContact &contact)
 {
 	auto body_a = contact.getShapeA()->getBody();
 	auto body_b = contact.getShapeB()->getBody();
+
 	if (body_a->getCollisionBitmask() == PILLAR_COLLISION && body_b->getCollisionBitmask() == WALL_COLLISION)
 	{
 		if (body_a->getNode() != nullptr) body_a->getNode()->removeFromParent();
@@ -69,5 +71,12 @@ bool Pillar::onContactBegin(PhysicsContact &contact)
 	{
 		if (body_b->getNode() != nullptr) body_b->getNode()->removeFromParent();
 	}
+
+	if ((body_a->getTag() == WALL_COLLISION && body_b->getTag() == PILLAR_COLLISION)
+		|| (body_a->getTag() == PILLAR_COLLISION && body_b->getTag() == WALL_COLLISION))
+	{
+		log("Pillar + Wall");
+	}
+
 	return true;
 }

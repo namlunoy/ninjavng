@@ -6,14 +6,16 @@ Ninja_D::Ninja_D()
 {
 	sprite = Sprite::create("Ninja2.png");
 	this->addChild(sprite);
-	body = PhysicsBody::createEdgeBox(sprite->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 1.0f));
+	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 1.0f));
 	body->setMass(60.0f);
 	body->setAngularVelocityLimit(0.0f);
 	body->setRotationEnable(false);
-	body->setCollisionBitmask(NINJA_COLLISION);
+	body->setTag(NINJA_COLLISION);
 	body->setDynamic(true);
 	body->setLinearDamping(0.5);
+	body->setCollisionBitmask(0x02);
 	body->setContactTestBitmask(true);
+	body->setCategoryBitmask(0x01);
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->setPhysicsBody(body);
 }
@@ -50,7 +52,7 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 	auto body_a = contact.getShapeA()->getBody();
 	auto body_b = contact.getShapeB()->getBody();
 
-	if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == PILLAR_COLLISION)
+	/*if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == PILLAR_COLLISION)
 		|| (body_a->getCollisionBitmask() == PILLAR_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
 	{
 		this->isJumping = false;
@@ -67,7 +69,28 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 			this->isJumping = false;
 			this->body->resetForces();
 			finishJump = true;
-		}
+			log("CC");
+		}*/
+
+	if ((body_a->getTag() == NINJA_COLLISION && body_b->getTag() == PILLAR_COLLISION)
+		|| (body_a->getTag() == PILLAR_COLLISION && body_b->getTag() == NINJA_COLLISION))
+	{
+		this->isJumping = false;
+		this->body->resetForces();
+	}
+	else if ((body_a->getTag() == NINJA_COLLISION && body_b->getTag() == GROUND_COLLISION)
+		|| (body_a->getTag() == GROUND_COLLISION && body_b->getTag() == NINJA_COLLISION))
+	{
+		this->isDeath = true;
+	}
+	else if ((body_a->getCategoryBitmask() & body_b->getCollisionBitmask()) == 0
+			|| (body_b->getCategoryBitmask() & body_a->getCollisionBitmask()) == 0)
+	{
+		//this->isJumping = false;
+		//this->body->resetForces();
+		finishJump = true;
+		log("CC");
+	}
 
 	return true;
 }

@@ -4,6 +4,10 @@
 #include "ui/CocosGUI.h"
 #include "Scenes/JumpScene.h"
 #include "Utility/Definition.h"
+#include <iostream>
+#include <sstream>
+#include <string>
+
 using namespace ui;
 using namespace std;
 
@@ -71,11 +75,15 @@ void JumpPlayLayer::ShowScoreBoard()
 	});
 
 	//Điểm
-	Label * currentScore = Label::create();
-	currentScore->setPosition(Point(scoreBoard->getContentSize().width / 2, scoreBoard->getContentSize().height / 2 + 60));
+
+	Label* currentScore = Label::create();
+	currentScore->setPosition(Point(scoreBoard->getContentSize().width / 2, scoreBoard->getContentSize().height/2 + 60));
 	currentScore->setSystemFontSize(230);
 	currentScore->setColor(Color3B::BLACK);
-	currentScore->setString();
+	stringstream ss;
+	ss<<this->score;
+	currentScore->setString(ss.str());
+
 
 	//Add to board 
 	scoreBoard->addChild(currentScore);
@@ -114,7 +122,7 @@ void JumpPlayLayer::onTouchMoved(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
-	if (jumpLayer->ninja->isJumping == false)
+	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->getParent() != NULL)
 	{
 		jumpLayer->ninja->JumpAction(2500.0f * Clamp(timeTouch * 8.75f));
 	}	
@@ -129,7 +137,7 @@ void JumpPlayLayer::update(float delta)
 		jumpLayer->MovePillar(delta*5);	
 	}
 
-	if (jumpLayer->ninja->isDeath == true && jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr)
+	if (jumpLayer->ninja->isDeath == true)
 	{
 		jumpLayer->pillar->StopPillar();
 		jumpLayer->ninja->removeFromParent();
@@ -147,7 +155,9 @@ void JumpPlayLayer::update(float delta)
 		score++;
 		log("%d", score);
 		jumpLayer->ninja->finishJump = false;
-		jumpLayer->scoreText->setString(std::to_string(this->score));
+		stringstream ss;
+		ss<<this->score;
+		jumpLayer->scoreText->setString(ss.str());
 	}
 
 	if (tinh)
