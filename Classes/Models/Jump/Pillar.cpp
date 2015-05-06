@@ -23,6 +23,8 @@ bool Pillar::init()
 {
 	if (!Node::init())
 		return false;
+	
+	isContactWithWall = false;
 
 	//Contact
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -67,7 +69,7 @@ bool Pillar::onContactBegin(PhysicsContact &contact)
 	else if ((body_a->getCategoryBitmask() & body_b->getCollisionBitmask()) == 0
 		|| (body_b->getCategoryBitmask() & body_a->getCollisionBitmask()) == 0)
 	{
-		//this->getPhysicsBody()->getNode()->removeFromParent();
+		isContactWithWall = true;
 	}
 
 	return true;
