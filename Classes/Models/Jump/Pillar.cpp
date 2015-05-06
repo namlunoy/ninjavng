@@ -4,7 +4,6 @@
 #include "cocos2d.h"
 
 Pillar::~Pillar(){}
-//Pillar::Pillar(){}
 
 Pillar::Pillar()
 {
@@ -12,7 +11,6 @@ Pillar::Pillar()
 	this->addChild(sprite);
 	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 1));
 	body->setDynamic(false);
-	//body->setGravityEnable(false);
 	body->setCollisionBitmask(true);
 	body->setTag(PILLAR_COLLISION);
 	body->setContactTestBitmask(true);
@@ -41,11 +39,6 @@ Pillar* Pillar::createPillar()
 	return pillar;
 }
 
-Point Pillar::getCurrenPos()
-{
-	return this->getPosition();
-}
-
 void Pillar::MovePillar(float duration)
 {
 	auto movePillar = MoveBy::create(duration, Vec2(-2.7f, 0));
@@ -54,7 +47,6 @@ void Pillar::MovePillar(float duration)
 
 void Pillar::StopPillar()
 {
-	//this->getActionManager()->removeAllActionsFromTarget(this);
 	this->stopAllActions();
 }
 

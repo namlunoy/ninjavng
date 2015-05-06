@@ -1,4 +1,4 @@
-#include "Ninja_D.h"
+﻿#include "Ninja_D.h"
 #include "Utility/Definition.h"
 
 Ninja_D::~Ninja_D(){}
@@ -24,7 +24,12 @@ bool Ninja_D::init()
 {
 	if (!Node::init())
 		return false;
-	 isDeath = false;
+	
+	//Thuộc tính Ninja
+	isDeath = false;
+	isJumping = false;
+	finishJump = false;
+	xScore = 0;
 
 	//Contact
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -74,23 +79,31 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 		log("CC");
 		}*/
 
+	//Ninja vs Pillar
 	if ((body_a->getTag() == NINJA_COLLISION && body_b->getTag() == PILLAR_COLLISION)
 		|| (body_a->getTag() == PILLAR_COLLISION && body_b->getTag() == NINJA_COLLISION))
 	{
 		this->isJumping = false;
-		this->body->resetForces();
 	}
+	//Ninja vs Ground
 	else if ((body_a->getTag() == NINJA_COLLISION && body_b->getTag() == GROUND_COLLISION)
 		|| (body_a->getTag() == GROUND_COLLISION && body_b->getTag() == NINJA_COLLISION))
 	{
 		this->isJumping = false;
 		this->isDeath = true;
 	}
+	//Ninja vs xScore Node
 	else if ((body_a->getCategoryBitmask() & body_b->getCollisionBitmask()) == 0
 		|| (body_b->getCategoryBitmask() & body_a->getCollisionBitmask()) == 0)
 	{
+		xScore++;
+	}
+	//Ninja vs Score Node
+	else if ((body_a->getTag() == NINJA_COLLISION && body_b->getTag() == SCORE_COLLISION)
+		|| (body_a->getTag() == SCORE_COLLISION && body_b->getTag() == NINJA_COLLISION))
+	{
+		this->isJumping = false;
 		finishJump = true;
-		log("CC");
 	}
 
 	return true;

@@ -34,9 +34,12 @@ public:
 	void MovePillar(float dt);
 	void update(float delta);
 
-	//GameOver
-	int score = 0;
+	//Score + GameOver
+	int score;
+	Label* xScore;
+	void ShowXScore(int diem);
+	void RemoveXScore();
 	void ShowScoreBoard();
 };
 
-#endif //_JUMPPLAY_LAYER_
+#endif
