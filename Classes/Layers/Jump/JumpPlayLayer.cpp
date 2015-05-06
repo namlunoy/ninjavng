@@ -83,16 +83,16 @@ void JumpPlayLayer::ShowScoreBoard()
 	//Text CurrentScore
 	Label * textCurrentScore = Label::create();
 	textCurrentScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-	textCurrentScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 50, scoreBoard->getContentSize().height / 2 + 130));
-	textCurrentScore->setSystemFontSize(40);
+	textCurrentScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 130));
+	textCurrentScore->setSystemFontSize(35);
 	textCurrentScore->setColor(Color3B::BLACK);
 	textCurrentScore->setString("Score");
 
 	//Điểm vừa chơi
 	Label* currentScore = Label::create();
 	currentScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-	currentScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 50, scoreBoard->getContentSize().height/2 + 80));
-	currentScore->setSystemFontSize(40);
+	currentScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height/2 + 90));
+	currentScore->setSystemFontSize(35);
 	currentScore->setColor(Color3B::BLACK);
 	stringstream ss;
 	ss<<this->score;
@@ -101,16 +101,16 @@ void JumpPlayLayer::ShowScoreBoard()
 	//Text HighScore
 	Label * textHighScore = Label::create();
 	textHighScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-	textHighScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 50, scoreBoard->getContentSize().height / 2 + 10));
-	textHighScore->setSystemFontSize(40);
+	textHighScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 20));
+	textHighScore->setSystemFontSize(35);
 	textHighScore->setColor(Color3B::BLACK);
 	textHighScore->setString("High Score");
 
 	//High Score
 	Label* highScore = Label::create();
 	highScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-	highScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 50, scoreBoard->getContentSize().height / 2 - 40));
-	highScore->setSystemFontSize(40);
+	highScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 - 20));
+	highScore->setSystemFontSize(35);
 	highScore->setColor(Color3B::BLACK);
 	stringstream ss2;
 	ss2 << this->score;
@@ -182,8 +182,7 @@ void JumpPlayLayer::onTouchMoved(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
-	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->getParent() != NULL 
-		&& jumpLayer->ninja->getPhysicsBody() != nullptr)
+	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->getParent() != NULL)
 	{
 		jumpLayer->ninja->JumpAction(2500.0f * Clamp(timeTouch * 8.75f));
 	}	
