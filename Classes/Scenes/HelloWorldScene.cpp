@@ -3,6 +3,7 @@
 #include <vector>
 #include "JumpScene.h"
 #include "PhiTieuScene.h"
+#include "PhiTieuMenuScene.h"
 
 #include "ChemScene.h"
 #include "TranhNeScene.h"
@@ -17,12 +18,8 @@ Scene* HelloWorld::createScene() {
 	auto scene = Scene::create();
 	auto layer = HelloWorld::create();
 	scene->addChild(layer);
-	return scene;
-}
 
-bool HelloWorld::init() {
-	if (!Layer::init())
-		return false;
+
 	Config::screenSize = Director::getInstance()->getVisibleSize();
 	Size screenSize = Config::screenSize;
 	Vec2 center(screenSize.width / 2, screenSize.height / 2);
@@ -32,7 +29,7 @@ bool HelloWorld::init() {
 	Sprite* bg = Sprite::create("bg2.jpg");
 	bg->setPosition(screenSize.width / 2, screenSize.height / 2);
 	bg->setScale(Config::getScale(bg));
-	this->addChild(bg, -1);
+	scene->addChild(bg, -1);
 
 	//Hiển thị các button
 	//Tính toán vị trí
@@ -44,7 +41,7 @@ bool HelloWorld::init() {
 		int khoangcach = 20 + bt->getContentSize().width;
 		Vec2 pos = center + Vec2((i - 3) * khoangcach, 0);
 		bt->setPosition(pos);
-		this->addChild(bt);
+		scene->addChild(bt);
 
 		switch (i) {
 		case 1:
@@ -93,7 +90,7 @@ bool HelloWorld::init() {
 				{
 				case ui::Widget::TouchEventType::ENDED:
 				{
-					auto scene = PhiTieuScene::createScene();
+					auto scene = PhiTieuMenuScene::createScene();
 					Director::getInstance()->replaceScene(scene);
 				}
 				}
@@ -114,6 +111,14 @@ bool HelloWorld::init() {
 			break;
 		}
 	}
+
+
+	return scene;
+}
+
+bool HelloWorld::init() {
+	if (!Layer::init())
+		return false;
 
 	return true;
 }

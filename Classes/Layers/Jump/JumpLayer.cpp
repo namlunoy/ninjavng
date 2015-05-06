@@ -8,6 +8,7 @@
 #include "Models/Jump/ScoreNode.h"
 #include <iostream>
 #include <list>
+
 USING_NS_CC;
 
 JumpLayer::~JumpLayer()
