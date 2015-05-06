@@ -14,6 +14,7 @@ Pillar::Pillar()
 	body->setCollisionBitmask(true);
 	body->setTag(PILLAR_COLLISION);
 	body->setContactTestBitmask(true);
+	body->setCategoryBitmask(0x03);
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->setPhysicsBody(body);
 }
@@ -63,11 +64,10 @@ bool Pillar::onContactBegin(PhysicsContact &contact)
 	{
 		if (body_b->getNode() != nullptr) body_b->getNode()->removeFromParent();
 	}
-
-	if ((body_a->getTag() == WALL_COLLISION && body_b->getTag() == PILLAR_COLLISION)
-		|| (body_a->getTag() == PILLAR_COLLISION && body_b->getTag() == WALL_COLLISION))
+	else if ((body_a->getCategoryBitmask() & body_b->getCollisionBitmask()) == 0
+		|| (body_b->getCategoryBitmask() & body_a->getCollisionBitmask()) == 0)
 	{
-		log("Pillar + Wall");
+		//this->getPhysicsBody()->getNode()->removeFromParent();
 	}
 
 	return true;

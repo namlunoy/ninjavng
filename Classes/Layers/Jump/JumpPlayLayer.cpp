@@ -110,18 +110,19 @@ void JumpPlayLayer::ShowXScore(int diem)
 {
 	xScore = Label::create();
 	xScore->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	xScore->setPosition(Point(Config::screenSize.width / 3, Config::screenSize.height / 2 + 100));
+	xScore->setPosition(Point(Config::screenSize.width / 3, Config::screenSize.height / 2 + 150));
 	xScore->setSystemFontSize(30);
-	xScore->setColor(Color3B::BLACK);
+	xScore->setColor(Color3B::RED);
 	stringstream ss;
+	ss << "+";
 	ss << diem;
 	xScore->setString(ss.str());
 	this->addChild(xScore);
 
 	//Delay
-	/*DelayTime * delayTime = DelayTime::create(2.0f);
+	DelayTime * delayTime = DelayTime::create(2.0f);
 	CallFunc * removeXScore = CallFunc::create(CC_CALLBACK_0(JumpPlayLayer::RemoveXScore, this));
-	xScore->runAction(Sequence::createWithTwoActions(delayTime, removeXScore));*/
+	xScore->runAction(Sequence::createWithTwoActions(delayTime, removeXScore));
 }
 
 void JumpPlayLayer::RemoveXScore()

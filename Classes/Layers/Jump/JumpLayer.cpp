@@ -26,14 +26,15 @@ bool JumpLayer::init()
 {
 	if (!Layer::init()) return false;
 
-	//Tạo tường xung quanh
+	//Tạo tường
 	Node * wall = Node::create();
 	wall->setPosition(Point(1, 240));
-	PhysicsBody * wallBody = PhysicsBody::createEdgeBox(Size(1, 480));
+	PhysicsBody * wallBody = PhysicsBody::createBox(Size(1, 480));
 	wallBody->setDynamic(false);
 	wallBody->setCollisionBitmask(true);
 	wallBody->setContactTestBitmask(true);
 	wallBody->setTag(WALL_COLLISION);
+	wallBody->setCategoryBitmask(0x03);
 	wall->setPhysicsBody(wallBody);
 	wall->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(wall);
