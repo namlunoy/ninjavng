@@ -18,6 +18,7 @@ bool JumpPlayLayer::init()
 {
 	//Score
 	this->score = 0;
+	this->isShowScoreBoard = false;
 
 	//Back Button
 	auto backButton = Button::create("back_button-1.png", "back_button-1.png");
@@ -66,6 +67,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 		def->setIntegerForKey("HIGHSCORE NINJA", highScoreUser);
 	}
 	def->flush();*/
+	this->isShowScoreBoard = true;
 
 	//Bảng điều khiển
 	Sprite * scoreBoard = Sprite::create("ScoreBoard.png");
@@ -192,7 +194,7 @@ void JumpPlayLayer::onTouchMoved(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
-	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->getParent() != NULL)
+	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->getParent() != NULL && jumpLayer->ninja->isDeath == false)
 	{
 		jumpLayer->ninja->JumpAction(2500.0f * Clamp(timeTouch * 8.75f));
 	}	
@@ -213,11 +215,11 @@ void JumpPlayLayer::update(float delta)
 		jumpLayer->UpdatePillar();
 	}
 
-	if (jumpLayer->ninja->isDeath == true && jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr && jumpLayer->ninja->getPhysicsBody() != nullptr)
+	if (jumpLayer->ninja->isDeath == true && jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr && jumpLayer->ninja->getPhysicsBody() != nullptr && isShowScoreBoard == false)
 	{
 		jumpLayer->pillar->StopPillar();
 		ShowScoreBoard(this->score);
-		jumpLayer->ninja->removeFromParent();
+		//jumpLayer->ninja->removeFromParent();
 	}
 
 	if (jumpLayer->ninja->finishJump == true)
@@ -237,12 +239,6 @@ void JumpPlayLayer::update(float delta)
 		stringstream ss;
 		ss<<this->score;
 		jumpLayer->scoreText->setString(ss.str());
-	}
-
-	if (jumpLayer->pillar->isContactWithWall == true)
-	{
-		/*jumpLayer->listPillar.pop_back();
-		jumpLayer->pillar->isContactWithWall = false;*/
 	}
 
 	if (tinh)
