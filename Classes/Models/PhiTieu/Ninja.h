@@ -29,6 +29,7 @@ private:
 public:
 	Ninja();
 	~Ninja();
+	static Ninja* Instance;
 	static Ninja* create(string fileName);
 	void setOriginalPosition(Vec2);
 	void runAnimation_DungYen();

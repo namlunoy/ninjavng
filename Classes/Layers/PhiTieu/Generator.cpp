@@ -6,18 +6,29 @@ Generator::Generator(PhiTieuLayer* l) {
 	isGenerate = true;
 }
 Generator::~Generator() {
+	counter = 0;
 }
 
 void Generator::sinhJump() {
-	if(isGenerate)
+	if(isGenerate && counter < MAX)
+	{
 		layer->addChild(Enemy_Jump::create(1));
+		counter++;
+		log("counter : %d",counter);
+	}
 }
 
 void Generator::sinhRun() {
-	if(isGenerate)
+	if(isGenerate && counter < MAX)
+	{
 		layer->addChild(Enemy_Run::create(1));
+		counter++;
+		log("counter : %d",counter);
+	}
 }
 void Generator::Generate(int level) {
+	counter = 0;
+
 	switch(level)
 	{
 	case 1:
@@ -30,6 +41,8 @@ void Generator::Generate(int level) {
 }
 
 void Generator::SinhLevel_1() {
+	MAX = 30;
+	log("MAX : %d",MAX);
 	log("Generator::Generate()");
 	auto sinhJumpAction = CallFunc::create(
 			CC_CALLBACK_0(Generator::sinhJump, this));

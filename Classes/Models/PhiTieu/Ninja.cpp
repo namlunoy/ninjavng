@@ -6,13 +6,13 @@
 
 Ninja::Ninja(){}
 Ninja::~Ninja(){}
-
+Ninja* Ninja::Instance = nullptr;
 Ninja* Ninja::create(string fileName)
 {
 	Ninja* ninja = new Ninja();
-	if (ninja && ninja->init(fileName))
-		ninja->autorelease();
-	else CC_SAFE_DELETE(ninja);
+	ninja->init(fileName);
+	ninja->autorelease();
+	Ninja::Instance = ninja;
 	return ninja;
 }
 
@@ -122,6 +122,10 @@ void Ninja::setOriginalPosition(Vec2 ori)
 	this->originalPosition = ori;
 }
 
+/**
+ * Cái này để giới hạn số lượt bắn cùng 1 lúc của ninja!
+ * (Nó chính là số khoảng chia của thanh power : PhiTieuHUDLayer::touch_PhongTieu)
+ */
 int Ninja::getMaxShuriken(int level) {
 	return 5;
 }

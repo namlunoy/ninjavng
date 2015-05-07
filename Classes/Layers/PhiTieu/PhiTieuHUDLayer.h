@@ -9,6 +9,8 @@
 
 #include "Scenes/HelloWorldScene.h"
 #include "PhiTieuLayer.h"
+#include "Models/PhiTieu/Power.h"
+
 USING_NS_CC;
 using namespace ui;
 
@@ -19,10 +21,13 @@ class PhiTieuHUDLayer : public Layer
 private:
 	Button* bt_jump;
 	Vector<Sprite*> hearts;
-	Sprite* _power;
+
 	PhiTieuLayer* _phiTieuLayer;
 	Label* txt_score;
 	int score;
+
+	Power* power;
+
 public:
 	//------  Các hàm khởi tạo -------
 	static PhiTieuHUDLayer* Instance;
@@ -35,7 +40,7 @@ public:
 	bool touch_PhongTieu(Touch* t, Event* e);
 	void click_Jump(Ref* sender, TouchEventType touchType);
 	void matMau();
-	void updatePower();
+
 	void gameOver();
 	void tangDiem();
 };
