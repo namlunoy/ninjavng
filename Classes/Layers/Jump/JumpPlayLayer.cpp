@@ -58,14 +58,14 @@ void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
 void JumpPlayLayer::ShowScoreBoard(int diem)
 {
 	//HighScore UserDef
-	UserDefault * def = UserDefault::getInstance();
+	/*UserDefault * def = UserDefault::getInstance();
 	auto highScoreUser = def->getIntegerForKey("HIGHSCORE", 0);
 	if (this->score > highScoreUser)
 	{
 		highScoreUser = this->score;
 		def->setIntegerForKey("HIGHSCORE NINJA", highScoreUser);
 	}
-	def->flush();
+	def->flush();*/
 
 	//Bảng điều khiển
 	Sprite * scoreBoard = Sprite::create("ScoreBoard.png");
@@ -123,7 +123,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	highScore->setSystemFontSize(35);
 	highScore->setColor(Color3B::BLACK);
 	stringstream ss2;
-	ss2 << highScoreUser;
+	ss2 << diem;
 	highScore->setString(ss2.str());
 
 	//Add to board 
