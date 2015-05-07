@@ -7,6 +7,9 @@
 #include "Utility/Config.h"
 #include "Utility/XHelper.h"
 #include "SimpleAudioEngine.h"
+#include <sstream>"
+#include <string>
+#include <iostream>
 
 using namespace std;
 using namespace ui;
@@ -17,15 +20,15 @@ BanTao_Layer::~BanTao_Layer(){ }
 
 int mang;
 float speed;
-int score;
-CCLabelTTF* label;
-
+int score1;
+Label* label;
+Label* scoreText;
 
 bool BanTao_Layer::init()
 {
 	mang = 3;
 	speed = 1;
-	score = 0;
+	score1 = 0;
 
 	if (!Layer::init())
 		return false;
@@ -42,10 +45,17 @@ bool BanTao_Layer::init()
 
 	//score
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-	label = CCLabelTTF::create("Score: 0", "Arial", 30);
+	label = Label::create("Score:   ", "Arial", 30);
 	label->setColor(ccc3(192, 57, 43));
 	label->setPosition(winSize.width - 100, winSize.height - 20);
 	this->addChild(label);
+
+	scoreText = Label::create();
+	scoreText->setColor(ccc3(192, 57, 43));
+	scoreText->setPosition(winSize.width - 50, winSize.height - 20);
+	scoreText->setString("0");
+	scoreText->setSystemFontSize(30);
+	this->addChild(scoreText);
 	
 	
 	//Thêm mạng
@@ -98,7 +108,7 @@ bool BanTao_Layer::init()
 		{
 												  auto scene = HelloWorld::createScene();
 												  Director::getInstance()->replaceScene(scene);
-												  init();
+												 // init();
 												  CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 												  
 		}
@@ -124,6 +134,7 @@ void BanTao_Layer::onStart( float speed)
 
 	//Thêm target
 	BanTao_Target* target = BanTao_Target::create("target2.png",speed);
+	target->moveAction(speed);
 	this->addChild(target, 1);
 	
 	
@@ -145,9 +156,6 @@ bool BanTao_Layer::onTouchBegan(Touch *touch, Event *unused_event)
 
 void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target *target)
 {
-	/*try
-	{*/
-	
 	//tạo paticle
 	auto emitter = ParticleFire::create();
 	Vec2 xxx = touch->getLocation();
@@ -174,16 +182,15 @@ void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target
 			DelayTime::create(1),
 			CallFunc::create(CC_CALLBACK_0(BanTao_Layer::appleSprite, this)),
 			nullptr));
-		//tạo target mới
-		this->removeChildByTag(13);
-		speed = speed - 0.1;
 
-		BanTao_Target* newtarget = BanTao_Target::create("target2.png",speed);
-		this->addChild(newtarget,1);
+		//set lại speed cho target
+		speed = speed - 0.1;
+		target->stopAllActions();
+		target->moveAction(speed);
+
 
 		//cập nhật score
-		//score = score + 10;
-		CCLOG("Score: %f", score);
+		CCLOG("Score: %f", score1);
 		updateScore();
 		
 
@@ -197,12 +204,6 @@ void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target
 		commentPut("commentFail.png");
 		checkLive();
 	}
-
-	/*}
-	catch (std::exception &cException)
-	{
-		cerr << "Standard exception: " << cException.what() << endl;
-	}*/
 	
 }
 
@@ -294,23 +295,18 @@ void BanTao_Layer::checkLive()
 
 void BanTao_Layer::restart()
 {
-	this->removeAllChildren();
-	//Scene* newScene = BanTao_Scence::create();
-
+	
 	auto newScene = BanTao_Scence::create();
 	Director::getInstance()->replaceScene(newScene);
-	init();
 }
 
 
 void BanTao_Layer::updateScore()
 {		
 	
-		score += 10; // change to whatever you like
-
-		char *labelString = new char;
-		snprintf(labelString, 10, "Score: %d", score);
-
-		label->setString(labelString);
+		score1 += 10; 
+		stringstream ss;
+		ss << score1;
+		scoreText->setString(ss.str());
 	
 }

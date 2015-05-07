@@ -9,7 +9,7 @@ using namespace std;
 
 JumpPlayLayer::JumpPlayLayer(){}
 JumpPlayLayer::~JumpPlayLayer(){}
-
+int score = 0;
 bool JumpPlayLayer::init()
 {
 	//Back Button

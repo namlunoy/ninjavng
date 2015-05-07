@@ -1,6 +1,7 @@
 #include "ScoreNode.h"
 #include "Utility/Definition.h"
 
+//int score = 0;
 ScoreNode::ScoreNode()
 {
 	node = Node::create();

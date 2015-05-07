@@ -8,7 +8,7 @@ class ScoreNode : public Node
 public:
 	ScoreNode();
 	~ScoreNode();
-	int score = 0;
+	//int score;
 	Node * node;
 	PhysicsBody * body;
 	bool init();

@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "Utility/Config.h"
 #include "Models/BanSung/BanTao_Target.h"
-#include "BanTao_HudLayer.h"
+
 
 USING_NS_CC;
 
@@ -26,9 +26,6 @@ public:
 
 	void restart();
 
-	//void update(cocos2d::ccTime dt);
-
-	void setHudLayer(BanTao_HudLayer* hudLayer);
 
 private:
 	
