@@ -40,6 +40,7 @@ public:
 	Label* xScore;
 	void ShowXScore(int diem);
 	void RemoveXScore();
+	bool isShowScoreBoard;
 	void ShowScoreBoard(int diem);
 };
 

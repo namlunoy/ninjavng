@@ -91,6 +91,8 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 	{
 		this->isJumping = false;
 		this->isDeath = true;
+		this->getPhysicsBody()->removeFromWorld();
+		this->sprite->removeFromParent();
 	}
 	//Ninja vs xScore Node
 	else if ((body_a->getCategoryBitmask() & body_b->getCollisionBitmask()) == 0
