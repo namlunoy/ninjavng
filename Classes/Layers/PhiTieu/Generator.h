@@ -17,12 +17,23 @@ class Generator : public Node
 private:
 	PhiTieuLayer* layer;
 	bool isGenerate;
+	int counter;
+	int MAX;
+
+	void SinhLevel_1();
+	void SinhLevel_2();
+	void SinhLevel_3();
+	void SinhLevel_4();
+	void SinhLevel_5();
 public:
 	Generator(PhiTieuLayer* l);
 	~Generator();
+	void Generate(int);
+
+
+
 	void sinhJump();
 	void sinhRun();
-	void Generate();
 	void stop();
 };
 

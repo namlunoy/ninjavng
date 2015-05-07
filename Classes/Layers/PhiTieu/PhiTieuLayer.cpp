@@ -1,4 +1,6 @@
 ﻿#include "PhiTieuLayer.h"
+#include "Scenes/PhiTieuScene.h"
+
 PhiTieuLayer* PhiTieuLayer::instance = NULL;
 PhiTieuLayer::PhiTieuLayer() {
 	PhiTieuLayer::instance = this;
@@ -22,6 +24,9 @@ void PhiTieuLayer::matMau()
 
 bool PhiTieuLayer::init() {
 	mang = 3;
+
+
+
 	//-------  Background ----------
 	//Thực hiện : Hiển thị, Thêm body
 	_background = Sprite::create("cong_background.jpg");
@@ -38,13 +43,13 @@ bool PhiTieuLayer::init() {
 
 	//-----------  Thêm cái đích để cán vào ------------
 	Node* Target = Node::create();
-	PhysicsBody* _targetBody = PhysicsBody::createBox(Size(5, 100),PhysicsMaterial(1, 0, 0));
+	PhysicsBody* _targetBody = PhysicsBody::createBox(Size(5, 700),PhysicsMaterial(1, 0, 0));
 	_targetBody->setTag(Tags::TARGET);
 	_targetBody->setDynamic(false);
 	_targetBody->setContactTestBitmask(true);
 	_targetBody->setCollisionBitmask(true);
 	Target->setPhysicsBody(_targetBody);
-	Target->setPosition(100, 100);
+	Target->setPosition(10, 100);
 	this->addChild(Target);
 
 	//---------- ninja  -----------
@@ -59,9 +64,9 @@ bool PhiTieuLayer::init() {
 	this->addChild(e);
 
 	//---------------  Các trái tim -------------------
-		generator = new Generator(this);
-		this->addChild(generator);
-		generator->Generate();
+	generator = new Generator(this);
+	this->addChild(generator);
+	generator->Generate(PhiTieuScene::GetLevel());
 
 	return true;
 }

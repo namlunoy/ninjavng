@@ -10,11 +10,12 @@ USING_NS_CC;
 class PhiTieuScene
 {
 private:
-
+	static int level;
 public:
 	PhiTieuScene();
 	~PhiTieuScene();
-	static Scene* createScene();
+	static Scene* createScene(int lv);
+	static int GetLevel();
 };
 
 #endif

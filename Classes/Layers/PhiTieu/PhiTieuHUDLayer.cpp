@@ -1,5 +1,10 @@
 ﻿#include "PhiTieuHUDLayer.h"
+#include "Utility/Config.h"
+#include "Scenes/PhiTieuScene.h"
+#include <sstream>
 
+
+PhiTieuHUDLayer* PhiTieuHUDLayer::Instance = nullptr;
 PhiTieuHUDLayer::PhiTieuHUDLayer() {
 }
 PhiTieuHUDLayer::~PhiTieuHUDLayer() {
@@ -13,9 +18,10 @@ void PhiTieuHUDLayer::setPhiTieuLayer(PhiTieuLayer* p)
 bool PhiTieuHUDLayer::init() {
 	if (!Layer::init())
 		return false;
+	
 
 	//Back Button
-	auto backButton = Button::create("back_button-1.png", "back_button-1.png","back_button - 1.png");
+	auto backButton = Button::create("back_button-1.png", "back_button-1.png","back_button-1.png");
 	backButton->setAnchorPoint(Vec2(0, 0));
 	backButton->setScale(0.3f, 0.5f);
 	backButton->setPosition(Point(0,Config::screenSize.height - backButton->getContentSize().height / 2));
@@ -61,18 +67,19 @@ bool PhiTieuHUDLayer::init() {
 	}
 
 
-	//------------- Power -------------------
-	_power = Sprite::create("power.png");
-	_power->setAnchorPoint(Vec2(0,1));
-	_power->setPosition(Vec2(50 - hearts.at(0)->getBoundingBox().size.width/2,Config::screenSize.height - 50 - hearts.at(0)->getBoundingBox().size.height/2));
-	this->addChild(_power);
 
-	Node* timer = Node::create();
-	CallFunc* updatePower = CallFunc::create(CC_CALLBACK_0(PhiTieuHUDLayer::updatePower,this));
-	DelayTime* delay = DelayTime::create(0.05f);
-	timer->runAction(RepeatForever::create(Sequence::createWithTwoActions(delay,updatePower)));
-	this->addChild(timer);
 
+	//Tao thanh power
+	power = Power::createPower(PhiTieuScene::GetLevel());
+	power->setPosition(Vec2(200,100));
+	this->addChild(power);
+
+	//Tính điểm
+	txt_score = Label::createWithTTF("0","fonts/njnaruto.ttf",37);
+	txt_score->setPosition(Vec2(Config::screenSize.width - 30,Config::screenSize.height - 40));
+	this->addChild(txt_score);
+	score = 0;
+	PhiTieuHUDLayer::Instance = this;
 	return true;
 }
 
@@ -86,13 +93,9 @@ void PhiTieuHUDLayer::matMau()
 }
 
 bool PhiTieuHUDLayer::touch_PhongTieu(Touch* t, Event* e) {
-	float minPower = 1.0f/_phiTieuLayer->ninja->getMaxShuriken(1);
-	if(_power->getScaleX() >= minPower && _phiTieuLayer->ninja->isAlive)
-	{
-		float giam = _power->getScaleX() - minPower;
-		_power->setScaleX(giam);
+	if (power->fire())
 		_phiTieuLayer->PhongTieu(t->getLocation());
-	}
+	
 	return true;
 }
 
@@ -103,14 +106,7 @@ void PhiTieuHUDLayer::click_Jump(Ref* sender, TouchEventType touchType) {
 	}
 }
 
-void PhiTieuHUDLayer::updatePower() {
-	log("x");
-	float s = _power->getScaleX();
-	s += 0.01f;
-	if(s <= 1 && _phiTieuLayer->ninja->isAlive){
-		_power->setScaleX(s);
-	}
-}
+
 
 void PhiTieuHUDLayer::gameOver() {
 	Sprite* over = Sprite::create("gameover.png");
@@ -118,4 +114,15 @@ void PhiTieuHUDLayer::gameOver() {
 	over->setPosition(Config::centerPoint);
 	over->setScale(scale);
 	this->addChild(over);
+}
+
+void PhiTieuHUDLayer::tangDiem() {
+	score++;
+	std::stringstream ss;
+	ss<<score;
+	txt_score->setString(ss.str());
+	//Animation
+	auto phongTo = ScaleTo::create(0.1f,1.8);
+	auto thuNho = ScaleTo::create(0.1f,1);
+	txt_score->runAction(Sequence::createWithTwoActions(phongTo,thuNho));
 }
