@@ -1,4 +1,6 @@
 ﻿#include "PhiTieuLayer.h"
+#include "Scenes/PhiTieuScene.h"
+
 PhiTieuLayer* PhiTieuLayer::instance = NULL;
 PhiTieuLayer::PhiTieuLayer() {
 	PhiTieuLayer::instance = this;
@@ -62,9 +64,9 @@ bool PhiTieuLayer::init() {
 	this->addChild(e);
 
 	//---------------  Các trái tim -------------------
-		generator = new Generator(this);
-		this->addChild(generator);
-		generator->Generate();
+	generator = new Generator(this);
+	this->addChild(generator);
+	generator->Generate(PhiTieuScene::GetLevel());
 
 	return true;
 }

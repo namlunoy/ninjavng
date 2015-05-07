@@ -15,6 +15,7 @@ public:
 	PhiTieuScene();
 	~PhiTieuScene();
 	static Scene* createScene(int lv);
+	static int GetLevel();
 };
 
 #endif

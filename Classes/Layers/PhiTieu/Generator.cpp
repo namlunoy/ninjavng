@@ -17,7 +17,19 @@ void Generator::sinhRun() {
 	if(isGenerate)
 		layer->addChild(Enemy_Run::create(1));
 }
-void Generator::Generate() {
+void Generator::Generate(int level) {
+	switch(level)
+	{
+	case 1:
+		SinhLevel_1();
+		break;
+	default:
+		SinhLevel_1();
+		break;
+	}
+}
+
+void Generator::SinhLevel_1() {
 	log("Generator::Generate()");
 	auto sinhJumpAction = CallFunc::create(
 			CC_CALLBACK_0(Generator::sinhJump, this));
@@ -37,6 +49,18 @@ void Generator::Generate() {
 
 	this->runAction(action_1);
 	this->runAction(action_2);
+}
+
+void Generator::SinhLevel_2() {
+}
+
+void Generator::SinhLevel_3() {
+}
+
+void Generator::SinhLevel_4() {
+}
+
+void Generator::SinhLevel_5() {
 }
 
 void Generator::stop() {

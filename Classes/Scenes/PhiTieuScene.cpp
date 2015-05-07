@@ -23,4 +23,6 @@ Scene* PhiTieuScene::createScene(int lv)
 	return _scene;
 }
 
-
+int PhiTieuScene::GetLevel() {
+	return PhiTieuScene::level;
+}
