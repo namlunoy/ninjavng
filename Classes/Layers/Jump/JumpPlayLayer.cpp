@@ -4,6 +4,7 @@
 #include "ui/CocosGUI.h"
 #include "Scenes/JumpScene.h"
 #include "Utility/Definition.h"
+#include "SimpleAudioEngine.h"  
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -13,12 +14,17 @@ using namespace std;
 
 JumpPlayLayer::JumpPlayLayer(){}
 JumpPlayLayer::~JumpPlayLayer(){}
-int score = 0;
+
 bool JumpPlayLayer::init()
 {
 	//Score
 	this->score = 0;
 	this->isShowScoreBoard = false;
+
+	//Sound
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Jump.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Ground.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/FinishJump.mp3");
 
 	//Back Button
 	auto backButton = Button::create("back_button-1.png", "back_button-1.png");
@@ -58,15 +64,6 @@ void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
 
 void JumpPlayLayer::ShowScoreBoard(int diem)
 {
-	//HighScore UserDef
-	/*UserDefault * def = UserDefault::getInstance();
-	auto highScoreUser = def->getIntegerForKey("HIGHSCORE", 0);
-	if (this->score > highScoreUser)
-	{
-		highScoreUser = this->score;
-		def->setIntegerForKey("HIGHSCORE NINJA", highScoreUser);
-	}
-	def->flush();*/
 	this->isShowScoreBoard = true;
 
 	//Bảng điều khiển
@@ -162,7 +159,7 @@ void JumpPlayLayer::ShowXScore(int diem)
 	this->addChild(xScore);
 
 	//Delay
-	DelayTime * delayTime = DelayTime::create(2.0f);
+	DelayTime * delayTime = DelayTime::create(1.2f);
 	CallFunc * removeXScore = CallFunc::create(CC_CALLBACK_0(JumpPlayLayer::RemoveXScore, this));
 	xScore->runAction(Sequence::createWithTwoActions(delayTime, removeXScore));
 }
@@ -197,6 +194,7 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->getParent() != NULL && jumpLayer->ninja->isDeath == false)
 	{
 		jumpLayer->ninja->JumpAction(2500.0f * Clamp(timeTouch * 8.75f));
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Jump.mp3", false, 1.0f, 1.0f, 1.0f);
 	}	
 	tinh = false;
 }
@@ -218,6 +216,7 @@ void JumpPlayLayer::update(float delta)
 	if (jumpLayer->ninja->isDeath == true && jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr && jumpLayer->ninja->getPhysicsBody() != nullptr && isShowScoreBoard == false)
 	{
 		jumpLayer->pillar->StopPillar();
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Ground.mp3", false, 1.0f, 1.0f, 1.0f);
 		ShowScoreBoard(this->score);
 		//jumpLayer->ninja->removeFromParent();
 	}
@@ -227,12 +226,14 @@ void JumpPlayLayer::update(float delta)
 		if (jumpLayer->ninja->xScore <= 1)
 		{
 			this->score += 1;
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/FinishJump.mp3", false, 1.0f, 1.0f, 1.0f);
 			jumpLayer->ninja->xScore = 0;
 		}
 		else if (jumpLayer->ninja->xScore > 1)
 		{
 			this->score += (jumpLayer->ninja->xScore * 2);
 			ShowXScore(jumpLayer->ninja->xScore * 2);
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/FinishJump.mp3", false, 1.0f, 1.0f, 1.0f);
 			jumpLayer->ninja->xScore = 0;
 		}
 		jumpLayer->ninja->finishJump = false;

@@ -34,7 +34,6 @@ public:
 	void MovePillar(float dt);
 	void update(float delta);
 
-
 	//Score + GameOver
 	int score;
 	Label* xScore;
