@@ -11,4 +11,4 @@ public:
 	CREATE_FUNC(Background);
 };
 
-#endif //_BACKGROUND_
+#endif

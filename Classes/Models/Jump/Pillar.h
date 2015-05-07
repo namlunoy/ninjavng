@@ -12,13 +12,12 @@ public:
 	~Pillar();
 	Sprite *sprite;
 	PhysicsBody *body;
-	Point getCurrenPos();
 	bool init();
 	static Pillar* createPillar();
-	void MovePillar(float veloc);
+	void MovePillar(float duration);
 	void StopPillar();
-
+	bool isContactWithWall;
 	bool onContactBegin(PhysicsContact &contact);
 };
 
-#endif _PILLAR_H_
+#endif

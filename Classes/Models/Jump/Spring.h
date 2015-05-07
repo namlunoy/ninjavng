@@ -15,4 +15,4 @@ public:
 	void ScaleDownSpring(float s);
 };
 
-#endif// _SPRING_
+#endif

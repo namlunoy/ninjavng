@@ -11,7 +11,7 @@ Scene* JumpScene::createPhysicScene()
 {
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setSpeed(3.0f);
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	//Background
 	auto backgroundLayer = Background::create();
@@ -32,7 +32,8 @@ Scene* JumpScene::createPhysicScene()
 
 bool JumpScene::init()
 {
-	if (!JumpScene::init()) return false;
+	if (!JumpScene::init())
+		return false;
 		
 	/*layer = JumpLayer::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld());

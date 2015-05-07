@@ -20,7 +20,7 @@ bool ChemLayer::init() {
 
 	//Back Button
 	auto backButton = Button::create("back_button-1.png", "back_button-1.png",
-			"back_button - 1.png");
+			"back_button-1.png");
 	backButton->setAnchorPoint(Vec2(0, 0));
 	backButton->setScale(0.3f, 0.5f);
 	backButton->setPosition(
