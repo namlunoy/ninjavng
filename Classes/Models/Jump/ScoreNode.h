@@ -15,4 +15,4 @@ public:
 	static ScoreNode * createScoreNode();
 };
 
-#endif //_SCORE_
+#endif

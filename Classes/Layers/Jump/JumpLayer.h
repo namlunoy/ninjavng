@@ -16,8 +16,12 @@ public:
 	~JumpLayer();
 	bool init();
 	CREATE_FUNC(JumpLayer);
+
+	//Physics
 	PhysicsWorld *physicsWorld;
-	void SetPhysicsWorld (PhysicsWorld *world) {physicsWorld = world; }
+	void SetPhysicsWorld(PhysicsWorld *world);
+
+	//Ninja
 	Ninja_D* ninja;
 
 	//Pillar
@@ -26,11 +30,10 @@ public:
 	std::list< Pillar* >::iterator firstPillar;
 	Point firstSpawnPoint;
 	void UpdatePillar();
+	void SpawnPillarWithPos(Point pos);
 	void MovePillar(float duration);
 	void StopPillar();
-	void SpawnPillar(/*Point pos*/);
-	void SpawnPillarWithPos(Point pos);
-
+	
 	//Score
 	Label * scoreText;
 };

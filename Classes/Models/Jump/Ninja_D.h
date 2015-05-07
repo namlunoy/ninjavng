@@ -13,14 +13,13 @@ public:
 	PhysicsBody *body;
 	bool init();
 	static Ninja_D* createNinja();
-
 	void JumpAction(float force);
+	int xScore;
 	bool isJumping;
 	bool isDeath;
 	bool finishJump;
-
 	bool onContactBegin(PhysicsContact &contact);
 	
 };
 
-#endif //_NINJA_D_
+#endif

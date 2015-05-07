@@ -16,6 +16,9 @@ JumpPlayLayer::~JumpPlayLayer(){}
 
 bool JumpPlayLayer::init()
 {
+	//Score
+	this->score = 0;
+
 	//Back Button
 	auto backButton = Button::create("back_button-1.png", "back_button-1.png");
 	backButton->setAnchorPoint(Vec2(0, 0));
@@ -56,10 +59,12 @@ void JumpPlayLayer::ShowScoreBoard()
 {
 	//Bảng điều khiển
 	Sprite * scoreBoard = Sprite::create("ScoreBoard.png");
+	scoreBoard->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	scoreBoard->setPosition(Point(Config::centerPoint));
 
 	//Replay Button
 	Button * replayButton = Button::create("ReplayButton.png");
+	replayButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	replayButton->setPosition(Point(scoreBoard->getContentSize().width/2, replayButton->getContentSize().height/2 + 70));
 	replayButton->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type){
 		switch (type)
@@ -75,27 +80,84 @@ void JumpPlayLayer::ShowScoreBoard()
 	});
 
 	//Điểm
+	//Text CurrentScore
+	Label * textCurrentScore = Label::create();
+	textCurrentScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	textCurrentScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 130));
+	textCurrentScore->setSystemFontSize(35);
+	textCurrentScore->setColor(Color3B::BLACK);
+	textCurrentScore->setString("Score");
+
+	//Điểm vừa chơi
 	Label* currentScore = Label::create();
-	currentScore->setPosition(Point(scoreBoard->getContentSize().width / 2, scoreBoard->getContentSize().height/2 + 60));
-	currentScore->setSystemFontSize(230);
+	currentScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	currentScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height/2 + 90));
+	currentScore->setSystemFontSize(35);
 	currentScore->setColor(Color3B::BLACK);
 	stringstream ss;
 	ss<<this->score;
 	currentScore->setString(ss.str());
 
+	//Text HighScore
+	Label * textHighScore = Label::create();
+	textHighScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	textHighScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 20));
+	textHighScore->setSystemFontSize(35);
+	textHighScore->setColor(Color3B::BLACK);
+	textHighScore->setString("High Score");
+
+	//High Score
+	Label* highScore = Label::create();
+	highScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	highScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 - 20));
+	highScore->setSystemFontSize(35);
+	highScore->setColor(Color3B::BLACK);
+	stringstream ss2;
+	ss2 << this->score;
+	highScore->setString(ss2.str());
+
 	//Add to board 
+	scoreBoard->addChild(textCurrentScore);
 	scoreBoard->addChild(currentScore);
+	scoreBoard->addChild(textHighScore);
+	scoreBoard->addChild(highScore);
 	scoreBoard->addChild(replayButton);
 	scoreBoard->setScale(0.5);
 
 	//Nền mờ
 	Sprite * opacity = Sprite::create("opacity.png");
+	opacity->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	opacity->setScale(Config::getScale(opacity));
 	opacity->setPosition(Config::centerPoint);
 	opacity->setOpacity(128);
 
 	//AddChild
 	this->addChild(opacity);
 	this->addChild(scoreBoard);
+}
+
+void JumpPlayLayer::ShowXScore(int diem)
+{
+	xScore = Label::create();
+	xScore->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	xScore->setPosition(Point(Config::screenSize.width / 2, Config::screenSize.height / 2 + 100));
+	xScore->setSystemFontSize(30);
+	xScore->setColor(Color3B::RED);
+	stringstream ss;
+	ss << "+";
+	ss << diem;
+	xScore->setString(ss.str());
+	this->addChild(xScore);
+
+	//Delay
+	DelayTime * delayTime = DelayTime::create(2.0f);
+	CallFunc * removeXScore = CallFunc::create(CC_CALLBACK_0(JumpPlayLayer::RemoveXScore, this));
+	xScore->runAction(Sequence::createWithTwoActions(delayTime, removeXScore));
+}
+
+void JumpPlayLayer::RemoveXScore()
+{
+	this->xScore->removeFromParent();
 }
 
 float JumpPlayLayer::Clamp(float a)
@@ -115,13 +177,12 @@ bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::onTouchMoved(Touch *touch, Event *unused_event)
 {
-	//jumpLayer->spring->ScaleDownSpring(timeTouch);
+	
 }
 
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
-	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->getParent() != NULL 
-		&& jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr && jumpLayer->ninja->getPhysicsBody() != nullptr)
+	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->getParent() != NULL)
 	{
 		jumpLayer->ninja->JumpAction(2500.0f * Clamp(timeTouch * 8.75f));
 	}	
@@ -136,6 +197,12 @@ void JumpPlayLayer::update(float delta)
 		jumpLayer->MovePillar(delta * 2.5);	
 	}
 
+	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->isDeath == false)
+	{
+		jumpLayer->pillar->StopPillar();
+		jumpLayer->UpdatePillar();
+	}
+
 	if (jumpLayer->ninja->isDeath == true && jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr && jumpLayer->ninja->getPhysicsBody() != nullptr)
 	{
 		jumpLayer->pillar->StopPillar();
@@ -143,20 +210,29 @@ void JumpPlayLayer::update(float delta)
 		ShowScoreBoard();
 	}
 
-	if (jumpLayer->ninja->isJumping == false)
-	{
-		jumpLayer->pillar->StopPillar();
-		jumpLayer->UpdatePillar();
-	}
-
 	if (jumpLayer->ninja->finishJump == true)
 	{
-		score++;
-		log("%d", score);
+		if (jumpLayer->ninja->xScore <= 1)
+		{
+			this->score += 1;
+			jumpLayer->ninja->xScore = 0;
+		}
+		else if (jumpLayer->ninja->xScore > 1)
+		{
+			this->score += (jumpLayer->ninja->xScore * 2);
+			ShowXScore(jumpLayer->ninja->xScore * 2);
+			jumpLayer->ninja->xScore = 0;
+		}
 		jumpLayer->ninja->finishJump = false;
 		stringstream ss;
 		ss<<this->score;
 		jumpLayer->scoreText->setString(ss.str());
+	}
+
+	if (jumpLayer->pillar->isContactWithWall == true)
+	{
+		/*jumpLayer->listPillar.pop_back();
+		jumpLayer->pillar->isContactWithWall = false;*/
 	}
 
 	if (tinh)

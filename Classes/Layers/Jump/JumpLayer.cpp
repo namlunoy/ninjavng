@@ -11,7 +11,11 @@
 
 USING_NS_CC;
 
-JumpLayer::~JumpLayer(){}
+JumpLayer::~JumpLayer()
+{
+
+}
+
 JumpLayer::JumpLayer()
 {
 	firstSpawnPoint = Point(100, 0);
@@ -22,15 +26,17 @@ bool JumpLayer::init()
 {
 	if (!Layer::init()) return false;
 
-	//Tạo tường xung quanh
+	//Tạo tường
 	Node * wall = Node::create();
 	wall->setPosition(Point(1, 240));
-	PhysicsBody * wallBody = PhysicsBody::createEdgeBox(Size(1, 480));
+	PhysicsBody * wallBody = PhysicsBody::createBox(Size(1, 480));
 	wallBody->setDynamic(false);
 	wallBody->setCollisionBitmask(true);
 	wallBody->setContactTestBitmask(true);
 	wallBody->setTag(WALL_COLLISION);
+	wallBody->setCategoryBitmask(0x03);
 	wall->setPhysicsBody(wallBody);
+	wall->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(wall);
 
 	//Ground
@@ -42,11 +48,13 @@ bool JumpLayer::init()
 	groundBody->setTag(GROUND_COLLISION);
 	groundBody->setContactTestBitmask(true);
 	ground->setPhysicsBody(groundBody);
+	ground->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(ground, 0);
 
 	//Pillar
 	pillar = Pillar::createPillar();
 	pillar->setPosition(100, 0);
+	pillar->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(pillar);
 	listPillar.push_front(pillar);
 	firstPillar = listPillar.begin();
@@ -54,17 +62,19 @@ bool JumpLayer::init()
 	//Ninja
 	ninja = Ninja_D::createNinja();
 	ninja->setPosition(100, 216);
+	ninja->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(ninja);
 
 	//Score
 	Sprite * circle = Sprite::create("circle.png");
 	circle->setPosition(Point(Config::screenSize.width / 2, Config::screenSize.height / 2 + 180));
+	circle->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	circle->setOpacity(200);
 	circle->setScale(0.5);
 
 	scoreText = Label::create("0", "fonts/Vnhatban.TTF", 85 ,Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
 	scoreText->setPosition(circle->getContentSize().width/2, circle->getContentSize().height/2);
-	//scoreText->s
+	scoreText->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	scoreText->setColor(Color3B::BLACK);
 	scoreText->setOpacity(200);
 
@@ -73,6 +83,11 @@ bool JumpLayer::init()
 
 
 	return true;
+}
+
+void JumpLayer::SetPhysicsWorld(PhysicsWorld *world)
+{
+	this->physicsWorld = world;
 }
 
 void JumpLayer::UpdatePillar()
@@ -85,24 +100,32 @@ void JumpLayer::UpdatePillar()
 	} 
 }
 
-void JumpLayer::SpawnPillar()
-{
-	Point pos = Point(Config::screenSize.width, CCRANDOM_0_1() * 175);
-	Pillar *p = Pillar::createPillar();	
-	p->setPosition(pos);
-	this->addChild(p);
-	listPillar.push_front(p);
-}
-
 void JumpLayer::SpawnPillarWithPos(Point pos)
 {
+	//Pillar
 	Pillar *p = Pillar::createPillar();
 	p->setPosition(pos);
+	p->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
+	//xScore
 	ScoreNode * scorenode = ScoreNode::createScoreNode();
-	scorenode->setPosition(Point(0, 175));
+	scorenode->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	scorenode->setPosition(Point(0, 400));
 	p->addChild(scorenode);
 
+	//Score
+	Node * nodeDiem = Node::create();
+	PhysicsBody * bodyNodeDiem = PhysicsBody::createBox(Size(48, 1));
+	bodyNodeDiem->setDynamic(false);
+	bodyNodeDiem->setCollisionBitmask(true);
+	bodyNodeDiem->setContactTestBitmask(true);
+	bodyNodeDiem->setTag(SCORE_COLLISION);
+	nodeDiem->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	nodeDiem->setPhysicsBody(bodyNodeDiem);
+	nodeDiem->setPosition(Point(0,175.5));
+	p->addChild(nodeDiem);
+
+	//Addchild
 	this->addChild(p);
 	listPillar.push_front(p);
 }

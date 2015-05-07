@@ -4,7 +4,6 @@
 #include "cocos2d.h"
 
 Pillar::~Pillar(){}
-//Pillar::Pillar(){}
 
 Pillar::Pillar()
 {
@@ -12,10 +11,10 @@ Pillar::Pillar()
 	this->addChild(sprite);
 	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 1));
 	body->setDynamic(false);
-	//body->setGravityEnable(false);
 	body->setCollisionBitmask(true);
 	body->setTag(PILLAR_COLLISION);
 	body->setContactTestBitmask(true);
+	body->setCategoryBitmask(0x03);
 	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->setPhysicsBody(body);
 }
@@ -24,6 +23,8 @@ bool Pillar::init()
 {
 	if (!Node::init())
 		return false;
+	
+	isContactWithWall = false;
 
 	//Contact
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -41,11 +42,6 @@ Pillar* Pillar::createPillar()
 	return pillar;
 }
 
-Point Pillar::getCurrenPos()
-{
-	return this->getPosition();
-}
-
 void Pillar::MovePillar(float duration)
 {
 	auto movePillar = MoveBy::create(duration, Vec2(-2.7f, 0));
@@ -54,7 +50,6 @@ void Pillar::MovePillar(float duration)
 
 void Pillar::StopPillar()
 {
-	//this->getActionManager()->removeAllActionsFromTarget(this);
 	this->stopAllActions();
 }
 
@@ -71,11 +66,10 @@ bool Pillar::onContactBegin(PhysicsContact &contact)
 	{
 		if (body_b->getNode() != nullptr) body_b->getNode()->removeFromParent();
 	}
-
-	if ((body_a->getTag() == WALL_COLLISION && body_b->getTag() == PILLAR_COLLISION)
-		|| (body_a->getTag() == PILLAR_COLLISION && body_b->getTag() == WALL_COLLISION))
+	else if ((body_a->getCategoryBitmask() & body_b->getCollisionBitmask()) == 0
+		|| (body_b->getCategoryBitmask() & body_a->getCollisionBitmask()) == 0)
 	{
-		log("Pillar + Wall");
+		isContactWithWall = true;
 	}
 
 	return true;
