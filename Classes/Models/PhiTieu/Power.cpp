@@ -44,26 +44,27 @@ void Power::updatePower() {
 void Power::setupByLevel(int lv) {
 	switch (lv) {
 	case 1:
-		minPower = 1.0f / 5;
+		minPower = 1.0f / 5.0f;
 		up = 0.01f;
 		break;
 	case 2:
-		minPower = 1.0f / 5;
+		minPower = 1.0f / 5.0f;
 		up = 0.01f;
 		break;
 	case 3:
-		minPower = 1.0f / 5;
+		minPower = 1.0f / 5.0f;
 		up = 0.01f;
 		break;
 	case 4:
-		minPower = 1.0f / 5;
+		minPower = 1.0f / 5.0f;
 		up = 0.01f;
 		break;
 	case 5:
-		minPower = 1.0f / 5;
+		minPower = 1.0f / 5.0f;
 		up = 0.01f;
 		break;
 	}
+	log("up = %f, minPow = %f", up, minPower);
 }
 
 bool Power::fire() {

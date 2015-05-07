@@ -21,7 +21,7 @@ bool PhiTieuHUDLayer::init() {
 	
 
 	//Back Button
-	auto backButton = Button::create("back_button-1.png", "back_button-1.png","back_button - 1.png");
+	auto backButton = Button::create("back_button-1.png", "back_button-1.png","back_button-1.png");
 	backButton->setAnchorPoint(Vec2(0, 0));
 	backButton->setScale(0.3f, 0.5f);
 	backButton->setPosition(Point(0,Config::screenSize.height - backButton->getContentSize().height / 2));
