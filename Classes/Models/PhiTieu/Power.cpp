@@ -7,6 +7,7 @@
 
 #include "Power.h"
 #include "Models/PhiTieu/Ninja.h"
+#include "Scenes/PhiTieuScene.h"
 
 Power::Power() {
 }
@@ -16,7 +17,7 @@ Power::~Power() {
 
 bool Power::init() {
 
-	setupByLevel(level);
+	setupByLevel();
 
 	//------------- Power -------------------
 	_power = Sprite::create("power.png");
@@ -41,25 +42,11 @@ void Power::updatePower() {
 	}
 }
 
-void Power::setupByLevel(int lv) {
+void Power::setupByLevel() {
+	int lv = PhiTieuScene::GetLevel();
 	switch (lv) {
-	case 1:
-		minPower = 1.0f / 5.0f;
-		up = 0.01f;
-		break;
-	case 2:
-		minPower = 1.0f / 5.0f;
-		up = 0.01f;
-		break;
-	case 3:
-		minPower = 1.0f / 5.0f;
-		up = 0.01f;
-		break;
-	case 4:
-		minPower = 1.0f / 5.0f;
-		up = 0.01f;
-		break;
-	case 5:
+
+	default:
 		minPower = 1.0f / 5.0f;
 		up = 0.01f;
 		break;

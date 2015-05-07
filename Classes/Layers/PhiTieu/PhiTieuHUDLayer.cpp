@@ -71,7 +71,7 @@ bool PhiTieuHUDLayer::init() {
 
 	//Tao thanh power
 	power = Power::createPower(PhiTieuScene::GetLevel());
-	power->setPosition(Vec2(200,100));
+	power->setPosition(Vec2(30,Config::screenSize.height - 70));
 	this->addChild(power);
 
 	//Tính điểm

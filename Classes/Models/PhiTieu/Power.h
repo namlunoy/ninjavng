@@ -23,7 +23,7 @@ public:
 	virtual ~Power();
 	bool init();
 	void updatePower();
-	void setupByLevel(int lv);
+	void setupByLevel();
 	bool fire();
 	static Power* createPower(int lv);
 };
