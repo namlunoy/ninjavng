@@ -204,7 +204,7 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta * 1.5);	
+		jumpLayer->MovePillar(delta);	
 	}
 
 	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->isDeath == false)
@@ -216,8 +216,8 @@ void JumpPlayLayer::update(float delta)
 	if (jumpLayer->ninja->isDeath == true && jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr && jumpLayer->ninja->getPhysicsBody() != nullptr)
 	{
 		jumpLayer->pillar->StopPillar();
-		jumpLayer->ninja->removeFromParent();
 		ShowScoreBoard(this->score);
+		jumpLayer->ninja->removeFromParent();
 	}
 
 	if (jumpLayer->ninja->finishJump == true)

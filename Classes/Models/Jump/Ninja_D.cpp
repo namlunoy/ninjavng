@@ -99,9 +99,17 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 		xScore++;
 	}
 	//Ninja vs Score Node
-	else if ((body_a->getTag() == NINJA_COLLISION && body_b->getTag() == SCORE_COLLISION)
-		|| (body_a->getTag() == SCORE_COLLISION && body_b->getTag() == NINJA_COLLISION))
+	else if (/*(body_a->getTag() == NINJA_COLLISION && body_b->getTag() == SCORE_COLLISION)
+		||*/ (body_a->getTag() == SCORE_COLLISION && body_b->getTag() == NINJA_COLLISION))
 	{
+		body_a->getNode()->removeFromParent();
+		this->isJumping = false;
+		finishJump = true;
+	}
+	else if ((body_a->getTag() == NINJA_COLLISION && body_b->getTag() == SCORE_COLLISION)
+		/*|| (body_a->getTag() == SCORE_COLLISION && body_b->getTag() == NINJA_COLLISION)*/)
+	{
+		body_b->getNode()->removeFromParent();
 		this->isJumping = false;
 		finishJump = true;
 	}
