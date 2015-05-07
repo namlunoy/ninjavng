@@ -36,10 +36,12 @@ public:
 
 	//Score + GameOver
 	int score;
+	/*UserDefault * def;
+	int highScoreUser;*/
 	Label* xScore;
 	void ShowXScore(int diem);
 	void RemoveXScore();
-	void ShowScoreBoard();
+	void ShowScoreBoard(int diem);
 };
 
 #endif

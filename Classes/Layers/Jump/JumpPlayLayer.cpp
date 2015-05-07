@@ -55,8 +55,18 @@ void JumpPlayLayer::SetJumpLayer(JumpLayer *jumplayer)
 	this->jumpLayer = jumplayer;
 }
 
-void JumpPlayLayer::ShowScoreBoard()
+void JumpPlayLayer::ShowScoreBoard(int diem)
 {
+	//HighScore UserDef
+	UserDefault * def = UserDefault::getInstance();
+	auto highScoreUser = def->getIntegerForKey("HIGHSCORE", 0);
+	if (this->score > highScoreUser)
+	{
+		highScoreUser = this->score;
+		def->setIntegerForKey("HIGHSCORE NINJA", highScoreUser);
+	}
+	def->flush();
+
 	//Bảng điều khiển
 	Sprite * scoreBoard = Sprite::create("ScoreBoard.png");
 	scoreBoard->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
@@ -81,22 +91,22 @@ void JumpPlayLayer::ShowScoreBoard()
 
 	//Điểm
 	//Text CurrentScore
-	Label * textCurrentScore = Label::create();
-	textCurrentScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-	textCurrentScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 130));
-	textCurrentScore->setSystemFontSize(35);
-	textCurrentScore->setColor(Color3B::BLACK);
-	textCurrentScore->setString("Score");
+	Label * textTempScore = Label::create();
+	textTempScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	textTempScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 130));
+	textTempScore->setSystemFontSize(35);
+	textTempScore->setColor(Color3B::BLACK);
+	textTempScore->setString("Score");
 
 	//Điểm vừa chơi
-	Label* currentScore = Label::create();
-	currentScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-	currentScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height/2 + 90));
-	currentScore->setSystemFontSize(35);
-	currentScore->setColor(Color3B::BLACK);
+	Label* tempScore = Label::create();
+	tempScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	tempScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 90));
+	tempScore->setSystemFontSize(35);
+	tempScore->setColor(Color3B::BLACK);
 	stringstream ss;
-	ss<<this->score;
-	currentScore->setString(ss.str());
+	ss << diem;
+	tempScore->setString(ss.str());
 
 	//Text HighScore
 	Label * textHighScore = Label::create();
@@ -113,12 +123,12 @@ void JumpPlayLayer::ShowScoreBoard()
 	highScore->setSystemFontSize(35);
 	highScore->setColor(Color3B::BLACK);
 	stringstream ss2;
-	ss2 << this->score;
+	ss2 << highScoreUser;
 	highScore->setString(ss2.str());
 
 	//Add to board 
-	scoreBoard->addChild(textCurrentScore);
-	scoreBoard->addChild(currentScore);
+	scoreBoard->addChild(textTempScore);
+	scoreBoard->addChild(tempScore);
 	scoreBoard->addChild(textHighScore);
 	scoreBoard->addChild(highScore);
 	scoreBoard->addChild(replayButton);
@@ -194,7 +204,7 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta * 2.5);	
+		jumpLayer->MovePillar(delta * 1.5);	
 	}
 
 	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->isDeath == false)
@@ -207,7 +217,7 @@ void JumpPlayLayer::update(float delta)
 	{
 		jumpLayer->pillar->StopPillar();
 		jumpLayer->ninja->removeFromParent();
-		ShowScoreBoard();
+		ShowScoreBoard(this->score);
 	}
 
 	if (jumpLayer->ninja->finishJump == true)
