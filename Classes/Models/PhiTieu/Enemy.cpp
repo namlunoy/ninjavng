@@ -1,4 +1,5 @@
 ﻿#include "Enemy.h"
+#include "Layers/PhiTieu/PhiTieuHUDLayer.h"
 
 
 Enemy::Enemy(){
@@ -21,6 +22,7 @@ bool Enemy::onContact(PhysicsContact& contact) {
 			log("Enemy::onContact : ENEMY vs SHURIKEN");
 			b->getNode()->removeFromParent();
 			a->getNode()->removeFromParent();
+			PhiTieuHUDLayer::Instance->tangDiem();
 		}
 
 		//Tuong tac voi thanh

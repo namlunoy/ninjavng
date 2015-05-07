@@ -2,9 +2,10 @@
 
 PhiTieuScene::PhiTieuScene(){}
 PhiTieuScene::~PhiTieuScene(){}
-
-Scene* PhiTieuScene::createScene()
+int PhiTieuScene::level = 0;
+Scene* PhiTieuScene::createScene(int lv)
 {
+	PhiTieuScene::level = lv;
 	Scene* _scene = Scene::createWithPhysics();
 	_scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	_scene->getPhysicsWorld()->setGravity(Vec2(0, -98.0f));

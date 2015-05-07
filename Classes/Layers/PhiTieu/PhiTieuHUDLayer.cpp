@@ -1,5 +1,9 @@
 ﻿#include "PhiTieuHUDLayer.h"
+#include "Utility/Config.h"
+#include <sstream>
 
+
+PhiTieuHUDLayer* PhiTieuHUDLayer::Instance = nullptr;
 PhiTieuHUDLayer::PhiTieuHUDLayer() {
 }
 PhiTieuHUDLayer::~PhiTieuHUDLayer() {
@@ -73,6 +77,13 @@ bool PhiTieuHUDLayer::init() {
 	timer->runAction(RepeatForever::create(Sequence::createWithTwoActions(delay,updatePower)));
 	this->addChild(timer);
 
+
+	//Tính điểm
+	txt_score = Label::createWithTTF("0","fonts/njnaruto.ttf",37);
+	txt_score->setPosition(Vec2(Config::screenSize.width - 30,Config::screenSize.height - 40));
+	this->addChild(txt_score);
+	score = 0;
+	PhiTieuHUDLayer::Instance = this;
 	return true;
 }
 
@@ -118,4 +129,15 @@ void PhiTieuHUDLayer::gameOver() {
 	over->setPosition(Config::centerPoint);
 	over->setScale(scale);
 	this->addChild(over);
+}
+
+void PhiTieuHUDLayer::tangDiem() {
+	score++;
+	std::stringstream ss;
+	ss<<score;
+	txt_score->setString(ss.str());
+	//Animation
+	auto phongTo = ScaleTo::create(0.1f,1.8);
+	auto thuNho = ScaleTo::create(0.1f,1);
+	txt_score->runAction(Sequence::createWithTwoActions(phongTo,thuNho));
 }

@@ -21,8 +21,11 @@ private:
 	Vector<Sprite*> hearts;
 	Sprite* _power;
 	PhiTieuLayer* _phiTieuLayer;
+	Label* txt_score;
+	int score;
 public:
 	//------  Các hàm khởi tạo -------
+	static PhiTieuHUDLayer* Instance;
 	PhiTieuHUDLayer();
 	~PhiTieuHUDLayer();
 	CREATE_FUNC(PhiTieuHUDLayer);
@@ -34,5 +37,6 @@ public:
 	void matMau();
 	void updatePower();
 	void gameOver();
+	void tangDiem();
 };
 #endif
