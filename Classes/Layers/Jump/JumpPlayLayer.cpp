@@ -4,7 +4,7 @@
 #include "ui/CocosGUI.h"
 #include "Scenes/JumpScene.h"
 #include "Utility/Definition.h"
-#include "SimpleAudioEngine.h"  
+#include "SimpleAudioEngine.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -21,10 +21,22 @@ bool JumpPlayLayer::init()
 	this->score = 0;
 	this->isShowScoreBoard = false;
 
+	//HighScore Store
+	/*def = UserDefault::sharedUserDefault();
+	bestScore = def->getIntegerForKey("HIGHSCORE");
+	log("bestscore: %d", bestScore);
+	def->setIntegerForKey("HIGHSCORE", 100);
+	def->flush();
+	log("Bestscore2: %d", bestScore);*/
+
 	//Sound
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Jump.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Ground.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/FinishJump.mp3");
+
+	//Music background
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("Sound_Jump/Bird.mp3");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound_Jump/Bird.mp3", true);
 
 	//Back Button
 	auto backButton = Button::create("back_button-1.png", "back_button-1.png");
@@ -121,6 +133,12 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	highScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 - 20));
 	highScore->setSystemFontSize(35);
 	highScore->setColor(Color3B::BLACK);
+	/*if (diem > bestScore)
+	{
+		bestScore = diem;
+		def->setIntegerForKey("HIGHSCORE", bestScore);
+		def->flush();
+	}*/
 	stringstream ss2;
 	ss2 << diem;
 	highScore->setString(ss2.str());
