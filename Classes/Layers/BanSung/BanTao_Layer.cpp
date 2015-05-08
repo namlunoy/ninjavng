@@ -7,7 +7,7 @@
 #include "Utility/Config.h"
 #include "Utility/XHelper.h"
 #include "SimpleAudioEngine.h"
-#include <sstream>"
+#include <sstream>
 #include <string>
 #include <iostream>
 
@@ -286,7 +286,6 @@ void BanTao_Layer::checkLive()
 
 		this->runAction(Sequence::create(
 			DelayTime::create(2),
-			
 			CallFunc::create(CC_CALLBACK_0(BanTao_Layer::restart, this)),
 			nullptr));
 

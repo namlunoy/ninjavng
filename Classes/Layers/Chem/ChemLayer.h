@@ -35,6 +35,12 @@ public:
 	//bat su kien va cham dan va quai
 	bool onContactBegin(const PhysicsContact& contact);
 	void RemoveKiem();
+	void headSprite();
+	void restart();
+
+	
+private:
+	void updateScore();
 };
 
 #endif /* LAYERS_CHEM_CHEMLAYER_H_ */
