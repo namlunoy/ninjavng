@@ -47,7 +47,7 @@ bool ChemLayer::init() {
 					case ui::Widget::TouchEventType::BEGAN:
 					break;
 					case ui::Widget::TouchEventType::ENDED:
-					//auto helloScene = HelloWorld::createScene();
+						CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 					Director::getInstance()->replaceScene(HelloWorld::createScene());
 					break;
 					default:
