@@ -6,8 +6,8 @@ TranhNeLayer::~TranhNeLayer() {}
 
 bool TranhNeLayer::init()
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("OldStump.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("OldStump.mp3", true);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Old Stump.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Old Stump.mp3", true);
 	Size winSize = Config::screenSize;//Director::getInstance()->getWinSize();
 
 	auto backButton = Button::create("Tranh_Ne/Chuc_Nang/Huy.png", "Tranh_Ne/Chuc_Nang/Huy.png", "Tranh_Ne/Chuc_Nang/Huy.png");
