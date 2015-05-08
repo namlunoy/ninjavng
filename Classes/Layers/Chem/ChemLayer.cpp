@@ -6,8 +6,14 @@
  */
 
 #include "ChemLayer.h"
-#include"SimpleAudioEngine.h"
+#include "SimpleAudioEngine.h"
 #include"GameOverScene.h"
+#include <sstream>
+#include <string>
+#include <iostream>
+#include "Utility/Config.h"
+#include "Utility/XHelper.h"
+#include "ui/CocosGUI.h"
 
 USING_NS_CC;
 
@@ -16,7 +22,14 @@ ChemLayer::ChemLayer() {
 ChemLayer::~ChemLayer() {
 }
 
+Label* label1;
+Label* scoreText1;
+int score13;
+int mang13;
+
 bool ChemLayer::init() {
+
+	mang13 = 3;
 
 	//Back Button
 	auto backButton = Button::create("back_button-1.png", "back_button-1.png",
@@ -34,7 +47,7 @@ bool ChemLayer::init() {
 					case ui::Widget::TouchEventType::BEGAN:
 					break;
 					case ui::Widget::TouchEventType::ENDED:
-					//auto helloScene = HelloWorld::createScene();
+						CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 					Director::getInstance()->replaceScene(HelloWorld::createScene());
 					break;
 					default:
@@ -42,11 +55,6 @@ bool ChemLayer::init() {
 				}
 			});
 	this->addChild(backButton,1);
-
-
-	//auto label = LabelTTF::create("Chem","Arial",30);
-	//label->setPosition(Vec2(100,100));
-	//this->addChild(label);
 
 	// Lấy kích thước màn hình
 	Size winSize = Director::getInstance()->getWinSize(); 
@@ -103,6 +111,23 @@ bool ChemLayer::init() {
 	//them am thanh cho game
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("background-music-aac.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("background-music-aac.wav",true); // True = lặp lại vô hạn
+
+	//Thêm mạng
+	headSprite();
+
+	//score
+	CCSize winsize = CCDirector::sharedDirector()->getWinSize();
+	label1 = Label::create("Score:   ", "Arial", 30);
+	label1->setColor(ccc3(192, 57, 43));
+	label1->setPosition(winsize.width - 100, winsize.height - 20);
+	this->addChild(label1);
+
+	scoreText1 = Label::create();
+	scoreText1->setColor(ccc3(192, 57, 43));
+	scoreText1->setPosition(winsize.width - 50, winsize.height - 20);
+	scoreText1->setString("0");
+	scoreText1->setSystemFontSize(30);
+	this->addChild(scoreText1);
 	return true;
 }
 
@@ -125,6 +150,9 @@ bool ChemLayer::touch_Kiem(Touch* t, Event* e) {
 	//dat khung vat ly vao kiem
 	katana->setPhysicsBody(katanaBody);
 	this->addChild(katana,1);
+	
+	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("shot.wav");
+	//CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("shot.wav",false);
 
 	auto removekiem = CallFunc::create(CC_CALLBACK_0(ChemLayer::RemoveKiem, this));
 	auto delay = DelayTime::create(2);
@@ -207,16 +235,92 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 
 		this->removeChild(target,true); // Xóa quái
 
+		updateScore();
+
 	}
-	// Nếu va chạm xảy ra giữa quái và nhân vật thì NV lăn ra chết , rồi GameOver, rồi tính điểm, cái này để bài sau
+	// Nếu va chạm xảy ra giữa quái và nhân vật thì NV lăn ra chết , rồi GameOver, rồi tính điểm
 	if((tag==1&tag1==2)||(tag==2&tag1==1))
 	{
 		// Xử lý GameOver
+		mang13--;
 		// Tính điểm 
-		auto gameOverScene = GameOverScene::create(); // Tạo 1 Scene Over của lớp GameOverScene
-		gameOverScene->getLayer()->getLabel()->setString("You Lose :["); // Đặt 1 dòng thông báo lên màn hình
-		Director::getInstance()->replaceScene(gameOverScene); // Thay thế game Scene =  game Over Scene 
+		if (mang13>=3)
+		{
+		
+		}
+		if (mang13==2)
+		{
+			this->removeChildByTag(18);
+			this->removeChild(bullet,true);
+			this->removeChild(target,true); 
+			player = Sprite::create("Ninja2.png");  
+			player->setPosition(Vec2(100,60));
+			auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
+			player->setTag(1);
+			playerBody->setContactTestBitmask(0x1);
+			player->setPhysicsBody(playerBody);
+			this->addChild(player,1);
+		}
+		if (mang13==1)
+		{
+			this->removeChildByTag(17);
+			this->removeChild(bullet,true); 
+			this->removeChild(target,true);
+			player = Sprite::create("Ninja2.png");  
+			player->setPosition(Vec2(100,60));
+			auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
+			player->setTag(1);
+			playerBody->setContactTestBitmask(0x1);
+			player->setPhysicsBody(playerBody);
+			this->addChild(player,1);
+		}
+		if (mang13==0)
+		{
+			this->removeChildByTag(16);
+			this->removeChild(bullet,true); 
+			this->removeChild(target,true);
+			player = Sprite::create("Ninja2.png");  
+			player->setPosition(Vec2(100,60));
+			auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
+			player->setTag(1);
+			playerBody->setContactTestBitmask(0x1);
+			player->setPhysicsBody(playerBody);
+			this->addChild(player,1);
+		}
+		if (mang13<0)
+		{
+			auto gameOverScene = GameOverScene::create(); // Tạo 1 Scene Over của lớp GameOverScene
+			gameOverScene->getLayer()->getLabel()->setString("You Lose :["); // Đặt 1 dòng thông báo lên màn hình
+			Director::getInstance()->replaceScene(gameOverScene); // Thay thế game Scene =  game Over Scene 
+		}		
 	} 
 
 	return true; // Phải trả lại giá trị true
+}
+
+void ChemLayer::headSprite()
+{
+	auto head1 = Sprite::create("heart.png");
+	head1->setPosition(Vec2(Config::centerPoint.x - 350, Config::centerPoint.y + 200));
+	head1->setScale(0.25f);
+	this->addChild(head1, 0);
+	head1->setTag(16);
+	auto head2 = Sprite::create("heart.png");
+	head2->setPosition(Vec2(Config::centerPoint.x - 290, Config::centerPoint.y + 200));
+	head2->setScale(0.25f);
+	this->addChild(head2, 0);
+	head2->setTag(17);
+	auto head3 = Sprite::create("heart.png");
+	head3->setPosition(Vec2(Config::centerPoint.x - 230, Config::centerPoint.y + 200));
+	head3->setScale(0.25f);
+	this->addChild(head3, 0);
+	head3->setTag(18);
+}
+
+void ChemLayer::updateScore()
+{		
+		score13 += 10; 
+		stringstream ss;
+		ss << score13;
+		scoreText1->setString(ss.str());
 }

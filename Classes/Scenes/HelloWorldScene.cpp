@@ -9,7 +9,7 @@
 #include "TranhNeScene.h"
 #include "BanTao_Scence.h"
 #include "Utility/Config.h"
-
+#include "SimpleAudioEngine.h"
 using namespace ui;
 using namespace std;
 USING_NS_CC;
@@ -19,6 +19,7 @@ Scene* HelloWorld::createScene() {
 	auto layer = HelloWorld::create();
 	scene->addChild(layer);
 
+	CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
 	Config::screenSize = Director::getInstance()->getVisibleSize();
 	Size screenSize = Config::screenSize;
