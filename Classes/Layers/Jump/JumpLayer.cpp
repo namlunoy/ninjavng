@@ -110,12 +110,12 @@ void JumpLayer::SpawnPillarWithPos(Point pos)
 	//xScore
 	ScoreNode * scorenode = ScoreNode::createScoreNode();
 	scorenode->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	scorenode->setPosition(Point(0, 400));
+	scorenode->setPosition(Point(0, 575));
 	p->addChild(scorenode);
 
 	//Score
 	Node * nodeDiem = Node::create();
-	PhysicsBody * bodyNodeDiem = PhysicsBody::createBox(Size(48, 1));
+	PhysicsBody * bodyNodeDiem = PhysicsBody::createBox(Size(28, 1));
 	bodyNodeDiem->setDynamic(false);
 	bodyNodeDiem->setCollisionBitmask(true);
 	bodyNodeDiem->setContactTestBitmask(true);

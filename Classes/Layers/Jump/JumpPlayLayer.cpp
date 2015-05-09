@@ -190,7 +190,7 @@ void JumpPlayLayer::RemoveXScore()
 float JumpPlayLayer::Clamp(float a)
 {
 	if (a < 1.5f) return 1.5f;
-	else if (a > 8.5f) return 8.5f;
+	else if (a > 9.0f) return 9.0f;
 	else return a;
 }
 
@@ -222,7 +222,7 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta);	
+		jumpLayer->MovePillar(delta * 3 / 4);	
 	}
 
 	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->isDeath == false)

@@ -7,7 +7,7 @@ Pillar::~Pillar(){}
 
 Pillar::Pillar()
 {
-	sprite = Sprite::create("Bamboo.png");
+	sprite = Sprite::create("Bamboo/Bamboo_2.png");
 	this->addChild(sprite);
 	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 1));
 	body->setDynamic(false);
