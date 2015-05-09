@@ -1,6 +1,7 @@
 ﻿#include "PhiTieuHUDLayer.h"
 #include "Utility/Config.h"
 #include "Scenes/PhiTieuScene.h"
+#include "SimpleAudioEngine.h"
 #include <sstream>
 
 
@@ -40,6 +41,10 @@ bool PhiTieuHUDLayer::init() {
 				}
 			});
 	this->addChild(backButton);
+
+	//------------------ Music Background -----------------//
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("Sound_PhiTieu/Music1.mp3");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound_PhiTieu/Music1.mp3", true);
 
 	//------------------ Button jump  ---------------------
 	bt_jump = Button::create("bt_jump_1.png", "bt_jump_2.png", "bt_jump_2.png");
@@ -89,6 +94,7 @@ void PhiTieuHUDLayer::matMau()
 	{
 		hearts.at(hearts.size() - 1)->removeFromParent();
 		hearts.popBack();
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/Fail.mp3");
 	}
 }
 

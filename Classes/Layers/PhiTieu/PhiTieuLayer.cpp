@@ -1,5 +1,6 @@
 ﻿#include "PhiTieuLayer.h"
 #include "Scenes/PhiTieuScene.h"
+#include "SimpleAudioEngine.h"
 
 PhiTieuLayer* PhiTieuLayer::instance = NULL;
 PhiTieuLayer::PhiTieuLayer() {
@@ -83,7 +84,7 @@ void PhiTieuLayer::PhongTieu(Vec2 dest) {
 	//ninja->fire(ninja->getPosition(),dest);
 	Vec2 src = ninja->getPosition();
 	ninja->fire(src,dest);
-
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/Shuriken.mp3");
 }
 
 void PhiTieuLayer::setHUDLayer(PhiTieuHUDLayer* p) {
@@ -94,4 +95,6 @@ void PhiTieuLayer::gameOver() {
 	ninja->isAlive = false;
 	generator->stop();
 	_hudLayer->gameOver();
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/GameOverSound.mp3");
 }
