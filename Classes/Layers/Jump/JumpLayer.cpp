@@ -60,7 +60,7 @@ bool JumpLayer::init()
 
 	//Ninja
 	ninja = Ninja_D::createNinja();
-	ninja->setPosition(100, 216);
+	ninja->setPosition(100, 195);
 	ninja->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(ninja);
 

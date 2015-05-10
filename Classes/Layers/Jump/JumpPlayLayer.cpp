@@ -105,7 +105,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	Label * textTempScore = Label::create();
 	textTempScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	textTempScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 130));
-	textTempScore->setSystemFontSize(35);
+	textTempScore->setSystemFontSize(30);
 	textTempScore->setColor(Color3B::BLACK);
 	textTempScore->setString("Score");
 
@@ -123,7 +123,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	Label * textHighScore = Label::create();
 	textHighScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	textHighScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 20));
-	textHighScore->setSystemFontSize(35);
+	textHighScore->setSystemFontSize(30);
 	textHighScore->setColor(Color3B::BLACK);
 	textHighScore->setString("High Score");
 
@@ -143,12 +143,40 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	ss2 << diem;
 	highScore->setString(ss2.str());
 
+	//Huy Chuong
+	Label * achievement = Label::create("Achievement", "fonts/arial.ttf", 30, Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
+	achievement->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	achievement->setColor(Color3B::BLACK);
+	achievement->setPosition(Point(scoreBoard->getContentSize().width / 2 - 20, scoreBoard->getContentSize().height / 2 + 130));
+	Sprite * huyChuong;
+	if (diem < 10)
+	{
+		huyChuong = Sprite::create("HuyChuong/Khong.png");
+	} 
+	else if (diem >= 10 && diem < 20)
+	{
+		huyChuong = Sprite::create("HuyChuong/Dong.png");
+	}
+	else if (diem >= 20 && diem < 30)
+	{
+		huyChuong = Sprite::create("HuyChuong/Bac.png");
+	}
+	else if (diem >= 30)
+	{
+		huyChuong = Sprite::create("HuyChuong/Vang.png");
+	}
+	huyChuong->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	huyChuong->setScale(2.0);
+	huyChuong->setPosition(Point(scoreBoard->getContentSize().width * 2 / 3, scoreBoard->getContentSize().height / 2 + 20));
+
 	//Add to board 
 	scoreBoard->addChild(textTempScore);
 	scoreBoard->addChild(tempScore);
 	scoreBoard->addChild(textHighScore);
 	scoreBoard->addChild(highScore);
 	scoreBoard->addChild(replayButton);
+	scoreBoard->addChild(achievement);
+	scoreBoard->addChild(huyChuong);
 	scoreBoard->setScale(0.5);
 
 	//Nền mờ
