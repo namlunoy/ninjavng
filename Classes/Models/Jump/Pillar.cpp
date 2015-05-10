@@ -58,6 +58,14 @@ Pillar* Pillar::createPillar()
 	return pillar;
 }
 
+Pillar* Pillar::createPillar(int i)
+{
+	Pillar* pillar = new Pillar(i);
+	pillar->init();
+	pillar->autorelease();
+	return pillar;
+}
+
 void Pillar::MovePillar(float duration)
 {
 	auto movePillar = MoveBy::create(duration, Vec2(-2.7f, 0));

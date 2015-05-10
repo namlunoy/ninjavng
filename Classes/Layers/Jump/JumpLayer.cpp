@@ -14,11 +14,25 @@ JumpLayer::~JumpLayer()
 {
 
 }
-
 JumpLayer::JumpLayer()
 {
 	firstSpawnPoint = Point(100, 0);
 	firstPillar = listPillar.begin();
+}
+
+JumpLayer::JumpLayer(int i)
+{
+	firstSpawnPoint = Point(100, 0);
+	firstPillar = listPillar.begin();
+	this->randomName = i;
+}
+
+JumpLayer * JumpLayer::createJumpLayer(int i)
+{
+	JumpLayer * layer = new JumpLayer(i);
+	layer->init();
+	layer->autorelease();
+	return layer;
 }
 
 bool JumpLayer::init()
@@ -51,7 +65,7 @@ bool JumpLayer::init()
 	this->addChild(ground, 0);
 
 	//Pillar
-	pillar = Pillar::createPillar();
+	pillar = Pillar::createPillar(this->randomName);
 	pillar->setPosition(100, 0);
 	pillar->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(pillar);
@@ -60,7 +74,7 @@ bool JumpLayer::init()
 
 	//Ninja
 	ninja = Ninja_D::createNinja();
-	ninja->setPosition(100, 195);
+	ninja->setPosition(100, 180);
 	ninja->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(ninja);
 
@@ -102,7 +116,7 @@ void JumpLayer::UpdatePillar()
 void JumpLayer::SpawnPillarWithPos(Point pos)
 {
 	//Pillar
-	Pillar *p = Pillar::createPillar();
+	Pillar *p = Pillar::createPillar(this->randomName);
 	p->setPosition(pos);
 	p->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 

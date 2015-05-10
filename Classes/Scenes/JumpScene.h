@@ -14,7 +14,6 @@ public:
 	static Scene* createPhysicScene();
 	bool init();
 	CREATE_FUNC(JumpScene);
-
 };
 
 #endif

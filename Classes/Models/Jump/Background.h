@@ -6,7 +6,10 @@ class Background : public cocos2d::Layer
 {
 public:
 	Background();
+	Background(int i);
 	~Background();
+	//Sprite * background;
+	static Background * createBackground(int i);
 	bool init();
 	CREATE_FUNC(Background);
 };

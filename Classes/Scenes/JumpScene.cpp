@@ -1,4 +1,5 @@
 #include "JumpScene.h"
+#include "cocos2d.h"
 USING_NS_CC;
 
 JumpScene::JumpScene()
@@ -11,14 +12,17 @@ Scene* JumpScene::createPhysicScene()
 {
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setSpeed(3.0f);
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+
+	//Random name
+	int randomName = cocos2d::random(1, 3);
 
 	//Background
-	auto backgroundLayer = Background::create();
+	auto backgroundLayer = Background::createBackground(randomName);
 	scene->addChild(backgroundLayer, 0);
 
 	//Jump
-	auto jumplayer = JumpLayer::create();
+	auto jumplayer = JumpLayer::createJumpLayer(randomName);
 	jumplayer->SetPhysicsWorld(scene->getPhysicsWorld());
 	scene->addChild(jumplayer, 1);
 
