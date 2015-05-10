@@ -35,7 +35,7 @@ bool JumpPlayLayer::init()
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/FinishJump.mp3");
 
 	//Music background
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("Sound_Jump/Bird.mp3");
+	//CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("Sound_Jump/Bird.mp3");
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound_Jump/Bird.mp3", true);
 
 	//Back Button
@@ -93,7 +93,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			Director::getInstance()->replaceScene(TransitionFade::create(0.5, JumpScene::createPhysicScene(), Color3B(34, 177, 76)));
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5, JumpScene::createPhysicScene(), Color3B::WHITE));
 			break;
 		default:
 			break;

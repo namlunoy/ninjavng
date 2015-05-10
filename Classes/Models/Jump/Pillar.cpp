@@ -19,6 +19,22 @@ Pillar::Pillar()
 	this->setPhysicsBody(body);
 }
 
+Pillar::Pillar(int i)
+{
+	char name[100];
+	sprintf(name, "Bamboo/Bamboo_%d.png", i);
+	sprite = Sprite::create(name);
+	this->addChild(sprite);
+	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 1));
+	body->setDynamic(false);
+	body->setCollisionBitmask(true);
+	body->setTag(PILLAR_COLLISION);
+	body->setContactTestBitmask(true);
+	body->setCategoryBitmask(0x03);
+	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	this->setPhysicsBody(body);
+}
+
 bool Pillar::init()
 {
 	if (!Node::init())

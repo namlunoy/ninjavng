@@ -8,7 +8,6 @@
 #include "Models/Jump/ScoreNode.h"
 #include <iostream>
 #include <list>
-
 USING_NS_CC;
 
 JumpLayer::~JumpLayer()
@@ -42,7 +41,7 @@ bool JumpLayer::init()
 	//Ground
 	Node * ground = Node::create();
 	ground->setPosition(Point(400, 1));
-	PhysicsBody * groundBody = PhysicsBody::createBox(Size(800, 1));
+	PhysicsBody * groundBody = PhysicsBody::createBox(Size(800, 20));
 	groundBody->setDynamic(false);
 	groundBody->setCollisionBitmask(true);
 	groundBody->setTag(GROUND_COLLISION);
@@ -115,7 +114,7 @@ void JumpLayer::SpawnPillarWithPos(Point pos)
 
 	//Score
 	Node * nodeDiem = Node::create();
-	PhysicsBody * bodyNodeDiem = PhysicsBody::createBox(Size(28, 1));
+	PhysicsBody * bodyNodeDiem = PhysicsBody::createBox(Size(28.5, 1), PhysicsMaterial(1.0f, 0.0f, 1.0f));
 	bodyNodeDiem->setDynamic(false);
 	bodyNodeDiem->setCollisionBitmask(true);
 	bodyNodeDiem->setContactTestBitmask(true);
