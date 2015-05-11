@@ -22,6 +22,10 @@ public:
 	//Screen
 	Size screenSize;
 
+	//How to play
+	Label * howToPlay;
+	void removehowToPlayText();
+
 	//Physics
 	PhysicsWorld *physicsWorld;
 	void SetPhysicsWorld(PhysicsWorld *world);

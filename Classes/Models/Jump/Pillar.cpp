@@ -68,7 +68,7 @@ Pillar* Pillar::createPillar(int i)
 
 void Pillar::MovePillar(float duration)
 {
-	auto movePillar = MoveBy::create(duration, Vec2(-2.7f, 0));
+	auto movePillar = MoveBy::create(duration, Vec2(-3.2f, 0));
 	this->runAction(movePillar);
 }
 

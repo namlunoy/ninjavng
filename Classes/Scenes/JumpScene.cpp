@@ -11,7 +11,9 @@ JumpScene::~JumpScene(){}
 Scene* JumpScene::createPhysicScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setSpeed(3.0f);
+	scene->getPhysicsWorld()->setSpeed(3.5f);
+	scene->getPhysicsWorld()->setUpdateRate(0.5f);
+	scene->getPhysicsWorld()->setSubsteps(10);
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	//Random name
