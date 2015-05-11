@@ -16,9 +16,6 @@ USING_NS_CC;
 using namespace ui;
 
 class ChemLayer : public Layer {
-private:
-	Button* bt_jump;
-
 public:
 	CREATE_FUNC(ChemLayer);
 	bool init();
@@ -39,7 +36,6 @@ public:
 	void updateNinja();
 	void headSprite();
 	void restart();
-
 	
 private:
 	void updateScore();

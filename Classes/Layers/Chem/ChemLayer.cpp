@@ -27,9 +27,10 @@ Label* scoreText1;
 int score13;
 int mang13;
 bool kt = false;
+float speedenemy;
 
 bool ChemLayer::init() {
-
+	speedenemy = 0;
 	mang13 = 3;
 	ninja=Node::create();
 	ninja->setPosition(Vec2(100,60));
@@ -188,33 +189,6 @@ void ChemLayer::updateNinja()
 	kt=false;
 }
 
-
-//bool ChemLayer::touch_Kiem(Touch* t, Event* e) {
-//	//tao sprite kiem
-//	katana = Sprite::create("katana.png");  
-//	katana->setScale(0.07f);
-//	//dat len man hinh
-//	katana->setPosition(Vec2(100+player->getContentSize().width,60+player->getContentSize().height/3));
-//	//tao body cho kiem
-//	auto katanaBody=PhysicsBody::createBox(katana->getBoundingBox().size);
-//	katana->setTag(3);
-//	//katanaBody->setAngularVelocity(-30);
-//	katanaBody->setContactTestBitmask(0x1);
-//	//dat khung vat ly vao kiem
-//	katana->setPhysicsBody(katanaBody);
-//	this->addChild(katana,1);
-//	
-//	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("shot.wav");
-//	//CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("shot.wav",false);
-//
-//	auto removekiem = CallFunc::create(CC_CALLBACK_0(ChemLayer::RemoveKiem, this));
-//	auto delay = DelayTime::create(2);
-//	auto action = Sequence::createWithTwoActions(delay,removekiem);
-//	this->runAction(action);
-//
-//	return true;
-//}
-
 // Hàm này tạo ra Quái và di chuyển chúng nè
 void ChemLayer::addTarget()
 {
@@ -231,7 +205,7 @@ void ChemLayer::addTarget()
 
 	// Đặt quái vào khoảng vị trí trên actualY (random)
 	target->setPosition(Point(winSize.width + (target->getContentSize().width/2),60));
-	// Giải thích giống phần Nhân vật	
+	//body
 	auto targetBody = PhysicsBody::createBox(target->getBoundingBox().size);
 	target->setTag(2);
 	targetBody->setContactTestBitmask(0x1);
@@ -246,7 +220,7 @@ void ChemLayer::addTarget()
 		+ minDuration;
 	// Di chuyển quái với 1 tốc độ nằm trong khoảng actualDuration , từ điềm xuất hiện tới điểm Point(0,y)
 
-	auto actionMove =  MoveTo::create( (float)actualDuration, Point(0 - target->getContentSize().width/2, 60) );
+	auto actionMove =  MoveTo::create( (float)actualDuration - speedenemy, Point(0 - target->getContentSize().width/2, 60) );
 
 	// Kết thúc việc di chuyển của quái khi đã tới điểm cuối
 	auto actionMoveDone =   CallFuncN::create(CC_CALLBACK_1(ChemLayer::spriteMoveFinished,this));
@@ -279,13 +253,15 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 	if(kt==true)
 	{
 
-		this->removeChild(bullet,true); 
+		this->removeChild(bullet,true);
+		speedenemy+=0.2;
 		updateScore();
 
 	}
 	// Nếu va chạm xảy ra giữa quái và nhân vật thì NV lăn ra chết , rồi GameOver, rồi tính điểm
 	if(kt==false)
 	{
+		speedenemy+=0.2;
 		mang13--;
 		if (mang13>=3)
 		{
