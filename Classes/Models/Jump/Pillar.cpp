@@ -9,7 +9,7 @@ Pillar::Pillar()
 {
 	sprite = Sprite::create("Bamboo/Bamboo_2.png");
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 1));
+	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(100, 0, 100));
 	body->setDynamic(false);
 	body->setCollisionBitmask(true);
 	body->setTag(PILLAR_COLLISION);
@@ -25,7 +25,7 @@ Pillar::Pillar(int i)
 	sprintf(name, "Bamboo/Bamboo_%d.png", i);
 	sprite = Sprite::create(name);
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1, 0, 1));
+	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(100, 0, 100));
 	body->setDynamic(false);
 	body->setCollisionBitmask(true);
 	body->setTag(PILLAR_COLLISION);

@@ -14,15 +14,16 @@ JumpLayer::~JumpLayer()
 {
 
 }
+
 JumpLayer::JumpLayer()
 {
-	firstSpawnPoint = Point(100, 0);
+	firstSpawnPoint = Point(180, 0);
 	firstPillar = listPillar.begin();
 }
 
 JumpLayer::JumpLayer(int i)
 {
-	firstSpawnPoint = Point(100, 0);
+	firstSpawnPoint = Point(180, 0);
 	firstPillar = listPillar.begin();
 	this->randomName = i;
 }
@@ -38,6 +39,9 @@ JumpLayer * JumpLayer::createJumpLayer(int i)
 bool JumpLayer::init()
 {
 	if (!Layer::init()) return false;
+
+	//Screen
+	screenSize = Director::getInstance()->getVisibleSize();
 
 	//Tạo tường
 	Node * wall = Node::create();
@@ -66,7 +70,7 @@ bool JumpLayer::init()
 
 	//Pillar
 	pillar = Pillar::createPillar(this->randomName);
-	pillar->setPosition(100, 0);
+	pillar->setPosition(firstSpawnPoint);
 	pillar->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(pillar);
 	listPillar.push_front(pillar);
@@ -74,7 +78,7 @@ bool JumpLayer::init()
 
 	//Ninja
 	ninja = Ninja_D::createNinja();
-	ninja->setPosition(100, 180);
+	ninja->setPosition(180, 180);
 	ninja->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(ninja);
 
@@ -106,7 +110,7 @@ void JumpLayer::SetPhysicsWorld(PhysicsWorld *world)
 void JumpLayer::UpdatePillar()
 {
 	firstPillar = listPillar.begin();
-	if ((1200 - (*firstPillar)->getPositionX()) > DISTANCE_SPAWN_MAX)
+	if (((screenSize.width * 3 / 2) - (*firstPillar)->getPositionX()) > DISTANCE_SPAWN_MAX)
 	{
 		float randomX = cocos2d::random(DISTANCE_SPAWN_MIN, DISTANCE_SPAWN_MAX);
 		SpawnPillarWithPos(Point((*firstPillar)->getPositionX() + randomX, CCRANDOM_0_1() * 175));
@@ -116,19 +120,19 @@ void JumpLayer::UpdatePillar()
 void JumpLayer::SpawnPillarWithPos(Point pos)
 {
 	//Pillar
-	Pillar *p = Pillar::createPillar(this->randomName);
+	Pillar * p = Pillar::createPillar(this->randomName);
 	p->setPosition(pos);
 	p->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
 	//xScore
 	ScoreNode * scorenode = ScoreNode::createScoreNode();
-	scorenode->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	scorenode->setPosition(Point(0, 575));
+	scorenode->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
+	scorenode->setPosition(Point(0, /*575*/Config::screenSize.height + p->sprite->getContentSize().height / 2));
 	p->addChild(scorenode);
 
 	//Score
 	Node * nodeDiem = Node::create();
-	PhysicsBody * bodyNodeDiem = PhysicsBody::createBox(Size(28.5, 1), PhysicsMaterial(1.0f, 0.0f, 1.0f));
+	PhysicsBody * bodyNodeDiem = PhysicsBody::createBox(Size(28.5, 1), PhysicsMaterial(100.0f, 0.0f, 100.0f));
 	bodyNodeDiem->setDynamic(false);
 	bodyNodeDiem->setCollisionBitmask(true);
 	bodyNodeDiem->setContactTestBitmask(true);
