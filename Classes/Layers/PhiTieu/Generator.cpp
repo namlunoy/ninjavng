@@ -1,9 +1,11 @@
 #include "Generator.h"
 
+Generator* Generator::Instance = nullptr;
 Generator::Generator(PhiTieuLayer* l) {
 	layer = l;
 	this->autorelease();
 	isGenerate = true;
+	Instance = this;
 }
 Generator::~Generator() {
 	counter = 0;
@@ -15,22 +17,28 @@ void Generator::sinhJump() {
 		auto e = Enemy_Jump::create();
 		layer->addChild(e);
 		enemies.push_back(e);
+		e->stt = counter;
 		counter++;
 		log("counter : %d",counter);
 	}
 }
-
+void Generator::SetEnemyNull(int stt)
+{
+	enemies[stt] = nullptr;
+}
 void Generator::sinhRun() {
 	if(isGenerate && counter < MAX)
 	{
 		auto e = Enemy_Run::create();
 		layer->addChild(e);
 		enemies.push_back(e);
+		e->stt = counter;
 		counter++;
 		log("counter : %d",counter);
 	}
 }
 void Generator::Generate(int level) {
+	Instance = this;
 	counter = 0;
 
 	switch(level)
@@ -82,5 +90,8 @@ void Generator::SinhLevel_5() {
 
 void Generator::stop() {
 	isGenerate = false;
-	
+	//Huy taon bo enemies
+	for (int i = 0; i < enemies.size(); i++)
+		if (enemies[i] != nullptr)
+			enemies[i]->removeFromParent();
 }

@@ -21,6 +21,7 @@ private:
 	bool isGenerate;
 	int counter;
 	int MAX;
+	//Luu tat ca cac enemi
 	std::vector<Enemy*> enemies;
 
 	void SinhLevel_1();
@@ -29,16 +30,18 @@ private:
 	void SinhLevel_4();
 	void SinhLevel_5();
 public:
+	static Generator* Instance;
 	Generator(PhiTieuLayer* l);
 	~Generator();
 	void Generate(int);
 
 
-
 	void sinhJump();
 	void sinhRun();
-	//xxx
+	//Goi khi gameover
 	void stop();
+	
+	void SetEnemyNull(int stt);
 };
 
 #endif
