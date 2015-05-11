@@ -148,7 +148,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	achievement->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	achievement->setColor(Color3B::BLACK);
 	achievement->setPosition(Point(scoreBoard->getContentSize().width / 2 - 20, scoreBoard->getContentSize().height / 2 + 130));
-	Sprite * huyChuong;
+	Sprite * huyChuong=nullptr;
 	if (diem < 10)
 	{
 		huyChuong = Sprite::create("HuyChuong/Khong.png");

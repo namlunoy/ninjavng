@@ -13,7 +13,7 @@ class Enemy_Run : public Enemy
 {
 
 public:
-	static Enemy_Run*  create(int level);
+	static Enemy_Run*  create();
 	void setupAction() override;
 	Enemy_Run();
 	~Enemy_Run();

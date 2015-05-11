@@ -19,7 +19,7 @@ public:
 	Enemy_Jump();
 	virtual ~Enemy_Jump();
 
-	static Enemy_Jump*  create(int level);
+	static Enemy_Jump*  create();
 	void setupAction() override;
 
 };

@@ -47,7 +47,7 @@ void Power::setupByLevel() {
 	switch (lv) {
 
 	default:
-		minPower = 1.0f / 5.0f;
+		minPower = 1.0f / 10.0f;
 		up = 0.01f;
 		break;
 	}
@@ -67,7 +67,6 @@ bool Power::fire() {
 Power* Power::createPower(int lv) {
 	Power* p = new Power();
 	p->init();
-	p->level = lv;
 	p->autorelease();
 	return p;
 }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Power.h
  *
  *  Created on: May 7, 2015
@@ -15,8 +15,9 @@ USING_NS_CC;
 class Power : public Node {
 private:
 	Sprite* _power;
-	int level;
+	//minPower là lượng mana tối thiểu để có thể phóng tiêu: 1/x
 	float minPower;
+	//Tốc độ phục hồi của mana: o.o1f ...
 	float up;
 public:
 	Power();

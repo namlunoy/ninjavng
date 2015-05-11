@@ -12,7 +12,9 @@ Generator::~Generator() {
 void Generator::sinhJump() {
 	if(isGenerate && counter < MAX)
 	{
-		layer->addChild(Enemy_Jump::create(1));
+		auto e = Enemy_Jump::create();
+		layer->addChild(e);
+		enemies.push_back(e);
 		counter++;
 		log("counter : %d",counter);
 	}
@@ -21,7 +23,9 @@ void Generator::sinhJump() {
 void Generator::sinhRun() {
 	if(isGenerate && counter < MAX)
 	{
-		layer->addChild(Enemy_Run::create(1));
+		auto e = Enemy_Run::create();
+		layer->addChild(e);
+		enemies.push_back(e);
 		counter++;
 		log("counter : %d",counter);
 	}
@@ -49,14 +53,14 @@ void Generator::SinhLevel_1() {
 	auto sinhRunAction = CallFunc::create(
 			CC_CALLBACK_0(Generator::sinhRun, this));
 
-	auto delay_1 = DelayTime::create(2);
-	auto delay_05 = DelayTime::create(1.5f);
+	auto delay_jump = DelayTime::create(2);
+	auto delay_run = DelayTime::create(1);
 
 	auto action_1 = RepeatForever::create(
-			Sequence::createWithTwoActions(delay_1, sinhJumpAction));
+		Sequence::createWithTwoActions(delay_jump, sinhJumpAction));
 
 	auto action_2 = RepeatForever::create(
-			Sequence::createWithTwoActions(delay_05, sinhRunAction));
+		Sequence::createWithTwoActions(delay_run, sinhRunAction));
 
 	auto action = Spawn::createWithTwoActions(action_1, action_2);
 
@@ -78,4 +82,5 @@ void Generator::SinhLevel_5() {
 
 void Generator::stop() {
 	isGenerate = false;
+	
 }
