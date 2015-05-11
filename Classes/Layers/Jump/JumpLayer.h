@@ -15,10 +15,12 @@ public:
 	JumpLayer();
 	JumpLayer(int i);
 	~JumpLayer();
+	static JumpLayer * createJumpLayer(int i);
 	bool init();
 	CREATE_FUNC(JumpLayer);
 
-	static JumpLayer * createJumpLayer(int i);
+	//Screen
+	Size screenSize;
 
 	//Physics
 	PhysicsWorld *physicsWorld;

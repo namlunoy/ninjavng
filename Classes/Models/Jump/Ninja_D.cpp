@@ -5,9 +5,9 @@ Ninja_D::~Ninja_D(){}
 Ninja_D::Ninja_D()
 {
 	sprite = Sprite::create("Ninja2.png");
-	sprite->setAnchorPoint(Vec2(0.62, 0.06));
+	sprite->setAnchorPoint(Vec2(0.62, 0.05));
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(/*sprite->getContentSize()*/Size(30, 6), PhysicsMaterial(1.0f, 0.0f, 1.0f), Vec2(0,0));
+	body = PhysicsBody::createBox(Size(30, 6), PhysicsMaterial(100.0f, 0.0f, 100.0f), Vec2(0,0));
 	body->setMass(60.0f);
 	body->setAngularVelocityLimit(0.0f);
 	body->setRotationEnable(false);

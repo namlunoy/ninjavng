@@ -30,9 +30,9 @@ bool JumpPlayLayer::init()
 	log("Bestscore2: %d", bestScore);*/
 
 	//Sound
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Jump.mp3");
+	/*CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Jump.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Ground.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/FinishJump.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/FinishJump.mp3");*/
 
 	//Music background
 	//CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("Sound_Jump/Bird.mp3");
@@ -250,7 +250,7 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta * 3 / 4);	
+		jumpLayer->MovePillar(delta / 2);	
 	}
 
 	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->isDeath == false)
@@ -264,7 +264,6 @@ void JumpPlayLayer::update(float delta)
 		jumpLayer->pillar->StopPillar();
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Ground.mp3", false, 1.0f, 1.0f, 1.0f);
 		ShowScoreBoard(this->score);
-		//jumpLayer->ninja->removeFromParent();
 	}
 
 	if (jumpLayer->ninja->finishJump == true)
