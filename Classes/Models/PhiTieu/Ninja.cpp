@@ -1,6 +1,7 @@
 ﻿#include "Ninja.h"
 #include "Utility/Definition.h"
 #include "Utility/Config.h"
+#include "Layers/PhiTieu/Generator.h"
 #include "Utility/Tags.h"
 #include "Layers/PhiTieu/PhiTieuLayer.h"
 #include "SimpleAudioEngine.h"
@@ -80,6 +81,7 @@ bool Ninja::onContactBegin(PhysicsContact& contact)
 		{
 			log("Ninja::onContactBegin : NINJA vs ENEMY");
 			auto e = a->getTag() == Tags::ENEMY ? a : b;
+			Generator::Instance->SetEnemyNull(((Enemy*)e->getNode())->stt);
 			e->getNode()->removeFromParent();
 			PhiTieuLayer::instance->matMau();
 		}

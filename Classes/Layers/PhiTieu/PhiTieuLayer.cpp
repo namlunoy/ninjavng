@@ -77,14 +77,18 @@ void PhiTieuLayer::setPhysicWorld(PhysicsWorld* physicsWorld) {
 }
 
 void PhiTieuLayer::Jump() {
-	ninja->jump();
+	if (ninja->isAlive)
+		ninja->jump();
 }
 
 void PhiTieuLayer::PhongTieu(Vec2 dest) {
 	//ninja->fire(ninja->getPosition(),dest);
-	Vec2 src = ninja->getPosition();
-	ninja->fire(src,dest);
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/Shuriken.mp3");
+	if (ninja->isAlive)
+	{
+		Vec2 src = ninja->getPosition();
+		ninja->fire(src, dest);
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/Shuriken.mp3");
+	}
 }
 
 void PhiTieuLayer::setHUDLayer(PhiTieuHUDLayer* p) {
