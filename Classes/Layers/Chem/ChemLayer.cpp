@@ -66,8 +66,8 @@ bool ChemLayer::init() {
 	this->addChild(background,0);
 
 	// Tạo 1 Sprite, nhân vật của chúng ta 
-	player = Sprite::create("Ninja2.png");  
-
+	player = Sprite::create("loc.png");  
+	player->setScale(0.2f);
 	// Đặt lên màn hình 
 	player->setPosition(Vec2(100,60));
 
@@ -128,6 +128,7 @@ bool ChemLayer::init() {
 	scoreText1->setString("0");
 	scoreText1->setSystemFontSize(30);
 	this->addChild(scoreText1);
+
 	return true;
 }
 
@@ -137,30 +138,74 @@ void ChemLayer::gameLogic(float dt)
 }
 
 bool ChemLayer::touch_Kiem(Touch* t, Event* e) {
-	//tao sprite kiem
-	katana = Sprite::create("katana.png");  
-	katana->setScale(0.07f);
-	//dat len man hinh
-	katana->setPosition(Vec2(100+player->getContentSize().width,60+player->getContentSize().height/3));
-	//tao body cho kiem
-	auto katanaBody=PhysicsBody::createBox(katana->getBoundingBox().size);
-	katana->setTag(3);
-	//katanaBody->setAngularVelocity(-30);
-	katanaBody->setContactTestBitmask(0x1);
-	//dat khung vat ly vao kiem
-	katana->setPhysicsBody(katanaBody);
-	this->addChild(katana,1);
-	
-	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("shot.wav");
-	//CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("shot.wav",false);
+	removeChild(player);
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ninjaattack.plist");
+	auto spriteSheet = SpriteBatchNode::create("ninjaattack.png");
+	spriteSheet->setPosition(Vec2(100,60));
+	spriteSheet->setScale(0.2f);	
+	this->addChild(spriteSheet);
+	Vector<SpriteFrame*> animFrames(18);
+	char str[50] = { 0 };
+	for (int i = 1; i <= 5; i++) //so khung hinh
+	{
+		sprintf(str, "test%d.png", i); //ten sprite
+		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(str);
+		animFrames.pushBack(frame);
+	}
+	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f); //0.2 la toc do, cang thap cang nhanh
+	Sprite* spriteAnimate = Sprite::createWithSpriteFrameName("test1.png"); //ten sprite dau tien
+	spriteAnimate->runAction(Animate::create(animation));
+	//auto Body=PhysicsBody::createBox(spriteAnimate->getBoundingBox().size);
+	////spriteAnimate->setTag(3);
+	//Body->setAngularVelocity(-30);
+	//Body->setContactTestBitmask(0x1);
+	////spriteAnimate->setPhysicsBody(Body);
+	spriteSheet->addChild(spriteAnimate);
 
-	auto removekiem = CallFunc::create(CC_CALLBACK_0(ChemLayer::RemoveKiem, this));
-	auto delay = DelayTime::create(2);
-	auto action = Sequence::createWithTwoActions(delay,removekiem);
-	this->runAction(action);
+	//this->removeChildByTag(3);
+	//player = Sprite::create("loc.png");  
+	//player->setScale(0.2f);  
+	//player->setPosition(Vec2(100,60));
+	//auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
+	//player->setTag(1);
+	//playerBody->setContactTestBitmask(0x1);
+	//player->setPhysicsBody(playerBody);
+	//this->addChild(player,1);
 
+	/*auto ninjaBody=PhysicsBody::createBox(spriteSheet->getBoundingBox().size);
+	spriteSheet->setTag(3);
+	ninjaBody->setContactTestBitmask(0x1);
+	spriteSheet->setPhysicsBody(ninjaBody);
+	this->addChild(spriteSheet,1);*/
 	return true;
 }
+
+
+//bool ChemLayer::touch_Kiem(Touch* t, Event* e) {
+//	//tao sprite kiem
+//	katana = Sprite::create("katana.png");  
+//	katana->setScale(0.07f);
+//	//dat len man hinh
+//	katana->setPosition(Vec2(100+player->getContentSize().width,60+player->getContentSize().height/3));
+//	//tao body cho kiem
+//	auto katanaBody=PhysicsBody::createBox(katana->getBoundingBox().size);
+//	katana->setTag(3);
+//	//katanaBody->setAngularVelocity(-30);
+//	katanaBody->setContactTestBitmask(0x1);
+//	//dat khung vat ly vao kiem
+//	katana->setPhysicsBody(katanaBody);
+//	this->addChild(katana,1);
+//	
+//	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("shot.wav");
+//	//CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("shot.wav",false);
+//
+//	auto removekiem = CallFunc::create(CC_CALLBACK_0(ChemLayer::RemoveKiem, this));
+//	auto delay = DelayTime::create(2);
+//	auto action = Sequence::createWithTwoActions(delay,removekiem);
+//	this->runAction(action);
+//
+//	return true;
+//}
 
 void ChemLayer::RemoveKiem()
 {
@@ -253,7 +298,8 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 			this->removeChildByTag(18);
 			this->removeChild(bullet,true);
 			this->removeChild(target,true); 
-			player = Sprite::create("Ninja2.png");  
+			player = Sprite::create("loc.png");  
+			player->setScale(0.2f);  
 			player->setPosition(Vec2(100,60));
 			auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
 			player->setTag(1);
@@ -266,7 +312,8 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 			this->removeChildByTag(17);
 			this->removeChild(bullet,true); 
 			this->removeChild(target,true);
-			player = Sprite::create("Ninja2.png");  
+			player = Sprite::create("loc.png");  
+			player->setScale(0.2f); 
 			player->setPosition(Vec2(100,60));
 			auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
 			player->setTag(1);
@@ -279,7 +326,8 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 			this->removeChildByTag(16);
 			this->removeChild(bullet,true); 
 			this->removeChild(target,true);
-			player = Sprite::create("Ninja2.png");  
+			player = Sprite::create("loc.png");  
+			player->setScale(0.2f);  
 			player->setPosition(Vec2(100,60));
 			auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
 			player->setTag(1);
