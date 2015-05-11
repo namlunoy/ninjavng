@@ -20,7 +20,7 @@ protected:
 	Enemy();
 //---------- Các thuộc tính ----------
 protected:
-	int _level;
+
 	std::string _fileName;
 	float _speed;
 	int _health;
@@ -31,14 +31,15 @@ protected:
 	Sprite* _sprite;
 	PhysicsBody* _body;
 	Action* _action;
-
+	//Tự động hủy đối tượng nếu như player chết
+	void DestroyIfDie();
 
 public:
 	/**
 	 * Các lớp con gọi hàm setup, và phải implement setAction
 	 * Thực hiện setup các thuộc tính chung chung
 	 */
-	virtual void setup(int level,std::string fileName, EnemyType type);
+	virtual void setup(std::string fileName, EnemyType type);
 
 	/**
 	 *Mỗi cái phải viết 1 cái action riêng
@@ -49,6 +50,11 @@ public:
 	 * Xử lý các va chạm: Có vẻ như là giống nhau hết
 	 */
 	virtual bool onContact(PhysicsContact& contact);
+
+	/**
+	 * Lấy level để xử lý các thông số sao cho phù hợp với các level
+	 */
+	int getLevel();
 
 	~Enemy();
 };

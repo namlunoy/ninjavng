@@ -129,5 +129,10 @@ void Ninja::setOriginalPosition(Vec2 ori)
  * (Nó chính là số khoảng chia của thanh power : PhiTieuHUDLayer::touch_PhongTieu)
  */
 int Ninja::getMaxShuriken(int level) {
-	return 5;
+	switch (level)
+	{
+	default:
+		return 10;
+		break;
+	}
 }

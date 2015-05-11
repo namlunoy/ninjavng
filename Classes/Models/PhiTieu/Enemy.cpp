@@ -1,13 +1,23 @@
 ﻿#include "Enemy.h"
 #include "Layers/PhiTieu/PhiTieuHUDLayer.h"
+#include "Scenes/PhiTieuScene.h"
 #include "SimpleAudioEngine.h"
+#include "Models/PhiTieu/Ninja.h"
 
-
+Enemy::~Enemy(){}
 Enemy::Enemy(){
 	log("Enemy()");
 }
+int Enemy::getLevel()
+{
+	return PhiTieuScene::GetLevel();
+}
 
-Enemy::~Enemy(){}
+void Enemy::DestroyIfDie()
+{
+	if (!Ninja::Instance->isAlive)
+		this->removeFromParent();
+}
 
 bool Enemy::onContact(PhysicsContact& contact) {
 
@@ -42,10 +52,10 @@ bool Enemy::onContact(PhysicsContact& contact) {
 	return false;
 }
 
-void Enemy::setup(int level, std::string fileName, EnemyType type) {
+void Enemy::setup( std::string fileName, EnemyType type) {
 	this->autorelease();
 
-	_level = level;
+	
 	_fileName = fileName;
 	_type = type;
 

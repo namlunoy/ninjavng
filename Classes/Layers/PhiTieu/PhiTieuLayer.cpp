@@ -61,7 +61,7 @@ bool PhiTieuLayer::init() {
 	this->addChild(ninja);
 
 	//Thực hiện sinh các quân địch
-	Enemy_Jump* e = Enemy_Jump::create(1);
+	Enemy_Jump* e = Enemy_Jump::create();
 	this->addChild(e);
 
 	//---------------  Các trái tim -------------------

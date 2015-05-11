@@ -11,9 +11,9 @@ Enemy_Jump::Enemy_Jump() {}
 
 Enemy_Jump::~Enemy_Jump() {}
 
-Enemy_Jump* Enemy_Jump::create(int level) {
+Enemy_Jump* Enemy_Jump::create() {
 	Enemy_Jump* enemy = new Enemy_Jump();
-	enemy->setup(level, "Enemy_Jump", EnemyType::Jump);
+	enemy->setup("Enemy_Jump", EnemyType::Jump);
 	enemy->setupAction();
 	return enemy;
 }
@@ -24,17 +24,17 @@ Enemy_Jump* Enemy_Jump::create(int level) {
 
 void Enemy_Jump::setupAction() {
 	float time = 0;
-	switch (_level) {
+	switch (getLevel()) {
 	case 1:
 		//Tính toán thời gian
-		_speed = 190;
+		_speed = random(150, 200);
 		time = Config::screenSize.width / _speed;
 		this->setPosition(Config::getSpawnStart_low());
 
 		//run aciton
 		auto run = MoveTo::create(time, Config::getSpawnEnd_low());
-		auto jump = JumpBy::create(3,Vec2::ZERO,Config::screenSize.height/2,3);
-		_action = Spawn::createWithTwoActions(run,jump);
+		auto jump = JumpBy::create(time, Vec2::ZERO, random(Config::screenSize.height / 2 - 50, Config::screenSize.height / 2 + 10), random(3, 6));
+		_action = Spawn::createWithTwoActions(run, jump);
 		//v
 		this->runAction(_action);
 		break;
