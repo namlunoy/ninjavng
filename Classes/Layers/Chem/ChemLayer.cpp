@@ -1,9 +1,9 @@
 ﻿/*
- * ChemLayer.cpp
- *
- *  Created on: Apr 9, 2015
- *      Author: conghoang
- */
+* ChemLayer.cpp
+*
+*  Created on: Apr 9, 2015
+*      Author: conghoang
+*/
 
 #include "ChemLayer.h"
 #include"SimpleAudioEngine.h"
@@ -30,44 +30,23 @@ int mang13;
 bool ChemLayer::init() {
 
 	mang13 = 3;
+	ninja=Node::create();
+	ninja->setPosition(Vec2(100,60));
+	this->addChild(ninja,1);
 
-	//Back Button
-	auto backButton = Button::create("back_button-1.png", "back_button-1.png",
-			"back_button-1.png");
-	backButton->setAnchorPoint(Vec2(0, 0));
-	backButton->setScale(0.3f, 0.5f);
-	backButton->setPosition(
-			Point(0,
-					Config::screenSize.height
-							- backButton->getContentSize().height / 2));
-	backButton->addTouchEventListener(
-			[&](Ref* sender, Widget::TouchEventType type) {
-				switch (type)
-				{
-					case ui::Widget::TouchEventType::BEGAN:
-					break;
-					case ui::Widget::TouchEventType::ENDED:
-					//auto helloScene = HelloWorld::createScene();
-					Director::getInstance()->replaceScene(HelloWorld::createScene());
-					break;
-					default:
-					break;
-				}
-			});
-	this->addChild(backButton,1);
-
-	// Lấy kích thước màn hình
-	Size winSize = Director::getInstance()->getWinSize(); 
-
-	//background
-	auto background = Sprite::create("cong_background.jpg");
-	background->setPosition(Vec2(winSize.width/2, winSize.height/2));
-	background->setScale(0.6f);
-	this->addChild(background,0);
 
 	// Tạo 1 Sprite, nhân vật của chúng ta 
 	player = Sprite::create("loc.png");  
 	player->setScale(0.2f);
+	ninja->addChild(player);
+
+
+	auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
+	ninja->setTag(1);
+	playerBody->setContactTestBitmask(0x1);
+	ninja->setPhysicsBody(playerBody);
+	log("init");
+	/*
 	// Đặt lên màn hình 
 	player->setPosition(Vec2(100,60));
 
@@ -85,6 +64,49 @@ bool ChemLayer::init() {
 
 	// Thêm vào layer nằm trong Scene game
 	this->addChild(player,1);
+	*/
+
+
+
+
+
+
+
+	//Back Button
+	auto backButton = Button::create("back_button-1.png", "back_button-1.png",
+		"back_button-1.png");
+	backButton->setAnchorPoint(Vec2(0, 0));
+	backButton->setScale(0.3f, 0.5f);
+	backButton->setPosition(
+		Point(0,
+		Config::screenSize.height
+		- backButton->getContentSize().height / 2));
+	backButton->addTouchEventListener(
+		[&](Ref* sender, Widget::TouchEventType type) {
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+				//auto helloScene = HelloWorld::createScene();
+				Director::getInstance()->replaceScene(HelloWorld::createScene());
+				break;
+			default:
+				break;
+			}
+	});
+	this->addChild(backButton,1);
+
+	// Lấy kích thước màn hình
+	Size winSize = Director::getInstance()->getWinSize(); 
+
+	//background
+	auto background = Sprite::create("cong_background.jpg");
+	background->setPosition(Vec2(winSize.width/2, winSize.height/2));
+	background->setScale(0.6f);
+	this->addChild(background,0);
+
+
 
 	// Gọi tới hàm gameLogic , hàm này có nhiệm vụ tạo ra đám quái với thời gian 1 giây 1 quái
 	this->schedule( schedule_selector(ChemLayer::gameLogic), 1.0 );
@@ -138,29 +160,40 @@ void ChemLayer::gameLogic(float dt)
 }
 
 bool ChemLayer::touch_Kiem(Touch* t, Event* e) {
-	removeChild(player);
+	//removeChild(player);
+	XHelper::runAnimation("test",5,0.1f,false,player);
+	auto removekiem = CallFunc::create(CC_CALLBACK_0(ChemLayer::RemoveKiem, this));
+	auto delay = DelayTime::create(1);
+	auto action = Sequence::createWithTwoActions(delay,removekiem);
+	this->runAction(action);
+
+	/*
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ninjaattack.plist");
 	auto spriteSheet = SpriteBatchNode::create("ninjaattack.png");
 	spriteSheet->setPosition(Vec2(100,60));
-	spriteSheet->setScale(0.2f);	
-	this->addChild(spriteSheet);
+	spriteSheet->setScale(0.2f);
+	//this->addChild(spriteSheet,1);
 	Vector<SpriteFrame*> animFrames(18);
 	char str[50] = { 0 };
 	for (int i = 1; i <= 5; i++) //so khung hinh
 	{
-		sprintf(str, "test%d.png", i); //ten sprite
-		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(str);
-		animFrames.pushBack(frame);
+	sprintf(str, "test%d.png", i); //ten sprite
+	auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(str);
+	animFrames.pushBack(frame);
 	}
-	auto animation = Animation::createWithSpriteFrames(animFrames, 0.2f); //0.2 la toc do, cang thap cang nhanh
+	auto animation = Animation::createWithSpriteFrames(animFrames, 0.1f); //0.2 la toc do, cang thap cang nhanh
 	Sprite* spriteAnimate = Sprite::createWithSpriteFrameName("test1.png"); //ten sprite dau tien
-	spriteAnimate->runAction(Animate::create(animation));
-	//auto Body=PhysicsBody::createBox(spriteAnimate->getBoundingBox().size);
-	////spriteAnimate->setTag(3);
+	//spriteAnimate->runAction(Animate::create(animation));
+	//ninja->addChild(spriteAnimate);
+	//auto Body=PhysicsBody::createBox(ninja->getBoundingBox().size);
+	//////spriteAnimate->setTag(3);
 	//Body->setAngularVelocity(-30);
 	//Body->setContactTestBitmask(0x1);
-	////spriteAnimate->setPhysicsBody(Body);
+	//ninja->setPhysicsBody(Body);
 	spriteSheet->addChild(spriteAnimate);
+	ninja->runAction(Animate::create(animation));
+	ninja->addChild(spriteSheet);
+	//this->addChild(ninja);
 
 	//this->removeChildByTag(3);
 	//player = Sprite::create("loc.png");  
@@ -176,7 +209,11 @@ bool ChemLayer::touch_Kiem(Touch* t, Event* e) {
 	spriteSheet->setTag(3);
 	ninjaBody->setContactTestBitmask(0x1);
 	spriteSheet->setPhysicsBody(ninjaBody);
-	this->addChild(spriteSheet,1);*/
+	this->addChild(spriteSheet,1);
+
+	*/
+
+
 	return true;
 }
 
@@ -209,7 +246,8 @@ bool ChemLayer::touch_Kiem(Touch* t, Event* e) {
 
 void ChemLayer::RemoveKiem()
 {
-	removeChild(katana);
+	//removeChild(katana);
+	removeChild(ninja);
 }
 
 // Hàm này tạo ra Quái và di chuyển chúng nè
@@ -286,12 +324,10 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 	// Nếu va chạm xảy ra giữa quái và nhân vật thì NV lăn ra chết , rồi GameOver, rồi tính điểm
 	if((tag==1&tag1==2)||(tag==2&tag1==1))
 	{
-		// Xử lý GameOver
 		mang13--;
-		// Tính điểm 
 		if (mang13>=3)
 		{
-		
+
 		}
 		if (mang13==2)
 		{
@@ -367,8 +403,8 @@ void ChemLayer::headSprite()
 
 void ChemLayer::updateScore()
 {		
-		score13 += 10; 
-		stringstream ss;
-		ss << score13;
-		scoreText1->setString(ss.str());
+	score13 += 10; 
+	stringstream ss;
+	ss << score13;
+	scoreText1->setString(ss.str());
 }
