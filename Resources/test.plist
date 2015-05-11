@@ -75,13 +75,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>ninjaattack.png</string>
+            <string>test.png</string>
             <key>size</key>
             <string>{1998,440}</string>
             <key>smartupdate</key>
             <string>$TexturePacker:SmartUpdate:4b7c04b3a5fb1874c59a28bfc6774b05:4fec38f749f8691ca392ebd8ededd354:8f60f6d465b2c1e0451a0ec22b58d463$</string>
             <key>textureFileName</key>
-            <string>ninjaattack.png</string>
+            <string>test.png</string>
         </dict>
     </dict>
 </plist>
