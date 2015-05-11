@@ -9,11 +9,13 @@ class Pillar: public Node
 {
 public:
 	Pillar();
+	Pillar(int i);
 	~Pillar();
 	Sprite *sprite;
 	PhysicsBody *body;
 	bool init();
 	static Pillar* createPillar();
+	static Pillar* createPillar(int i);
 	void MovePillar(float duration);
 	void StopPillar();
 	bool isContactWithWall;

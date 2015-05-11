@@ -1,5 +1,6 @@
 ﻿#include "Enemy.h"
 #include "Layers/PhiTieu/PhiTieuHUDLayer.h"
+#include "SimpleAudioEngine.h"
 
 
 Enemy::Enemy(){
@@ -16,6 +17,7 @@ bool Enemy::onContact(PhysicsContact& contact) {
 	if(a != NULL && b != NULL && a->getNode() != NULL && b->getNode() != NULL)
 	{
 		//Tuong tac voi phitieu
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/Kill.mp3");
 		if((a->getTag() == Tags::SHURIKEN && b->getTag() == Tags::ENEMY)
 			|| (a->getTag() == Tags::ENEMY && b->getTag() == Tags::SHURIKEN) )
 		{

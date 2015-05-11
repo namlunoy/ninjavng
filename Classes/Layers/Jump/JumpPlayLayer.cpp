@@ -4,7 +4,7 @@
 #include "ui/CocosGUI.h"
 #include "Scenes/JumpScene.h"
 #include "Utility/Definition.h"
-#include "SimpleAudioEngine.h"  
+#include "SimpleAudioEngine.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -21,10 +21,22 @@ bool JumpPlayLayer::init()
 	this->score = 0;
 	this->isShowScoreBoard = false;
 
+	//HighScore Store
+	/*def = UserDefault::sharedUserDefault();
+	bestScore = def->getIntegerForKey("HIGHSCORE");
+	log("bestscore: %d", bestScore);
+	def->setIntegerForKey("HIGHSCORE", 100);
+	def->flush();
+	log("Bestscore2: %d", bestScore);*/
+
 	//Sound
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Jump.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Ground.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/FinishJump.mp3");
+
+	//Music background
+	//CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("Sound_Jump/Bird.mp3");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound_Jump/Bird.mp3", true);
 
 	//Back Button
 	auto backButton = Button::create("back_button-1.png", "back_button-1.png");
@@ -81,7 +93,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			Director::getInstance()->replaceScene(TransitionFade::create(0.5, JumpScene::createPhysicScene(), Color3B(34, 177, 76)));
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5, JumpScene::createPhysicScene(), Color3B::WHITE));
 			break;
 		default:
 			break;
@@ -93,7 +105,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	Label * textTempScore = Label::create();
 	textTempScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	textTempScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 130));
-	textTempScore->setSystemFontSize(35);
+	textTempScore->setSystemFontSize(30);
 	textTempScore->setColor(Color3B::BLACK);
 	textTempScore->setString("Score");
 
@@ -111,7 +123,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	Label * textHighScore = Label::create();
 	textHighScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	textHighScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 20));
-	textHighScore->setSystemFontSize(35);
+	textHighScore->setSystemFontSize(30);
 	textHighScore->setColor(Color3B::BLACK);
 	textHighScore->setString("High Score");
 
@@ -121,9 +133,41 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	highScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 - 20));
 	highScore->setSystemFontSize(35);
 	highScore->setColor(Color3B::BLACK);
+	/*if (diem > bestScore)
+	{
+		bestScore = diem;
+		def->setIntegerForKey("HIGHSCORE", bestScore);
+		def->flush();
+	}*/
 	stringstream ss2;
 	ss2 << diem;
 	highScore->setString(ss2.str());
+
+	//Huy Chuong
+	Label * achievement = Label::create("Achievement", "fonts/arial.ttf", 30, Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
+	achievement->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	achievement->setColor(Color3B::BLACK);
+	achievement->setPosition(Point(scoreBoard->getContentSize().width / 2 - 20, scoreBoard->getContentSize().height / 2 + 130));
+	Sprite * huyChuong;
+	if (diem < 10)
+	{
+		huyChuong = Sprite::create("HuyChuong/Khong.png");
+	} 
+	else if (diem >= 10 && diem < 20)
+	{
+		huyChuong = Sprite::create("HuyChuong/Dong.png");
+	}
+	else if (diem >= 20 && diem < 30)
+	{
+		huyChuong = Sprite::create("HuyChuong/Bac.png");
+	}
+	else if (diem >= 30)
+	{
+		huyChuong = Sprite::create("HuyChuong/Vang.png");
+	}
+	huyChuong->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	huyChuong->setScale(2.0);
+	huyChuong->setPosition(Point(scoreBoard->getContentSize().width * 2 / 3, scoreBoard->getContentSize().height / 2 + 20));
 
 	//Add to board 
 	scoreBoard->addChild(textTempScore);
@@ -131,6 +175,8 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	scoreBoard->addChild(textHighScore);
 	scoreBoard->addChild(highScore);
 	scoreBoard->addChild(replayButton);
+	scoreBoard->addChild(achievement);
+	scoreBoard->addChild(huyChuong);
 	scoreBoard->setScale(0.5);
 
 	//Nền mờ
@@ -172,7 +218,7 @@ void JumpPlayLayer::RemoveXScore()
 float JumpPlayLayer::Clamp(float a)
 {
 	if (a < 1.5f) return 1.5f;
-	else if (a > 8.5f) return 8.5f;
+	else if (a > 9.0f) return 9.0f;
 	else return a;
 }
 
@@ -204,7 +250,7 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta);	
+		jumpLayer->MovePillar(delta * 3 / 4);	
 	}
 
 	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->isDeath == false)

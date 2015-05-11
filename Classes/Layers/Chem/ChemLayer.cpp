@@ -6,7 +6,7 @@
 */
 
 #include "ChemLayer.h"
-#include"SimpleAudioEngine.h"
+#include "SimpleAudioEngine.h"
 #include"GameOverScene.h"
 #include <sstream>
 #include <string>
@@ -33,6 +33,41 @@ bool ChemLayer::init() {
 	ninja=Node::create();
 	ninja->setPosition(Vec2(100,60));
 	this->addChild(ninja,1);
+
+
+	//Back Button
+	auto backButton = Button::create("back_button-1.png", "back_button-1.png",
+			"back_button-1.png");
+	backButton->setAnchorPoint(Vec2(0, 0));
+	backButton->setScale(0.3f, 0.5f);
+	backButton->setPosition(
+			Point(0,
+					Config::screenSize.height
+							- backButton->getContentSize().height / 2));
+	backButton->addTouchEventListener(
+			[&](Ref* sender, Widget::TouchEventType type) {
+				switch (type)
+				{
+					case ui::Widget::TouchEventType::BEGAN:
+					break;
+					case ui::Widget::TouchEventType::ENDED:
+						CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+					Director::getInstance()->replaceScene(HelloWorld::createScene());
+					break;
+					default:
+					break;
+				}
+			});
+	this->addChild(backButton,1);
+
+	// Lấy kích thước màn hình
+	Size winSize = Director::getInstance()->getWinSize(); 
+
+	//background
+	auto background = Sprite::create("cong_background.jpg");
+	background->setPosition(Vec2(winSize.width/2, winSize.height/2));
+	background->setScale(0.6f);
+	this->addChild(background,0);
 
 
 	// Tạo 1 Sprite, nhân vật của chúng ta 
@@ -66,48 +101,6 @@ bool ChemLayer::init() {
 	this->addChild(player,1);
 	*/
 
-
-
-
-
-
-
-	//Back Button
-	auto backButton = Button::create("back_button-1.png", "back_button-1.png",
-		"back_button-1.png");
-	backButton->setAnchorPoint(Vec2(0, 0));
-	backButton->setScale(0.3f, 0.5f);
-	backButton->setPosition(
-		Point(0,
-		Config::screenSize.height
-		- backButton->getContentSize().height / 2));
-	backButton->addTouchEventListener(
-		[&](Ref* sender, Widget::TouchEventType type) {
-			switch (type)
-			{
-			case ui::Widget::TouchEventType::BEGAN:
-				break;
-			case ui::Widget::TouchEventType::ENDED:
-				//auto helloScene = HelloWorld::createScene();
-				Director::getInstance()->replaceScene(HelloWorld::createScene());
-				break;
-			default:
-				break;
-			}
-	});
-	this->addChild(backButton,1);
-
-	// Lấy kích thước màn hình
-	Size winSize = Director::getInstance()->getWinSize(); 
-
-	//background
-	auto background = Sprite::create("cong_background.jpg");
-	background->setPosition(Vec2(winSize.width/2, winSize.height/2));
-	background->setScale(0.6f);
-	this->addChild(background,0);
-
-
-
 	// Gọi tới hàm gameLogic , hàm này có nhiệm vụ tạo ra đám quái với thời gian 1 giây 1 quái
 	this->schedule( schedule_selector(ChemLayer::gameLogic), 1.0 );
 
@@ -138,15 +131,15 @@ bool ChemLayer::init() {
 	headSprite();
 
 	//score
-	CCSize winsize = CCDirector::sharedDirector()->getWinSize();
+	CCSize size = CCDirector::sharedDirector()->getWinSize();
 	label1 = Label::create("Score:   ", "Arial", 30);
 	label1->setColor(ccc3(192, 57, 43));
-	label1->setPosition(winsize.width - 100, winsize.height - 20);
+	label1->setPosition(size.width - 100, size.height - 20);
 	this->addChild(label1);
 
 	scoreText1 = Label::create();
 	scoreText1->setColor(ccc3(192, 57, 43));
-	scoreText1->setPosition(winsize.width - 50, winsize.height - 20);
+	scoreText1->setPosition(size.width - 50, size.height - 20);
 	scoreText1->setString("0");
 	scoreText1->setSystemFontSize(30);
 	this->addChild(scoreText1);

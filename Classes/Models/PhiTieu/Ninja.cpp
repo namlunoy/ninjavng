@@ -3,6 +3,7 @@
 #include "Utility/Config.h"
 #include "Utility/Tags.h"
 #include "Layers/PhiTieu/PhiTieuLayer.h"
+#include "SimpleAudioEngine.h"
 
 Ninja::Ninja(){}
 Ninja::~Ninja(){}
@@ -98,6 +99,7 @@ void Ninja::jump()
 		auto jumpAction = JumpTo::create(1.0f, originalPosition, 300, 1);
 		CallFunc *resetJump = CallFunc::create(CC_CALLBACK_0(Ninja::resetJumpCount, this));
 		this->runAction(Sequence::create(jumpAction, resetJump, nullptr));
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/Jump.wav");
 	}
 
 }

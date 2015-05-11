@@ -13,9 +13,12 @@ class JumpLayer : public Layer
 {
 public:
 	JumpLayer();
+	JumpLayer(int i);
 	~JumpLayer();
 	bool init();
 	CREATE_FUNC(JumpLayer);
+
+	static JumpLayer * createJumpLayer(int i);
 
 	//Physics
 	PhysicsWorld *physicsWorld;
@@ -25,6 +28,7 @@ public:
 	Ninja_D* ninja;
 
 	//Pillar
+	int randomName;
 	Pillar *pillar;
 	std::list< Pillar* > listPillar;
 	std::list< Pillar* >::iterator firstPillar;

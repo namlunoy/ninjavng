@@ -5,8 +5,9 @@ Ninja_D::~Ninja_D(){}
 Ninja_D::Ninja_D()
 {
 	sprite = Sprite::create("Ninja2.png");
+	sprite->setAnchorPoint(Vec2(0.62, 0.06));
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(1.0f, 0.0f, 1.0f), Vec2(0,0));
+	body = PhysicsBody::createBox(/*sprite->getContentSize()*/Size(30, 6), PhysicsMaterial(1.0f, 0.0f, 1.0f), Vec2(0,0));
 	body->setMass(60.0f);
 	body->setAngularVelocityLimit(0.0f);
 	body->setRotationEnable(false);
@@ -59,26 +60,6 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 	auto body_a = contact.getShapeA()->getBody();
 	auto body_b = contact.getShapeB()->getBody();
 
-	/*if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == PILLAR_COLLISION)
-		|| (body_a->getCollisionBitmask() == PILLAR_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
-		{
-		this->isJumping = false;
-		this->body->resetForces();
-		}
-		else if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == WALL_COLLISION)
-		|| (body_a->getCollisionBitmask() == WALL_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
-		{
-		this->isDeath = true;
-		}
-		else if ((body_a->getCollisionBitmask() == NINJA_COLLISION && body_b->getCollisionBitmask() == SCORE_COLLISION)
-		|| (body_a->getCollisionBitmask() == SCORE_COLLISION && body_b->getCollisionBitmask() == NINJA_COLLISION))
-		{
-		this->isJumping = false;
-		this->body->resetForces();
-		finishJump = true;
-		log("CC");
-		}*/
-
 	//Ninja vs Pillar
 	if ((body_a->getTag() == NINJA_COLLISION && body_b->getTag() == PILLAR_COLLISION)
 		|| (body_a->getTag() == PILLAR_COLLISION && body_b->getTag() == NINJA_COLLISION))
@@ -101,15 +82,13 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 		xScore++;
 	}
 	//Ninja vs Score Node
-	else if (/*(body_a->getTag() == NINJA_COLLISION && body_b->getTag() == SCORE_COLLISION)
-		||*/ (body_a->getTag() == SCORE_COLLISION && body_b->getTag() == NINJA_COLLISION))
+	else if (body_a->getTag() == SCORE_COLLISION && body_b->getTag() == NINJA_COLLISION)
 	{
 		body_a->getNode()->removeFromParent();
 		this->isJumping = false;
 		finishJump = true;
 	}
-	else if ((body_a->getTag() == NINJA_COLLISION && body_b->getTag() == SCORE_COLLISION)
-		/*|| (body_a->getTag() == SCORE_COLLISION && body_b->getTag() == NINJA_COLLISION)*/)
+	else if (body_a->getTag() == NINJA_COLLISION && body_b->getTag() == SCORE_COLLISION)
 	{
 		body_b->getNode()->removeFromParent();
 		this->isJumping = false;

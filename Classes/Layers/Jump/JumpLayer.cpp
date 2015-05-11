@@ -8,18 +8,31 @@
 #include "Models/Jump/ScoreNode.h"
 #include <iostream>
 #include <list>
-
 USING_NS_CC;
 
 JumpLayer::~JumpLayer()
 {
 
 }
-
 JumpLayer::JumpLayer()
 {
 	firstSpawnPoint = Point(100, 0);
 	firstPillar = listPillar.begin();
+}
+
+JumpLayer::JumpLayer(int i)
+{
+	firstSpawnPoint = Point(100, 0);
+	firstPillar = listPillar.begin();
+	this->randomName = i;
+}
+
+JumpLayer * JumpLayer::createJumpLayer(int i)
+{
+	JumpLayer * layer = new JumpLayer(i);
+	layer->init();
+	layer->autorelease();
+	return layer;
 }
 
 bool JumpLayer::init()
@@ -42,7 +55,7 @@ bool JumpLayer::init()
 	//Ground
 	Node * ground = Node::create();
 	ground->setPosition(Point(400, 1));
-	PhysicsBody * groundBody = PhysicsBody::createBox(Size(800, 1));
+	PhysicsBody * groundBody = PhysicsBody::createBox(Size(800, 20));
 	groundBody->setDynamic(false);
 	groundBody->setCollisionBitmask(true);
 	groundBody->setTag(GROUND_COLLISION);
@@ -52,7 +65,7 @@ bool JumpLayer::init()
 	this->addChild(ground, 0);
 
 	//Pillar
-	pillar = Pillar::createPillar();
+	pillar = Pillar::createPillar(this->randomName);
 	pillar->setPosition(100, 0);
 	pillar->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(pillar);
@@ -61,7 +74,7 @@ bool JumpLayer::init()
 
 	//Ninja
 	ninja = Ninja_D::createNinja();
-	ninja->setPosition(100, 216);
+	ninja->setPosition(100, 180);
 	ninja->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(ninja);
 
@@ -103,19 +116,19 @@ void JumpLayer::UpdatePillar()
 void JumpLayer::SpawnPillarWithPos(Point pos)
 {
 	//Pillar
-	Pillar *p = Pillar::createPillar();
+	Pillar *p = Pillar::createPillar(this->randomName);
 	p->setPosition(pos);
 	p->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
 	//xScore
 	ScoreNode * scorenode = ScoreNode::createScoreNode();
 	scorenode->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	scorenode->setPosition(Point(0, 400));
+	scorenode->setPosition(Point(0, 575));
 	p->addChild(scorenode);
 
 	//Score
 	Node * nodeDiem = Node::create();
-	PhysicsBody * bodyNodeDiem = PhysicsBody::createBox(Size(48, 1));
+	PhysicsBody * bodyNodeDiem = PhysicsBody::createBox(Size(28.5, 1), PhysicsMaterial(1.0f, 0.0f, 1.0f));
 	bodyNodeDiem->setDynamic(false);
 	bodyNodeDiem->setCollisionBitmask(true);
 	bodyNodeDiem->setContactTestBitmask(true);
