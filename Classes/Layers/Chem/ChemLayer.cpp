@@ -26,6 +26,7 @@ Label* label1;
 Label* scoreText1;
 int score13;
 int mang13;
+bool kt = false;
 
 bool ChemLayer::init() {
 
@@ -75,12 +76,12 @@ bool ChemLayer::init() {
 	player->setScale(0.2f);
 	ninja->addChild(player);
 
-
 	auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
 	ninja->setTag(1);
 	playerBody->setContactTestBitmask(0x1);
 	ninja->setPhysicsBody(playerBody);
 	log("init");
+
 	/*
 	// Đặt lên màn hình 
 	player->setPosition(Vec2(100,60));
@@ -153,61 +154,38 @@ void ChemLayer::gameLogic(float dt)
 }
 
 bool ChemLayer::touch_Kiem(Touch* t, Event* e) {
-	//removeChild(player);
 	XHelper::runAnimation("test",5,0.1f,false,player);
-	auto removekiem = CallFunc::create(CC_CALLBACK_0(ChemLayer::RemoveKiem, this));
-	auto delay = DelayTime::create(1);
-	auto action = Sequence::createWithTwoActions(delay,removekiem);
+	kt=true;
+	auto removeNinja = CallFunc::create(CC_CALLBACK_0(ChemLayer::removeNinja, this));
+	auto delay = DelayTime::create(0.5f);
+	auto action = Sequence::createWithTwoActions(delay,removeNinja);
 	this->runAction(action);
-
-	/*
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ninjaattack.plist");
-	auto spriteSheet = SpriteBatchNode::create("ninjaattack.png");
-	spriteSheet->setPosition(Vec2(100,60));
-	spriteSheet->setScale(0.2f);
-	//this->addChild(spriteSheet,1);
-	Vector<SpriteFrame*> animFrames(18);
-	char str[50] = { 0 };
-	for (int i = 1; i <= 5; i++) //so khung hinh
-	{
-	sprintf(str, "test%d.png", i); //ten sprite
-	auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(str);
-	animFrames.pushBack(frame);
-	}
-	auto animation = Animation::createWithSpriteFrames(animFrames, 0.1f); //0.2 la toc do, cang thap cang nhanh
-	Sprite* spriteAnimate = Sprite::createWithSpriteFrameName("test1.png"); //ten sprite dau tien
-	//spriteAnimate->runAction(Animate::create(animation));
-	//ninja->addChild(spriteAnimate);
-	//auto Body=PhysicsBody::createBox(ninja->getBoundingBox().size);
-	//////spriteAnimate->setTag(3);
-	//Body->setAngularVelocity(-30);
-	//Body->setContactTestBitmask(0x1);
-	//ninja->setPhysicsBody(Body);
-	spriteSheet->addChild(spriteAnimate);
-	ninja->runAction(Animate::create(animation));
-	ninja->addChild(spriteSheet);
-	//this->addChild(ninja);
-
-	//this->removeChildByTag(3);
-	//player = Sprite::create("loc.png");  
-	//player->setScale(0.2f);  
-	//player->setPosition(Vec2(100,60));
-	//auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
-	//player->setTag(1);
-	//playerBody->setContactTestBitmask(0x1);
-	//player->setPhysicsBody(playerBody);
-	//this->addChild(player,1);
-
-	/*auto ninjaBody=PhysicsBody::createBox(spriteSheet->getBoundingBox().size);
-	spriteSheet->setTag(3);
-	ninjaBody->setContactTestBitmask(0x1);
-	spriteSheet->setPhysicsBody(ninjaBody);
-	this->addChild(spriteSheet,1);
-
-	*/
-
+	auto updateNinja = CallFunc::create(CC_CALLBACK_0(ChemLayer::updateNinja, this));
+	auto action1 = Sequence::createWithTwoActions(delay,updateNinja);
+	this->runAction(action1);
 
 	return true;
+}
+
+void ChemLayer::removeNinja()
+{
+	removeChild(ninja);
+}
+
+void ChemLayer::updateNinja()
+{
+	ninja=Node::create();
+	ninja->setPosition(Vec2(100,60));
+	this->addChild(ninja,1);
+	player = Sprite::create("loc.png");  
+	player->setScale(0.2f);
+	ninja->addChild(player);
+
+	auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
+	ninja->setTag(1);
+	playerBody->setContactTestBitmask(0x1);
+	ninja->setPhysicsBody(playerBody);
+	kt=false;
 }
 
 
@@ -236,12 +214,6 @@ bool ChemLayer::touch_Kiem(Touch* t, Event* e) {
 //
 //	return true;
 //}
-
-void ChemLayer::RemoveKiem()
-{
-	//removeChild(katana);
-	removeChild(ninja);
-}
 
 // Hàm này tạo ra Quái và di chuyển chúng nè
 void ChemLayer::addTarget()
@@ -304,18 +276,15 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 	int tag1 = target->getTag();
 
 	//Nếu va chạm xảy ra giữa đạn và quái thì xử lý xóa cả đạn và quái khỏi Layer trong Scene ( biến mất khỏi màn)
-	if((tag==2&tag1==3)||(tag==3&tag1==2))
+	if(kt==true)
 	{
 
-		this->removeChild(bullet,true); // Xóa đạn
-
-		this->removeChild(target,true); // Xóa quái
-
+		this->removeChild(bullet,true); 
 		updateScore();
 
 	}
 	// Nếu va chạm xảy ra giữa quái và nhân vật thì NV lăn ra chết , rồi GameOver, rồi tính điểm
-	if((tag==1&tag1==2)||(tag==2&tag1==1))
+	if(kt==false)
 	{
 		mang13--;
 		if (mang13>=3)
@@ -327,42 +296,52 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 			this->removeChildByTag(18);
 			this->removeChild(bullet,true);
 			this->removeChild(target,true); 
+			ninja=Node::create();
+
+			ninja->setPosition(Vec2(100,60));
+			this->addChild(ninja,1);
 			player = Sprite::create("loc.png");  
-			player->setScale(0.2f);  
-			player->setPosition(Vec2(100,60));
+			player->setScale(0.2f);
+			ninja->addChild(player);
+
 			auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
-			player->setTag(1);
+			ninja->setTag(1);
 			playerBody->setContactTestBitmask(0x1);
-			player->setPhysicsBody(playerBody);
-			this->addChild(player,1);
+			ninja->setPhysicsBody(playerBody);
 		}
 		if (mang13==1)
 		{
 			this->removeChildByTag(17);
 			this->removeChild(bullet,true); 
 			this->removeChild(target,true);
+			ninja=Node::create();
+			ninja->setPosition(Vec2(100,60));
+			this->addChild(ninja,1);
 			player = Sprite::create("loc.png");  
-			player->setScale(0.2f); 
-			player->setPosition(Vec2(100,60));
+			player->setScale(0.2f);
+			ninja->addChild(player);
+
 			auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
-			player->setTag(1);
+			ninja->setTag(1);
 			playerBody->setContactTestBitmask(0x1);
-			player->setPhysicsBody(playerBody);
-			this->addChild(player,1);
+			ninja->setPhysicsBody(playerBody);
 		}
 		if (mang13==0)
 		{
 			this->removeChildByTag(16);
 			this->removeChild(bullet,true); 
 			this->removeChild(target,true);
+			ninja=Node::create();
+			ninja->setPosition(Vec2(100,60));
+			this->addChild(ninja,1);
 			player = Sprite::create("loc.png");  
-			player->setScale(0.2f);  
-			player->setPosition(Vec2(100,60));
+			player->setScale(0.2f);
+			ninja->addChild(player);
+
 			auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
-			player->setTag(1);
+			ninja->setTag(1);
 			playerBody->setContactTestBitmask(0x1);
-			player->setPhysicsBody(playerBody);
-			this->addChild(player,1);
+			ninja->setPhysicsBody(playerBody);
 		}
 		if (mang13<0)
 		{

@@ -35,7 +35,8 @@ public:
 	bool touch_Kiem(Touch* t, Event* e);
 	//bat su kien va cham dan va quai
 	bool onContactBegin(const PhysicsContact& contact);
-	void RemoveKiem();
+	void removeNinja();
+	void updateNinja();
 	void headSprite();
 	void restart();
 
