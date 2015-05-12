@@ -30,9 +30,9 @@ bool JumpPlayLayer::init()
 	log("Bestscore2: %d", bestScore);*/
 
 	//Sound
-	/*CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Jump.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Ground.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/FinishJump.mp3");*/
+	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Jump.mp3");
+	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Ground.mp3");
+	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/FinishJump.mp3");
 
 	//Music background
 	//CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("Sound_Jump/Bird.mp3");
@@ -78,15 +78,18 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 {
 	this->isShowScoreBoard = true;
 
-	//Bảng điều khiển
-	Sprite * scoreBoard = Sprite::create("ScoreBoard.png");
-	scoreBoard->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	scoreBoard->setPosition(Point(Config::centerPoint));
+	//Nền mờ
+	Sprite * opacity = Sprite::create("opacity.png");
+	opacity->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	opacity->setScale(Config::getScale(opacity));
+	opacity->setPosition(Config::centerPoint);
+	opacity->setOpacity(192);
 
 	//Replay Button
 	Button * replayButton = Button::create("ReplayButton.png");
 	replayButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	replayButton->setPosition(Point(scoreBoard->getContentSize().width/2, replayButton->getContentSize().height/2 + 70));
+	replayButton->setPosition(Point(opacity->getContentSize().width / 2, replayButton->getContentSize().height / 2));
+	replayButton->setScale(0.7);
 	replayButton->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type){
 		switch (type)
 		{
@@ -100,39 +103,39 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 		}
 	});
 
-	//Điểm
-	//Text CurrentScore
-	Label * textTempScore = Label::create();
-	textTempScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-	textTempScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 130));
-	textTempScore->setSystemFontSize(30);
-	textTempScore->setColor(Color3B::BLACK);
-	textTempScore->setString("Score");
+	//Text GameOver
+	Label * textGameOver = Label::create("GAME OVER", "fonts/Vnhatban.TTF", 90, Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
+	textGameOver->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	textGameOver->setPosition(Point(opacity->getContentSize().width / 2, opacity->getContentSize().height * 4 / 5));
+	textGameOver->setColor(Color3B::WHITE);
 
-	//Điểm vừa chơi
-	Label* tempScore = Label::create();
-	tempScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-	tempScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 90));
-	tempScore->setSystemFontSize(35);
-	tempScore->setColor(Color3B::BLACK);
+	//Điểm
+	//Text Current Score
+	Label * textTempScore = Label::create("SCORE", "fonts/Vnhatban.TTF", 38, Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
+	textTempScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
+	textTempScore->setPosition(Point(opacity->getContentSize().width * 2.4 / 5, opacity->getContentSize().height * 3.7/ 7));
+	textTempScore->setColor(Color3B::WHITE);
+
+	//Current Score
+	Label* tempScore = Label::create("0", "fonts/Vnhatban.TTF", 38, Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
+	tempScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
+	tempScore->setPosition(Point(opacity->getContentSize().width * 2.4 / 5, opacity->getContentSize().height * 3 / 7));
+	tempScore->setColor(Color3B::WHITE);
 	stringstream ss;
 	ss << diem;
 	tempScore->setString(ss.str());
 
 	//Text HighScore
-	Label * textHighScore = Label::create();
-	textHighScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-	textHighScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 + 20));
-	textHighScore->setSystemFontSize(30);
-	textHighScore->setColor(Color3B::BLACK);
-	textHighScore->setString("High Score");
+	Label * textHighScore = Label::create("HIGH SCORE", "fonts/Vnhatban.TTF", 38, Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
+	textHighScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
+	textHighScore->setPosition(Point(opacity->getContentSize().width * 2.4 / 5, opacity->getContentSize().height * 2.2 / 7));
+	textHighScore->setColor(Color3B::WHITE);
 
 	//High Score
-	Label* highScore = Label::create();
-	highScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-	highScore->setPosition(Point(scoreBoard->getContentSize().width / 3 - 70, scoreBoard->getContentSize().height / 2 - 20));
-	highScore->setSystemFontSize(35);
-	highScore->setColor(Color3B::BLACK);
+	Label* highScore = Label::create("0", "fonts/Vnhatban.TTF", 38, Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
+	highScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
+	highScore->setPosition(Point(opacity->getContentSize().width * 2.4 / 5, opacity->getContentSize().height * 1.5 / 7));
+	highScore->setColor(Color3B::WHITE);
 	/*if (diem > bestScore)
 	{
 		bestScore = diem;
@@ -144,11 +147,11 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	highScore->setString(ss2.str());
 
 	//Huy Chuong
-	Label * achievement = Label::create("Achievement", "fonts/arial.ttf", 30, Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
+	Label * achievement = Label::create("REWARD", "fonts/Vnhatban.TTF", 38, Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
 	achievement->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-	achievement->setColor(Color3B::BLACK);
-	achievement->setPosition(Point(scoreBoard->getContentSize().width / 2 - 20, scoreBoard->getContentSize().height / 2 + 130));
-	Sprite * huyChuong=nullptr;
+	achievement->setColor(Color3B::WHITE);
+	achievement->setPosition(Point(opacity->getContentSize().width * 2.7 / 5, opacity->getContentSize().height * 3.7 / 7));
+	Sprite * huyChuong = nullptr;
 	if (diem < 10)
 	{
 		huyChuong = Sprite::create("HuyChuong/Khong.png");
@@ -166,29 +169,21 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 		huyChuong = Sprite::create("HuyChuong/Vang.png");
 	}
 	huyChuong->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	huyChuong->setScale(2.0);
-	huyChuong->setPosition(Point(scoreBoard->getContentSize().width * 2 / 3, scoreBoard->getContentSize().height / 2 + 20));
+	huyChuong->setScale(0.5);
+	huyChuong->setPosition(Point(opacity->getContentSize().width * 3.4 / 5, opacity->getContentSize().height * 2.6 / 7));
 
 	//Add to board 
-	scoreBoard->addChild(textTempScore);
-	scoreBoard->addChild(tempScore);
-	scoreBoard->addChild(textHighScore);
-	scoreBoard->addChild(highScore);
-	scoreBoard->addChild(replayButton);
-	scoreBoard->addChild(achievement);
-	scoreBoard->addChild(huyChuong);
-	scoreBoard->setScale(0.5);
-
-	//Nền mờ
-	Sprite * opacity = Sprite::create("opacity.png");
-	opacity->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	opacity->setScale(Config::getScale(opacity));
-	opacity->setPosition(Config::centerPoint);
-	opacity->setOpacity(128);
+	opacity->addChild(textTempScore);
+	opacity->addChild(tempScore);
+	opacity->addChild(textHighScore);
+	opacity->addChild(highScore);
+	opacity->addChild(replayButton);
+	opacity->addChild(achievement);
+	opacity->addChild(huyChuong);
+	opacity->addChild(textGameOver);
 
 	//AddChild
 	this->addChild(opacity);
-	this->addChild(scoreBoard);
 }
 
 void JumpPlayLayer::ShowXScore(int diem)
@@ -222,17 +217,11 @@ float JumpPlayLayer::Clamp(float a)
 	else return a;
 }
 
-#pragma region Touch
 bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
 	tinh = true;
 	timeTouch = 0.0f;
 	return true;
-}
-
-void JumpPlayLayer::onTouchMoved(Touch *touch, Event *unused_event)
-{
-	
 }
 
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
@@ -244,7 +233,6 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 	}	
 	tinh = false;
 }
-#pragma endregion 
 
 void JumpPlayLayer::update(float delta)
 {

@@ -97,7 +97,7 @@ bool JumpLayer::init()
 	circle->setOpacity(200);
 	circle->setScale(0.5);
 
-	scoreText = Label::create("0", "fonts/Vnhatban.TTF", 85 ,Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
+	scoreText = Label::create("0", "fonts/Vnhatban.TTF", 85, Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
 	scoreText->setPosition(circle->getContentSize().width/2, circle->getContentSize().height/2);
 	scoreText->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	scoreText->setColor(Color3B::BLACK);
