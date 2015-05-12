@@ -28,8 +28,10 @@ int score13;
 int mang13;
 bool kt = false;
 float speedenemy;
+int tg;
 
 bool ChemLayer::init() {
+	score13 = 0;
 	// Lấy kích thước màn hình
 	Size winSize = Director::getInstance()->getWinSize(); 
 
@@ -37,14 +39,13 @@ bool ChemLayer::init() {
 	speedenemy = 0;
 	mang13 = 3;
 	ninja=Node::create();
-	ninja->setPosition(Vec2(100,60));
+	ninja->setPosition(Vec2(100,150));
 	this->addChild(ninja,1);
 
 	// Tạo 1 Sprite, nhân vật của chúng ta 
 	player = Sprite::create("loc.png");  
 	player->setScale(0.2f);
 	ninja->addChild(player);
-
 	auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
 	ninja->setTag(1);
 	playerBody->setContactTestBitmask(0x1);
@@ -76,30 +77,10 @@ bool ChemLayer::init() {
 	this->addChild(backButton,1);
 
 	//background
-	auto background = Sprite::create("cong_background.jpg");
+	auto background = Sprite::create("loc_background.jpg");
 	background->setPosition(Vec2(winSize.width/2, winSize.height/2));
-	background->setScale(0.6f);
+	background->setScale(1.5f);
 	this->addChild(background,0);
-
-	/*
-	// Đặt lên màn hình 
-	player->setPosition(Vec2(100,60));
-
-	//Tạo 1 bộ khung body vật lý dạng hình hộp
-	auto playerBody= PhysicsBody::createBox(player->getBoundingBox().size);
-
-	//Đặt cờ = 1, để kiểm tra đối tượng khi va chạm sau này
-	player->setTag(1);
-
-	//Lệnh này ko hiểu lắm nhưng thực sự ko thể thiếu, bỏ đi sẽ ko có gì xuất hiện khi va chạm
-	playerBody->setContactTestBitmask(0x1);
-
-	//Đặt bộ khung vật lý vào nhân vật
-	player->setPhysicsBody(playerBody);
-
-	// Thêm vào layer nằm trong Scene game
-	this->addChild(player,1);
-	*/
 
 	// Gọi tới hàm gameLogic , hàm này có nhiệm vụ tạo ra đám quái với thời gian 1 giây 1 quái
 	this->schedule( schedule_selector(ChemLayer::gameLogic), 1.0 );
@@ -153,6 +134,7 @@ void ChemLayer::gameLogic(float dt)
 }
 
 bool ChemLayer::touch_Kiem(Touch* t, Event* e) {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("attack.mp3");
 	XHelper::runAnimation("test",5,0.1f,false,player);
 	kt=true;
 	auto removeNinja = CallFunc::create(CC_CALLBACK_0(ChemLayer::removeNinja, this));
@@ -167,14 +149,15 @@ bool ChemLayer::touch_Kiem(Touch* t, Event* e) {
 }
 
 void ChemLayer::removeNinja()
-{
+{	
 	removeChild(ninja);
 }
 
 void ChemLayer::updateNinja()
 {
+	kt=false;
 	ninja=Node::create();
-	ninja->setPosition(Vec2(100,60));
+	ninja->setPosition(Vec2(100,150));
 	this->addChild(ninja,1);
 	player = Sprite::create("loc.png");  
 	player->setScale(0.2f);
@@ -184,16 +167,17 @@ void ChemLayer::updateNinja()
 	ninja->setTag(1);
 	playerBody->setContactTestBitmask(0x1);
 	ninja->setPhysicsBody(playerBody);
-	kt=false;
 }
 
 // Hàm này tạo ra Quái và di chuyển chúng nè
 void ChemLayer::addTarget()
 {
+	tg=tg+1;
 	Size winSize = Director::getInstance()->getWinSize();
-
 	auto target = Sprite::create("HaiLua.png");
 	target->setScale(0.2f);
+	auto target1 = Sprite::create("quai.png");
+	target1->setScale(0.4f);
 	
 	// Đoạn này tính toán vùng xuất hiện quái sao cho ko bị khuất quái vào viền màn hình
 	int minY = target->getContentSize().height/2;
@@ -203,14 +187,25 @@ void ChemLayer::addTarget()
 	int actualY = ( rand() % rangeY ) + minY;
 
 	// Đặt quái vào khoảng vị trí trên actualY (random)
-	target->setPosition(Point(winSize.width + (target->getContentSize().width/2),60));
+	target->setPosition(Point(winSize.width + (target->getContentSize().width/2),150));
+	target1->setPosition(Point(winSize.width + (target->getContentSize().width/2),150));
 	//body
 	auto targetBody = PhysicsBody::createBox(target->getBoundingBox().size);
 	target->setTag(2);
 	targetBody->setContactTestBitmask(0x1);
 	target->setPhysicsBody(targetBody);
-	this->addChild(target,1);
+	
+	auto targetBody1 = PhysicsBody::createBox(target1->getBoundingBox().size);
+	target1->setTag(3);
+	targetBody1->setContactTestBitmask(0x1);
+	target1->setPhysicsBody(targetBody1);
 
+	if (tg%5==0)
+	{
+		this->addChild(target1,1);
+	}
+	else 
+		this->addChild(target,1);
 	//Tính toán tốc độ di chuyển của quái
 	int minDuration = (int)4.0;
 	int maxDuration = (int)5.5;
@@ -219,13 +214,14 @@ void ChemLayer::addTarget()
 		+ minDuration;
 
 	// Di chuyển quái với 1 tốc độ nằm trong khoảng actualDuration , từ điềm xuất hiện tới điểm Point(0,y)
-	auto actionMove =  MoveTo::create( (float)actualDuration - speedenemy, Point(0 - target->getContentSize().width/2, 60) );
+	auto actionMove =  MoveTo::create( (float)actualDuration - speedenemy, Point(0 - target->getContentSize().width/2, 150) );
 
 	// Kết thúc việc di chuyển của quái khi đã tới điểm cuối
 	auto actionMoveDone =   CallFuncN::create(CC_CALLBACK_1(ChemLayer::spriteMoveFinished,this));
 
 	// Chạy 2 Action trên 1 cách tuần tự = lệnh Sequence sau
 	target->runAction( Sequence::create(actionMove, actionMoveDone, NULL) );
+	target1->runAction( Sequence::create(actionMove, actionMoveDone, NULL) );
 }
 
 void ChemLayer::spriteMoveFinished(Node* sender)
@@ -273,7 +269,7 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 			this->removeChild(target,true); 
 			ninja=Node::create();
 
-			ninja->setPosition(Vec2(100,60));
+			ninja->setPosition(Vec2(100,150));
 			this->addChild(ninja,1);
 			player = Sprite::create("loc.png");  
 			player->setScale(0.2f);
@@ -290,7 +286,7 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 			this->removeChild(bullet,true); 
 			this->removeChild(target,true);
 			ninja=Node::create();
-			ninja->setPosition(Vec2(100,60));
+			ninja->setPosition(Vec2(100,150));
 			this->addChild(ninja,1);
 			player = Sprite::create("loc.png");  
 			player->setScale(0.2f);
@@ -307,7 +303,7 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 			this->removeChild(bullet,true); 
 			this->removeChild(target,true);
 			ninja=Node::create();
-			ninja->setPosition(Vec2(100,60));
+			ninja->setPosition(Vec2(100,150));
 			this->addChild(ninja,1);
 			player = Sprite::create("loc.png");  
 			player->setScale(0.2f);
