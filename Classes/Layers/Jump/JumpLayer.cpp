@@ -147,7 +147,7 @@ void JumpLayer::SpawnPillarWithPos(Point pos)
 	bodyNodeDiem->setTag(SCORE_COLLISION);
 	nodeDiem->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	nodeDiem->setPhysicsBody(bodyNodeDiem);
-	nodeDiem->setPosition(Point(0,175.5));
+	nodeDiem->setPosition(Point(0,175));
 	p->addChild(nodeDiem);
 
 	//Addchild

@@ -88,7 +88,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	//Replay Button
 	Button * replayButton = Button::create("ReplayButton.png");
 	replayButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	replayButton->setPosition(Point(opacity->getContentSize().width / 2, replayButton->getContentSize().height / 2));
+	replayButton->setPosition(Point(opacity->getContentSize().width / 2, opacity->getContentSize().height * 0.65 / 7));
 	replayButton->setScale(0.7);
 	replayButton->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type){
 		switch (type)
@@ -172,6 +172,13 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	huyChuong->setScale(0.5);
 	huyChuong->setPosition(Point(opacity->getContentSize().width * 3.4 / 5, opacity->getContentSize().height * 2.6 / 7));
 
+	//Rectange
+	DrawNode * drawNode = DrawNode::create();
+	drawNode->drawRect(Vec2(opacity->getContentSize().width * 0.5 / 8, opacity->getContentSize().height * 4.5 / 7), 
+		Vec2(opacity->getContentSize().width * 7.5 / 8, opacity->getContentSize().height * 4.5 / 7), 
+		Vec2(opacity->getContentSize().width * 7.5 / 8, opacity->getContentSize().height * 1.3 / 7), 
+		Vec2(opacity->getContentSize().width * 0.5 / 8, opacity->getContentSize().height * 1.3 / 7), Color4F::WHITE);
+
 	//Add to board 
 	opacity->addChild(textTempScore);
 	opacity->addChild(tempScore);
@@ -181,6 +188,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	opacity->addChild(achievement);
 	opacity->addChild(huyChuong);
 	opacity->addChild(textGameOver);
+	opacity->addChild(drawNode);
 
 	//AddChild
 	this->addChild(opacity);
@@ -228,7 +236,7 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
 	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->getParent() != NULL && jumpLayer->ninja->isDeath == false)
 	{
-		jumpLayer->ninja->JumpAction(2500.0f * Clamp(timeTouch * 8.75f));
+		jumpLayer->ninja->JumpAction(2560.0f * Clamp(timeTouch * 8.75f));
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Jump.mp3", false, 1.0f, 1.0f, 1.0f);
 	}	
 	tinh = false;

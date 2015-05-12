@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "Scenes/HelloWorldScene.h"
+#include "Scenes/JumpScene.h"
 #include "Utility/Config.h"
 
 USING_NS_CC;
@@ -46,6 +47,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     auto scene = HelloWorld::createScene();
+    //auto scene = JumpScene::createPhysicScene();
 
     // run
     director->runWithScene(scene);
