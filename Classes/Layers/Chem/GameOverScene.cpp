@@ -31,7 +31,6 @@ GameOverScene::~GameOverScene()
 
 bool GameOverLayer::init()
 {
-	
     if ( LayerColor::initWithColor(Color4B(255,255,255,255)) )
     {
         Size winSize = Director::getInstance()->getWinSize();
@@ -41,7 +40,7 @@ bool GameOverLayer::init()
         _label->setColor(Color3B (0, 0, 0));
 		
         _label->setPosition(Point(winSize.width/2, winSize.height/2));
-        this->addChild(_label);
+        this->addChild(_label,1);
 
 								
 		//this->runAction( Sequence::create(

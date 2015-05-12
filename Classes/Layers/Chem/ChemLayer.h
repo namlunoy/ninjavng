@@ -27,8 +27,10 @@ public:
 	~ChemLayer();//virtual 
 	void click_Jump(Ref* sender, TouchEventType touchType);
 	Sprite* player;
+	Sprite* quai;
 	Sprite* katana;
 	Node* ninja;
+	Node* enemy;
 	bool touch_Kiem(Touch* t, Event* e);
 	//bat su kien va cham dan va quai
 	bool onContactBegin(const PhysicsContact& contact);
