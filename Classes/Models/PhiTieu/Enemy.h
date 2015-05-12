@@ -57,5 +57,6 @@ public:
 	int getLevel();
 
 	~Enemy();
+	int stt;
 };
 #endif
