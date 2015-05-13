@@ -316,6 +316,7 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 		}
 		if (mang13<0)
 		{
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/GameOverSound.mp3");
 			auto gameOverScene = GameOverScene::create(); // Tạo 1 Scene Over của lớp GameOverScene
 			stringstream ss;
 			ss << score13;
