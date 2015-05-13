@@ -46,10 +46,8 @@ bool JumpLayer::init()
 	//How To Play
 	howToPlay = Label::createWithSystemFont("TOUCH, HOLD THEN RELEASE", "arial.ttf", 45, Size::ZERO, TextHAlignment::CENTER, TextVAlignment::CENTER);
 	howToPlay->setPosition(screenSize.width / 2, screenSize.height * 3.5 / 5);
+	isShowHowToPlay = true;
 	this->addChild(howToPlay, 10);
-	DelayTime * delayTime = DelayTime::create(4.0f);
-	CallFunc * removehtptext = CallFunc::create(CC_CALLBACK_0(JumpLayer::removehowToPlayText, this));
-	howToPlay->runAction(Sequence::createWithTwoActions(delayTime, removehtptext));
 
 	//Tạo tường
 	Node * wall = Node::create();
@@ -169,9 +167,4 @@ void JumpLayer::StopPillar()
 	{
 		(*it)->StopPillar();
 	}
-}
-
-void JumpLayer::removehowToPlayText()
-{
-	this->howToPlay->removeFromParent();
 }

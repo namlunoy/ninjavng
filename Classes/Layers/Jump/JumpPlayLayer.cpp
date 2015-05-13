@@ -234,10 +234,15 @@ bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
-	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->getParent() != NULL && jumpLayer->ninja->isDeath == false)
+	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->isDeath == false)
 	{
 		jumpLayer->ninja->JumpAction(2560.0f * Clamp(timeTouch * 8.75f));
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Jump.mp3", false, 1.0f, 1.0f, 1.0f);
+		if (jumpLayer->isShowHowToPlay == true)
+		{
+			jumpLayer->howToPlay->removeFromParent();
+			jumpLayer->isShowHowToPlay = false;
+		}
 	}	
 	tinh = false;
 }

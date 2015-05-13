@@ -24,7 +24,7 @@ public:
 
 	//How to play
 	Label * howToPlay;
-	void removehowToPlayText();
+	bool isShowHowToPlay;
 
 	//Physics
 	PhysicsWorld *physicsWorld;
