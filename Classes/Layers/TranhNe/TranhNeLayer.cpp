@@ -1,7 +1,7 @@
 #include "Layers/TranhNe/TranhNeLayer.h"
 #include "SimpleAudioEngine.h"
 #include "Models/TranhNe/Ninja_Tranh.h"
-#include "Models/TranhNe/Vat_Roi.h"
+#include "Models/TranhNe/VatRoi.h"
 #include "Models/TranhNe/Giun_Dat.h"
 #include "Models/TranhNe/Nen.h"
 
@@ -165,20 +165,22 @@ void TranhNeLayer::Load_VR()
 		if (Tam_VR == 0)//Do an
 		{
 			Tam_STT = rand() % 8; sprintf(Ten, "Tranh_Ne/Do_An/%d.png", Tam_STT);
-			Vat_Roi = Vat_Roi::Tao_Vat_Roi(Ten); Vat_Roi->setTag(Tag_DoAn); Tag_DoAn++;
+			vatRoi = VatRoi::Tao_VatRoi(Ten); vatRoi->setTag(Tag_DoAn); Tag_DoAn++;
 		}
 		if (Tam_VR == 1)//Vu khi
 		{
 			Tam_STT = rand() % 7; sprintf(Ten, "Tranh_Ne/Vu_Khi/%d.png", Tam_STT);
-			Vat_Roi = Vat_Roi::Tao_Vat_Roi(Ten); Vat_Roi->setTag(Tag_VuKhi); Tag_VuKhi++;
+			vatRoi = VatRoi::Tao_VatRoi(Ten); vatRoi->setTag(Tag_VuKhi); Tag_VuKhi++;
 		}
 		if (Tam_VR == 2)//Do dung
 		{
 			Tam_STT = rand() % 5; sprintf(Ten, "Tranh_Ne/Do_Dung/%d.png", Tam_STT);
-			Vat_Roi = Vat_Roi::Tao_Vat_Roi(Ten); Vat_Roi->setTag(Tag_DoDung); Tag_DoDung++;
+			vatRoi = VatRoi::Tao_VatRoi(Ten); vatRoi->setTag(Tag_DoDung); Tag_DoDung++;
 		}
-		Vat_Roi->setPosition(Vi_Tri_X + i *Khoang_Cach, Config::screenSize.height - 40);
-		this->addChild(Vat_Roi); Vat_Roi->Roi(1); log("Load_VR()");
+		vatRoi->setPosition(Vi_Tri_X + i *Khoang_Cach, Config::screenSize.height - 40);
+		this->addChild(vatRoi);
+		vatRoi->Roi(1);
+		log("Load_VR()");
 	}
 }
 
@@ -220,7 +222,7 @@ bool TranhNeLayer::onContactBegin(PhysicsContact &contact)
 				this->removeChildByTag(Tag_A,true);
 				this->stopAllActions();
 			}
-			if (Tag_B >= 3){ Vat_Roi->So_VR--; }
+			if (Tag_B >= 3){ vatRoi->So_VR--; }
 		}
 	}
 	else
@@ -238,7 +240,7 @@ bool TranhNeLayer::onContactBegin(PhysicsContact &contact)
 				this->removeChildByTag(Tag_B,true);
 				this->stopAllActions();
 			}
-			if (Tag_A >= 3){ Vat_Roi->So_VR--; }
+			if (Tag_A >= 3){ vatRoi->So_VR--; }
 		}
 		else
 		{
@@ -252,7 +254,7 @@ bool TranhNeLayer::onContactBegin(PhysicsContact &contact)
 				{
 					if (Tag_B >= 3)
 					{
-						for (int i = 0; i < Vat_Roi->So_VR; i++)
+						for (int i = 0; i < vatRoi->So_VR; i++)
 						{
 							this->removeChildByTag(Tag_B, true);
 						}

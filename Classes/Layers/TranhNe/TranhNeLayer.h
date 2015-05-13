@@ -5,7 +5,7 @@
 #include "ui/CocosGUI.h"
 #include "Scenes/HelloWorldScene.h"
 #include "Models/TranhNe/Ninja_Tranh.h"
-#include "Models/TranhNe/Vat_Roi.h"
+#include "Models/TranhNe/VatRoi.h"
 #include "Models/TranhNe/Giun_Dat.h"
 #include "Models/TranhNe/Nen.h"
 
@@ -16,7 +16,7 @@ class TranhNeLayer: public Layer
 private:
 	bool onContactBegin(PhysicsContact &contact);
 	Ninja_Tranh* Ninja_Ne;
-	Vat_Roi* Vat_Roi;
+	VatRoi* vatRoi;
 	Giun_Dat* Con_Giun;
 	Nen* Mat_Dat;
 public:
