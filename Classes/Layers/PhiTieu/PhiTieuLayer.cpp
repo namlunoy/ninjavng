@@ -100,16 +100,16 @@ void PhiTieuLayer::gameOver() {
 	ninja->isAlive = false;
 	generator->stop();
 	_hudLayer->gameOver();
-	ninja->removeFromParent();
+	ninja->setVisible(false);
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/GameOverSound.mp3");
 }
 
-void PhiTieuLayer::gameWin() {
-	ninja->isAlive = false;
-	generator->stop();
-	_hudLayer->gameWin();
-	ninja->removeFromParent();
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/GameOverSound.mp3");
-}
+//void PhiTieuLayer::gameWin() {
+//	ninja->isAlive = false;
+//	generator->stop();
+//	_hudLayer->gameWin();
+//	ninja->setVisible(false);
+//	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
+//	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/GameOverSound.mp3");
+//}

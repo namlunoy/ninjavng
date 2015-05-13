@@ -51,7 +51,7 @@ public:
 	void PhongTieu(Vec2 dest);
 	void matMau();
 	void gameOver();
-	void gameWin();
+//	void gameWin();
 	//---------------- Ngoài lề --------------
 	float theScale;
 };
