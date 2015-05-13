@@ -19,27 +19,27 @@ void PhiTieuHUDLayer::setPhiTieuLayer(PhiTieuLayer* p)
 bool PhiTieuHUDLayer::init() {
 	if (!Layer::init())
 		return false;
-	
+
 
 	//Back Button
-	auto backButton = Button::create("back_button-1.png", "back_button-1.png","back_button-1.png");
+	auto backButton = Button::create("back_button-1.png", "back_button-1.png", "back_button-1.png");
 	backButton->setAnchorPoint(Vec2(0, 0));
 	backButton->setScale(0.3f, 0.5f);
-	backButton->setPosition(Point(0,Config::screenSize.height - backButton->getContentSize().height / 2));
+	backButton->setPosition(Point(0, Config::screenSize.height - backButton->getContentSize().height / 2));
 	backButton->addTouchEventListener(
-			[&](Ref* sender, Widget::TouchEventType type) {
-				switch (type)
-				{
-					case ui::Widget::TouchEventType::BEGAN:
-					break;
-					case ui::Widget::TouchEventType::ENDED:
-					//auto helloScene = HelloWorld::createScene();
-					Director::getInstance()->replaceScene(HelloWorld::createScene());
-					break;
-					default:
-					break;
-				}
-			});
+		[&](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			//auto helloScene = HelloWorld::createScene();
+			Director::getInstance()->replaceScene(HelloWorld::createScene());
+			break;
+		default:
+			break;
+		}
+	});
 	this->addChild(backButton);
 
 	//------------------ Music Background -----------------//
@@ -51,23 +51,23 @@ bool PhiTieuHUDLayer::init() {
 	bt_jump->setAnchorPoint(Vec2(0, 0));
 	bt_jump->setPosition(Vec2(0, 0));
 	bt_jump->setScale(0.5f);
-	bt_jump->addTouchEventListener(this,toucheventselector(PhiTieuHUDLayer::click_Jump));
+	bt_jump->addTouchEventListener(this, toucheventselector(PhiTieuHUDLayer::click_Jump));
 	this->addChild(bt_jump);
 
 	//-----------------  Touch event ------------
 	auto _touchListener = EventListenerTouchOneByOne::create();
 	_touchListener->onTouchBegan = CC_CALLBACK_2(PhiTieuHUDLayer::touch_PhongTieu, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(_touchListener,this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(_touchListener, this);
 
 
 	//-------------- Trai tim ---------
 	hearts.pushBack(Sprite::create("heart.png"));
 	hearts.pushBack(Sprite::create("heart.png"));
 	hearts.pushBack(Sprite::create("heart.png"));
-	for(int i=0; i<3; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		hearts.at(i)->setScale(0.25f);
-		hearts.at(i)->setPosition(Vec2(50 + 50*i , Config::screenSize.height - 50));
+		hearts.at(i)->setPosition(Vec2(50 + 50 * i, Config::screenSize.height - 50));
 		this->addChild(hearts.at(i));
 	}
 
@@ -76,12 +76,12 @@ bool PhiTieuHUDLayer::init() {
 
 	//Tao thanh power
 	power = Power::createPower(PhiTieuScene::GetLevel());
-	power->setPosition(Vec2(30,Config::screenSize.height - 70));
+	power->setPosition(Vec2(30, Config::screenSize.height - 70));
 	this->addChild(power);
 
 	//Tính điểm
-	txt_score = Label::createWithTTF("0","fonts/njnaruto.ttf",37);
-	txt_score->setPosition(Vec2(Config::screenSize.width - 30,Config::screenSize.height - 40));
+	txt_score = Label::createWithTTF("0", "fonts/Karate.ttf", 37);
+	txt_score->setPosition(Vec2(Config::screenSize.width - 30, Config::screenSize.height - 40));
 	this->addChild(txt_score);
 	score = 0;
 	PhiTieuHUDLayer::Instance = this;
@@ -90,7 +90,7 @@ bool PhiTieuHUDLayer::init() {
 
 void PhiTieuHUDLayer::matMau()
 {
-	if(hearts.size() > 0)
+	if (hearts.size() > 0)
 	{
 		hearts.at(hearts.size() - 1)->removeFromParent();
 		hearts.popBack();
@@ -99,9 +99,10 @@ void PhiTieuHUDLayer::matMau()
 }
 
 bool PhiTieuHUDLayer::touch_PhongTieu(Touch* t, Event* e) {
-	if (power->fire())
-		_phiTieuLayer->PhongTieu(t->getLocation());
-	
+	if (Ninja::Instance != nullptr)
+		if (power->fire())
+			_phiTieuLayer->PhongTieu(t->getLocation());
+
 	return true;
 }
 
@@ -119,16 +120,38 @@ void PhiTieuHUDLayer::gameOver() {
 	float scale = Config::getScale(over);
 	over->setPosition(Config::centerPoint);
 	over->setScale(scale);
+	bt_jump->removeFromParent();
+	power->removeFromParent();
+	for(auto e : hearts)
+		e->removeFromParent();
+	this->addChild(over);
+}
+
+void PhiTieuHUDLayer::gameWin() {
+	Sprite* over = Sprite::create("gameover.png");
+	float scale = Config::getScale(over);
+	over->setPosition(Config::centerPoint);
+	over->setScale(scale);
+	bt_jump->removeFromParent();
+	power->removeFromParent();
+	for(auto e : hearts)
+		e->removeFromParent();
 	this->addChild(over);
 }
 
 void PhiTieuHUDLayer::tangDiem() {
 	score++;
 	std::stringstream ss;
-	ss<<score;
+	ss << score;
 	txt_score->setString(ss.str());
 	//Animation
-	auto phongTo = ScaleTo::create(0.1f,1.8);
-	auto thuNho = ScaleTo::create(0.1f,1);
-	txt_score->runAction(Sequence::createWithTwoActions(phongTo,thuNho));
+	auto phongTo = ScaleTo::create(0.1f, 1.8);
+	auto thuNho = ScaleTo::create(0.1f, 1);
+	txt_score->runAction(Sequence::createWithTwoActions(phongTo, thuNho));
+
+	//Xử lý thắng
+	if(score >= 30)
+	{
+
+	}
 }

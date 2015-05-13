@@ -53,6 +53,12 @@ bool Enemy::onContact(PhysicsContact& contact) {
 			log("Enemy::onContact : ENEMY vs TARGET");
 			PhysicsBody* e = a->getTag() == Tags::ENEMY?a:b;
 			e->getNode()->removeFromParent();
+
+			//Xử lý game over
+			Ninja::Instance->isAlive = false;
+			log("Contact");
+			log(Ninja::Instance->isAlive);
+			PhiTieuLayer::instance->gameOver();
 		}
 
 		//Va voi thang ninja thi viet ben kia roi

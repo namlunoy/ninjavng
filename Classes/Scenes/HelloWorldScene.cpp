@@ -91,7 +91,7 @@ Scene* HelloWorld::createScene() {
 				{
 				case ui::Widget::TouchEventType::ENDED:
 				{
-					auto scene = PhiTieuMenuScene::createScene();
+					auto scene = PhiTieuScene::createScene(1);
 					Director::getInstance()->replaceScene(scene);
 				}
 				}

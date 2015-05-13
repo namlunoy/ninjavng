@@ -22,7 +22,7 @@ private:
 	int counter;
 	int MAX;
 	//Luu tat ca cac enemi
-	std::vector<Enemy*> enemies;
+	Vector<Enemy*> enemies;
 
 	void SinhLevel_1();
 	void SinhLevel_2();

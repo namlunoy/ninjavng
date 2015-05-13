@@ -42,6 +42,7 @@ public:
 	void matMau();
 
 	void gameOver();
+	void gameWin();
 	void tangDiem();
 };
 #endif

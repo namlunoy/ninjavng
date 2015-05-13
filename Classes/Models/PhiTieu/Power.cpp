@@ -55,13 +55,14 @@ void Power::setupByLevel() {
 }
 
 bool Power::fire() {
-	if (_power->getScaleX() >= minPower) {
-		float s = _power->getScaleX() - minPower;
-		_power->setScaleX(s);
-		return true;
-	} else {
-		return false;
-	}
+	log(Ninja::Instance->isAlive);
+	if (_power != nullptr)
+		if (_power->getScaleX() >= minPower) {
+			float s = _power->getScaleX() - minPower;
+			_power->setScaleX(s);
+			return true;
+		}
+	return false;
 }
 
 Power* Power::createPower(int lv) {
