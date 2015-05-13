@@ -28,8 +28,8 @@ bool PhiTieuHUDLayer::init() {
 	//------------------ Button jump  ---------------------
 	bt_jump = Button::create("bt_jump_1.png", "bt_jump_2.png", "bt_jump_2.png");
 	bt_jump->setAnchorPoint(Vec2(0, 0));
-	bt_jump->setPosition(Vec2(0, 0));
-	bt_jump->setScale(0.5f);
+	bt_jump->setPosition(Vec2(20, 20));
+	bt_jump->setScale(0.25f);
 	bt_jump->addTouchEventListener(this,
 			toucheventselector(PhiTieuHUDLayer::click_Jump));
 	this->addChild(bt_jump);
@@ -53,9 +53,12 @@ bool PhiTieuHUDLayer::init() {
 	}
 
 	//Tao thanh power
+
+
 	power = Power::createPower(PhiTieuScene::GetLevel());
 	power->setPosition(Vec2(30, Config::screenSize.height - 70));
 	this->addChild(power);
+	
 
 	//------------------------ Label ---------------------------
 	txt_score = Label::createWithTTF("0", "fonts/Karate.ttf", 37);
@@ -89,11 +92,13 @@ bool PhiTieuHUDLayer::init() {
 	return true;
 }
 void PhiTieuHUDLayer::ClickBack(Ref* f) {
-	log("x");
+	auto scene = HelloWorld::createScene();
+	Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene, Color3B::WHITE));
 }
 
 void PhiTieuHUDLayer::ClickReplay(Ref* f) {
-	log("y");
+	auto scene = PhiTieuScene::createScene(1);
+	Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene, Color3B::RED));
 }
 
 void PhiTieuHUDLayer::matMau() {

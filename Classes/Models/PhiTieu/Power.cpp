@@ -24,6 +24,11 @@ bool Power::init() {
 	_power->setAnchorPoint(Vec2(0, 1));
 	this->addChild(_power);
 
+	Sprite* _power2 = Sprite::create("power.png");
+	_power2->setOpacity(160);
+	_power2->setAnchorPoint(Vec2(0, 1));
+	this->addChild(_power2);
+
 	//timer update
 	Node* timer = Node::create();
 	CallFunc* updatePower = CallFunc::create(CC_CALLBACK_0(Power::updatePower, this));
