@@ -5,7 +5,7 @@ Ninja_D::~Ninja_D(){}
 Ninja_D::Ninja_D()
 {
 	sprite = Sprite::create("Ninja2.png");
-	sprite->setAnchorPoint(Vec2(0.62, 0.05));
+	sprite->setAnchorPoint(Vec2(0.62f, 0.05f));
 	this->addChild(sprite);
 	body = PhysicsBody::createBox(Size(30, 6), PhysicsMaterial(100.0f, 0.0f, 100.0f), Vec2(0,0));
 	body->setMass(60.0f);
@@ -79,20 +79,22 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 	else if ((body_a->getCategoryBitmask() & body_b->getCollisionBitmask()) == 0
 		|| (body_b->getCategoryBitmask() & body_a->getCollisionBitmask()) == 0)
 	{
-		xScore++;
+		this->xScore++;
 	}
 	//Ninja vs Score Node
 	else if (body_a->getTag() == SCORE_COLLISION && body_b->getTag() == NINJA_COLLISION)
 	{
+		body_a->removeFromWorld();
 		body_a->getNode()->removeFromParent();
 		this->isJumping = false;
-		finishJump = true;
+		this->finishJump = true;
 	}
 	else if (body_a->getTag() == NINJA_COLLISION && body_b->getTag() == SCORE_COLLISION)
 	{
+		body_b->removeFromWorld();
 		body_b->getNode()->removeFromParent();
 		this->isJumping = false;
-		finishJump = true;
+		this->finishJump = true;
 	}
 
 	return true;
