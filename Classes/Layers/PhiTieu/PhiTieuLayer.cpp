@@ -103,19 +103,11 @@ void PhiTieuLayer::gameOver() {
 	ninja->isAlive = false;
 	generator->stop();
 	_hudLayer->gameOver();
-	ninja->removeFromParent();
+	ninja->setVisible(false);
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/GameOverSound.mp3");
 }
 
-void PhiTieuLayer::gameWin() {
-	ninja->isAlive = false;
-	generator->stop();
-	_hudLayer->gameWin();
-	ninja->removeFromParent();
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/GameOverSound.mp3");
-}
 
 void PhiTieuLayer::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
 {
@@ -125,3 +117,4 @@ void PhiTieuLayer::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2
 		Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene, Color3B::WHITE));
 	}
 }
+

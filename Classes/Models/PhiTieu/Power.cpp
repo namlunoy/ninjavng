@@ -54,9 +54,9 @@ void Power::setupByLevel() {
 	log("up = %f, minPow = %f", up, minPower);
 }
 
-bool Power::fire() {
+bool Power::fire() {	
 	log(Ninja::Instance->isAlive);
-	if (_power != nullptr)
+	if (_power != nullptr && Ninja::Instance->isAlive)
 		if (_power->getScaleX() >= minPower) {
 			float s = _power->getScaleX() - minPower;
 			_power->setScaleX(s);

@@ -24,8 +24,13 @@ private:
 
 	PhiTieuLayer* _phiTieuLayer;
 	Label* txt_score;
-	Label* txt_Back;
-	Label* txt_Replay;
+
+	MenuItemLabel* mBack;
+	MenuItemLabel* mReplay;
+	Menu* menu;
+
+
+	Sprite* over;
 
 	int score;
 
@@ -45,7 +50,9 @@ public:
 	void matMau();
 
 	void gameOver();
-	void gameWin();
+//	void gameWin();
 	void tangDiem();
+	void ClickBack(Ref*);
+	void ClickReplay(Ref*);
 };
 #endif
