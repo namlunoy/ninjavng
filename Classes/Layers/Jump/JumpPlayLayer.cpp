@@ -144,9 +144,13 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	{
 		huyChuong = Sprite::create("HuyChuong/Bac.png");
 	}
-	else if (diem >= 30)
+	else if (diem >= 30 && diem < 40)
 	{
 		huyChuong = Sprite::create("HuyChuong/Vang.png");
+	}
+	else if (diem >= 40)
+	{
+		huyChuong = Sprite::create("HuyChuong/KimCuong.png");
 	}
 	huyChuong->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	huyChuong->setScale(0.5);
