@@ -1,85 +1,107 @@
-#include "TranhNeLayer.h"
+#include "Layers/TranhNe/TranhNeLayer.h"
 #include "SimpleAudioEngine.h"
+#include "Models/TranhNe/Ninja_Tranh.h"
+#include "Models/TranhNe/Vat_Roi.h"
+#include "Models/TranhNe/Giun_Dat.h"
+#include "Models/TranhNe/Nen.h"
+
 USING_NS_CC;
-TranhNeLayer::TranhNeLayer() {}
-TranhNeLayer::~TranhNeLayer() {}
+using namespace std;
+
+TranhNeLayer::TranhNeLayer(){}
+TranhNeLayer::~TranhNeLayer(){}
 
 bool TranhNeLayer::init()
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("OldStump.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("OldStump.mp3", true);
-	Size winSize = Config::screenSize;//Director::getInstance()->getWinSize();
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Tranh_Ne/Am_Thanh/Old Stump.mp3", true);
+	Size winSize = Config::screenSize;
+
+	auto Anh_Nen = Sprite::create("Tranh_Ne/Nen/Nen.jpg");
+	Anh_Nen->setScaleY(0.96f);
+	Anh_Nen->setPosition(0, winSize.height);
+	Anh_Nen->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+	this->addChild(Anh_Nen);
 
 	auto backButton = Button::create("Tranh_Ne/Chuc_Nang/Huy.png", "Tranh_Ne/Chuc_Nang/Huy.png", "Tranh_Ne/Chuc_Nang/Huy.png");
-	backButton->setAnchorPoint(Vec2(0, 0));
-	backButton->setScale(0.1f, 0.1f);
-	backButton->setPosition(Vec2(0, winSize.height - backButton->getContentSize().height / 10));
-	backButton->addTouchEventListener(
-		[&](Ref* sender, Widget::TouchEventType type)
+	backButton->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+	backButton->setScale(0.1f);
+	backButton->setPosition(Vec2(0, winSize.height));
+	backButton->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
-		{
 			break;
-		}
 		case ui::Widget::TouchEventType::ENDED:
-		{
 			CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 			Director::getInstance()->replaceScene(HelloWorld::createScene());
 			break;
-		}
 		default:
 			break;
 		}
 	});
-	this->addChild(backButton, 1);
+	this->addChild(backButton);
 
-	auto Anh_Nen = Sprite::create("Tranh_Ne/Nen/Nen.jpg");
-	Anh_Nen->setScaleY(0.96f);
-	Anh_Nen->setPosition(Vec2(0,winSize.height));
-	Anh_Nen->setAnchorPoint(Vec2(0, 1));
-	this->addChild(Anh_Nen);
+	Ninja_Ne = Ninja_Tranh::Tao_Ninja_Tranh("Tranh_Ne/Ninja.png");
+	Ninja_Ne->setPosition(winSize.width / 2, 120 + Ninja_Ne->getContentSize().height);
+	this->addChild(Ninja_Ne);
+
+	srand(time(0)); Load_VR(); Load_Giun();
+
+	for (int i = 0; i < 3; i++)
+	{
+		Mat_Dat = Nen::Tao_Nen();
+		if (i != 0)
+		{
+			Mat_Dat->setRotation(90);
+			if (i == 1)
+			{
+				Mat_Dat->setPosition(2, winSize.height / 2);
+			}
+			else
+			{
+				Mat_Dat->setPosition(winSize.width - 2, winSize.height / 2);
+			}
+		}
+		else
+		{
+			Mat_Dat->setPosition(winSize.width / 2, 70);
+		}
+		this->addChild(Mat_Dat);
+	}
 
 	auto btnTrai = Button::create("Tranh_Ne/Chuc_Nang/Trai.png", "Tranh_Ne/Chuc_Nang/Trai.png", "Tranh_Ne/Chuc_Nang/Trai.png");
-	btnTrai->setAnchorPoint(Vec2(0.5f, 0.5f));
-	btnTrai->setScale(0.1f, 0.1f);
-	btnTrai->setPosition(Vec2(btnTrai->getContentSize().width*0.1f/2, btnTrai->getContentSize().height*0.1f/2));
-	btnTrai->addTouchEventListener([&](Ref* sender, Widget::TouchEventType Type)
+	btnTrai->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	btnTrai->setScale(0.1f);
+	btnTrai->setPosition(Vec2(0, 0));
+	btnTrai->addTouchEventListener([&](Ref* sender, Widget::TouchEventType Type_Trai)
 	{
-		switch (Type)
+		switch (Type_Trai)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-		{
-			Director::getInstance()->replaceScene(HelloWorld::createScene()); break;
-		}
+			Ninja_Ne->Di_Chuyen(-8, 0);
+			break;
 		default:
 			break;
 		}
 	});
-
-	auto Day_Body = PhysicsBody::createBox(Size(winSize.width * 2, 64));
-	Day_Body->setContactTestBitmask(true);
-	Day_Body->setDynamic(false);
-	btnTrai->setPhysicsBody(Day_Body); btnTrai->setTag(0);
 	this->addChild(btnTrai);
 
 	auto btnPhai = Button::create("Tranh_Ne/Chuc_Nang/Phai.png", "Tranh_Ne/Chuc_Nang/Phai.png", "Tranh_Ne/Chuc_Nang/Phai.png");
-	btnPhai->setAnchorPoint(Vec2(0, 0));
-	btnPhai->setScale(0.1f, 0.1f);
-	btnPhai->setPosition(Vec2(winSize.width - btnPhai->getContentSize().width / 10, 0));
-	btnPhai->addTouchEventListener([&](Ref* sender, Widget::TouchEventType Type)
+	btnPhai->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	btnPhai->setScale(0.1f);
+	btnPhai->setPosition(Vec2(winSize.width - btnPhai->getContentSize().width*btnPhai->getScale(), 0));
+	btnPhai->addTouchEventListener([&](Ref* sender, Widget::TouchEventType Type_Phai)
 	{
-		switch (Type)
+		switch (Type_Phai)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-		{
-			Director::getInstance()->replaceScene(HelloWorld::createScene()); break;
-		}
+			Ninja_Ne->Di_Chuyen(8, 0);
+			break;
 		default:
 			break;
 		}
@@ -87,54 +109,159 @@ bool TranhNeLayer::init()
 	this->addChild(btnPhai);
 
 	auto btnNhay = Button::create("Tranh_Ne/Chuc_Nang/Len.png", "Tranh_Ne/Chuc_Nang/Len.png", "Tranh_Ne/Chuc_Nang/Len.png");
-	btnNhay->setAnchorPoint(Vec2(0, 0));
-	btnNhay->setScale(0.1f, 0.1f);
-	btnNhay->setPosition(Vec2((btnNhay->getContentSize().width / 10)*2, 0));
-	btnNhay->addTouchEventListener([&](Ref* sender, Widget::TouchEventType Type)
+	btnNhay->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	btnNhay->setScale(0.1f);
+	btnNhay->setPosition(Vec2((btnNhay->getContentSize().width*btnNhay->getScale()) * 2, 0));
+	btnNhay->addTouchEventListener([&](Ref* sender, Widget::TouchEventType Type_Nhay)
 	{
-		switch (Type)
+		switch (Type_Nhay)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-		{
-			Director::getInstance()->replaceScene(HelloWorld::createScene()); break;
-		}
+			Ninja_Ne->Nhay(Ninja_Ne->getPositionX(), Ninja_Ne->getPositionY());
+			break;
 		default:
 			break;
 		}
 	});
 	this->addChild(btnNhay);
 
-	int Goc = btnNhay->getContentSize().width / 10 * 4;
-	Sprite* Anh_Mang;
-	for (int i = 0; i < 3; i++)
+	int So_Mang = 10;
+	int Goc = btnNhay->getContentSize().width*btnNhay->getScale() * 3;
+	int Tam_VR = rand() % 2; char Ten[24]; //int Tam_VR = random(0, 1); mien gia tri [0,1]
+	sprintf(Ten, "Tranh_Ne/Mang/%d.png", Tam_VR); int Dem_Mang = -1;
+	for (int i = 0; i < So_Mang; i++)
 	{
-		Anh_Mang = Sprite::create("Tranh_Ne/Mang/xx.png");
-		Anh_Mang->setAnchorPoint(Vec2(0, 0));
-		Anh_Mang->setScale(0.48f, 0.48f);
+		Sprite* Anh_Mang = Sprite::create(Ten);
+		Anh_Mang->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+		Anh_Mang->setScale(0.48f);
 		Anh_Mang->setPosition(Vec2(Goc, 0));
-		Goc = Goc + 40;
-
-		this->addChild(Anh_Mang);
+		if (Tam_VR == 0)
+		{
+			Goc = Goc + 40;
+		}
+		else
+		{
+			Goc = Goc + 50;
+		}
+		Anh_Mang->setTag(Dem_Mang); Dem_Mang--; this->addChild(Anh_Mang);
 	}
 
-	Sprite *Nen_Mau = Sprite::create("Tranh_Ne/Mang/Test.png");
-	Nen_Mau->setAnchorPoint(Vec2(0, 0));
-	Nen_Mau->setScale(1.5f, 0.2f);//200,26.6
-	Nen_Mau->setPosition(100,100);
-	this->addChild(Nen_Mau);
-
-	for (int i = 0; i < 5; i++)
-	{
-		Sprite* Muc_Mau = Sprite::create("Tranh_Ne/Mang/Test.png");
-		Muc_Mau->setAnchorPoint(Vec2(0, 0));
-		Muc_Mau->setScale(0.2f,0.2f);// (0.3f, 0.2f);
-		Muc_Mau->setColor(Color3B(255, 0, 0));
-		Muc_Mau->setPosition(Vec2(0,0));// (i*(Muc_Mau->getContentSize().width*0.3f), 0));
-		Nen_Mau->addChild(Muc_Mau);
-	}
+	auto Lang_Nghe = EventListenerPhysicsContact::create();//lang nghe cac tuong tac Vat Ly xay ra
+	Lang_Nghe->onContactBegin = CC_CALLBACK_1(TranhNeLayer::onContactBegin, this);//ghi de 2 ham onContactbegin
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(Lang_Nghe, this);
 
 	return true;
 }
 
+void TranhNeLayer::Load_VR()
+{
+	int Tam_VR, Tam_STT, Vi_Tri_X = 80, Khoang_Cach = 150; char Ten[24];
+	int Tag_DoAn = 3, Tag_VuKhi = 8, Tag_DoDung = 13;
+	for (int i = 0; i < 5; i++)
+	{
+		Tam_VR = rand() % 3;
+		if (Tam_VR == 0)//Do an
+		{
+			Tam_STT = rand() % 8; sprintf(Ten, "Tranh_Ne/Do_An/%d.png", Tam_STT);
+			Vat_Roi = Vat_Roi::Tao_Vat_Roi(Ten); Vat_Roi->setTag(Tag_DoAn); Tag_DoAn++;
+		}
+		if (Tam_VR == 1)//Vu khi
+		{
+			Tam_STT = rand() % 7; sprintf(Ten, "Tranh_Ne/Vu_Khi/%d.png", Tam_STT);
+			Vat_Roi = Vat_Roi::Tao_Vat_Roi(Ten); Vat_Roi->setTag(Tag_VuKhi); Tag_VuKhi++;
+		}
+		if (Tam_VR == 2)//Do dung
+		{
+			Tam_STT = rand() % 5; sprintf(Ten, "Tranh_Ne/Do_Dung/%d.png", Tam_STT);
+			Vat_Roi = Vat_Roi::Tao_Vat_Roi(Ten); Vat_Roi->setTag(Tag_DoDung); Tag_DoDung++;
+		}
+		Vat_Roi->setPosition(Vi_Tri_X + i *Khoang_Cach, Config::screenSize.height - 40);
+		this->addChild(Vat_Roi); Vat_Roi->Roi(1); log("Load_VR()");
+	}
+}
+
+void TranhNeLayer::Load_Giun()
+{
+	int Tam_VR, Tam_STT; char Ten[24];
+	Tam_VR = rand() % 2; Tam_STT = rand() % 6;
+	sprintf(Ten, "Tranh_Ne/Quai_Vat/%d.png", Tam_STT);
+	Con_Giun = Giun_Dat::Tao_Giun_Dat(Ten);
+	if (Tam_VR == 0)//Ben trai
+	{
+		Con_Giun->setPosition(50, Ninja_Ne->getPositionY());
+		this->addChild(Con_Giun); Con_Giun->Quet_Dat(10);
+	}
+	else//Ben phai
+	{
+		Con_Giun->setPosition(Config::screenSize.width - 50, Ninja_Ne->getPositionY());
+		this->addChild(Con_Giun); Con_Giun->Quet_Dat(-10);
+	}
+	log("Load_Giun()");
+}
+
+bool TranhNeLayer::onContactBegin(PhysicsContact &contact)
+{
+	auto obj_A = contact.getShapeA()->getBody()->getNode(); int Tag_A = obj_A->getTag();
+	auto obj_B = contact.getShapeB()->getBody()->getNode(); int Tag_B = obj_B->getTag();
+	if (Tag_A == 1)
+	{
+		if (Tag_B >= 2)
+		{
+			this->removeChildByTag(Tag_B,true);
+			this->removeChildByTag(-(Ninja_Ne->So_Mang),true);
+			if (Ninja_Ne->So_Mang > 0)
+			{
+				Ninja_Ne->So_Mang--;
+			}
+			else
+			{
+				this->removeChildByTag(Tag_A,true);
+				this->stopAllActions();
+			}
+			if (Tag_B >= 3){ Vat_Roi->So_VR--; }
+		}
+	}
+	else
+	{
+		if ((Tag_A >= 2) && (Tag_B == 1))
+		{
+			this->removeChildByTag(Tag_A,true);
+			this->removeChildByTag(-(Ninja_Ne->So_Mang),true);
+			if (Ninja_Ne->So_Mang > 0)
+			{
+				Ninja_Ne->So_Mang--;
+			}
+			else
+			{
+				this->removeChildByTag(Tag_B,true);
+				this->stopAllActions();
+			}
+			if (Tag_A >= 3){ Vat_Roi->So_VR--; }
+		}
+		else
+		{
+			if (Tag_A == 0)
+			{
+				if (Tag_B == 2)
+				{
+					this->removeChildByTag(Tag_B,true);
+				}
+				else
+				{
+					if (Tag_B >= 3)
+					{
+						for (int i = 0; i < Vat_Roi->So_VR; i++)
+						{
+							this->removeChildByTag(Tag_B, true);
+						}
+						Load_VR(); Load_Giun();
+					}
+				}
+			}
+		}
+	}
+	log("Va_Cham(TranhNeLayer)");
+	return false;
+}

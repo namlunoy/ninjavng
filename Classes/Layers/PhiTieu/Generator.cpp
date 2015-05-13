@@ -16,7 +16,7 @@ void Generator::sinhJump() {
 	{
 		auto e = Enemy_Jump::create();
 		layer->addChild(e);
-		enemies.push_back(e);
+		enemies.pushBack(e);
 		e->stt = counter;
 		counter++;
 		log("counter : %d",counter);
@@ -24,14 +24,14 @@ void Generator::sinhJump() {
 }
 void Generator::SetEnemyNull(int stt)
 {
-	enemies[stt] = nullptr;
+	//enemies[stt] = nullptr;
 }
 void Generator::sinhRun() {
 	if(isGenerate && counter < MAX)
 	{
 		auto e = Enemy_Run::create();
 		layer->addChild(e);
-		enemies.push_back(e);
+		enemies.pushBack(e);
 		e->stt = counter;
 		counter++;
 		log("counter : %d",counter);
@@ -90,8 +90,7 @@ void Generator::SinhLevel_5() {
 
 void Generator::stop() {
 	isGenerate = false;
-	//Huy taon bo enemies
-	for (int i = 0; i < enemies.size(); i++)
-		if (enemies[i] != nullptr)
-			enemies[i]->removeFromParent();
+	//Huy taon bo ene
+	for(Enemy* e : enemies)
+		e->removeFromParent();
 }

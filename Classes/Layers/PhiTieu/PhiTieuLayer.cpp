@@ -46,11 +46,12 @@ bool PhiTieuLayer::init() {
 	Node* Target = Node::create();
 	PhysicsBody* _targetBody = PhysicsBody::createBox(Size(5, 700),PhysicsMaterial(1, 0, 0));
 	_targetBody->setTag(Tags::TARGET);
-	_targetBody->setDynamic(false);
+	_targetBody->setDynamic(true);
+	_targetBody->setGravityEnable(false);
 	_targetBody->setContactTestBitmask(true);
 	_targetBody->setCollisionBitmask(true);
 	Target->setPhysicsBody(_targetBody);
-	Target->setPosition(10, 100);
+	Target->setPosition(20, 100);
 	this->addChild(Target);
 
 	//---------- ninja  -----------
@@ -99,6 +100,16 @@ void PhiTieuLayer::gameOver() {
 	ninja->isAlive = false;
 	generator->stop();
 	_hudLayer->gameOver();
+	ninja->removeFromParent();
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/GameOverSound.mp3");
+}
+
+void PhiTieuLayer::gameWin() {
+	ninja->isAlive = false;
+	generator->stop();
+	_hudLayer->gameWin();
+	ninja->removeFromParent();
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/GameOverSound.mp3");
 }

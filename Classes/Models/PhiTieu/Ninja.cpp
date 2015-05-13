@@ -23,6 +23,7 @@ bool Ninja::init(string fileName)
 	if (!Node::init())
 		return false;
 	isAlive = true;
+	Ninja::Instance = this;
 	jumpCount = 0;
 	isAvaiableToFire = true;
 
