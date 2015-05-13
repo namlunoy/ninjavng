@@ -15,6 +15,7 @@ public:
 	~BanTao_Layer();
 	bool init();
 	CREATE_FUNC(BanTao_Layer);
+	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
 	void onStart(float speed);
 	bool onTouchBegan(Touch *touch, Event *unused_event);
 	void onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target *target);

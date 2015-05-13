@@ -8,6 +8,7 @@
 #include "ChemLayer.h"
 #include "SimpleAudioEngine.h"
 #include"GameOverScene.h"
+#include "Scenes/HelloWorldScene.h"
 #include <sstream>
 #include <string>
 #include <iostream>
@@ -31,6 +32,9 @@ float speedenemy;
 int tg;
 
 bool ChemLayer::init() {
+	this->setKeypadEnabled(true);
+	this->setKeyboardEnabled(true);
+
 	score13 = 0;
 	// Lấy kích thước màn hình
 	Size winSize = Director::getInstance()->getWinSize(); 
@@ -353,4 +357,12 @@ void ChemLayer::updateScore()
 	stringstream ss;
 	ss << score13;
 	scoreText1->setString(ss.str());
+}
+void ChemLayer::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+{
+	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
+	{
+		auto scene = HelloWorld::createScene();
+		Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene, Color3B::WHITE));
+	}
 }

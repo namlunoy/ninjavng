@@ -26,6 +26,7 @@ public:
 	bool init();
 	void Load_VR();
 	void Load_Giun();
+	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
 };
 
 #endif /* LAYERS_TRANHNE_TRANHNELAYER_H_ */
