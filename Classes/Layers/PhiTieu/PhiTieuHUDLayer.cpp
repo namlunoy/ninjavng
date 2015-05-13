@@ -79,10 +79,19 @@ bool PhiTieuHUDLayer::init() {
 	power->setPosition(Vec2(30, Config::screenSize.height - 70));
 	this->addChild(power);
 
-	//Tính điểm
+	//------------------------ Label ---------------------------
 	txt_score = Label::createWithTTF("0", "fonts/Karate.ttf", 37);
 	txt_score->setPosition(Vec2(Config::screenSize.width - 30, Config::screenSize.height - 40));
 	this->addChild(txt_score);
+
+	txt_Back = Label::createWithTTF("0", "fonts/Karate.ttf", 37);
+	txt_Back->setPosition(Vec2(Config::screenSize.width/2-100, 0));
+	this->addChild(txt_Back);
+
+	txt_Replay = Label::createWithTTF("0", "fonts/Karate.ttf", 37);
+	txt_Replay->setPosition(Vec2(Config::screenSize.width/2+100, 0));
+	this->addChild(txt_Replay);
+
 	score = 0;
 	PhiTieuHUDLayer::Instance = this;
 	return true;

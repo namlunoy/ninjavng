@@ -24,6 +24,9 @@ private:
 
 	PhiTieuLayer* _phiTieuLayer;
 	Label* txt_score;
+	Label* txt_Back;
+	Label* txt_Replay;
+
 	int score;
 
 	Power* power;
