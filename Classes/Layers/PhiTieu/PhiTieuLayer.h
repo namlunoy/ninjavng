@@ -54,6 +54,7 @@ public:
 	void gameWin();
 	//---------------- Ngoài lề --------------
 	float theScale;
+	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
 };
 #endif
 

@@ -33,6 +33,9 @@ bool BanTao_Layer::init()
 	if (!Layer::init())
 		return false;
 
+	this->setKeypadEnabled(true);
+	this->setKeyboardEnabled(true);
+
 	//Hiển thị background
 	Sprite* background = Sprite::create("soc_bg.jpg");
 	background->setPosition(Config::centerPoint);
@@ -308,4 +311,13 @@ void BanTao_Layer::updateScore()
 		ss << score1;
 		scoreText->setString(ss.str());
 	
+}
+
+void BanTao_Layer::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+{
+	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
+	{
+		auto scene = HelloWorld::createScene();
+		Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene, Color3B::WHITE));
+	}
 }

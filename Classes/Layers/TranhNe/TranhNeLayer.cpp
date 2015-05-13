@@ -4,6 +4,7 @@
 #include "Models/TranhNe/VatRoi.h"
 #include "Models/TranhNe/Giun_Dat.h"
 #include "Models/TranhNe/Nen.h"
+#include "Scenes/HelloWorldScene.h"
 
 USING_NS_CC;
 using namespace std;
@@ -152,6 +153,10 @@ bool TranhNeLayer::init()
 	Lang_Nghe->onContactBegin = CC_CALLBACK_1(TranhNeLayer::onContactBegin, this);//ghi de 2 ham onContactbegin
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(Lang_Nghe, this);
 
+	//Back button
+	this->setKeypadEnabled(true);
+	this->setKeyboardEnabled(true);
+
 	return true;
 }
 
@@ -266,4 +271,13 @@ bool TranhNeLayer::onContactBegin(PhysicsContact &contact)
 	}
 	log("Va_Cham(TranhNeLayer)");
 	return false;
+}
+
+void TranhNeLayer::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+{
+	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
+	{
+		auto scene = HelloWorld::createScene();
+		Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene, Color3B::WHITE));
+	}
 }
