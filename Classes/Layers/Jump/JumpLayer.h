@@ -18,6 +18,7 @@ public:
 	static JumpLayer * createJumpLayer(int i);
 	bool init();
 	CREATE_FUNC(JumpLayer);
+	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
 
 	//Screen
 	Size screenSize;

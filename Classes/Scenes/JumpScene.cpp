@@ -40,10 +40,12 @@ bool JumpScene::init()
 {
 	if (!JumpScene::init())
 		return false;
-		
-	/*layer = JumpLayer::create();
-	layer->SetPhysicsWorld(scene->getPhysicsWorld());
-	scene->addChild(layer);*/
+
+	/*auto listener = EventListenerKeyboard::create();
+	listener->onKeyReleased = CC_CALLBACK_2(JumpScene::onKeyReleased, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	cocos2d::Layer::setKeyboardEnabled(true);
+	cocos2d::Layer::setKeypadEnabled(true);*/
 
 	return true;
 }

@@ -6,7 +6,7 @@
 #include "Models/Jump/Background.h"
 USING_NS_CC;
 
-class JumpScene:public cocos2d::Scene
+class JumpScene : public cocos2d::Scene
 {
 public:
 	JumpScene();

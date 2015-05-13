@@ -1,5 +1,6 @@
 ﻿#include "JumpLayer.h"
 #include "cocos2d.h"
+#include "Scenes/HelloWorldScene.h"
 #include "Models/Jump/Ninja_D.h"
 #include "Utility/Config.h"
 #include "Utility/Definition.h"
@@ -39,6 +40,10 @@ JumpLayer * JumpLayer::createJumpLayer(int i)
 bool JumpLayer::init()
 {
 	if (!Layer::init()) return false;
+
+	//Back button
+	this->setKeypadEnabled(true);
+	this->setKeyboardEnabled(true);
 
 	//Screen
 	screenSize = Director::getInstance()->getVisibleSize();
@@ -166,5 +171,14 @@ void JumpLayer::StopPillar()
 	for (std::list<Pillar*>::iterator it = listPillar.begin(); it != listPillar.end(); ++it)
 	{
 		(*it)->StopPillar();
+	}
+}
+
+void JumpLayer::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+{
+	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
+	{
+		auto scene = HelloWorld::createScene();
+		Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene, Color3B::WHITE));
 	}
 }
