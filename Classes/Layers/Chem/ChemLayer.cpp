@@ -25,6 +25,8 @@ ChemLayer::~ChemLayer() {
 
 Label* label1;
 Label* scoreText1;
+Label* lb;
+Label* lbscore;
 int score13;
 int mang13;
 bool kt = false;
@@ -121,6 +123,10 @@ bool ChemLayer::init() {
 	label1->setColor(ccc3(192, 57, 43));
 	label1->setPosition(size.width - 100, size.height - 20);
 	this->addChild(label1);
+	lb = Label::create("HightScore:   ", "Arial", 30);
+	lb->setColor(ccc3(192, 57, 43));
+	lb->setPosition(size.width - 150, size.height - 50);
+	this->addChild(lb);
 
 	scoreText1 = Label::create();
 	scoreText1->setColor(ccc3(192, 57, 43));
@@ -128,6 +134,15 @@ bool ChemLayer::init() {
 	scoreText1->setString("0");
 	scoreText1->setSystemFontSize(30);
 	this->addChild(scoreText1);
+	lbscore = Label::create();
+	lbscore->setColor(ccc3(192, 57, 43));
+	lbscore->setPosition(size.width - 50, size.height - 50);	
+	stringstream tt;
+	int i = UserDefault::getInstance()->getIntegerForKey("score2");
+	tt << i;
+	lbscore->setString(tt.str());
+	lbscore->setSystemFontSize(30);
+	this->addChild(lbscore);
 
 	return true;
 }
@@ -322,17 +337,12 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 		{
 			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/GameOverSound.mp3");
 			auto gameOverScene = GameOverScene::create(); // Tạo 1 Scene Over của lớp GameOverScene
-			UserDefault::getInstance()->setIntegerForKey("score2", score13);
-			stringstream ss,tt;
+			stringstream ss;
 			ss << score13;
 			int i = UserDefault::getInstance()->getIntegerForKey("score2");
 			if (i<score13)
-			{
-				tt << score13;
-			}
-			else
-				tt << i;
-			gameOverScene->getLayer()->getLabel()->setString("You Lose. Your Score: "+ss.str()+", HightScrore: "+tt.str()); // Đặt 1 dòng thông báo lên màn hình
+				UserDefault::getInstance()->setIntegerForKey("score2", score13);
+			gameOverScene->getLayer()->getLabel()->setString("You Lose. Your Score: "+ss.str()); // Đặt 1 dòng thông báo lên màn hình
 			Director::getInstance()->replaceScene(gameOverScene); // Thay thế game Scene =  game Over Scene 
 		}		
 	} 
