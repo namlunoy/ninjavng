@@ -33,9 +33,11 @@ private:
 	PhysicsWorld* _physicWorld;
 	PhiTieuHUDLayer* _hudLayer;
 private:
+
 	Generator* generator;
 	int mang;
 public:
+	float theScale;
 	Ninja* ninja;
 	//----- Các phương thức khởi tạo -------
 	PhiTieuLayer();
@@ -53,7 +55,7 @@ public:
 	void gameOver();
 //	void gameWin();
 	//---------------- Ngoài lề --------------
-	float theScale;
+
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
 };
 #endif

@@ -15,10 +15,14 @@
 USING_NS_CC;
 
 class Enemy_Jump : public Enemy {
+private:
+	static float MIN;
+	static float MAX;
+	static float delta;
 public:
 	Enemy_Jump();
 	virtual ~Enemy_Jump();
-
+	static void reset();
 	static Enemy_Jump*  create();
 	void setupAction() override;
 

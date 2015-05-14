@@ -20,15 +20,8 @@ private:
 	PhiTieuLayer* layer;
 	bool isGenerate;
 	int counter;
-	int MAX;
-	//Luu tat ca cac enemi
 	Vector<Enemy*> enemies;
 
-	void SinhLevel_1();
-	void SinhLevel_2();
-	void SinhLevel_3();
-	void SinhLevel_4();
-	void SinhLevel_5();
 public:
 	static Generator* Instance;
 	Generator(PhiTieuLayer* l);
@@ -38,10 +31,9 @@ public:
 
 	void sinhJump();
 	void sinhRun();
-	//Goi khi gameover
-	void stop();
+	void sinhHeart();
+	void gameOver();
 	
-	void SetEnemyNull(int stt);
 };
 
 #endif

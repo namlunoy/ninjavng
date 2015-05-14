@@ -26,19 +26,16 @@ Shuriken::Shuriken() {
 	//adds contact event listener
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Shuriken::onContactBegin,
-			this);
+		this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener,
-			this);
-
+		this);
+	this->setScale(0.75f);
 }
 
 Shuriken* Shuriken::createSuriken() {
 	Shuriken* shuriken = new Shuriken();
-	if (shuriken && shuriken->init())
-		shuriken->autorelease();
-	else
-		CC_SAFE_DELETE(shuriken);
-
+	shuriken->init();
+	shuriken->autorelease();
 	return shuriken;
 }
 
@@ -59,7 +56,7 @@ bool Shuriken::onContactBegin(PhysicsContact& contact) {
 	if (body_a->getNode() != NULL && body_b->getNode() != NULL) {
 
 		if ((body_a->getTag() == Tags::SHURIKEN && body_b->getTag() == Tags::GROUND)
-				|| (body_a->getTag() == Tags::GROUND && body_b->getTag() == Tags::SHURIKEN)) {
+			|| (body_a->getTag() == Tags::GROUND && body_b->getTag() == Tags::SHURIKEN)) {
 
 			PhysicsBody* su = body_a->getTag() == Tags::SHURIKEN ? body_a : body_b;
 			su->getNode()->removeFromParent();

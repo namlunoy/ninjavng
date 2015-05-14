@@ -27,6 +27,8 @@ void PhiTieuLayer::matMau()
 bool PhiTieuLayer::init() {
 	mang = 3;
 
+
+
 	//Back button
 	this->setKeypadEnabled(true);
 	this->setKeyboardEnabled(true);
@@ -54,7 +56,7 @@ bool PhiTieuLayer::init() {
 	_targetBody->setContactTestBitmask(true);
 	_targetBody->setCollisionBitmask(true);
 	Target->setPhysicsBody(_targetBody);
-	Target->setPosition(20, 100);
+	Target->setPosition(20, Config::screenSize.height/2);
 	this->addChild(Target);
 
 	//---------- ninja  -----------
@@ -72,7 +74,7 @@ bool PhiTieuLayer::init() {
 	generator = new Generator(this);
 	this->addChild(generator);
 	generator->Generate(PhiTieuScene::GetLevel());
-
+//	this->setScale(Config::getScaleSize());
 	return true;
 }
 
@@ -101,7 +103,7 @@ void PhiTieuLayer::setHUDLayer(PhiTieuHUDLayer* p) {
 
 void PhiTieuLayer::gameOver() {
 	ninja->isAlive = false;
-	generator->stop();
+	generator->gameOver();
 	_hudLayer->gameOver();
 	ninja->setVisible(false);
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);

@@ -16,7 +16,9 @@ enum EnemyType
 
 class Enemy : public Node
 {
+
 protected:
+
 	Enemy();
 //---------- Các thuộc tính ----------
 protected:
@@ -41,22 +43,15 @@ public:
 	 */
 	virtual void setup(std::string fileName, EnemyType type);
 
-	/**
-	 *Mỗi cái phải viết 1 cái action riêng
-	 */
+	//Mỗi cái phải viết 1 cái action riêng
 	virtual void setupAction() = 0;
 
-	/**
-	 * Xử lý các va chạm: Có vẻ như là giống nhau hết
-	 */
+	//Xử lý các va chạm: Có vẻ như là giống nhau hết
 	virtual bool onContact(PhysicsContact& contact);
 
-	/**
-	 * Lấy level để xử lý các thông số sao cho phù hợp với các level
-	 */
+	//Lấy level để xử lý các thông số sao cho phù hợp với các level
 	int getLevel();
 
 	~Enemy();
-	int stt;
 };
 #endif

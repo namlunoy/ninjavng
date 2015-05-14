@@ -17,7 +17,13 @@ void PhiTieuHUDLayer::setPhiTieuLayer(PhiTieuLayer* p) {
 bool PhiTieuHUDLayer::init() {
 	if (!Layer::init())
 		return false;
-
+	int i = UserDefault::getInstance()->getIntegerForKey("score");
+	stringstream ss;
+	ss<<"Highscore: " << i;
+	auto txtDiem = Label::createWithTTF(ss.str(), "fonts/Karate.ttf", 30);
+	txtDiem->setAnchorPoint(Vec2(0,1));
+	txtDiem->setPosition(0, Config::screenSize.height );
+	this->addChild(txtDiem);
 
 	//------------------ Music Background -----------------//
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(
@@ -89,11 +95,21 @@ bool PhiTieuHUDLayer::init() {
 
 	score = 0;
 	PhiTieuHUDLayer::Instance = this;
+	//this->setScale(Config::getScaleSize());
 	return true;
 }
 void PhiTieuHUDLayer::ClickBack(Ref* f) {
 	auto scene = HelloWorld::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene, Color3B::WHITE));
+}
+
+void PhiTieuHUDLayer::tangHeart() {
+	int i = hearts.size();
+	auto h = Sprite::create("heart.png");
+	h->setScale(0.25f);
+	h->setPosition(Vec2(50 + 50 * i, Config::screenSize.height - 50));
+	this->addChild(h);
+	hearts.pushBack(h);
 }
 
 void PhiTieuHUDLayer::ClickReplay(Ref* f) {
@@ -126,6 +142,8 @@ void PhiTieuHUDLayer::click_Jump(Ref* sender, TouchEventType touchType) {
 }
 
 void PhiTieuHUDLayer::gameOver() {
+	UserDefault::getInstance()->setIntegerForKey("score", score);
+	//UserDefault::getInstance()->flush();
 	over->runAction(MoveBy::create(0.5f, Vec2(0, -750)));
 	menu->runAction(MoveBy::create(0.5f, Vec2(0, Config::screenSize.height)));
 

@@ -52,6 +52,7 @@ public:
 	void gameOver();
 //	void gameWin();
 	void tangDiem();
+	void tangHeart();
 	void ClickBack(Ref*);
 	void ClickReplay(Ref*);
 };
