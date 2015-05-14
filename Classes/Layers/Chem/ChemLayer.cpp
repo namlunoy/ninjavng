@@ -322,9 +322,17 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 		{
 			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/GameOverSound.mp3");
 			auto gameOverScene = GameOverScene::create(); // Tạo 1 Scene Over của lớp GameOverScene
-			stringstream ss;
+			UserDefault::getInstance()->setIntegerForKey("score2", score13);
+			stringstream ss,tt;
 			ss << score13;
-			gameOverScene->getLayer()->getLabel()->setString("You Lose. Your Score: "+ss.str()); // Đặt 1 dòng thông báo lên màn hình
+			int i = UserDefault::getInstance()->getIntegerForKey("score2");
+			if (i<score13)
+			{
+				tt << score13;
+			}
+			else
+				tt << i;
+			gameOverScene->getLayer()->getLabel()->setString("You Lose. Your Score: "+ss.str()+", HightScrore: "+tt.str()); // Đặt 1 dòng thông báo lên màn hình
 			Director::getInstance()->replaceScene(gameOverScene); // Thay thế game Scene =  game Over Scene 
 		}		
 	} 
