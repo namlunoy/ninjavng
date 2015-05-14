@@ -22,11 +22,13 @@ bool JumpPlayLayer::init()
 	this->isShowScoreBoard = false;
 
 	//HighScore Store
-	/*def = UserDefault::sharedUserDefault();
-	bestScore = def->getIntegerForKey("HIGHSCORE");
+	/*UserDefault::getInstance()->setIntegerForKey("HIGHSCORE", 0);
+	UserDefault::getInstance()->flush();
+	UserDefault::getInstance()->getIntegerForKey("HIGHSCORE");
 	log("bestscore: %d", bestScore);
-	def->setIntegerForKey("HIGHSCORE", 100);
-	def->flush();
+	UserDefault::getInstance()->setIntegerForKey("HIGHSCORE", 100);
+	UserDefault::getInstance()->flush();
+	bestScore = UserDefault::getInstance()->getIntegerForKey("HIGHSCORE");
 	log("Bestscore2: %d", bestScore);*/
 
 	//Sound

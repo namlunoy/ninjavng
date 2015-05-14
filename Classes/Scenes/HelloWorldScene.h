@@ -18,8 +18,9 @@ public:
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
     // implement the "static create()" method manually
-   // CREATE_FUNC(HelloWorld);
+    CREATE_FUNC(HelloWorld);
 
+	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
 
 
 private:

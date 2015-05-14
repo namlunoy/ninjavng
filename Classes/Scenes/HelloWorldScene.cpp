@@ -4,7 +4,6 @@
 #include "JumpScene.h"
 #include "PhiTieuScene.h"
 #include "PhiTieuMenuScene.h"
-
 #include "ChemScene.h"
 #include "TranhNeScene.h"
 #include "BanTao_Scence.h"
@@ -53,7 +52,7 @@ Scene* HelloWorld::createScene() {
 				case ui::Widget::TouchEventType::ENDED:
 				{
 					auto scene = BanTao_Scence::create();
-					Director::getInstance()->replaceScene(scene);
+					Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene, Color3B::WHITE));
 				}
 				}
 			});
@@ -66,7 +65,7 @@ Scene* HelloWorld::createScene() {
 				case ui::Widget::TouchEventType::ENDED:
 				{
 					auto scene = ChemScene::createScene();
-					Director::getInstance()->replaceScene(scene);
+					Director::getInstance()->replaceScene(TransitionFlipX::create(0.5, scene, TransitionScene::Orientation::LEFT_OVER));
 				}
 				}
 			});
@@ -79,7 +78,7 @@ Scene* HelloWorld::createScene() {
 				case ui::Widget::TouchEventType::ENDED:
 				{
 					auto scene = JumpScene::createPhysicScene();
-					Director::getInstance()->replaceScene(scene);
+					Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5, scene));
 				}
 				}
 			});
@@ -92,7 +91,7 @@ Scene* HelloWorld::createScene() {
 				case ui::Widget::TouchEventType::ENDED:
 				{
 					auto scene = PhiTieuScene::createScene(1);
-					Director::getInstance()->replaceScene(scene);
+					Director::getInstance()->replaceScene(TransitionRotoZoom::create(0.5, scene));
 				}
 				}
 			});
@@ -113,13 +112,15 @@ Scene* HelloWorld::createScene() {
 		}
 	}
 
-
 	return scene;
 }
 
 bool HelloWorld::init() {
 	if (!Layer::init())
 		return false;
+
+	this->setKeypadEnabled(true);
+	this->setKeyboardEnabled(true);
 
 	return true;
 }
@@ -135,4 +136,12 @@ void HelloWorld::menuCloseCallback(Ref* pSender) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
 #endif
+}
+
+void HelloWorld::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+{
+	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
+	{
+		Director::getInstance()->end();
+	}
 }
