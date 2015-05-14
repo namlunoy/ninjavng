@@ -1,7 +1,7 @@
 ﻿#include "PhiTieuHUDLayer.h"
 #include "Utility/Config.h"
 #include "Scenes/PhiTieuScene.h"
-#include "Models/PhiTieu/Heart.h"
+#include "Models/PhiTieu/Item.h"
 #include "SimpleAudioEngine.h"
 #include <sstream>
 
@@ -50,7 +50,7 @@ bool PhiTieuHUDLayer::init() {
 
 	//-------------- Trai tim ---------
 	for (int i = 0; i < 3; i++) {
-		hearts.pushBack(Heart::getHeart(i+1));
+		hearts.pushBack(Item::getHeart(i+1));
 		this->addChild(hearts.at(i));
 	}
 	//Tao thanh power
@@ -100,7 +100,7 @@ void PhiTieuHUDLayer::ClickBack(Ref* f) {
 }
 
 void PhiTieuHUDLayer::tangHeart() {
-	hearts.pushBack(Heart::getHeart(hearts.size() + 1));
+	hearts.pushBack(Item::getHeart(hearts.size() + 1));
 	this->addChild(hearts.at(hearts.size() - 1));
 
 }

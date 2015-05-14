@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Power.cpp
  *
  *  Created on: May 7, 2015
@@ -9,11 +9,11 @@
 #include "Models/PhiTieu/Ninja.h"
 #include "Scenes/PhiTieuScene.h"
 
-Power::Power() {
-}
-
-Power::~Power() {
-}
+Power::Power() {}
+Power::~Power() {}
+float Power::soLuong = 8.0f;
+float Power::minPower = 0.1f;
+float Power::up = 0.01f;
 
 bool Power::init() {
 
@@ -48,18 +48,16 @@ void Power::updatePower() {
 }
 
 void Power::setupByLevel() {
-	int lv = PhiTieuScene::GetLevel();
-	switch (lv) {
-
-	default:
-		minPower = 1.0f / 10.0f;
-		up = 0.01f;
-		break;
-	}
-	log("up = %f, minPow = %f", up, minPower);
+	minPower = 1.0f / soLuong;
+	up = 0.01f;
+}
+void Power::nangCap() {
+	soLuong++;
+	minPower = 1.0f / soLuong;
+	//up += 0.006f;
 }
 
-bool Power::fire() {	
+bool Power::fire() {
 	log(Ninja::Instance->isAlive);
 	if (_power != nullptr && Ninja::Instance->isAlive)
 		if (_power->getScaleX() >= minPower) {

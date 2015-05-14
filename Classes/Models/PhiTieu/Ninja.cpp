@@ -1,4 +1,6 @@
 ﻿#include "Ninja.h"
+#include "Power.h"
+#include "Shuriken.h"
 #include "Utility/Definition.h"
 #include "Utility/Config.h"
 #include "Layers/PhiTieu/Generator.h"
@@ -86,7 +88,7 @@ bool Ninja::onContactBegin(PhysicsContact& contact)
 			PhiTieuLayer::instance->matMau();
 		}
 
-		if((a->getTag() == Tags::NINJA && b->getTag() == Tags::HEART)
+		else if((a->getTag() == Tags::NINJA && b->getTag() == Tags::HEART)
 						|| (a->getTag() == Tags::HEART && b->getTag() == Tags::NINJA))
 				{
 					log("Ninja::onContactBegin : NINJA vs HEART");
@@ -94,7 +96,16 @@ bool Ninja::onContactBegin(PhysicsContact& contact)
 					h->getNode()->removeFromParent();
 					//Thêm trái tim
 					PhiTieuHUDLayer::Instance->tangHeart();
-				}
+		}else if((a->getTag() == Tags::NINJA && b->getTag() == Tags::ITEM)
+				|| (a->getTag() == Tags::ITEM && b->getTag() == Tags::NINJA))
+		{
+			log("Ninja::onContactBegin : NINJA vs ITEM");
+			auto h = a->getTag() == Tags::ITEM ? a : b;
+			h->getNode()->removeFromParent();
+			//Thêm trái tim
+			Shuriken::nangCap();
+			Power::nangCap();
+		}
 	}
 
 	return false;
@@ -136,15 +147,4 @@ void Ninja::setOriginalPosition(Vec2 ori)
 	this->originalPosition = ori;
 }
 
-/**
- * Cái này để giới hạn số lượt bắn cùng 1 lúc của ninja!
- * (Nó chính là số khoảng chia của thanh power : PhiTieuHUDLayer::touch_PhongTieu)
- */
-int Ninja::getMaxShuriken(int level) {
-	switch (level)
-	{
-	default:
-		return 10;
-		break;
-	}
-}
+

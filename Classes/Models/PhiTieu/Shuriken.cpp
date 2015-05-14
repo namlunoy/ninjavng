@@ -67,3 +67,7 @@ bool Shuriken::onContactBegin(PhysicsContact& contact) {
 	}
 	return true;
 }
+
+void Shuriken::nangCap() {
+	Shuriken::force += 50;
+}

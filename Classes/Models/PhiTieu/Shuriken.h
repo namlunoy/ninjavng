@@ -9,13 +9,14 @@ class Shuriken : public Node{
 private:
 	Sprite* _sprite;
 	PhysicsBody* _body;
-	static float force;// = 700.0f;
+	static float force;
 	bool init();
 
 
 public:
 	Shuriken();
 	~Shuriken();
+	static void nangCap();
 	static Shuriken* createSuriken();
 	void phong(Vec2 direction);
 	bool onContactBegin(PhysicsContact& contact);

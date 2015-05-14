@@ -34,7 +34,8 @@ public:
 
 	void sinhJump();
 	void sinhRun();
-	void sinhHeart();
+	void sinhItem();
+
 	void gameOver();
 	
 };

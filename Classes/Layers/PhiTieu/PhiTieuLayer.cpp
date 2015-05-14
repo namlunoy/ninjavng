@@ -2,7 +2,7 @@
 #include "Scenes/PhiTieuScene.h"
 #include "SimpleAudioEngine.h"
 #include "Scenes/HelloWorldScene.h"
-#include "Models/PhiTieu/Heart.h"
+#include "Models/PhiTieu/Item.h"
 
 PhiTieuLayer* PhiTieuLayer::instance = NULL;
 PhiTieuLayer::PhiTieuLayer() {
@@ -21,7 +21,6 @@ bool PhiTieuLayer::init() {
 	//Back button
 	this->setKeypadEnabled(true);
 	this->setKeyboardEnabled(true);
-	this->addChild(Heart::create());
 
 	//-------  Background ----------
 	//Thực hiện : Hiển thị, Thêm body

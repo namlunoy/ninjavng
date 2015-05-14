@@ -1,5 +1,5 @@
 #include "Generator.h"
-#include "Models/PhiTieu/Heart.h"
+#include "Models/PhiTieu/Item.h"
 
 Generator* Generator::Instance = nullptr;
 Generator::Generator(PhiTieuLayer* l) {
@@ -44,13 +44,18 @@ void Generator::sinhRun() {
 		this->runAction(Sequence::createWithTwoActions(delay, sinh));
 	}
 }
-void Generator::sinhHeart() {
+void Generator::sinhItem() {
 	if(isGenerate)
 	{
+		auto h = random(1,2) == 1 ? Item::create(Tags::HEART) : Item::create(Tags::ITEM);
 		if (layer != nullptr)
-			layer->addChild(Heart::create(),1);
-		auto sinh = CallFunc::create(CC_CALLBACK_0(Generator::sinhHeart, this));
-		auto delay = DelayTime::create(5);
+			layer->addChild(h);
+
+		auto move = MoveTo::create(5.0f,Vec2(0,Config::screenSize.height - 100));
+		h->runAction(move);
+
+		auto sinh = CallFunc::create(CC_CALLBACK_0(Generator::sinhItem, this));
+		auto delay = DelayTime::create(7);
 		this->runAction(Sequence::createWithTwoActions(delay, sinh));
 	}
 }
@@ -60,10 +65,11 @@ void Generator::Generate(int level) {
 	counter = 0;
 	Enemy_Run::reset();
 	Enemy_Jump::reset();
-	//sinhRun();
-	//sinhJump();
-	sinhHeart();
+	sinhRun();
+	sinhJump();
+	sinhItem();
 }
+
 
 
 void Generator::gameOver() {

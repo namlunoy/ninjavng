@@ -29,6 +29,8 @@ public:
 			return "TARGET";
 		case Tags::HEART:
 			return "HEART";
+		case Tags::ITEM:
+			return "ITEM";
 		default:
 			break;
 
@@ -40,6 +42,7 @@ public:
 	static const int SHURIKEN = 14;
 	static const int TARGET = 15;
 	static const int HEART = 16;
+	static const int ITEM = 17;
 	Tags();
 	~Tags();
 };

@@ -15,11 +15,13 @@ USING_NS_CC;
 class Power : public Node {
 private:
 	Sprite* _power;
-	//minPower là lượng mana tối thiểu để có thể phóng tiêu: 1/x
-	float minPower;
+	static float soLuong;
+	//minPower là lượng mana tối thiểu để có thể phóng tiêu: 1/số lượng
+	static float minPower;
 	//Tốc độ phục hồi của mana: o.o1f ...
-	float up;
+	static float up;
 public:
+	static void nangCap();
 	Power();
 	virtual ~Power();
 	bool init();
