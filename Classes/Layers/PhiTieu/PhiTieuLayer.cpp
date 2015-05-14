@@ -2,6 +2,7 @@
 #include "Scenes/PhiTieuScene.h"
 #include "SimpleAudioEngine.h"
 #include "Scenes/HelloWorldScene.h"
+#include "Models/PhiTieu/Heart.h"
 
 PhiTieuLayer* PhiTieuLayer::instance = NULL;
 PhiTieuLayer::PhiTieuLayer() {
@@ -12,26 +13,15 @@ PhiTieuLayer::~PhiTieuLayer() {
 
 void PhiTieuLayer::matMau()
 {
-	if(mang > 0)
-	{
-		mang--;
-		_hudLayer->matMau();
-	}
-
-	if(mang == 0)
-	{
-		gameOver();
-	}
+	_hudLayer->matMau();
 }
 
 bool PhiTieuLayer::init() {
-	mang = 3;
-
-
 
 	//Back button
 	this->setKeypadEnabled(true);
 	this->setKeyboardEnabled(true);
+	this->addChild(Heart::create());
 
 	//-------  Background ----------
 	//Thực hiện : Hiển thị, Thêm body
@@ -104,12 +94,14 @@ void PhiTieuLayer::setHUDLayer(PhiTieuHUDLayer* p) {
 void PhiTieuLayer::gameOver() {
 	ninja->isAlive = false;
 	generator->gameOver();
-	_hudLayer->gameOver();
 	ninja->setVisible(false);
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/GameOverSound.mp3");
 }
 
+int PhiTieuLayer::getMang() {
+	return _hudLayer->getMang();
+}
 
 void PhiTieuLayer::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
 {

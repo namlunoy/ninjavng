@@ -38,6 +38,7 @@ private:
 	Power* power;
 
 public:
+	int getMang();
 	//------  Các hàm khởi tạo -------
 	static PhiTieuHUDLayer* Instance;
 	PhiTieuHUDLayer();

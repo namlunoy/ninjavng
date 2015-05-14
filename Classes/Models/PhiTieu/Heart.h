@@ -18,6 +18,8 @@ private:
 	Sprite* _sprite;
 public:
 	static Heart* create();
+	static Sprite* getHeart(int stt);
+	bool onContact(PhysicsContact& contact);
 	Heart();
 	virtual ~Heart();
 };

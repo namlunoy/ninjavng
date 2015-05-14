@@ -35,7 +35,7 @@ private:
 private:
 
 	Generator* generator;
-	int mang;
+	int getMang();
 public:
 	float theScale;
 	Ninja* ninja;
@@ -53,7 +53,6 @@ public:
 	void PhongTieu(Vec2 dest);
 	void matMau();
 	void gameOver();
-//	void gameWin();
 	//---------------- Ngoài lề --------------
 
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event);

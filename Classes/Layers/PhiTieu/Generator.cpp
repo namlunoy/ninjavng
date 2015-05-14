@@ -4,6 +4,7 @@
 Generator* Generator::Instance = nullptr;
 Generator::Generator(PhiTieuLayer* l) {
 	layer = l;
+	//hud = h;
 	this->autorelease();
 	isGenerate = true;
 	Instance = this;
@@ -46,8 +47,11 @@ void Generator::sinhRun() {
 void Generator::sinhHeart() {
 	if(isGenerate)
 	{
-		auto h = Heart::create();
-		this->addChild(h);
+		if (layer != nullptr)
+			layer->addChild(Heart::create(),1);
+		auto sinh = CallFunc::create(CC_CALLBACK_0(Generator::sinhHeart, this));
+		auto delay = DelayTime::create(5);
+		this->runAction(Sequence::createWithTwoActions(delay, sinh));
 	}
 }
 
@@ -56,8 +60,9 @@ void Generator::Generate(int level) {
 	counter = 0;
 	Enemy_Run::reset();
 	Enemy_Jump::reset();
-	sinhRun();
-	sinhJump();
+	//sinhRun();
+	//sinhJump();
+	sinhHeart();
 }
 
 

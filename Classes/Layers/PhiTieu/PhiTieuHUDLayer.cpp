@@ -1,6 +1,7 @@
 ﻿#include "PhiTieuHUDLayer.h"
 #include "Utility/Config.h"
 #include "Scenes/PhiTieuScene.h"
+#include "Models/PhiTieu/Heart.h"
 #include "SimpleAudioEngine.h"
 #include <sstream>
 
@@ -48,27 +49,22 @@ bool PhiTieuHUDLayer::init() {
 			this);
 
 	//-------------- Trai tim ---------
-	hearts.pushBack(Sprite::create("heart.png"));
-	hearts.pushBack(Sprite::create("heart.png"));
-	hearts.pushBack(Sprite::create("heart.png"));
 	for (int i = 0; i < 3; i++) {
-		hearts.at(i)->setScale(0.25f);
-		hearts.at(i)->setPosition(
-				Vec2(50 + 50 * i, Config::screenSize.height - 50));
+		hearts.pushBack(Heart::getHeart(i+1));
 		this->addChild(hearts.at(i));
 	}
-
 	//Tao thanh power
 
 
 	power = Power::createPower(PhiTieuScene::GetLevel());
-	power->setPosition(Vec2(30, Config::screenSize.height - 70));
+	power->setPosition(Vec2(10, Config::screenSize.height - 70));
+	power->setScaleY(0.8f);
 	this->addChild(power);
 	
 
 	//------------------------ Label ---------------------------
 	txt_score = Label::createWithTTF("0", "fonts/Karate.ttf", 37);
-	txt_score->setPosition(Vec2(Config::screenSize.width - 30,Config::screenSize.height - 40));
+	txt_score->setPosition(Vec2(Config::screenSize.width - 30,Config::screenSize.height - 27));
 	this->addChild(txt_score);
 
 	//-------------------- GAME over --------------------
@@ -104,12 +100,13 @@ void PhiTieuHUDLayer::ClickBack(Ref* f) {
 }
 
 void PhiTieuHUDLayer::tangHeart() {
-	int i = hearts.size();
-	auto h = Sprite::create("heart.png");
-	h->setScale(0.25f);
-	h->setPosition(Vec2(50 + 50 * i, Config::screenSize.height - 50));
-	this->addChild(h);
-	hearts.pushBack(h);
+	hearts.pushBack(Heart::getHeart(hearts.size() + 1));
+	this->addChild(hearts.at(hearts.size() - 1));
+
+}
+
+int PhiTieuHUDLayer::getMang() {
+	return hearts.size();
 }
 
 void PhiTieuHUDLayer::ClickReplay(Ref* f) {
@@ -121,8 +118,12 @@ void PhiTieuHUDLayer::matMau() {
 	if (hearts.size() > 0) {
 		hearts.at(hearts.size() - 1)->removeFromParent();
 		hearts.popBack();
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(
-				"Sound_PhiTieu/Fail.mp3");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_PhiTieu/Fail.mp3");
+	}
+	if (hearts.size() == 0)
+	{
+		gameOver();
+		_phiTieuLayer->gameOver();
 	}
 }
 

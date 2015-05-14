@@ -93,6 +93,7 @@ bool Ninja::onContactBegin(PhysicsContact& contact)
 					auto h = a->getTag() == Tags::HEART ? a : b;
 					h->getNode()->removeFromParent();
 					//Thêm trái tim
+					PhiTieuHUDLayer::Instance->tangHeart();
 				}
 	}
 
