@@ -43,6 +43,13 @@ Scene* HelloWorld::createScene() {
 		Vec2 pos = center + Vec2((i - 3) * khoangcach, 0);
 		bt->setPosition(pos);
 		scene->addChild(bt);
+		
+		stringstream ss;
+		ss << i;
+		auto label = Label::createWithTTF(ss.str(), "fonts/njnaruto.ttf", 20);
+		label->setAnchorPoint(Vec2(0, 0));
+		label->setPosition(Vec2(4,2));
+		bt->addChild(label);
 
 		switch (i) {
 		case 1:

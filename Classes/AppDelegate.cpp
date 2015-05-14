@@ -35,7 +35,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 //#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 		//Chinh kich thuoc tuong ung dien thoai
 		//720 x 1280
-		glview->setFrameSize(1280, 720);
+		glview->setFrameSize(800, 480);
 		
 //#endif
         director->setOpenGLView(glview);

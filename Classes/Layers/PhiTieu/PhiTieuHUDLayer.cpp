@@ -17,12 +17,12 @@ void PhiTieuHUDLayer::setPhiTieuLayer(PhiTieuLayer* p) {
 bool PhiTieuHUDLayer::init() {
 	if (!Layer::init())
 		return false;
-	int i = UserDefault::getInstance()->getIntegerForKey("score");
+	highScore = UserDefault::getInstance()->getIntegerForKey("score4");
 	stringstream ss;
-	ss<<"Highscore: " << i;
+	ss<<"Highscore: " << highScore;
 	auto txtDiem = Label::createWithTTF(ss.str(), "fonts/Karate.ttf", 30);
 	txtDiem->setAnchorPoint(Vec2(0,1));
-	txtDiem->setPosition(0, Config::screenSize.height );
+	txtDiem->setPosition(10, Config::screenSize.height -10 );
 	this->addChild(txtDiem);
 
 	//------------------ Music Background -----------------//
@@ -142,7 +142,8 @@ void PhiTieuHUDLayer::click_Jump(Ref* sender, TouchEventType touchType) {
 }
 
 void PhiTieuHUDLayer::gameOver() {
-	UserDefault::getInstance()->setIntegerForKey("score", score);
+	if(score > highScore)
+		UserDefault::getInstance()->setIntegerForKey("score4", score);
 	//UserDefault::getInstance()->flush();
 	over->runAction(MoveBy::create(0.5f, Vec2(0, -750)));
 	menu->runAction(MoveBy::create(0.5f, Vec2(0, Config::screenSize.height)));
@@ -159,13 +160,10 @@ void PhiTieuHUDLayer::tangDiem() {
 	std::stringstream ss;
 	ss << score;
 	txt_score->setString(ss.str());
+
 	//Animation
 	auto phongTo = ScaleTo::create(0.1f, 1.8);
 	auto thuNho = ScaleTo::create(0.1f, 1);
 	txt_score->runAction(Sequence::createWithTwoActions(phongTo, thuNho));
 
-	//Xử lý thắng
-	if (score >= 30) {
-
-	}
 }

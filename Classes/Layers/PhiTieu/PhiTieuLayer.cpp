@@ -56,7 +56,7 @@ bool PhiTieuLayer::init() {
 	_targetBody->setContactTestBitmask(true);
 	_targetBody->setCollisionBitmask(true);
 	Target->setPhysicsBody(_targetBody);
-	Target->setPosition(20, Config::screenSize.height/2);
+	Target->setPosition(5, Config::screenSize.height/2);
 	this->addChild(Target);
 
 	//---------- ninja  -----------
