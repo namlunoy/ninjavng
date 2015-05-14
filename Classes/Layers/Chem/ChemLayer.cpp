@@ -119,22 +119,22 @@ bool ChemLayer::init() {
 
 	//score
 	CCSize size = CCDirector::sharedDirector()->getWinSize();
-	label1 = Label::create("Score:   ", "Arial", 30);
+	label1 = Label::createWithTTF("Score: ", "fonts/Karate.ttf", 30);	
 	label1->setColor(ccc3(192, 57, 43));
-	label1->setPosition(size.width - 100, size.height - 20);
+	label1->setPosition(size.width - 120, size.height - 20);
 	this->addChild(label1);
-	lb = Label::create("HightScore:   ", "Arial", 30);
+	lb = Label::createWithTTF("HighScore: ", "fonts/Karate.ttf", 30);	
 	lb->setColor(ccc3(192, 57, 43));
 	lb->setPosition(size.width - 150, size.height - 50);
 	this->addChild(lb);
 
-	scoreText1 = Label::create();
+	scoreText1 = Label::createWithTTF("", "fonts/Karate.ttf", 30);	
 	scoreText1->setColor(ccc3(192, 57, 43));
 	scoreText1->setPosition(size.width - 50, size.height - 20);
 	scoreText1->setString("0");
 	scoreText1->setSystemFontSize(30);
 	this->addChild(scoreText1);
-	lbscore = Label::create();
+	lbscore = Label::createWithTTF("", "fonts/Karate.ttf", 30);	
 	lbscore->setColor(ccc3(192, 57, 43));
 	lbscore->setPosition(size.width - 50, size.height - 50);	
 	stringstream tt;
