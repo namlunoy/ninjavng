@@ -58,7 +58,7 @@ bool ChemLayer::init() {
 	ninja->setPhysicsBody(playerBody);
 
 	//Back Button
-	auto backButton = Button::create("back_button-1.png", "back_button-1.png",
+	/*auto backButton = Button::create("back_button-1.png", "back_button-1.png",
 			"back_button-1.png");
 	backButton->setAnchorPoint(Vec2(0, 0));
 	backButton->setScale(0.3f, 0.5f);
@@ -80,12 +80,12 @@ bool ChemLayer::init() {
 					break;
 				}
 			});
-	this->addChild(backButton,1);
+	this->addChild(backButton,1);*/
 
 	//background
 	auto background = Sprite::create("loc_background.jpg");
+	background->setScale(Config::getScale(background));
 	background->setPosition(Vec2(winSize.width/2, winSize.height/2));
-	background->setScale(1.5f);
 	this->addChild(background,0);
 
 	// Gọi tới hàm gameLogic , hàm này có nhiệm vụ tạo ra đám quái với thời gian 1 giây 1 quái
