@@ -114,10 +114,10 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	if (diem > bestScore)
 	{
 		bestScore = diem;
-		UserDefault::getInstance()->setIntegerForKey("JUMP_HIGHSCORE", bestScore);
+		UserDefault::getInstance()->setIntegerForKey("JUMP_HIGHSCORE", diem);
 	}
 	stringstream ss2;
-	ss2 << diem;
+	ss2 << bestScore;
 	highScore->setString(ss2.str());
 
 	//Huy Chuong
@@ -229,7 +229,7 @@ void JumpPlayLayer::update(float delta)
 {
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta / 2);	
+		jumpLayer->MovePillar(delta / Clamp(timeTouch * 8.75f));
 	}
 
 	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->isDeath == false)
