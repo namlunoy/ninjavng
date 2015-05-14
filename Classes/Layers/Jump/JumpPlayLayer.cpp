@@ -22,14 +22,7 @@ bool JumpPlayLayer::init()
 	this->isShowScoreBoard = false;
 
 	//HighScore Store
-	/*UserDefault::getInstance()->setIntegerForKey("HIGHSCORE", 0);
-	UserDefault::getInstance()->flush();
-	UserDefault::getInstance()->getIntegerForKey("HIGHSCORE");
-	log("bestscore: %d", bestScore);
-	UserDefault::getInstance()->setIntegerForKey("HIGHSCORE", 100);
-	UserDefault::getInstance()->flush();
-	bestScore = UserDefault::getInstance()->getIntegerForKey("HIGHSCORE");
-	log("Bestscore2: %d", bestScore);*/
+	bestScore = UserDefault::getInstance()->getIntegerForKey("JUMP_HIGHSCORE");
 
 	//Sound
 	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Jump.mp3");
@@ -118,12 +111,11 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	highScore->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
 	highScore->setPosition(Point(opacity->getContentSize().width * 2.4 / 5, opacity->getContentSize().height * 1.5 / 7));
 	highScore->setColor(Color3B::WHITE);
-	/*if (diem > bestScore)
+	if (diem > bestScore)
 	{
 		bestScore = diem;
-		def->setIntegerForKey("HIGHSCORE", bestScore);
-		def->flush();
-	}*/
+		UserDefault::getInstance()->setIntegerForKey("JUMP_HIGHSCORE", bestScore);
+	}
 	stringstream ss2;
 	ss2 << diem;
 	highScore->setString(ss2.str());
