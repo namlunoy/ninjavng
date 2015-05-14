@@ -21,8 +21,11 @@ BanTao_Layer::~BanTao_Layer(){ }
 int mang;
 float speed;
 int score1;
+int highscore;
 Label* label;
 Label* scoreText;
+Label* labelhighscore;
+Label* highscoreText;
 
 bool BanTao_Layer::init()
 {
@@ -48,19 +51,38 @@ bool BanTao_Layer::init()
 
 	//score
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-	label = Label::create("Score:   ", "Arial", 30);
+
+	label = Label::create("Score:   ", "Arial", 20);
 	label->setColor(ccc3(192, 57, 43));
-	label->setPosition(winSize.width - 100, winSize.height - 20);
+	label->setPosition(winSize.width - 120, winSize.height - 20);
 	this->addChild(label);
 
 	scoreText = Label::create();
 	scoreText->setColor(ccc3(192, 57, 43));
 	scoreText->setPosition(winSize.width - 50, winSize.height - 20);
 	scoreText->setString("0");
-	scoreText->setSystemFontSize(30);
+	scoreText->setSystemFontSize(25);
 	this->addChild(scoreText);
 	
+	labelhighscore = Label::create("High Score:   ", "Arial", 20);
+	labelhighscore->setColor(ccc3(192, 57, 43));
+	labelhighscore->setPosition(winSize.width - 120, winSize.height - 50);
+	this->addChild(labelhighscore);
+
+	highscoreText = Label::create();
+	highscoreText->setColor(ccc3(192, 57, 43));
+	highscoreText->setPosition(winSize.width - 50, winSize.height - 50);
+	//highscoreText->setString("0");
+	//lấy ra high score
+	highscoreText->setSystemFontSize(25);
+	highscore = UserDefault::getInstance()->getIntegerForKey("score1");
+	stringstream ss;
+	ss << highscore;
+	highscoreText->setString(ss.str());
+	this->addChild(highscoreText);
+
 	
+
 	//Thêm mạng
 	headSprite();
 	
@@ -286,11 +308,15 @@ void BanTao_Layer::checkLive()
 		XHelper::runAnimation("cry", 2, 0.5f, true, kidcry);
 		this->addChild(kidcry);
 		kidcry->setTag(15);
+		//luu highscore
+		if (score1>highscore)
+			UserDefault::getInstance()->setIntegerForKey("score1", score1);
 
 		this->runAction(Sequence::create(
 			DelayTime::create(2),
 			CallFunc::create(CC_CALLBACK_0(BanTao_Layer::restart, this)),
 			nullptr));
+
 
 	}
 }

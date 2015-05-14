@@ -4,7 +4,7 @@
 Config::Config(){}
 Config::~Config(){}
 
-Vec2 Config::centerPoint = Vec2(0, 0);
+Vec2 Config::centerPoint = Vec2(0,0);
 Size Config::screenSize = Size(0, 0);
 
 

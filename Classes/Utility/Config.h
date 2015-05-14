@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include <cmath>
 #include <iostream>
+#include <cmath>
 
 USING_NS_CC;
 using namespace std;
@@ -22,6 +23,11 @@ private:
 public:
 	Config();
 	~Config();
+
+	static float getScaleSize()
+	{
+		return min(screenSize.height/480,screenSize.width/800);
+	}
 
 	static Size screenSize;
 	static Vec2 centerPoint;

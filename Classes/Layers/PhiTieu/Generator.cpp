@@ -1,4 +1,5 @@
 #include "Generator.h"
+#include "Models/PhiTieu/Heart.h"
 
 Generator* Generator::Instance = nullptr;
 Generator::Generator(PhiTieuLayer* l) {
@@ -12,85 +13,56 @@ Generator::~Generator() {
 }
 
 void Generator::sinhJump() {
-	if(isGenerate && counter < MAX)
+	// && counter < MAX
+	if(isGenerate)
 	{
 		auto e = Enemy_Jump::create();
 		layer->addChild(e);
 		enemies.pushBack(e);
-		e->stt = counter;
 		counter++;
 		log("counter : %d",counter);
+
+		auto sinh = CallFunc::create(CC_CALLBACK_0(Generator::sinhJump, this));
+		auto delay = DelayTime::create(random(1.0f,2.0f));
+		this->runAction(Sequence::createWithTwoActions(delay, sinh));
 	}
 }
-void Generator::SetEnemyNull(int stt)
-{
-	//enemies[stt] = nullptr;
-}
+
 void Generator::sinhRun() {
-	if(isGenerate && counter < MAX)
+	//&& counter < MAX
+	if(isGenerate )
 	{
 		auto e = Enemy_Run::create();
 		layer->addChild(e);
 		enemies.pushBack(e);
-		e->stt = counter;
 		counter++;
 		log("counter : %d",counter);
+
+		auto sinh = CallFunc::create(CC_CALLBACK_0(Generator::sinhRun, this));
+		auto delay = DelayTime::create(random(1.0f,2.0f));
+		this->runAction(Sequence::createWithTwoActions(delay, sinh));
 	}
 }
+void Generator::sinhHeart() {
+	if(isGenerate)
+	{
+		auto h = Heart::create();
+		this->addChild(h);
+	}
+}
+
 void Generator::Generate(int level) {
 	Instance = this;
 	counter = 0;
-
-	switch(level)
-	{
-	case 1:
-		SinhLevel_1();
-		break;
-	default:
-		SinhLevel_1();
-		break;
-	}
+	Enemy_Run::reset();
+	Enemy_Jump::reset();
+	sinhRun();
+	sinhJump();
 }
 
-void Generator::SinhLevel_1() {
-	MAX = 30;
-	log("MAX : %d",MAX);
-	log("Generator::Generate()");
-	auto sinhJumpAction = CallFunc::create(
-			CC_CALLBACK_0(Generator::sinhJump, this));
-	auto sinhRunAction = CallFunc::create(
-			CC_CALLBACK_0(Generator::sinhRun, this));
 
-	auto delay_jump = DelayTime::create(2);
-	auto delay_run = DelayTime::create(1);
-
-	auto action_1 = RepeatForever::create(
-		Sequence::createWithTwoActions(delay_jump, sinhJumpAction));
-
-	auto action_2 = RepeatForever::create(
-		Sequence::createWithTwoActions(delay_run, sinhRunAction));
-
-	auto action = Spawn::createWithTwoActions(action_1, action_2);
-
-	this->runAction(action_1);
-	this->runAction(action_2);
-}
-
-void Generator::SinhLevel_2() {
-}
-
-void Generator::SinhLevel_3() {
-}
-
-void Generator::SinhLevel_4() {
-}
-
-void Generator::SinhLevel_5() {
-}
-
-void Generator::stop() {
+void Generator::gameOver() {
 	isGenerate = false;
-	//Huy taon bo ene
 	for(Enemy* e : enemies)
 		e->removeFromParent();
 }

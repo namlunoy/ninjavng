@@ -32,11 +32,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
         glview = GLViewImpl::create("My Game");
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 		//Chinh kich thuoc tuong ung dien thoai
+		//720 x 1280
 		glview->setFrameSize(800, 480);
-#endif
+		
+//#endif
         director->setOpenGLView(glview);
+		glview->setDesignResolutionSize(800, 480, ResolutionPolicy::FIXED_HEIGHT);
     }
 
     // turn on display FPS

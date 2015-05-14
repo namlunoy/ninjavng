@@ -6,11 +6,9 @@
 #include "Layers/PhiTieu/Generator.h"
 
 Enemy::~Enemy(){}
+Enemy::Enemy(){}
 
-Enemy::Enemy(){
-	stt = 0;
-	log("Enemy()");
-}
+
 
 int Enemy::getLevel()
 {
@@ -35,10 +33,6 @@ bool Enemy::onContact(PhysicsContact& contact) {
 		if((a->getTag() == Tags::SHURIKEN && b->getTag() == Tags::ENEMY)
 			|| (a->getTag() == Tags::ENEMY && b->getTag() == Tags::SHURIKEN) )
 		{
-			if (b->getTag() == Tags::ENEMY)
-				Generator::Instance->SetEnemyNull(((Enemy*)b->getNode())->stt);
-			else
-				Generator::Instance->SetEnemyNull(((Enemy*)(a->getNode()))->stt);
 			log("Enemy::onContact : ENEMY vs SHURIKEN");
 			b->getNode()->removeFromParent();
 			a->getNode()->removeFromParent();

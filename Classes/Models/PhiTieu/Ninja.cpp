@@ -82,10 +82,18 @@ bool Ninja::onContactBegin(PhysicsContact& contact)
 		{
 			log("Ninja::onContactBegin : NINJA vs ENEMY");
 			auto e = a->getTag() == Tags::ENEMY ? a : b;
-			Generator::Instance->SetEnemyNull(((Enemy*)e->getNode())->stt);
 			e->getNode()->removeFromParent();
 			PhiTieuLayer::instance->matMau();
 		}
+
+		if((a->getTag() == Tags::NINJA && b->getTag() == Tags::HEART)
+						|| (a->getTag() == Tags::HEART && b->getTag() == Tags::NINJA))
+				{
+					log("Ninja::onContactBegin : NINJA vs HEART");
+					auto h = a->getTag() == Tags::HEART ? a : b;
+					h->getNode()->removeFromParent();
+					//Thêm trái tim
+				}
 	}
 
 	return false;

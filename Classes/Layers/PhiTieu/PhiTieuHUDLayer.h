@@ -33,6 +33,7 @@ private:
 	Sprite* over;
 
 	int score;
+	int highScore;
 
 	Power* power;
 
@@ -50,8 +51,8 @@ public:
 	void matMau();
 
 	void gameOver();
-//	void gameWin();
 	void tangDiem();
+	void tangHeart();
 	void ClickBack(Ref*);
 	void ClickReplay(Ref*);
 };
