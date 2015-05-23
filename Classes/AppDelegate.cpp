@@ -1,6 +1,7 @@
 #include "AppDelegate.h"
 #include "Scenes/HelloWorldScene.h"
 #include "Scenes/JumpScene.h"
+#include "Scenes/Start_Scene.h"
 #include "Utility/Config.h"
 
 USING_NS_CC;
@@ -48,8 +49,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 180);
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
-    //auto scene = JumpScene::createPhysicScene();
+    //auto scene = HelloWorld::createScene();
+    auto scene = Start_Scene::createStartScene();
 
     // run
     director->runWithScene(scene);

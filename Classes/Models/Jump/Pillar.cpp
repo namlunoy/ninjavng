@@ -8,6 +8,7 @@ Pillar::~Pillar(){}
 Pillar::Pillar()
 {
 	sprite = Sprite::create("Bamboo/Bamboo_2.png");
+	sprite->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(sprite);
 	body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(100, 0, 100));
 	body->setDynamic(false);
@@ -68,7 +69,13 @@ Pillar* Pillar::createPillar(int i)
 
 void Pillar::MovePillar(float duration)
 {
-	auto movePillar = MoveBy::create(duration, Vec2(-3.2f, 0));
+	auto movePillar = MoveBy::create(duration, Vec2(-4, 0));
+	this->runAction(movePillar);
+}
+
+void Pillar::MovePillar(float duration, float x)
+{
+	auto movePillar = MoveBy::create(duration, Vec2(-x, 0));
 	this->runAction(movePillar);
 }
 

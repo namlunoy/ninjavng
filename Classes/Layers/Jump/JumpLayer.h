@@ -28,11 +28,14 @@ public:
 	bool isShowHowToPlay;
 
 	//Physics
-	PhysicsWorld *physicsWorld;
+	PhysicsWorld * physicsWorld;
 	void SetPhysicsWorld(PhysicsWorld *world);
 
 	//Ninja
-	Ninja_D* ninja;
+	Ninja_D * ninja;
+
+	//Spring
+	Spring * spring;
 
 	//Pillar
 	int randomName;
@@ -43,6 +46,7 @@ public:
 	void UpdatePillar();
 	void SpawnPillarWithPos(Point pos);
 	void MovePillar(float duration);
+	void MovePillar(float duration, float x);
 	void StopPillar();
 	
 	//Score

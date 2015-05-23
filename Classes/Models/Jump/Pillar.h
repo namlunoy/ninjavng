@@ -17,6 +17,7 @@ public:
 	static Pillar* createPillar();
 	static Pillar* createPillar(int i);
 	void MovePillar(float duration);
+	void MovePillar(float duration, float x);
 	void StopPillar();
 	bool isContactWithWall;
 	bool onContactBegin(PhysicsContact &contact);

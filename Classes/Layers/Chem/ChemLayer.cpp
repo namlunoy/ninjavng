@@ -268,7 +268,7 @@ bool ChemLayer::onContactBegin(const PhysicsContact& contact)
 	{
 
 		this->removeChild(bullet,true);
-		speedenemy+=0.1;
+		speedenemy+=0.1f;
 		updateScore();
 
 	}

@@ -18,6 +18,7 @@ public:
 	bool isJumping;
 	bool isDeath;
 	bool finishJump;
+	bool isableJump;
 	bool onContactBegin(PhysicsContact &contact);
 	
 };

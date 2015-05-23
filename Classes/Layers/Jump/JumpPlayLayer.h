@@ -18,6 +18,7 @@ public:
 	void SetJumpLayer(JumpLayer *jumplayer);
 
 	//Xử lý Touch
+	bool onTouch;
 	bool onTouchBegan(Touch *touch, Event *unused_event);
 	//void onTouchMoved(Touch *touch, Event *unused_event);
 	void onTouchEnded(Touch *touch, Event *unused_event);
@@ -26,6 +27,8 @@ public:
 	float timeTouch;
 	bool tinh;
 	float Clamp(float a);
+	float Clamp_2(float a);
+	float Clamp_Spring(float a);
 
 	//Xử lý va chạm
 	bool onContactBegin(PhysicsContact &contact);

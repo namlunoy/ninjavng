@@ -1,6 +1,7 @@
 ﻿#include "Layers/Jump/JumpPlayLayer.h"
 #include "Utility/Config.h"
 #include "Scenes/HelloWorldScene.h"
+#include "Scenes/Start_Scene.h"
 #include "ui/CocosGUI.h"
 #include "Scenes/JumpScene.h"
 #include "Utility/Definition.h"
@@ -8,7 +9,6 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-
 using namespace ui;
 using namespace std;
 
@@ -24,16 +24,12 @@ bool JumpPlayLayer::init()
 	//HighScore Store
 	bestScore = UserDefault::getInstance()->getIntegerForKey("JUMP_HIGHSCORE");
 
-	//Sound
-	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Jump.mp3");
-	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/Ground.mp3");
-	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound_Jump/FinishJump.mp3");
-
 	//Music background
 	//CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("Sound_Jump/Bird.mp3");
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound_Jump/Bird.mp3", true);
+	//CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound_Jump/Bird.mp3", true);
 
 	//Xử lý Touch
+	onTouch = false;
 	auto touchListener = EventListenerTouchOneByOne::create();
 	touchListener->onTouchBegan = CC_CALLBACK_2(JumpPlayLayer::onTouchBegan, this);
 	touchListener->onTouchMoved = CC_CALLBACK_2(JumpPlayLayer::onTouchMoved, this);
@@ -64,7 +60,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	Button * replayButton = Button::create("ReplayButton.png");
 	replayButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	replayButton->setPosition(Point(opacity->getContentSize().width / 2, opacity->getContentSize().height * 0.65 / 7));
-	replayButton->setScale(0.7);
+	replayButton->setScale(0.5f);
 	replayButton->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type){
 		switch (type)
 		{
@@ -72,6 +68,24 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 			Director::getInstance()->replaceScene(TransitionFade::create(0.5, JumpScene::createPhysicScene(), Color3B::WHITE));
+			break;
+		default:
+			break;
+		}
+	});
+
+	//Home Button
+	Button * homeButton = Button::create("Home.png");
+	homeButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	homeButton->setPosition(Point(opacity->getContentSize().width / 8, opacity->getContentSize().height * 0.65 / 7));
+	homeButton->setScale(0.5f);
+	homeButton->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type){
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5, Start_Scene::createStartScene(), Color3B::WHITE));
 			break;
 		default:
 			break;
@@ -163,6 +177,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	opacity->addChild(textHighScore);
 	opacity->addChild(highScore);
 	opacity->addChild(replayButton);
+	opacity->addChild(homeButton);
 	opacity->addChild(achievement);
 	opacity->addChild(huyChuong);
 	opacity->addChild(textGameOver);
@@ -199,7 +214,21 @@ void JumpPlayLayer::RemoveXScore()
 float JumpPlayLayer::Clamp(float a)
 {
 	if (a < 1.5f) return 1.5f;
-	else if (a > 9.0f) return 9.0f;
+	else if (a > 10.0f) return 10.0f;
+	else return a;
+}
+
+float JumpPlayLayer::Clamp_2(float a)
+{
+	float b;
+	b = a * 0.15f + 3.5f;
+	return b;
+}
+
+float JumpPlayLayer::Clamp_Spring(float a)
+{
+	if (a < 1.0f) return 1.0f;
+	else if (a > 5.0f) return 5.0f;
 	else return a;
 }
 
@@ -207,29 +236,36 @@ bool JumpPlayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
 	tinh = true;
 	timeTouch = 0.0f;
+	onTouch = true;
 	return true;
 }
 
 void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 {
-	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->isDeath == false)
+	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->isDeath == false && jumpLayer->ninja->isableJump == true)
 	{
 		jumpLayer->ninja->JumpAction(2560.0f * Clamp(timeTouch * 8.75f));
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Jump.mp3", false, 1.0f, 1.0f, 1.0f);
+		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Jump.mp3", false, 1.0f, 1.0f, 1.0f);
 		if (jumpLayer->isShowHowToPlay == true)
 		{
 			jumpLayer->howToPlay->removeFromParent();
 			jumpLayer->isShowHowToPlay = false;
 		}
 	}	
+	onTouch = false;
 	tinh = false;
 }
 
 void JumpPlayLayer::update(float delta)
 {
+	/*if (onTouch == true)
+	{
+		jumpLayer->spring->ScaleDownSpring(1 / Clamp_Spring(timeTouch*10.0f));
+	}*/
+
 	if (jumpLayer->ninja->isJumping == true)
 	{
-		jumpLayer->MovePillar(delta / Clamp(timeTouch * 8.75f));
+		jumpLayer->MovePillar(delta / (2 * Clamp(timeTouch * 10.0f)), Clamp_2(Clamp(timeTouch * 10.0f)));
 	}
 
 	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->isDeath == false)
@@ -241,7 +277,7 @@ void JumpPlayLayer::update(float delta)
 	if (jumpLayer->ninja->isDeath == true && jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr && jumpLayer->ninja->getPhysicsBody() != nullptr && isShowScoreBoard == false)
 	{
 		jumpLayer->pillar->StopPillar();
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Ground.mp3", false, 1.0f, 1.0f, 1.0f);
+		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Ground.mp3", false, 1.0f, 1.0f, 1.0f);
 		ShowScoreBoard(this->score);
 	}
 
@@ -250,14 +286,14 @@ void JumpPlayLayer::update(float delta)
 		if (jumpLayer->ninja->xScore <= 1)
 		{
 			this->score += 1;
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/FinishJump.mp3", false, 1.0f, 1.0f, 1.0f);
+			//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/FinishJump.mp3", false, 1.0f, 1.0f, 1.0f);
 			jumpLayer->ninja->xScore = 0;
 		}
 		else if (jumpLayer->ninja->xScore > 1)
 		{
 			this->score += (jumpLayer->ninja->xScore * 2);
 			ShowXScore(jumpLayer->ninja->xScore * 2);
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/FinishJump.mp3", false, 1.0f, 1.0f, 1.0f);
+			//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/FinishJump.mp3", false, 1.0f, 1.0f, 1.0f);
 			jumpLayer->ninja->xScore = 0;
 		}
 		jumpLayer->ninja->finishJump = false;

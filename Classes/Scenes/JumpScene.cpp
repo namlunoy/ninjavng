@@ -1,5 +1,6 @@
 #include "JumpScene.h"
 #include "cocos2d.h"
+#include "Utility/Config.h"
 USING_NS_CC;
 
 JumpScene::JumpScene()
@@ -12,9 +13,16 @@ Scene* JumpScene::createPhysicScene()
 {
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setSpeed(3.5f);
+	scene->getPhysicsWorld()->setGravity(Vect(0, -145.0f));
 	scene->getPhysicsWorld()->setUpdateRate(0.5f);
 	scene->getPhysicsWorld()->setSubsteps(10);
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+
+	////Screen
+	//Config::screenSize = Director::getInstance()->getVisibleSize();
+	//Size screenSize = Config::screenSize;
+	//Vec2 center(screenSize.width / 2, screenSize.height / 2);
+	//Config::centerPoint = center;
 
 	//Random name
 	int randomName = cocos2d::random(1, 3);

@@ -5,9 +5,9 @@ Ninja_D::~Ninja_D(){}
 Ninja_D::Ninja_D()
 {
 	sprite = Sprite::create("Ninja2.png");
-	sprite->setAnchorPoint(Vec2(0.62f, 0.05f));
+	sprite->setAnchorPoint(Vec2(0.62f, 0.02f));
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(Size(30, 6), PhysicsMaterial(100.0f, 0.0f, 100.0f), Vec2(0,0));
+	body = PhysicsBody::createBox(Size(30, 2), PhysicsMaterial(100.0f, 0.0f, 100.0f), Vec2(0,0));
 	body->setMass(60.0f);
 	body->setAngularVelocityLimit(0.0f);
 	body->setRotationEnable(false);
@@ -30,6 +30,7 @@ bool Ninja_D::init()
 	isDeath = false;
 	isJumping = false;
 	finishJump = false;
+	isableJump = true;
 	xScore = 0;
 
 	//Contact
@@ -51,6 +52,7 @@ Ninja_D* Ninja_D::createNinja()
 void Ninja_D::JumpAction(float force)
 {
 	this->isJumping = true;
+	this->isableJump = false;
 	if (body != nullptr && body->getNode() != nullptr)
 		body->applyImpulse(Vect(0, force));
 }
@@ -88,6 +90,7 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 		body_a->getNode()->removeFromParent();
 		this->isJumping = false;
 		this->finishJump = true;
+		this->isableJump = true;
 	}
 	else if (body_a->getTag() == NINJA_COLLISION && body_b->getTag() == SCORE_COLLISION)
 	{
@@ -95,6 +98,7 @@ bool Ninja_D::onContactBegin(PhysicsContact &contact)
 		body_b->getNode()->removeFromParent();
 		this->isJumping = false;
 		this->finishJump = true;
+		this->isableJump = true;
 	}
 
 	return true;

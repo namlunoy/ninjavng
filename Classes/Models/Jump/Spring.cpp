@@ -3,14 +3,17 @@
 
 Spring::Spring()
 {
-	sprite = Sprite::create("spring.png");
+	sprite = Sprite::create("Spring_3.png");
+	sprite->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
+	sprite->setPosition(Point(0, -sprite->getContentSize().height / 2));
 	this->addChild(sprite);
-	body = PhysicsBody::createBox(sprite->getBoundingBox().size, PhysicsMaterial(1, 0, 1));
+	body = PhysicsBody::createBox(sprite->getBoundingBox().size, PhysicsMaterial(100, 0, 100));
+	body->setMass(1000000.0f);
 	body->setRotationEnable(false);
-	body->setDynamic(false);
+	body->setDynamic(true);
 	body->setCollisionBitmask(SPRING_COLLISION);
 	body->setContactTestBitmask(true);
-	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	this->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
 	this->setPhysicsBody(body);
 };
 

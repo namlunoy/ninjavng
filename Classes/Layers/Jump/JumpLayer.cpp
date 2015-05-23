@@ -1,6 +1,7 @@
 ﻿#include "JumpLayer.h"
 #include "cocos2d.h"
 #include "Scenes/HelloWorldScene.h"
+#include "Scenes/Start_Scene.h"
 #include "Models/Jump/Ninja_D.h"
 #include "Utility/Config.h"
 #include "Utility/Definition.h"
@@ -18,13 +19,13 @@ JumpLayer::~JumpLayer()
 
 JumpLayer::JumpLayer()
 {
-	firstSpawnPoint = Point(180, 0);
+	firstSpawnPoint = Point(Config::screenSize.width / 4, 0);
 	firstPillar = listPillar.begin();
 }
 
 JumpLayer::JumpLayer(int i)
 {
-	firstSpawnPoint = Point(180, 0);
+	firstSpawnPoint = Point(Config::screenSize.width / 4, 0);
 	firstPillar = listPillar.begin();
 	this->randomName = i;
 }
@@ -87,9 +88,20 @@ bool JumpLayer::init()
 	listPillar.push_front(pillar);
 	firstPillar = listPillar.begin();
 
+	//Spring
+	/*spring = Spring::createSpring();
+	spring->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	spring->setPosition(180, 200);
+	this->addChild(spring);*/
+
+	////Joint 
+	//PhysicsJointFixed * jointFixed = PhysicsJointFixed::construct(pillar->body, spring->body, Vec2::ANCHOR_MIDDLE_BOTTOM);
+	//jointFixed.setCollisionEnable(true);
+
+
 	//Ninja
 	ninja = Ninja_D::createNinja();
-	ninja->setPosition(180, 180);
+	ninja->setPosition(Point(Config::screenSize.width / 4, 176));
 	ninja->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	this->addChild(ninja);
 
@@ -143,7 +155,7 @@ void JumpLayer::SpawnPillarWithPos(Point pos)
 
 	//Score
 	Node * nodeDiem = Node::create();
-	PhysicsBody * bodyNodeDiem = PhysicsBody::createBox(Size(28.5, 1), PhysicsMaterial(100.0f, 0.0f, 100.0f));
+	PhysicsBody * bodyNodeDiem = PhysicsBody::createBox(Size(30, 1), PhysicsMaterial(100.0f, 0.0f, 100.0f));
 	bodyNodeDiem->setDynamic(false);
 	bodyNodeDiem->setCollisionBitmask(true);
 	bodyNodeDiem->setContactTestBitmask(true);
@@ -166,6 +178,14 @@ void JumpLayer::MovePillar(float duration)
 	}
 }
 
+void JumpLayer::MovePillar(float duration, float x)
+{
+	for (std::list<Pillar*>::iterator it = listPillar.begin(); it != listPillar.end(); ++it)
+	{
+		(*it)->MovePillar(duration, x);
+	}
+}
+
 void JumpLayer::StopPillar()
 {
 	for (std::list<Pillar*>::iterator it = listPillar.begin(); it != listPillar.end(); ++it)
@@ -178,7 +198,7 @@ void JumpLayer::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
 {
 	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
 	{
-		auto scene = HelloWorld::createScene();
+		auto scene = Start_Scene::createStartScene();
 		Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene, Color3B::WHITE));
 	}
 }
