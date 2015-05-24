@@ -4,6 +4,7 @@
 #include "ui/CocosGUI.h"
 #include <iostream>
 #include "Models/BanSung/BanTao_Target.h"
+#include "Models/BanSung/BanTao_Apple.h"
 #include "Utility/Config.h"
 #include "Utility/XHelper.h"
 #include "SimpleAudioEngine.h"
@@ -26,7 +27,8 @@ Label* label;
 Label* scoreText;
 Label* labelhighscore;
 Label* highscoreText;
-
+Vec2 tamAple;
+BanTao_Apple* apple;
 bool BanTao_Layer::init()
 {
 	mang = 3;
@@ -97,8 +99,6 @@ bool BanTao_Layer::init()
 	//Thêm comment
 	commentPut("commentStart.png");
 
-	//Thêm sprite quả táo 
-	appleSprite();
 
 	//button start
 	auto button = Button::create("Start2.png", "Start1.png", "Start2.png");
@@ -133,7 +133,6 @@ bool BanTao_Layer::init()
 		{
 												  auto scene = HelloWorld::createScene();
 												  Director::getInstance()->replaceScene(scene);
-												 // init();
 												  CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 												  
 		}
@@ -162,6 +161,8 @@ void BanTao_Layer::onStart( float speed)
 	target->moveAction(speed);
 	this->addChild(target, 1);
 	
+	//Thêm apple
+	appleSprite();
 	
 	//Touch
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -195,7 +196,7 @@ void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target
 
 	//tính xem tọa độ của cái target có trùng quả táo không?
 	// nếu trùng thì quả táo biến mất
-	if (XHelper::checkShoot(Vec2(Config::centerPoint.x, Config::centerPoint.y + 158), 40, target->getPosition()))
+	if (XHelper::checkShoot(tamAple, 30, target->getPosition()))
 	{
 
 		commentPut("commentWin.png");
@@ -209,10 +210,22 @@ void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target
 			nullptr));
 
 		//set lại speed cho target
-		speed = speed - 0.1;
+		speed = speed - 0.08;
 		target->stopAllActions();
 		target->moveAction(speed);
 
+		//set lại scale cho target nếu điểm >50
+		if (score1>40)
+		{
+		target->setScaleTarget(0.08);
+		}
+		
+		if (score1 > 80)
+		{
+		target->setScaleTarget(0.06);
+		speed = speed + 0.04;
+		}
+		
 
 		//cập nhật score
 		CCLOG("Score: %f", score1);
@@ -245,11 +258,21 @@ void BanTao_Layer::commentPut(string name)
 
 void BanTao_Layer::appleSprite()
 {
-	auto apple = Sprite::create("apple.png");
-	apple->setPosition(Vec2(Config::centerPoint.x, Config::centerPoint.y + 158));
+	 apple = BanTao_Apple::create("apple.png");
+	int i = cocos2d::random(1, 3);
+	Vec2 v1 = Vec2(Config::centerPoint.x, Config::centerPoint.y + 158);
+	Vec2 v2 = Vec2(Config::centerPoint.x-60, Config::centerPoint.y + 158-15);
+	Vec2 v3 = Vec2(Config::centerPoint.x+60, Config::centerPoint.y + 158-15);
+	switch (i)
+	{
+	case 1: apple->setPotionApple(v1); tamAple = v1;; break;
+	case 2: apple->setPotionApple(v2); apple->setRotation(-25); tamAple = v2; break;
+	case 3: apple->setPotionApple(v3); apple->setRotation(25); tamAple = v3; break;
+	}
 	apple->setScale(0.5);
 	this->addChild(apple);
 	apple->setTag(11);
+
 }
 
 void BanTao_Layer::headSprite()

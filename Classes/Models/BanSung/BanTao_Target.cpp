@@ -42,3 +42,8 @@ void BanTao_Target::moveAction(float speed)
 	this->isMove = true;
 }
 
+void BanTao_Target :: setScaleTarget(float scale)
+{
+	this->setScale(scale);
+}
+
