@@ -22,6 +22,7 @@ public:
 
 	void commentPut(string name);
 	void appleSprite();
+	void balloonSprite(float dt);
 	void headSprite();
 	void checkLive();
 

@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Models/BanSung/BanTao_Target.h"
 #include "Models/BanSung/BanTao_Apple.h"
+#include "Models/BanSung/BanTao_Baloon.h"
 #include "Utility/Config.h"
 #include "Utility/XHelper.h"
 #include "SimpleAudioEngine.h"
@@ -28,11 +29,14 @@ Label* scoreText;
 Label* labelhighscore;
 Label* highscoreText;
 Vec2 tamAple;
+Vec2 tamBaloon;
 BanTao_Apple* apple;
+BanTao_Baloon* baloon;
+bool isspawn;
 bool BanTao_Layer::init()
 {
 	mang = 3;
-	speed = 1;
+	speed = 1.2;
 	score1 = 0;
 
 	if (!Layer::init())
@@ -48,8 +52,8 @@ bool BanTao_Layer::init()
 	this->addChild(background, -1);
 	
 	//music
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music.mp3", true);
+	/*CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music.mp3", true);*/
 
 	//score
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
@@ -74,7 +78,7 @@ bool BanTao_Layer::init()
 	highscoreText = Label::create();
 	highscoreText->setColor(ccc3(192, 57, 43));
 	highscoreText->setPosition(winSize.width - 50, winSize.height - 50);
-	//highscoreText->setString("0");
+
 	//lấy ra high score
 	highscoreText->setSystemFontSize(25);
 	highscore = UserDefault::getInstance()->getIntegerForKey("score1");
@@ -82,8 +86,6 @@ bool BanTao_Layer::init()
 	ss << highscore;
 	highscoreText->setString(ss.str());
 	this->addChild(highscoreText);
-
-	
 
 	//Thêm mạng
 	headSprite();
@@ -144,8 +146,10 @@ bool BanTao_Layer::init()
 	backButton->setPosition(Vec2(100, 100));
 	this->addChild(backButton, 0);
 
-	
-	
+
+
+	////bong bay
+	this->schedule(schedule_selector(BanTao_Layer::balloonSprite),10);
 
 	return true;
 }
@@ -163,6 +167,9 @@ void BanTao_Layer::onStart( float speed)
 	
 	//Thêm apple
 	appleSprite();
+
+	//Thêm balloon
+	//balloonSprite();
 	
 	//Touch
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -215,15 +222,15 @@ void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target
 		target->moveAction(speed);
 
 		//set lại scale cho target nếu điểm >50
-		if (score1>40)
+		if (score1>50)
 		{
 		target->setScaleTarget(0.08);
 		}
 		
-		if (score1 > 80)
+		if (score1 > 100)
 		{
 		target->setScaleTarget(0.06);
-		speed = speed + 0.04;
+		speed = speed + 0.05;
 		}
 		
 
@@ -243,6 +250,13 @@ void BanTao_Layer::onTouchEnded(Touch *touch, Event *unused_event, BanTao_Target
 		checkLive();
 	}
 	
+	//tọa độ target có trùng với balloon không?
+	/*if (isspawn==true&&XHelper::checkShoot(baloon->getPosition(), 30, target->getPosition()))
+	{
+		CCLOG("Trúng rồi");
+		//this->removeChild(baloon, true);
+	}*/
+
 }
 
 
@@ -265,7 +279,7 @@ void BanTao_Layer::appleSprite()
 	Vec2 v3 = Vec2(Config::centerPoint.x+60, Config::centerPoint.y + 158-15);
 	switch (i)
 	{
-	case 1: apple->setPotionApple(v1); tamAple = v1;; break;
+	case 1: apple->setPotionApple(v1); tamAple = v1; break;
 	case 2: apple->setPotionApple(v2); apple->setRotation(-25); tamAple = v2; break;
 	case 3: apple->setPotionApple(v3); apple->setRotation(25); tamAple = v3; break;
 	}
@@ -369,4 +383,48 @@ void BanTao_Layer::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2
 		auto scene = HelloWorld::createScene();
 		Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene, Color3B::WHITE));
 	}
+}
+
+void BanTao_Layer::balloonSprite(float dt)
+{
+	baloon = BanTao_Baloon::create("baloon3.png");
+
+	Vec2 v1 = Vec2(Config::centerPoint.x, 0);
+	Vec2 v2 = Vec2(Config::centerPoint.x - 80, 0);
+	Vec2 v3 = Vec2(Config::centerPoint.x + 80, 0);
+	Vec2 v4 = Vec2(Config::centerPoint.x - 160, 0);
+	Vec2 v5 = Vec2(Config::centerPoint.x + 160, 0);
+	Vec2 v6 = Vec2(Config::centerPoint.x - 320, 0);
+	Vec2 v7 = Vec2(Config::centerPoint.x + 320, 0);
+
+	auto moveTo1 = MoveTo::create(10, Vec2(v1.x, 600));
+	auto moveTo2 = MoveTo::create(10, Vec2(v2.x, 600));
+	auto moveTo3 = MoveTo::create(10, Vec2(v3.x, 600));
+	auto moveTo4 = MoveTo::create(10, Vec2(v4.x, 600));
+	auto moveTo5 = MoveTo::create(10, Vec2(v5.x, 600));
+	auto moveTo6 = MoveTo::create(10, Vec2(v6.x, 600));
+	auto moveTo7 = MoveTo::create(10, Vec2(v7.x, 600));
+
+	//baloon->setPosition(Config::centerPoint.x, Config::centerPoint.y + 158);
+
+	int i = cocos2d::random(1, 7);
+	switch (i)
+	{
+	case 1: baloon->setPosition(v1); baloon->runAction(moveTo1); break;
+	case 2: baloon->setPosition(v2); baloon->runAction(moveTo2); break;
+	case 3: baloon->setPosition(v3); baloon->runAction(moveTo3); break;
+	case 4: baloon->setPosition(v4); baloon->runAction(moveTo4); break;
+	case 5: baloon->setPosition(v5); baloon->runAction(moveTo5); break;
+	case 6: baloon->setPosition(v6); baloon->runAction(moveTo6); break;
+	case 7: baloon->setPosition(v7); baloon->runAction(moveTo7); break;
+	}
+	
+	baloon->setScale(0.07);
+	this->addChild(baloon,-1);
+	isspawn = true;
+
+	if (baloon->getPositionY()>600 && baloon!=nullptr) this->removeChild(baloon, true);
+	CCLOG("Xóa thành công");
+	
+
 }

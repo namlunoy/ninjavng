@@ -2,6 +2,7 @@
 #include "Scenes/HelloWorldScene.h"
 #include "Scenes/JumpScene.h"
 #include "Scenes/Start_Scene.h"
+#include "Scenes/BanTao_Scence.h"
 #include "Utility/Config.h"
 
 USING_NS_CC;
@@ -50,7 +51,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     //auto scene = HelloWorld::createScene();
-    auto scene = Start_Scene::createStartScene();
+	auto scene = HelloWorld::createScene();
 
     // run
     director->runWithScene(scene);
