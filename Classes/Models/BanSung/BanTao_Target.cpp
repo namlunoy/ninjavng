@@ -32,13 +32,18 @@ bool BanTao_Target::init(string fileName)
 void BanTao_Target::moveAction(float speed)
 {
 	
-	auto moveTo1 = MoveTo::create(speed, Vec2(Config::centerPoint.x - 180, Config::centerPoint.y - 30 + 155));
+	auto moveTo1 = MoveTo::create(speed, Vec2(Config::centerPoint.x - 200, Config::centerPoint.y - 30 + 155));
 	auto moveTo2 = MoveTo::create(speed, Vec2(Config::centerPoint.x, Config::centerPoint.y + 155));
-	auto moveTo3 = MoveTo::create(speed, Vec2(Config::centerPoint.x + 180, Config::centerPoint.y  -30 + 155));
+	auto moveTo3 = MoveTo::create(speed, Vec2(Config::centerPoint.x + 200, Config::centerPoint.y  -30 + 155));
 
 
 	auto delay = DelayTime::create(0);
 	this->runAction(CCRepeatForever::create(Sequence::create(moveTo3, moveTo1, moveTo2, nullptr)));
 	this->isMove = true;
+}
+
+void BanTao_Target :: setScaleTarget(float scale)
+{
+	this->setScale(scale);
 }
 

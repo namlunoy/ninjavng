@@ -22,5 +22,6 @@ public:
 
 	bool isMove;
 	void moveAction(float speed);
+	void setScaleTarget(float scale);
 };
 #endif

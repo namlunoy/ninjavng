@@ -2,6 +2,7 @@
 #include "Scenes/HelloWorldScene.h"
 #include "Scenes/JumpScene.h"
 #include "Scenes/Start_Scene.h"
+#include "Scenes/BanTao_Scence.h"
 #include "Utility/Config.h"
 
 USING_NS_CC;
@@ -48,7 +49,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 180);
 
-    // create a scene. it's an autorelease object
     auto scene = HelloWorld::createScene();
     //auto scene = Start_Scene::createStartScene();
 
