@@ -3,7 +3,7 @@
 
 Spring::Spring()
 {
-	sprite = Sprite::create("Spring_3.png");
+	sprite = Sprite::create("Jump_Sprite/Spring_3.png");
 	sprite->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
 	sprite->setPosition(Point(0, -sprite->getContentSize().height / 2));
 	this->addChild(sprite);

@@ -26,7 +26,7 @@ bool JumpPlayLayer::init()
 
 	//Music background
 	//CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("Sound_Jump/Bird.mp3");
-	//CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound_Jump/Bird.mp3", true);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound_Jump/Bird.mp3", true);
 
 	//Xử lý Touch
 	onTouch = false;
@@ -50,14 +50,14 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	this->isShowScoreBoard = true;
 
 	//Nền mờ
-	Sprite * opacity = Sprite::create("opacity.png");
+	Sprite * opacity = Sprite::create("Jump_Sprite/opacity.png");
 	opacity->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	opacity->setScale(Config::getScale(opacity));
 	opacity->setPosition(Config::centerPoint);
 	opacity->setOpacity(192);
 
 	//Replay Button
-	Button * replayButton = Button::create("ReplayButton.png");
+	Button * replayButton = Button::create("Jump_Sprite/ReplayButton.png");
 	replayButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	replayButton->setPosition(Point(opacity->getContentSize().width / 2, opacity->getContentSize().height * 0.65 / 7));
 	replayButton->setScale(0.5f);
@@ -75,7 +75,7 @@ void JumpPlayLayer::ShowScoreBoard(int diem)
 	});
 
 	//Home Button
-	Button * homeButton = Button::create("Home.png");
+	Button * homeButton = Button::create("Jump_Sprite/Home.png");
 	homeButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	homeButton->setPosition(Point(opacity->getContentSize().width / 8, opacity->getContentSize().height * 0.65 / 7));
 	homeButton->setScale(0.5f);
@@ -245,7 +245,7 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 	if (jumpLayer->ninja->isJumping == false && jumpLayer->ninja->isDeath == false && jumpLayer->ninja->isableJump == true)
 	{
 		jumpLayer->ninja->JumpAction(2560.0f * Clamp(timeTouch * 8.75f));
-		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Jump.mp3", false, 1.0f, 1.0f, 1.0f);
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Jump.mp3", false, 1.0f, 1.0f, 1.0f);
 		if (jumpLayer->isShowHowToPlay == true)
 		{
 			jumpLayer->howToPlay->removeFromParent();
@@ -258,11 +258,6 @@ void JumpPlayLayer::onTouchEnded(Touch *touch, Event *unused_event)
 
 void JumpPlayLayer::update(float delta)
 {
-	/*if (onTouch == true)
-	{
-		jumpLayer->spring->ScaleDownSpring(1 / Clamp_Spring(timeTouch*10.0f));
-	}*/
-
 	if (jumpLayer->ninja->isJumping == true)
 	{
 		jumpLayer->MovePillar(delta / (2 * Clamp(timeTouch * 10.0f)), Clamp_2(Clamp(timeTouch * 10.0f)));
@@ -277,7 +272,7 @@ void JumpPlayLayer::update(float delta)
 	if (jumpLayer->ninja->isDeath == true && jumpLayer->ninja->getPhysicsBody()->getNode() != nullptr && jumpLayer->ninja->getPhysicsBody() != nullptr && isShowScoreBoard == false)
 	{
 		jumpLayer->pillar->StopPillar();
-		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Ground.mp3", false, 1.0f, 1.0f, 1.0f);
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/Ground.mp3", false, 1.0f, 1.0f, 1.0f);
 		ShowScoreBoard(this->score);
 	}
 
@@ -286,14 +281,14 @@ void JumpPlayLayer::update(float delta)
 		if (jumpLayer->ninja->xScore <= 1)
 		{
 			this->score += 1;
-			//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/FinishJump.mp3", false, 1.0f, 1.0f, 1.0f);
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/FinishJump.mp3", false, 1.0f, 1.0f, 1.0f);
 			jumpLayer->ninja->xScore = 0;
 		}
 		else if (jumpLayer->ninja->xScore > 1)
 		{
 			this->score += (jumpLayer->ninja->xScore * 2);
 			ShowXScore(jumpLayer->ninja->xScore * 2);
-			//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/FinishJump.mp3", false, 1.0f, 1.0f, 1.0f);
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound_Jump/FinishJump.mp3", false, 1.0f, 1.0f, 1.0f);
 			jumpLayer->ninja->xScore = 0;
 		}
 		jumpLayer->ninja->finishJump = false;

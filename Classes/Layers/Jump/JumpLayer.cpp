@@ -106,7 +106,7 @@ bool JumpLayer::init()
 	this->addChild(ninja);
 
 	//Score
-	Sprite * circle = Sprite::create("circle.png");
+	Sprite * circle = Sprite::create("Jump_Sprite/circle.png");
 	circle->setPosition(Point(Config::screenSize.width / 2, Config::screenSize.height / 2 + 180));
 	circle->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	circle->setOpacity(200);

@@ -18,11 +18,11 @@ Scene* JumpScene::createPhysicScene()
 	scene->getPhysicsWorld()->setSubsteps(10);
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	////Screen
-	//Config::screenSize = Director::getInstance()->getVisibleSize();
-	//Size screenSize = Config::screenSize;
-	//Vec2 center(screenSize.width / 2, screenSize.height / 2);
-	//Config::centerPoint = center;
+	//Screen
+	/*Config::screenSize = Director::getInstance()->getVisibleSize();
+	Size screenSize = Config::screenSize;
+	Vec2 center(screenSize.width / 2, screenSize.height / 2);
+	Config::centerPoint = center;*/
 
 	//Random name
 	int randomName = cocos2d::random(1, 3);

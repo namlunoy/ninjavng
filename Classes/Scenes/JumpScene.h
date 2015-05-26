@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "Layers/Jump/JumpLayer.h"
 #include "Layers/Jump/JumpPlayLayer.h"
+#include "Layers/Jump/Start_Layer.h"
 #include "Models/Jump/Background.h"
 USING_NS_CC;
 
@@ -14,6 +15,7 @@ public:
 	static Scene* createPhysicScene();
 	bool init();
 	CREATE_FUNC(JumpScene);
+	
 };
 
 #endif

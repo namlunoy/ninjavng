@@ -3,8 +3,10 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "Scenes/JumpScene.h"
+#include "Scenes/HelloWorldScene.h"
 #include "Models/Jump/Ninja_D.h"
 #include "Models/Jump/Pillar.h"
+#include "SimpleAudioEngine.h"
 using namespace ui;
 USING_NS_CC;
 
@@ -31,7 +33,7 @@ bool Start_Layer::init()
 	this->addChild(background, 0);
 
 	//Nền mờ
-	Sprite * opacity = Sprite::create("opacity.png");
+	Sprite * opacity = Sprite::create("Jump_Sprite/opacity.png");
 	opacity->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	opacity->setScale(Config::getScale(opacity));
 	opacity->setPosition(Config::centerPoint);
@@ -46,7 +48,7 @@ bool Start_Layer::init()
 	this->addChild(name_Game, 2);
 
 	//Start Button
-	Button * play_Button = Button::create("play.png");
+	Button * play_Button = Button::create("Jump_Sprite/play.png");
 	play_Button->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	play_Button->setPosition(Point(Config::screenSize.width / 2, Config::screenSize.height * 4 / 6));
 	play_Button->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type){
@@ -63,6 +65,24 @@ bool Start_Layer::init()
 		}
 	});
 	this->addChild(play_Button, 2);
+
+	//Sound
+	Button * soundButton = Button::create("Jump_Sprite/SoundOn.png");
+	soundButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	soundButton->setPosition(Point(opacity->getContentSize().width / 8, opacity->getContentSize().height * 0.65 / 7));
+	soundButton->setScale(0.5f);
+	soundButton->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type){
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			break;
+		default:
+			break;
+		}
+	});
+	this->addChild(soundButton);
 
 	//Pillar
 	Pillar * pillar = Pillar::createPillar();

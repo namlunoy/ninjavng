@@ -4,8 +4,8 @@
 Ninja_D::~Ninja_D(){}
 Ninja_D::Ninja_D()
 {
-	sprite = Sprite::create("Ninja2.png");
-	sprite->setAnchorPoint(Vec2(0.62f, 0.02f));
+	sprite = Sprite::create("Jump_Sprite/Ninja2.png");
+	sprite->setAnchorPoint(Vec2(0.62f, 0.022f));
 	this->addChild(sprite);
 	body = PhysicsBody::createBox(Size(30, 2), PhysicsMaterial(100.0f, 0.0f, 100.0f), Vec2(0,0));
 	body->setMass(60.0f);

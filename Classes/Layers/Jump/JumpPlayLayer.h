@@ -8,14 +8,14 @@ USING_NS_CC;
 
 class JumpPlayLayer : public Layer
 {
-private:
-	JumpLayer *jumpLayer;
+private: 
+	JumpLayer * jumpLayer;
 public:
 	JumpPlayLayer();
 	~JumpPlayLayer();
 	bool init();
 	CREATE_FUNC(JumpPlayLayer);
-	void SetJumpLayer(JumpLayer *jumplayer);
+	void SetJumpLayer(JumpLayer * jumplayer);
 
 	//Xử lý Touch
 	bool onTouch;
